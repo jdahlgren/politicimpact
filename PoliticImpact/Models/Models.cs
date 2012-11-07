@@ -23,7 +23,7 @@ namespace PoliticImpact.Models
         public string Title { get; set; }
 
         [Required]
-        [StringLength(10000, ErrorMessage = "You must have a description.", MinimumLength = 1)]
+        [StringLength(1000, ErrorMessage = "You must have a description.", MinimumLength = 1)]
         public string Text { get; set; }
 
         [Required]

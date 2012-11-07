@@ -7,12 +7,10 @@ namespace PoliticImpact.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.CaseItems", "Deadline", c => c.DateTime(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.CaseItems", "Deadline");
         }
     }
 }

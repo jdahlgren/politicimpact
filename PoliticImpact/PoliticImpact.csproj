@@ -136,29 +136,9 @@
     <Compile Include="Migrations\201211062006196_InitialCreate.Designer.cs">
       <DependentUpon>201211062006196_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201211062018254_CaseItem.cs" />
-    <Compile Include="Migrations\201211062018254_CaseItem.Designer.cs">
-      <DependentUpon>201211062018254_CaseItem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211062024450_CaseItem1.cs" />
-    <Compile Include="Migrations\201211062024450_CaseItem1.Designer.cs">
-      <DependentUpon>201211062024450_CaseItem1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211062124249_CaseItem2.cs" />
-    <Compile Include="Migrations\201211062124249_CaseItem2.Designer.cs">
-      <DependentUpon>201211062124249_CaseItem2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211062144105_CaseItem3.cs" />
-    <Compile Include="Migrations\201211062144105_CaseItem3.Designer.cs">
-      <DependentUpon>201211062144105_CaseItem3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211062150570_CaseItem4.cs" />
-    <Compile Include="Migrations\201211062150570_CaseItem4.Designer.cs">
-      <DependentUpon>201211062150570_CaseItem4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201211062159574_CaseItem5.cs" />
-    <Compile Include="Migrations\201211062159574_CaseItem5.Designer.cs">
-      <DependentUpon>201211062159574_CaseItem5.cs</DependentUpon>
+    <Compile Include="Migrations\201211070931192_CaseItem.cs" />
+    <Compile Include="Migrations\201211070931192_CaseItem.Designer.cs">
+      <DependentUpon>201211070931192_CaseItem.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -253,13 +233,6 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -282,6 +255,13 @@
     <Content Include="Views\CaseItems\Index.cshtml" />
     <Content Include="Views\CaseItems\_CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_LayoutNoPageDiv.cshtml" />
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -293,23 +273,8 @@
     <EmbeddedResource Include="Migrations\201211062006196_InitialCreate.resx">
       <DependentUpon>201211062006196_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211062018254_CaseItem.resx">
-      <DependentUpon>201211062018254_CaseItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211062024450_CaseItem1.resx">
-      <DependentUpon>201211062024450_CaseItem1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211062124249_CaseItem2.resx">
-      <DependentUpon>201211062124249_CaseItem2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211062144105_CaseItem3.resx">
-      <DependentUpon>201211062144105_CaseItem3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211062150570_CaseItem4.resx">
-      <DependentUpon>201211062150570_CaseItem4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201211062159574_CaseItem5.resx">
-      <DependentUpon>201211062159574_CaseItem5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201211070931192_CaseItem.resx">
+      <DependentUpon>201211070931192_CaseItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

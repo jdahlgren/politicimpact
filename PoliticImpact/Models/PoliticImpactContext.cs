@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -22,7 +23,8 @@ namespace PoliticImpact.Models
         public PoliticImpactContext()
         { 
            System.Data.Entity.Database.SetInitializer(
-             new System.Data.Entity.DropCreateDatabaseIfModelChanges<PoliticImpact.Models.PoliticImpactContext>());  
+             new System.Data.Entity.DropCreateDatabaseIfModelChanges<PoliticImpact.Models.PoliticImpactContext>());
+           System.Data.Entity.Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
         }
     }
 }

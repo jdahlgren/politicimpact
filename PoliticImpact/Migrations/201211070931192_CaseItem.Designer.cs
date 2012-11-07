@@ -5,13 +5,13 @@ namespace PoliticImpact.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class CaseItem5 : IMigrationMetadata
+    public sealed partial class CaseItem : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CaseItem5));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CaseItem));
         
         string IMigrationMetadata.Id
         {
-            get { return "201211062159574_CaseItem5"; }
+            get { return "201211070931192_CaseItem"; }
         }
         
         string IMigrationMetadata.Source
