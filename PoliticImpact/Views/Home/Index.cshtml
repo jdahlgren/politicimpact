@@ -32,7 +32,7 @@
     @foreach (var item in Model)
     {
         <li><a href="javascript:showCase('case_@item.ID')">@item.Title</a></li>
-        <li id="case_@item.ID"><div>@item.Text</div></li>
+        <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID">@item.Text</a></div></li>
         
         <script>
                 var listitem = document.getElementById('case_@item.ID');
