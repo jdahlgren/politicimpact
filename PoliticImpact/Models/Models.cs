@@ -47,4 +47,16 @@ namespace PoliticImpact.Models
         public string imageName { get; set; }
     }
     
+    public class CaseSignUp
+    {
+        [Key]
+        public int caseID { get; set; }
+
+        public long userID { get; set; }
+
+        public virtual CaseItem CaseItem { get; set; }
+
+        public DateTime created { get; set; }
+    }
+    
 }

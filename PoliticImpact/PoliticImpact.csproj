@@ -128,6 +128,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CaseItemsController.cs" />
+    <Compile Include="Controllers\CaseSignUpsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -143,6 +144,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CaseItemRepository.cs" />
+    <Compile Include="Models\CaseSignUpRepository.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\PoliticImpactContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -256,6 +258,12 @@
     <Content Include="Views\CaseItems\_CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_LayoutNoPageDiv.cshtml" />
     <Content Include="web.config" />
+    <Content Include="Views\CaseSignUps\Create.cshtml" />
+    <Content Include="Views\CaseSignUps\Edit.cshtml" />
+    <Content Include="Views\CaseSignUps\Delete.cshtml" />
+    <Content Include="Views\CaseSignUps\Details.cshtml" />
+    <Content Include="Views\CaseSignUps\Index.cshtml" />
+    <Content Include="Views\CaseSignUps\_CreateOrEdit.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

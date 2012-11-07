@@ -1,0 +1,29 @@
+@model PoliticImpact.Models.CaseSignUp
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>CaseSignUp</legend>
+
+    <div class="display-label">userID</div>
+    <div class="display-field">@Model.userID</div>
+
+    <div class="display-label">CaseItem</div>
+    <div class="display-field">@(Model.CaseItem == null ? "None" : Model.CaseItem.Title)</div>
+
+    <div class="display-label">created</div>
+    <div class="display-field">@String.Format("{0:g}", Model.created)</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

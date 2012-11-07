@@ -26,5 +26,7 @@ namespace PoliticImpact.Models
              new System.Data.Entity.DropCreateDatabaseIfModelChanges<PoliticImpact.Models.PoliticImpactContext>());
            System.Data.Entity.Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0");
         }
+
+        public DbSet<PoliticImpact.Models.CaseSignUp> CaseSignUps { get; set; }
     }
 }
