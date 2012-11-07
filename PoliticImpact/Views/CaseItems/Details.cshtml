@@ -4,7 +4,22 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
-
+<!--
+    commented by Johannes Ullström 2012-11-07 13:46
+    <head> is already defined in layout file
+<head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+       
+</head>
+-->
+@*
+    @Scripts.Render("~/Scripts/facebookPublish.js")
+    @Scripts.Render("~/Scripts/facebookConnect.js")
+*@
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
         <h1>@ViewBag.Title</h1>
@@ -30,31 +45,38 @@
 
             <div class="display-label">LastEdited</div>
             <div class="display-field">@String.Format("{0:g}", Model.LastEdited)</div>
-
-            <div class="display-label">imageId</div>
-            <div class="display-field">@Model.imageId</div>
-
-            <div class="display-label">imageBytes</div>
-            <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
-
-            <div class="display-label">imageName</div>
-            <div class="display-field">@Model.imageName</div>
         </fieldset>
-        <a href="#popupLogin" data-rel="popup">
-            <img src="~/Content/images/share-email.png" width="75" height="75" id="ShowPopup" />
-        </a>
-        <input type="submit" value="Share" />
-    </div>
- </div>
+            
 
+            @if(Model.imageName != null)
+            {
+                <div class="display-label">imageId</div>
+                <div class="display-field">@Model.imageId</div>
+                <img src="@Model.imageName" width ="75" height ="75">
+                <div class="display-label">imageBytes</div>
+                <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
+                <div class="display-label">imageName</div>
+                <div class="display-field">@Model.imageName</div>
+            }
+   
+       
+            <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+   
+            <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+    
+        @*<a href="#popupLogin" data-rel="popup">*@
+            <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
+        @*</a>*@
+    
+            <a href="#popupLogin" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
+    </div>
+</div>
 <div data-role="popup" id="popupLogin" data-overlay-theme="b" data-theme="a" class="ui-corner-all" data-position-to="window">
 	<form>
 		<div style="padding:10px 20px;" >
-			<h3>Share</h3>
-            <a href="venta.html" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
+			<h3>Share @Model.Title</h3>
+            <a href="venta.html" onclick="publishStory();" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
             <a href="venta.html" data-theme="" id="lol"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
 		</div>
 	</form>
 </div>
-
-
