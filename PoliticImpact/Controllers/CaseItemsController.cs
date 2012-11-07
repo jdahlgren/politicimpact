@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Mail;
+using System.Net.Mime;
 using PoliticImpact.Models;
 
 namespace PoliticImpact.Controllers
@@ -106,33 +108,52 @@ namespace PoliticImpact.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ShareMail(int id)
+        {
+
+            CaseItem caseItem = caseitemRepository.Find(id);
+            MailMessage m = new MailMessage();
+            SmtpClient sc = new SmtpClient();
+
+            try
+            {
+                m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
+                m.To.Add(new MailAddress("christofferdahl89@gmail.com", "Christoffer Dahl"));
+                //m.CC.Add(new MailAddress("chrda005@student.liu.se","Display name CC"));
+                m.Subject = "Political Impact: Shared Case";
+                m.Body = caseItem.Title + caseItem.Text;
+
+                //Attachment
+                //FileStream fs = new FileStream("E:\\TestFolder\\test.pdf", FileMode.Open, FileAccess.Read);
+                //Attachment a = new Attachment(fs, "test.pdf", MediaTypeNames.Application.Octet);
+
+                //string str = "<html><body><h1>Picture<h/h1><br/><img src=\cid:image1\"></body></html>";
+                //AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
+                //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
+                //lr.ContentId = "image1";
+                //av.LinkedResources.Add(lr);
+                //m.AlternateViews.Add(av);
+
+                sc.Host = "smtp.gmail.com";
+                sc.Port = 587;
+                sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
+                sc.EnableSsl = true;
+                sc.Send(m);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
                 caseitemRepository.Dispose();
             }
             base.Dispose(disposing);
-        }
-        public ActionResult ShowCase()
-        {
-            //Här ska vi skicka data till view från databasen.
-
-            return View();
-        }
-        public ActionResult HandleLikes()
-        {
-            //skickar likes till databasen och uppdaterar sidan med antalet likes
-            return View();
-        }
-        public ActionResult HandleComments()
-        {
-            //skickar commentarer till databsen och uppdaterar sidan med antalet likes
-            return View();
-        }
-        public ActionResult HandleSignatures()
-        {
-            //skickar signaturer till databasen och uppdaterar sidan med att du har signerat
-            return View();
         }
     }
 }
