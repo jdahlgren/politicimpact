@@ -4,21 +4,12 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
-<!--
-    commented by Johannes Ullström 2012-11-07 13:46
-    <head> is already defined in layout file
-<head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-		<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
-       
-</head>
--->
-
+@section scripts{
     @Scripts.Render("~/Scripts/facebookPublish.js")
     @Scripts.Render("~/Scripts/facebookConnect.js")
+    @Scripts.Render("~/Scripts/ShowCase.js")
+}
+
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
         <h1>@ViewBag.Title</h1>
