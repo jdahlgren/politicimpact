@@ -12,6 +12,9 @@
         <legend>CaseItem</legend>
 
         @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.Created)
+        @Html.HiddenFor(model => model.LastEdited)
+
 		@Html.Partial("_CreateOrEdit", Model)
 
         <p>

@@ -2,6 +2,7 @@
 
 @* This partial view defines form fields that will appear when creating and editing entities *@
 
+<!--
 <div class="editor-label">
     @Html.LabelFor(model => model.Owner)
 </div>
@@ -9,6 +10,7 @@
     @Html.EditorFor(model => model.Owner)
     @Html.ValidationMessageFor(model => model.Owner)
 </div>
+-->
 
 <div class="editor-label">
     @Html.LabelFor(model => model.Title)
@@ -27,13 +29,24 @@
 </div>
 
 <div class="editor-label">
+    @Html.LabelFor(model => model.Deadline)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Deadline)
+    @Html.ValidationMessageFor(model => model.Deadline)
+</div>
+
+<!--
+<div class="editor-label">
     @Html.LabelFor(model => model.Published)
 </div>
 <div class="editor-field">
     @Html.EditorFor(model => model.Published)
     @Html.ValidationMessageFor(model => model.Published)
 </div>
+-->
 
+<!--
 <div class="editor-label">
     @Html.LabelFor(model => model.Created)
 </div>
@@ -41,7 +54,9 @@
     @Html.EditorFor(model => model.Created)
     @Html.ValidationMessageFor(model => model.Created)
 </div>
+-->
 
+<!--
 <div class="editor-label">
     @Html.LabelFor(model => model.LastEdited)
 </div>
@@ -49,7 +64,9 @@
     @Html.EditorFor(model => model.LastEdited)
     @Html.ValidationMessageFor(model => model.LastEdited)
 </div>
+-->
 
+<!--
 <div class="editor-label">
     @Html.LabelFor(model => model.imageId)
 </div>
@@ -57,7 +74,9 @@
     @Html.EditorFor(model => model.imageId)
     @Html.ValidationMessageFor(model => model.imageId)
 </div>
+-->
 
+<!--
 <div class="editor-label">
     @Html.LabelFor(model => model.imageName)
 </div>
@@ -65,4 +84,4 @@
     @Html.EditorFor(model => model.imageName)
     @Html.ValidationMessageFor(model => model.imageName)
 </div>
-
+-->
