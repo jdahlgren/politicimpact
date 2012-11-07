@@ -4,3 +4,37 @@
 
 <p>Här är startsidan</p>
 @Html.ActionLink("Cases", "Index", "CaseItems")
+
+@section head
+{
+
+
+<!-- script to toggle visibility of cases -->
+<script>
+    function showCase(id) {
+        var section = document.getElementById(id);
+        if (section.style.display == 'block') {
+            section.style.display = 'none';
+        }
+        else {
+            section.style.display = 'block';
+        }
+    }
+</script>
+} 
+
+<!--list expandable cases -->
+<ul data-role="listview" data-inset="true">
+    <li data-role="list-divider">Recent cases</li>
+
+    @for (int i=1; i <= 5; i++)
+    {
+        <li><a href="javascript:showCase('case @i')">Case @i</a></li>
+        <li id="case @i"><div>Text @i</div></li>
+        
+        <script>
+                var listitem = document.getElementById('case @i');
+                listitem.style.display = 'none';
+        </script>
+    }
+</ul>
