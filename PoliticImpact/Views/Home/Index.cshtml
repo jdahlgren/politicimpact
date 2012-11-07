@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -27,13 +29,13 @@
 <ul data-role="listview" data-inset="true">
     <li data-role="list-divider">Recent cases</li>
 
-    @for (int i=1; i <= 5; i++)
+    @foreach (var item in Model)
     {
-        <li><a href="javascript:showCase('case @i')">Case @i</a></li>
-        <li id="case @i"><div>Text @i</div></li>
+        <li><a href="javascript:showCase('case_@item.ID')">@item.Title</a></li>
+        <li id="case_@item.ID"><div>@item.Text</div></li>
         
         <script>
-                var listitem = document.getElementById('case @i');
+                var listitem = document.getElementById('case_@item.ID');
                 listitem.style.display = 'none';
         </script>
     }
