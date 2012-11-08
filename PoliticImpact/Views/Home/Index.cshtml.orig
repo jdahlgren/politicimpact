@@ -1,3 +1,47 @@
+<<<<<<< HEAD
+﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<p>Här är startsidan</p>
+@Html.ActionLink("Cases", "Index", "CaseItems")
+
+@section head
+{
+
+
+<!-- script to toggle visibility of cases -->
+<script>
+    function showCase(id) {
+        var section = document.getElementById(id);
+        if (section.style.display == 'block') {
+            section.style.display = 'none';
+        }
+        else {
+            section.style.display = 'block';
+        }
+    }
+</script>
+} 
+
+<!--list expandable cases -->
+<ul data-role="listview" data-inset="true">
+    <li data-role="list-divider">Recent cases</li>
+
+    @foreach (var item in Model)
+    {
+        <li><a href="javascript:showCase('case_@item.ID')">@item.Title</a></li>
+        <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID"  rel="external">@item.Text</a></div></li>
+        
+        <script>
+                var listitem = document.getElementById('case_@item.ID');
+                listitem.style.display = 'none';
+        </script>
+    }
+</ul>
+=======
 ﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
 
 @{
@@ -45,10 +89,11 @@
     <!-- limited to 5 and reversed to get most recent cases -->
     @foreach (var item in Model.Reverse().Take(5)){
         <li><a href="javascript:toggleVisibility('case_@item.ID')">@item.Title</a></li>
-        <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID"  rel="external">@item.Text</a></div></li>
+        <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID">@item.Text</a></div></li>
         
         <script>
             toggleVisibility('case_@item.ID');
         </script>
     }
 </ul>
+>>>>>>> origin/master
