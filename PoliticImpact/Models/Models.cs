@@ -45,6 +45,16 @@ namespace PoliticImpact.Models
         public byte[] imageBytes { get; set; }
 
         public string imageName { get; set; }
+        
+        //added by Johannes Ullström 2012-11-08 15:11
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} must be at least {2} characters long.", MinimumLength = 2)]
+        public string RecieverName { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Not valid email")]
+        public string RecieverEmail { get; set; }
+
     }
     
     public class CaseSignUp

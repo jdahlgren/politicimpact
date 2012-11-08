@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Create Case";
 }
+@section Header{
+    <div data-role="header">
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
+        <h1>Edit Case</h1>
+    </div>
+}
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
@@ -63,9 +69,23 @@
             @Html.TextBoxFor(model => model.Deadline, new { placeholder = "Deadline xx-xx-xx, 00:00" })
             @Html.ValidationMessageFor(model => model.Deadline)
         </div>
-
+        <div class="editor-field" style="padding-bottom: 14px;">
+            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
+            @Html.ValidationMessageFor(model => model.RecieverName)
+        </div>
+        <div class="editor-field" style="padding-bottom: 14px;">
+            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
+            @Html.ValidationMessageFor(model => model.RecieverEmail)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Published)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Published)
+            @Html.ValidationMessageFor(model => model.Published)
+        </div>
         <p>
-            <input type="submit" value="Post" />
+            <input type="submit" value="Save" />
         </p>
     </fieldset>
 }

@@ -108,6 +108,16 @@ namespace PoliticImpact.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public ActionResult Publish(int id)
+        {
+            CaseItem caseitem = caseitemRepository.Find(id);
+            caseitem.Published = true;
+            caseitemRepository.InsertOrUpdate(caseitem);
+            caseitemRepository.Save();
+            return View();
+        }
+
         public ActionResult ShareMail(int id)
         {
 
@@ -118,7 +128,7 @@ namespace PoliticImpact.Controllers
             try
             {
                 m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
-                m.To.Add(new MailAddress("christofferdahl89@gmail.com", "Christoffer Dahl"));
+                m.To.Add(new MailAddress("j_ullstrom@hotmail.com", "Johannes Ullström"));
                 //m.CC.Add(new MailAddress("chrda005@student.liu.se","Display name CC"));
                 m.Subject = "Political Impact: Shared Case";
                 m.Body = caseItem.Title + caseItem.Text;

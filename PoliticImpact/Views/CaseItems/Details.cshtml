@@ -7,35 +7,26 @@
 @section scripts{
     @Scripts.Render("~/Scripts/facebookPublish.js")
     @Scripts.Render("~/Scripts/facebookConnect.js")
-    @Scripts.Render("~/Scripts/ShowCase.js")
 }
 
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
         <h1>@ViewBag.Title</h1>
     </div>
     <div data-role="content">
-        <fieldset>
-            <legend>CaseItem</legend>
+        <h2>@Model.Title</h2>
+        <p>
+            @Model.Text
+        </p>
+        
 
-            <div class="display-label">Owner</div>
-            <div class="display-field">@Model.Owner</div>
+        <div class="display-label">Deadline</div>
+        <div class="display-field">@String.Format("{0:g}", Model.Deadline)</div>
 
-            <div class="display-label">Title</div>
-            <div class="display-field">@Model.Title</div>
+        <div class="display-label">Reicever</div>
+        <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
-            <div class="display-label">Text</div>
-            <div class="display-field">@Model.Text</div>
-
-            <div class="display-label">Published</div>
-            <div class="display-field">@Model.Published</div>
-
-            <div class="display-label">Created</div>
-            <div class="display-field">@String.Format("{0:g}", Model.Created)</div>
-
-            <div class="display-label">LastEdited</div>
-            <div class="display-field">@String.Format("{0:g}", Model.LastEdited)</div>
-        </fieldset>
             
 
             @if(Model.imageName != null)
@@ -54,19 +45,45 @@
    
             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
     
-        @*<a href="#popupLogin" data-rel="popup">*@
+        <a href="#popupLogin" data-rel="popup">
             <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
-        @*</a>*@
-    
-            <a href="#popupLogin" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
+        </a>
+        
+        <a href="#popupLogin" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
+        @if(Model.Owner == 0)
+        {
+            <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
+        }
     </div>
 </div>
+<style>
+    #share_by_email
+    {
+        display: none;
+    }
+</style>
 <div data-role="popup" id="popupLogin" data-overlay-theme="b" data-theme="a" class="ui-corner-all" data-position-to="window">
 	<form>
 		<div style="padding:10px 20px;" >
 			<h3>Share @Model.Title</h3>
             <a href="venta.html" onclick="publishStory();" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
-            <a href="venta.html" data-theme="" id="lol"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
+            <a id="lol" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
 		</div>
+        <div id="share_by_email">
+            <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+            <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">Send link</a>
+        </div>
 	</form>
 </div>
+
+<script>
+    function ShareCaseByEmail(id) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/CaseItems/ShareMail/" + id,
+            data: { email: jQuery('friend_email').val() }
+        }).done(function (msg) {
+            jQuery('#share_by_email').html("<p>Email sent</p>");
+        });
+    }
+</script>
