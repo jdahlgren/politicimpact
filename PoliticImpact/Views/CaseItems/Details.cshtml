@@ -50,7 +50,7 @@
         </a>
         
         <a href="#popupLogin" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
-        @if(Model.Owner == 0)
+        @if(!Model.Published && Model.Owner == 1337)
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
         }
