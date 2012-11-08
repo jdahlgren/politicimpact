@@ -7,7 +7,15 @@
     <div data-role="header">
         <h2>Case list</h2>
         @Html.ActionLink("Add", "Create",  new { shift = -1 }, new { data_icon = "plus", data_mini = "true", @class="ui-btn-right"})
-        
+        <!-- navigation -->
+        <div data-role="navbar" data-iconpos="top">
+	        <ul>
+		        <li><a href="/Home/Index" data-icon="home">Home</a></li>
+                <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search", @class = "ui-btn-active ui-state-persist"  })</li>
+                <li>@Html.ActionLink("About", "About", new { Controller = "Home"}, new { data_icon = "gear" })</li>
+	        </ul>
+        </div>
+        <!-- /navigation -->
     </div>
 }
 <ul data-role="listview" data-filter="true">
@@ -15,7 +23,7 @@
     <li>
         <a href= "/CaseItems/Details/@item.ID" data-transition="slide" rel="external"> 
             <h3>@item.Title</h3>
-            <p><strong>Ägarens namn kanske</strong></p>
+            <p><strong>Anders Andersson</strong></p>
             <p>@item.Text.</p>
             <p class="ui-li-aside">4 Likes</p>
         </a>

@@ -63,6 +63,7 @@
     }
 </style>
 <div data-role="popup" id="popupLogin" data-overlay-theme="b" data-theme="a" class="ui-corner-all" data-position-to="window">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 	<form>
 		<div style="padding:10px 20px;" >
 			<h3>Share @Model.Title</h3>
@@ -81,9 +82,10 @@
         jQuery.ajax({
             type: "POST",
             url: "/CaseItems/ShareMail/" + id,
-            data: { email: jQuery('friend_email').val() }
+            data: { email: jQuery('#friend_email').val() }
         }).done(function (msg) {
             jQuery('#share_by_email').html("<p>Email sent</p>");
+            jQuery('#friend_email').val("");
         });
     }
 </script>

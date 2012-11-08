@@ -118,6 +118,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult ShareMail(int id)
         {
 
@@ -128,7 +129,7 @@ namespace PoliticImpact.Controllers
             try
             {
                 m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
-                m.To.Add(new MailAddress("j_ullstrom@hotmail.com", "Johannes Ullström"));
+                m.To.Add(new MailAddress(Request["email"]));
                 //m.CC.Add(new MailAddress("chrda005@student.liu.se","Display name CC"));
                 m.Subject = "Political Impact: Shared Case";
                 m.Body = caseItem.Title + caseItem.Text;
