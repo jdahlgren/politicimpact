@@ -1,10 +1,10 @@
-﻿function publishStory() {
+﻿function publishStory(name, description, page) {
     FB.ui({
         method: 'feed',
-        name: 'I\'m doing a test!', //This should be the subject of the case
+        name: name, //This should be the subject of the case
         //caption: 'Hope this works', 
-        description: 'Check out Facebook\'s developer site to start building.', //This should be the discription of the case
-        link: 'http://annasemone.se', //This should be the page I'm on, the page of the case
+        description: description, //This should be the discription of the case
+        link: page, //This should be the page I'm on, the page of the case
         picture: 'http://annasemone.se/images/niklas2.JPG' // This should be the image of the case
     },
     function (response) {

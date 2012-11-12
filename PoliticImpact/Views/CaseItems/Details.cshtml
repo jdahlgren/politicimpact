@@ -67,7 +67,7 @@
 	<form>
 		<div style="padding:10px 20px;" >
 			<h3>Share @Model.Title</h3>
-            <a href="venta.html" onclick="publishStory();" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
+            <a href="venta.html" onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
             <a id="lol" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
 		</div>
         <div id="share_by_email">
