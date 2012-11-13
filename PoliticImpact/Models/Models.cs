@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace PoliticImpact.Models
 {
@@ -55,6 +56,15 @@ namespace PoliticImpact.Models
         [EmailAddress(ErrorMessage = "Not valid email")]
         public string RecieverEmail { get; set; }
 
+        //added by Daniel Jonsson, David Falk 2012-11-13 13:59
+        [DisplayName("Likes")]
+        public bool enableLikes { get; set; }
+
+        [DisplayName("Comments")]
+        public bool enableComments { get; set; }
+
+        [DisplayName("Signatures")]
+        public bool enableSigns { get; set; }
     }
     
     public class CaseSignUp

@@ -36,34 +36,6 @@
             @Html.ValidationMessageFor(model => model.Text)
         </div>
 
-        <!--
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Published)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Published)
-            @Html.ValidationMessageFor(model => model.Published)
-        </div>
-        -->
-
-        <!--
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Created)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Created)
-            @Html.ValidationMessageFor(model => model.Created)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.LastEdited)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LastEdited)
-            @Html.ValidationMessageFor(model => model.LastEdited)
-        </div>
-        -->
-
         
         <div class="editor-field" style="padding-bottom: 14px;">
             @Html.TextBoxFor(model => model.Deadline, new { placeholder = "Deadline xx-xx-xx, 00:00" })
@@ -77,6 +49,43 @@
             @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
             @Html.ValidationMessageFor(model => model.RecieverEmail)
         </div>
+
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.enableLikes)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.enableLikes)
+                        @Html.ValidationMessageFor(model => model.enableLikes)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.enableComments)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.enableComments)
+                        @Html.ValidationMessageFor(model => model.enableComments)
+                    </div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.enableSigns)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.enableSigns)
+                        @Html.ValidationMessageFor(model => model.enableSigns)
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Published)
         </div>
@@ -84,6 +93,9 @@
             @Html.EditorFor(model => model.Published)
             @Html.ValidationMessageFor(model => model.Published)
         </div>
+
+
+
         <p>
             <input type="submit" value="Save" />
         </p>
@@ -94,5 +106,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
 
 

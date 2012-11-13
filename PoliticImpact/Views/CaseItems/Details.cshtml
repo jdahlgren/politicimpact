@@ -40,14 +40,22 @@
                 <div class="display-field">@Model.imageName</div>
             }
    
-       
+        @if(Model.enableLikes == true)
+        {
             <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
-   
+        } 
+
+        @if(Model.enableComments == true)
+        {
             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
-    
-        <a href="#popupLogin" data-rel="popup">
-            <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
-        </a>
+        }
+
+        @if(Model.enableSigns == true)
+        {
+            <a href="#popupLogin" data-rel="popup">
+                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
+            </a>
+        }
         
         <a href="#popupLogin" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
         @if(!Model.Published && Model.Owner == 1337)
