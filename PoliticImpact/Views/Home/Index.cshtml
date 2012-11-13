@@ -10,6 +10,7 @@
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
+                <!-- Icons from jquary mobile -->
 		        <li>@Html.ActionLink("Home", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
                 <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search" })</li>
                 <li>@Html.ActionLink("About", "About", "Home", new { data_icon = "gear" })</li>
