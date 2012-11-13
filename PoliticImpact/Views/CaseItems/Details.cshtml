@@ -52,12 +52,12 @@
 
         @if(Model.enableSigns == true)
         {
-            <a href="#popupLogin" data-rel="popup">
+            <a href="#popupShare" data-rel="popup">
                 <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
             </a>
         }
         
-        <a href="#popupLogin" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
+        <a href="#popupShare" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
         @if(!Model.Published && Model.Owner == 1337)
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
@@ -70,13 +70,13 @@
         display: none;
     }
 </style>
-<div data-role="popup" id="popupLogin" data-overlay-theme="b" data-theme="a" class="ui-corner-all" data-position-to="window">
+<div data-role="popup" id="popupShare" data-overlay-theme="b" data-theme="a" class="ui-corner-all" data-position-to="window">
     <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 	<form>
 		<div style="padding:10px 20px;" >
 			<h3>Share @Model.Title</h3>
             <a href="venta.html" onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
-            <a id="lol" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
+            <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
 		</div>
         <div id="share_by_email">
             <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
