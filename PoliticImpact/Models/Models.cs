@@ -66,7 +66,8 @@ namespace PoliticImpact.Models
         [DisplayName("Signatures")]
         public bool enableSigns { get; set; }
 
-        public int? CategoryID { get; set; }
+        [Required(ErrorMessage = "Value must be set")]
+        public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public virtual CaseCategory caseCategory { get; set; }
     }

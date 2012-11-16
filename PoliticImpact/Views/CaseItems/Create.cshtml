@@ -85,11 +85,16 @@
             </tr>
              <tr>
                 <td>
+                    
                     <div class="editor-label">
-                        @Html.LabelFor(model => model.CategoryID)
+                        Category
                     </div>
                     <div class="editor-field">
-                        @Html.EditorFor(model => model.CategoryID)
+                        @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
+                            Text = (option == null ? "None" : option.Title), 
+                            Value = option.CategoryID.ToString(),
+                            Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
+                        }), "Choose...")
                         @Html.ValidationMessageFor(model => model.CategoryID)
                     </div>
                 </td>

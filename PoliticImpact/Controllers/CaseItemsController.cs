@@ -45,6 +45,7 @@ namespace PoliticImpact.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.PossibleCategories = casecategoryRepository.All;
             return View();
         } 
 

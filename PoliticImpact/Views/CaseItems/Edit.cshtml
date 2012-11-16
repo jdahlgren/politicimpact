@@ -20,6 +20,7 @@
 
         @Html.HiddenFor(model => model.RecieverName)
         @Html.HiddenFor(model => model.RecieverEmail)
+        @Html.HiddenFor(model => model.CategoryID)
 
 		@Html.Partial("_CreateOrEdit", Model)
         <div id="published_status">
