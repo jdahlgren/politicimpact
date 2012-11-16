@@ -1,0 +1,20 @@
+@model PoliticImpact.Models.CaseCategory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CaseCategory</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">@Model.Title</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CategoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

@@ -12,7 +12,7 @@ namespace PoliticImpact.Controllers
     public class CaseItemsController : Controller
     {
 		private readonly ICaseItemRepository caseitemRepository;
-
+        private readonly ICaseCategoryRepository casecategoryRepository;
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseItemsController() : this(new CaseItemRepository())
         {
@@ -21,6 +21,7 @@ namespace PoliticImpact.Controllers
         public CaseItemsController(ICaseItemRepository caseitemRepository)
         {
 			this.caseitemRepository = caseitemRepository;
+            this.casecategoryRepository = new CaseCategoryRepository();
         }
 
         //

@@ -65,6 +65,10 @@ namespace PoliticImpact.Models
 
         [DisplayName("Signatures")]
         public bool enableSigns { get; set; }
+
+        public int? CategoryID { get; set; }
+        [ForeignKey("CategoryID")]
+        public virtual CaseCategory caseCategory { get; set; }
     }
     
     public class CaseSignUp
@@ -78,5 +82,12 @@ namespace PoliticImpact.Models
 
         public DateTime created { get; set; }
     }
-    
+
+    public class CaseCategory
+    {
+        [Key]
+        public int CategoryID { get; set; }
+
+        public string Title { get; set; }
+    }    
 }

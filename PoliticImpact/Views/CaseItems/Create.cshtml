@@ -83,7 +83,17 @@
                     </div>
                 </td>
             </tr>
-
+             <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.CategoryID)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.CategoryID)
+                        @Html.ValidationMessageFor(model => model.CategoryID)
+                    </div>
+                </td>
+            </tr>
         </table>
 
         <div class="editor-label">
