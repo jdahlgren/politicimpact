@@ -90,11 +90,17 @@
                         Category
                     </div>
                     <div class="editor-field">
-                        @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
+                        @*@Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
                             Text = (option == null ? "None" : option.Title), 
                             Value = option.CategoryID.ToString(),
                             Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
-                        }), "Choose...")
+                        }), "Choose..."*@
+                        <select id="CategoryID" name="CategoryID"><option value="0">Choose...</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                        </select>
+                        
+
                         @Html.ValidationMessageFor(model => model.CategoryID)
                     </div>
                 </td>
