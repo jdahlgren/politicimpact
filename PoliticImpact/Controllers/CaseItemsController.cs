@@ -118,6 +118,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        //added by Christoffer Dahl 2012-11-07 10:32
         [HttpPost]
         public ActionResult ShareMail(int id)
         {
@@ -130,7 +131,7 @@ namespace PoliticImpact.Controllers
             {
                 m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
                 m.To.Add(new MailAddress(Request["email"]));
-                //m.CC.Add(new MailAddress("chrda005@student.liu.se","Display name CC"));
+                //m.CC.Add(new MailAddress("test@test.com","Display name CC"));
                 m.Subject = "Political Impact: Shared Case";
                 m.Body = caseItem.Title + caseItem.Text;
 
@@ -158,6 +159,48 @@ namespace PoliticImpact.Controllers
 
             return View();
         }
+
+        //added by Christoffer Dahl 2012-11-16 09:50
+        public ActionResult ReportMail(int id,String pw)
+        {
+            if (pw == "allow")
+            {
+                CaseItem caseItem = caseitemRepository.Find(4);
+                MailMessage m = new MailMessage();
+                SmtpClient sc = new SmtpClient();
+
+                try
+                {
+                    m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
+                    m.To.Add(new MailAddress(caseItem.RecieverEmail, caseItem.RecieverName));
+                    m.Subject = "Political Impact: Report on Case";
+                    m.Body = caseItem.Title + caseItem.Text + "Antal likes o lite sånt shieeeet";
+
+                    //Attachment
+                    //FileStream fs = new FileStream("E:\\TestFolder\\test.pdf", FileMode.Open, FileAccess.Read);
+                    //Attachment a = new Attachment(fs, "test.pdf", MediaTypeNames.Application.Octet);
+
+                    //string str = "<html><body><h1>Picture<h/h1><br/><img src=\cid:image1\"></body></html>";
+                    //AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
+                    //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
+                    //lr.ContentId = "image1";
+                    //av.LinkedResources.Add(lr);
+                    //m.AlternateViews.Add(av);
+
+                    sc.Host = "smtp.gmail.com";
+                    sc.Port = 587;
+                    sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
+                    sc.EnableSsl = true;
+                    sc.Send(m);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return View();
+        }
+
 
         protected override void Dispose(bool disposing)
         {
