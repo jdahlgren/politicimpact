@@ -33,6 +33,11 @@
         }
     }
 </script>
+
+    <!-- script to hide adress bar -->
+    <script>
+        window.document.statusbar.enable = false;
+    </script>
 } 
 
 
@@ -47,8 +52,8 @@
         <li><a href="javascript:toggleVisibility('case_@item.ID')">@item.Title</a></li>
         <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID"  rel="external">@item.Text</a></div></li>
         
-        <script>
+       <!-- <script>
             toggleVisibility('case_@item.ID');
-        </script>
+        </script>-->
     }
 </ul>
