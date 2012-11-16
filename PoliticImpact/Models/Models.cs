@@ -68,5 +68,17 @@ namespace PoliticImpact.Models
 
         public DateTime created { get; set; }
     }
+
+    //Frida Mattisson 2012-11-16
+    public class CaseComment
+    {
+        [Key]
+        public int commentID { get; set; }
+        public long userID { get; set; }
+        [ForeignKey ("caseID")] 
+        public int caseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public string commentStr{ get; set;}
+    }
     
 }
