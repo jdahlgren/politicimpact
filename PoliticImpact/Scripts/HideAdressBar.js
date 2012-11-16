@@ -1,5 +1,6 @@
-//Added by Johannes Dahlgren found on 
-//http://stackoverflow.com/questions/3715169/can-i-hide-our-address-bar-url-in-asp-net
+//Added by Johannes Dahlgren on 16/11 2012
+
+//found on  http://stackoverflow.com/questions/3715169/can-i-hide-our-address-bar-url-in-asp-net
 
 /*
   * Normalized hide address bar for iOS & Android
