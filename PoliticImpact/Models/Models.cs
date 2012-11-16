@@ -75,7 +75,7 @@ namespace PoliticImpact.Models
         [Key]
         public int commentID { get; set; }
         public long userID { get; set; }
-        [ForeignKey ("caseID")] 
+        [ForeignKey ("CaseItem")] 
         public int caseID { get; set; }
         public virtual CaseItem CaseItem { get; set; }
         public string commentStr{ get; set;}

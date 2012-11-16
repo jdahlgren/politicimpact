@@ -44,8 +44,21 @@
             <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
    
         @*Frida Mattisson 2012-11-16*@
-        <a href=@Url.Action("", "", "");
+        @*a href=@Url.Action("", "", ""); - RenderPartialView?*@
+        @* Visa de 5 senaste kommentarerna från början, vid klick kommer en möjlighet att kommentera och alla kommentarer visas*@
             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+        <a href="~/Views/CaseComments/Partial_commentView" />
+        @*Print all comments for the case
+        <form>
+            <fieldset>
+                <legend>Comments</legend>
+                @foreach (var comment in PoliticImpact.Models.CaseComment.Revers().Take(5))
+                {
+                    comment.commentStr;
+                }
+            </fieldset>
+
+        </form>*@
     
         <a href="#popupLogin" data-rel="popup">
             <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />

@@ -1,0 +1,29 @@
+@model PoliticImpact.Models.CaseComment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CaseComment</legend>
+
+    <div class="display-label">userID</div>
+    <div class="display-field">@Model.userID</div>
+
+    <div class="display-label">caseID</div>
+    <div class="display-field">@Model.caseID</div>
+
+    <div class="display-label">CaseItem</div>
+    <div class="display-field">@(Model.CaseItem == null ? "None" : Model.CaseItem.Title)</div>
+
+    <div class="display-label">commentStr</div>
+    <div class="display-field">@Model.commentStr</div>
+</fieldset>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.commentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+
+

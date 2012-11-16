@@ -1,0 +1,53 @@
+@model IEnumerable<PoliticImpact.Models.CaseComment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            userID
+        </th>
+        <th>
+            caseID
+        </th>
+        <th>
+            CaseItem
+        </th>
+        <th>
+            commentStr
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.commentID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.commentID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.commentID })
+        </td>
+        <td>
+			@item.userID
+        </td>
+        <td>
+			@item.caseID
+        </td>
+        <td>
+			@(item.CaseItem == null ? "None" : item.CaseItem.Title)
+        </td>
+        <td>
+			@item.commentStr
+        </td>
+    </tr>
+}
+
+</table>
+
+
