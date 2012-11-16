@@ -63,6 +63,7 @@ namespace PoliticImpact.Controllers
                 caseitemRepository.Save();
                 return RedirectToAction("Index");
             } else {
+                ViewBag.PossibleCategories = casecategoryRepository.All;
 				return View();
 			}
         }
