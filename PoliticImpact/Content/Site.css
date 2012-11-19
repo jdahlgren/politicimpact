@@ -25,6 +25,11 @@
     display: none;
 }
 
+ #voting_input
+{
+    display: none;
+}
+
 
 /* jQuery mobile styles
 -----------------------------------------------------------*/

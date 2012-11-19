@@ -30,5 +30,9 @@ namespace PoliticImpact.Models
         public DbSet<PoliticImpact.Models.CaseSignUp> CaseSignUps { get; set; }
 
         public DbSet<PoliticImpact.Models.CaseCategory> CaseCategories { get; set; }
+
+        public DbSet<PoliticImpact.Models.CaseVoting> CaseVotings { get; set; }
+
+        public DbSet<PoliticImpact.Models.CaseVote> CaseVotes { get; set; }
     }
 }

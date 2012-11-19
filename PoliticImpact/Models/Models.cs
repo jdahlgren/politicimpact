@@ -90,5 +90,27 @@ namespace PoliticImpact.Models
         public int CategoryID { get; set; }
 
         public string Title { get; set; }
-    }    
+    }
+
+    public class CaseVoting
+    {
+        [Key]
+        public int VotingID { get; set; }
+        public int CaseID { get; set; }
+        [StringLength(100, ErrorMessage = "{0} must be at least {2} characters long.", MinimumLength = 2)]
+        public string Title { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime Created { get; set; }
+    }
+
+    public class CaseVote
+    {
+        [Key]
+        public int VoteID { get; set; }
+        public int VotingID { get; set; }
+        [ForeignKey("VotingID")]
+        public virtual CaseVoting casevoting { get; set; }
+        public Boolean Vote { get; set; }
+    }
 }

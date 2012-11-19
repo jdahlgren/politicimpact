@@ -1,0 +1,47 @@
+@model IEnumerable<PoliticImpact.Models.CaseVote>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            VotingID
+        </th>
+        <th>
+            casevoting
+        </th>
+        <th>
+            Vote
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VoteID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VoteID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VoteID })
+        </td>
+        <td>
+			@item.VotingID
+        </td>
+        <td>
+			@(item.casevoting == null ? "None" : item.casevoting.Title)
+        </td>
+        <td>
+			@item.Vote
+        </td>
+    </tr>
+}
+
+</table>
+
+

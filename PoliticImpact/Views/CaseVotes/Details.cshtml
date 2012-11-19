@@ -1,0 +1,26 @@
+@model PoliticImpact.Models.CaseVote
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CaseVote</legend>
+
+    <div class="display-label">VotingID</div>
+    <div class="display-field">@Model.VotingID</div>
+
+    <div class="display-label">casevoting</div>
+    <div class="display-field">@(Model.casevoting == null ? "None" : Model.casevoting.Title)</div>
+
+    <div class="display-label">Vote</div>
+    <div class="display-field">@Model.Vote</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.VoteID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

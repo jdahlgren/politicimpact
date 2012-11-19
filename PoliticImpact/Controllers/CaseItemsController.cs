@@ -13,6 +13,7 @@ namespace PoliticImpact.Controllers
     {
 		private readonly ICaseItemRepository caseitemRepository;
         private readonly ICaseCategoryRepository casecategoryRepository;
+        private readonly ICaseVotingRepository CaseVotingRepository;
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseItemsController() : this(new CaseItemRepository())
         {
@@ -22,6 +23,7 @@ namespace PoliticImpact.Controllers
         {
 			this.caseitemRepository = caseitemRepository;
             this.casecategoryRepository = new CaseCategoryRepository();
+            this.CaseVotingRepository = new CaseVotingRepository();
         }
 
         //
@@ -29,6 +31,7 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Index()
         {
+            System.Diagnostics.Debug.WriteLine("asdf");
             return View(caseitemRepository.All);
         }
 
@@ -61,6 +64,24 @@ namespace PoliticImpact.Controllers
             if (ModelState.IsValid) {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
+                
+                if (Request["create_voting"] != "" && Request["create_voting"] != null)
+                {
+                    //have the user requested a voting on this case?
+                    if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"]!=null)
+                    {
+                        CaseVoting casevoting = new CaseVoting();
+                        casevoting.CaseID = caseitem.ID;
+                        casevoting.Title = Request["voting_title"];
+                        casevoting.StartDate = DateTime.Now;
+                        casevoting.EndDate = DateTime.Now;
+                        casevoting.Created = DateTime.Now;
+                        CaseVotingRepository.InsertOrUpdate(casevoting);
+                        CaseVotingRepository.Save();
+                    }
+                    
+                }
+                
                 return RedirectToAction("Index");
             } else {
                 ViewBag.PossibleCategories = casecategoryRepository.All;

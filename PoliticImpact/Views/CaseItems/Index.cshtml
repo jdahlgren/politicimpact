@@ -6,7 +6,8 @@
 @section header{
     <div data-role="header">
         <h2>Case list</h2>
-        @Html.ActionLink("Add", "Create",  new { shift = -1 }, new { data_icon = "plus", data_mini = "true", @class="ui-btn-right"})
+        @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
+        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Add</a>
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>

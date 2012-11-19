@@ -7,10 +7,11 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/mobileCss", "~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
         @RenderSection("head", false)
     </head>
     <body>
-        <div data-role="page" data-theme="b">
+        <div data-role="page" data-theme="b" class="type-interior">
             <div data-role="header">
                 @if (IsSectionDefined("Header")) {
                     @RenderSection("Header")
@@ -24,13 +25,13 @@
             </div>
         </div>
 
-        @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
+        
         @RenderSection("scripts", required: false)
 
         <!-- Added by Johannes Dahlgren 16/11 -->
         <style type="text/css">body {min-height: 480px;}</style>
-        @Scripts.Render("~/Scripts/HideAdressBar")
-
+        @Scripts.Render("~/Scripts/HideAdressBar.js")
+         @Scripts.Render("~/Scripts/Script.js")
 
 
     </body>

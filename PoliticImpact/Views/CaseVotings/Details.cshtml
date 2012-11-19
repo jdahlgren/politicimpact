@@ -1,0 +1,32 @@
+@model PoliticImpact.Models.CaseVoting
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CaseVoting</legend>
+
+    <div class="display-label">CaseID</div>
+    <div class="display-field">@Model.CaseID</div>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">@Model.Title</div>
+
+    <div class="display-label">StartDate</div>
+    <div class="display-field">@String.Format("{0:g}", Model.StartDate)</div>
+
+    <div class="display-label">EndDate</div>
+    <div class="display-field">@String.Format("{0:g}", Model.EndDate)</div>
+
+    <div class="display-label">Created</div>
+    <div class="display-field">@String.Format("{0:g}", Model.Created)</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.VotingID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

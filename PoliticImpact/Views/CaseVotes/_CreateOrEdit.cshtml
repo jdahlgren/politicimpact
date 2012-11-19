@@ -1,0 +1,20 @@
+@model PoliticImpact.Models.CaseVote
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.VotingID)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.VotingID)
+    @Html.ValidationMessageFor(model => model.VotingID)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Vote)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Vote)
+    @Html.ValidationMessageFor(model => model.Vote)
+</div>
+

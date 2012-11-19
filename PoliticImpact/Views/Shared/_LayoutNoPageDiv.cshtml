@@ -7,10 +7,12 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/mobileCss", "~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+         @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
+        @Scripts.Render("~/Scripts/Script.js")
     </head>
     <body>
         @RenderBody()
-        @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
+       
         @RenderSection("scripts", required: false)
     </body>
 </html>
