@@ -31,10 +31,13 @@ namespace PoliticImpact.Models
             return context.CaseLikes.Find(id);
         }
 
-        //fixa???????
-        public CaseLike FindLike(long id)
+        
+        public int FindLike(int caseId)
         {
-            return context.CaseLikes.Find(id);
+            IQueryable<CaseLike> caselikes = (from CL in context.CaseLikes 
+                                                  where CL.caseID == caseId
+                                                  select CL);
+            return caselikes.Count();
         }
 
         public void InsertOrUpdate(CaseLike caselike)

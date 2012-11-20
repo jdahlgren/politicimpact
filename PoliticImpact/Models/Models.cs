@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -111,6 +111,7 @@ namespace PoliticImpact.Models
         [Key]
         public int VoteID { get; set; }
         public int VotingID { get; set; }
+        public long UserID { get; set; }
         [ForeignKey("VotingID")]
         public virtual CaseVoting casevoting { get; set; }
         public Boolean Vote { get; set; }
@@ -129,4 +130,5 @@ namespace PoliticImpact.Models
 
         public DateTime created { get; set; }
     }
+
 }
