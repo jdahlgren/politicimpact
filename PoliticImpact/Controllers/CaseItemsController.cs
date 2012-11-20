@@ -151,10 +151,10 @@ namespace PoliticImpact.Controllers
         [HttpPost]
         public ActionResult SubmitSearch(FormCollection collection)
         {
-            
             string searchWord = collection.Get("search");
             ViewBag.test = searchWord;
-            return View();
+            
+            return View(caseitemRepository.SearchItem(searchWord));
         }
 
         //added by Christoffer Dahl 2012-11-07 10:32
