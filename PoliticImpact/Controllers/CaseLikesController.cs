@@ -48,45 +48,47 @@ namespace PoliticImpact.Controllers
         //
         // POST: /CaseLikes/Create
 
-        [HttpPost]
-        public ActionResult Create(int caseID)
-        {
-           // caselike.caseID = caseID;
-            CaseLike caselike = new CaseLike(); 
-            caselike.caseID = caseID;
-            //TODO, användarens id.
-            caselike.userID = 12;
-            caselike.created = DateTime.Now;
+        //[HttpPost]
+        //public ActionResult Create(int caseID)
+        //{
+        //    CaseLike caselike = new CaseLike(); 
+        //    caselike.caseID = caseID;
+        //    //TODO, användarens id.
+        //    caselike.userID = 12;
+        //    caselike.created = DateTime.Now;
 
-            if (ModelState.IsValid) {
-                caselikeRepository.InsertOrUpdate(caselike);
-                caselikeRepository.Save();
-              return RedirectToAction("Index");
-            } else {
-				return View();
-			}
-        }
+        //    if (ModelState.IsValid) {
+        //        caselikeRepository.InsertOrUpdate(caselike);
+        //        caselikeRepository.Save();
+        //      return RedirectToAction("Index");
+        //    } else {
+        //        return View();
+        //    }
+        //}
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult LikeCase(int id)
         {
 
-          //  CaseLike caseLike = caselikeRepository.Find(id);
+            //  CaseLike caseLike = caselikeRepository.Find(id);
 
-                  // caselike.caseID = caseID;
-            CaseLike caselike = new CaseLike(); 
+            // caselike.caseID = caseID;
+            CaseLike caselike = new CaseLike();
             caselike.caseID = id;
-            //TODO, användarens id.
+            //TODO, användarens id.s
             caselike.userID = 12;
             caselike.created = DateTime.Now;
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 caselikeRepository.InsertOrUpdate(caselike);
                 caselikeRepository.Save();
-              return RedirectToAction("Index");
-            } else {
-				return View();
-			}
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
         //
         // GET: /CaseLikes/Edit/5

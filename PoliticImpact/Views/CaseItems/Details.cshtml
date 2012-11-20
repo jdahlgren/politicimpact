@@ -39,10 +39,30 @@
                 <div class="display-label">imageName</div>
                 <div class="display-field">@Model.imageName</div>
             }
-   
-        @if(Model.enableLikes == true)
-        {
-            <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+    
+       @if(Model.enableLikes == true)
+        { 
+            <a href="@Url.Action("LikeCase", "CaseLikes", new { id = @Model.ID},null)">
+          @* <a href="#" onclick="LikeCase(@Model.ID);"> *@
+           <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                </a>
+                // </a>
+           
+        @*   //  </a> data-role="button"
+           //<img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+ 
+           // <a href ="#">
+     //   <img src="~/Content/images/thumbs_up.png" width="75" height="75"  id="ShowCaseLike" onclick="LikeCase(@Model.ID);" />
+  //         </a>
+       
+  
+        @*<div>
+            <a id="testLike" onclick="jQuery('#test_like').slideDown();"> <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike"></a>
+		</div>
+            <div id="test_like">
+            <a onclick="LikeCase(@Model.ID);" data-role="button"></a>
+            </div>*@
+        
         } 
 
         @if(Model.enableComments == true)
@@ -97,3 +117,16 @@
         });
     }
 </script>
+
+@*<script>
+    function LikeCase(id) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/CaseLikes/LikeCase/" + id,
+            // data: { email: jQuery('#friend_email').val() }
+        }).done(function (msg) {
+            // jQuery('#share_by_email').html("<p>Email sent</p>");
+            // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
+        });
+    }
+</script>*@
