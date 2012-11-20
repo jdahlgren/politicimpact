@@ -114,10 +114,13 @@ namespace PoliticImpact.Controllers
 
         //
         // GET: /CaseItems/Delete/5
- 
+        //Edited by johannes dahlgren 20/11 2012
         public ActionResult Delete(int id)
         {
-            return View(caseitemRepository.Find(id));
+            caseitemRepository.Delete(id);
+            caseitemRepository.Save();
+
+            return View();
         }
 
         //
