@@ -49,8 +49,18 @@ namespace PoliticImpact.Controllers
         // POST: /CaseVotes/Create
 
         [HttpPost]
-        public ActionResult Create(CaseVote casevote)
+        public ActionResult Create(int id)
         {
+            CaseVote casevote = new CaseVote();
+            casevote.VotingID = id;
+            if(Request["Vote"]=="yes"){
+                casevote.Vote = true;
+            }
+            else
+            {
+                casevote.Vote = false;
+            }
+            casevote.UserID = 1337;//TODO: fix so that this is the actual user fb-id
             if (ModelState.IsValid) {
                 casevoteRepository.InsertOrUpdate(casevote);
                 casevoteRepository.Save();
