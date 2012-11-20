@@ -36,6 +36,10 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            //var model = caseitemRepository.Find(id);
+            //using (var casecommentRepository = new CaseCommentRepository()){
+            //    model.caseComment = casecommentRepository.AllIncluding(comment => comment.caseID == id).ToList();
+            //}
             return View(caseitemRepository.Find(id));
         }
 
@@ -56,6 +60,7 @@ namespace PoliticImpact.Controllers
             caseitem.Owner = 1337;  //TODO should be the logged in users facebook-id
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+            caseitem.caseComment = new List<CaseComment>();
             if (ModelState.IsValid) {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
@@ -63,6 +68,20 @@ namespace PoliticImpact.Controllers
             } else {
 				return View();
 			}
+        }
+
+        [HttpPost]
+        public ActionResult CreateComment(CaseComment caseComment)
+        {
+            if (ModelState.IsValid)
+            {
+                var casecommentRepository = new CaseCommentRepository();
+                casecommentRepository.InsertOrUpdate(caseComment);
+                casecommentRepository.Save();
+
+                return RedirectToAction("Details", new { id = caseComment.caseID });
+            }
+            return RedirectToAction("Index");
         }
         
         //

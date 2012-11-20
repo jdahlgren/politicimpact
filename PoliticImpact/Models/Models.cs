@@ -43,9 +43,11 @@ namespace PoliticImpact.Models
         public int imageId { get; set; }
 
         public byte[] imageBytes { get; set; }
-
         public string imageName { get; set; }
         
+        //Frida Mattisson 2012-11-19
+        public List<CaseComment> caseComment { get; set; }
+                
         //added by Johannes Ullström 2012-11-08 15:11
         [Required]
         [StringLength(100, ErrorMessage = "{0} must be at least {2} characters long.", MinimumLength = 2)]

@@ -226,6 +226,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\DetailsView.js" />
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -281,6 +282,7 @@
     <Content Include="Views\CaseComments\Details.cshtml" />
     <Content Include="Views\CaseComments\Index.cshtml" />
     <Content Include="Views\CaseComments\_CreateOrEdit.cshtml" />
+    <Content Include="Views\CaseComments\Partial_commentView.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
