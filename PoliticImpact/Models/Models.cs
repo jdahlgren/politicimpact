@@ -128,4 +128,18 @@ namespace PoliticImpact.Models
 
         public DateTime created { get; set; }
     }
+
+    public class CaseLike
+    {
+        [Key]
+        public long likeID { get; set; }
+
+        public int caseID { get; set; }
+
+        public long userID { get; set; }
+
+        public virtual CaseItem CaseItem { get; set; }
+
+        public DateTime created { get; set; }
+    }
 }
