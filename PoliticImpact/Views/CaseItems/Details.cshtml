@@ -52,6 +52,8 @@
 
 
 
+
+
         @if(Model.enableComments == true)
         {
             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
@@ -59,13 +61,25 @@
 
         @if(Model.enableSigns == true)
         {
-            <a href="#popupShare" data-rel="popup">
+            @*<a href="#popupShare" data-rel="popup">
                 <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
-            </a>
+            </a>*@
+            
+            if (ViewBag.status == "signed")
+            {
+                //Kanske skall vara en bild istället?
+            <p>Du har signat!</p>
+            }
+            else
+            {
+             <a href="#popupSignUp" data-rel="dialog"> 
+                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
+             </a>
+            }
         }
         
         <a href="#popupShare" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
-        @if(!Model.Published && Model.Owner == 1337)
+        @if (!Model.Published && Model.Owner == 1337)
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
         }
@@ -92,6 +106,17 @@
 	</form>
 </div>
 
+<div data-role ="dialog" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
+      @*<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>*@
+    		<div data-role="header" data-theme="d" data-position="inline">
+    <h3>Sign petition</h3></div>
+    <div data-role="content" data-theme="c">
+        <p>Do you want to sign the petition for  @Model.Title ? </p>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID},null) " data-role="button" data-theme= "b">Yes</a>
+        <a href="#" data-rel="back" data-role="button" data-theme="b">No</a>
+        </div>
+
+</div>
 <script>
     function ShareCaseByEmail(id) {
         jQuery.ajax({
