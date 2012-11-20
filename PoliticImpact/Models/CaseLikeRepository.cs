@@ -31,6 +31,12 @@ namespace PoliticImpact.Models
             return context.CaseLikes.Find(id);
         }
 
+        //fixa???????
+        public CaseLike FindLike(long id)
+        {
+            return context.CaseLikes.Find(id);
+        }
+
         public void InsertOrUpdate(CaseLike caselike)
         {
             if (caselike.likeID == default(long)) {

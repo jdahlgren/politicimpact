@@ -14,6 +14,7 @@ namespace PoliticImpact.Controllers
 		private readonly ICaseItemRepository caseitemRepository;
         private readonly ICaseCategoryRepository casecategoryRepository;
         private readonly ICaseVotingRepository CaseVotingRepository;
+        private readonly CaseLikeRepository caselikeRepository;
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseItemsController() : this(new CaseItemRepository())
         {
@@ -24,6 +25,7 @@ namespace PoliticImpact.Controllers
 			this.caseitemRepository = caseitemRepository;
             this.casecategoryRepository = new CaseCategoryRepository();
             this.CaseVotingRepository = new CaseVotingRepository();
+            this.CaseLikeRepository = new CaseLikeRepository();
         }
 
         //
@@ -40,6 +42,7 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            int numberOfLikes = caselikeRepository.FindLike(id);
             return View(caseitemRepository.Find(id));
         }
 
@@ -232,6 +235,8 @@ namespace PoliticImpact.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public CaseLikeRepository CaseLikeRepository { get; set; }
     }
 }
 

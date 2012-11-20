@@ -9,7 +9,7 @@ namespace PoliticImpact.Controllers
 {   
     public class CaseLikesController : Controller
     {
-		private readonly ICaseLikeRepository caselikeRepository;
+        private readonly ICaseLikeRepository caselikeRepository;
 
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseLikesController() : this(new CaseLikeRepository())
@@ -74,10 +74,24 @@ namespace PoliticImpact.Controllers
 
             // caselike.caseID = caseID;
             CaseLike caselike = new CaseLike();
+
+            theUser = 16;
             caselike.caseID = id;
-            //TODO, användarens id.s
-            caselike.userID = 12;
+            caselike.userID = theUser;
             caselike.created = DateTime.Now;
+
+            //från Semone
+            //Borde kolla så att den som är inloggad inte redan har signat detta caset
+            foreach (var item in caselikeRepository.All)
+            {
+                if (theUser == item.userID && id == item.caseID)
+                {
+                    //returna någon schyst variabel till popupen
+                    //Meddela användaren om att den redan har signat
+                    return View();
+                }
+
+            }
 
             if (ModelState.IsValid)
             {
@@ -140,6 +154,8 @@ namespace PoliticImpact.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+
+        public long theUser { get; set; }
     }
 }
 

@@ -46,6 +46,8 @@ namespace PoliticImpact.Models
         public byte[] imageBytes { get; set; }
 
         public string imageName { get; set; }
+        //added by Michaela
+        public int numberOfLikes { get; set; }
         
         //added by Johannes Ullström 2012-11-08 15:11
         [Required]

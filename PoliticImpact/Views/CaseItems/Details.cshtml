@@ -43,27 +43,12 @@
        @if(Model.enableLikes == true)
         { 
             <a href="@Url.Action("LikeCase", "CaseLikes", new { id = @Model.ID},null)">
-          @* <a href="#" onclick="LikeCase(@Model.ID);"> *@
            <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
                 </a>
-                // </a>
-           
-        @*   //  </a> data-role="button"
-           //<img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
- 
-           // <a href ="#">
-     //   <img src="~/Content/images/thumbs_up.png" width="75" height="75"  id="ShowCaseLike" onclick="LikeCase(@Model.ID);" />
-  //         </a>
-       
-  
-        @*<div>
-            <a id="testLike" onclick="jQuery('#test_like').slideDown();"> <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike"></a>
-		</div>
-            <div id="test_like">
-            <a onclick="LikeCase(@Model.ID);" data-role="button"></a>
-            </div>*@
         
         } 
+
+
 
         @if(Model.enableComments == true)
         {
