@@ -113,4 +113,18 @@ namespace PoliticImpact.Models
         public virtual CaseVoting casevoting { get; set; }
         public Boolean Vote { get; set; }
     }
+
+    public class CaseLike
+    {
+        [Key]
+        public long likeID { get; set; }
+
+        public int caseID { get; set; }
+
+        public long userID { get; set; }
+
+        public virtual CaseItem CaseItem { get; set; }
+
+        public DateTime created { get; set; }
+    }
 }
