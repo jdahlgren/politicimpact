@@ -128,6 +128,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CaseCategoriesController.cs" />
+    <Compile Include="Controllers\CaseCommentsController.cs" />
     <Compile Include="Controllers\CaseItemsController.cs" />
     <Compile Include="Controllers\CaseLikesController.cs" />
     <Compile Include="Controllers\CaseSignUpsController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CaseCategoryRepository.cs" />
+    <Compile Include="Models\CaseCommentRepository.cs" />
     <Compile Include="Models\CaseItemRepository.cs" />
     <Compile Include="Models\CaseLikeRepository.cs" />
     <Compile Include="Models\CaseSignUpRepository.cs" />
@@ -234,6 +236,7 @@
     <None Include="Properties\PublishProfiles\politicimpact - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\politicimpact - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\DetailsView.js" />
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
     <Content Include="Scripts\HideAdressBar.js" />
@@ -313,6 +316,13 @@
     <Content Include="Views\CaseLikes\Edit.cshtml" />
     <Content Include="Views\CaseLikes\Index.cshtml" />
     <Content Include="Views\CaseLikes\_CreateOrEdit.cshtml" />
+    <Content Include="Views\CaseComments\Create.cshtml" />
+    <Content Include="Views\CaseComments\Delete.cshtml" />
+    <Content Include="Views\CaseComments\Details.cshtml" />
+    <Content Include="Views\CaseComments\Edit.cshtml" />
+    <Content Include="Views\CaseComments\Index.cshtml" />
+    <Content Include="Views\CaseComments\Partial_commentView.cshtml" />
+    <Content Include="Views\CaseComments\_CreateOrEdit.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

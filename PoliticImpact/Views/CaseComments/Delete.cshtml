@@ -1,0 +1,32 @@
+@model PoliticImpact.Models.CaseComment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>CaseComment</legend>
+
+    <div class="display-label">userID</div>
+    <div class="display-field">@Model.userID</div>
+
+    <div class="display-label">caseID</div>
+    <div class="display-field">@Model.caseID</div>
+
+    <div class="display-label">CaseItem</div>
+    <div class="display-field">@(Model.CaseItem == null ? "None" : Model.CaseItem.Title)</div>
+
+    <div class="display-label">commentStr</div>
+    <div class="display-field">@Model.commentStr</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

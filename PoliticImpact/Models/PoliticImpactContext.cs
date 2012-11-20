@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -36,5 +37,8 @@ namespace PoliticImpact.Models
         public DbSet<PoliticImpact.Models.CaseVote> CaseVotes { get; set; }
 
         public DbSet<PoliticImpact.Models.CaseLike> CaseLikes { get; set; }
+
+        public DbSet<PoliticImpact.Models.CaseComment> CaseComments { get; set; }
     }
+
 }

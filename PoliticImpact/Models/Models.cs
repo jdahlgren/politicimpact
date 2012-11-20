@@ -1,10 +1,14 @@
+
 using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using System.ComponentModel;
+
 
 namespace PoliticImpact.Models
 {
@@ -45,10 +49,17 @@ namespace PoliticImpact.Models
 
         public byte[] imageBytes { get; set; }
 
+
         public string imageName { get; set; }
         //added by Michaela
         public int numberOfLikes { get; set; }
         
+
+        
+        //Frida Mattisson 2012-11-19
+        public List<CaseComment> caseComment { get; set; }
+                
+
         //added by Johannes Ullström 2012-11-08 15:11
         [Required]
         [StringLength(100, ErrorMessage = "{0} must be at least {2} characters long.", MinimumLength = 2)]
@@ -57,6 +68,7 @@ namespace PoliticImpact.Models
         [Required]
         [EmailAddress(ErrorMessage = "Not valid email")]
         public string RecieverEmail { get; set; }
+
 
         //added by Daniel Jonsson, David Falk 2012-11-13 13:59
         [DisplayName("Likes")]
@@ -109,15 +121,11 @@ namespace PoliticImpact.Models
     {
         [Key]
         public long likeID { get; set; }
-
-        public int caseID { get; set; }
-
-        public long userID { get; set; }
-
-        public virtual CaseItem CaseItem { get; set; }
-
-        public DateTime created { get; set; }
+        public int caseID {get; set;}
+        public long userID {get; set;}
+        public DateTime created {get; set;}
     }
+    
 
     public class CaseSignUp
     {
@@ -137,4 +145,17 @@ namespace PoliticImpact.Models
         public DateTime created { get; set; }
     }
 
+
+    //Frida Mattisson 2012-11-16
+    public class CaseComment
+    {
+        [Key]
+        public int commentID { get; set; }
+        public long userID { get; set; }
+        [ForeignKey ("CaseItem")] 
+        public int caseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public string commentStr{ get; set;}
+    }
+    
 }

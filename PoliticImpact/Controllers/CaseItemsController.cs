@@ -12,14 +12,17 @@ namespace PoliticImpact.Controllers
     public class CaseItemsController : Controller
     {
 		private readonly ICaseItemRepository caseitemRepository;
+
         private readonly ICaseCategoryRepository casecategoryRepository;
         private readonly ICaseSignUpRepository casesignupRepository;
 
         private readonly ICaseVotingRepository CaseVotingRepository;
-        private readonly CaseLikeRepository caselikeRepository;
+        private readonly CaseLikeRepository CaselikeRepository;
 
         private readonly CaseVotingRepository caseVotingRepository;
         private readonly CaseVoteRepository caseVoteRepository;
+
+
 
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseItemsController() : this(new CaseItemRepository())
@@ -29,6 +32,7 @@ namespace PoliticImpact.Controllers
         public CaseItemsController(ICaseItemRepository caseitemRepository)
         {
 			this.caseitemRepository = caseitemRepository;
+
             this.casecategoryRepository = new CaseCategoryRepository();
 
             this.CaseVotingRepository = new CaseVotingRepository();
@@ -80,6 +84,7 @@ namespace PoliticImpact.Controllers
                 //returna någon schyst variabel till popupen
                 return View();
             }
+
         }
 
         //
@@ -87,7 +92,9 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Index()
         {
+
             System.Diagnostics.Debug.WriteLine("asdf");
+
             return View(caseitemRepository.All);
         }
 
@@ -96,6 +103,7 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+
 
             //int numberOfLikes = caselikeRepository.FindLike(id);
 
@@ -133,6 +141,12 @@ namespace PoliticImpact.Controllers
 
             }
 
+
+            //var model = caseitemRepository.Find(id);
+            //using (var casecommentRepository = new CaseCommentRepository()){
+            //    model.caseComment = casecommentRepository.AllIncluding(comment => comment.caseID == id).ToList();
+            //}
+
             return View(caseitemRepository.Find(id));
         }
 
@@ -141,7 +155,9 @@ namespace PoliticImpact.Controllers
 
         public ActionResult Create()
         {
+
             ViewBag.PossibleCategories = casecategoryRepository.All;
+
             return View();
         } 
 
@@ -154,6 +170,7 @@ namespace PoliticImpact.Controllers
             caseitem.Owner = 1337;  //TODO should be the logged in users facebook-id
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+
             if (ModelState.IsValid) {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
@@ -175,12 +192,37 @@ namespace PoliticImpact.Controllers
                     
                 }
                 
-                return RedirectToAction("Index");
+                
             } else {
                 ViewBag.PossibleCategories = casecategoryRepository.All;
+				
+			}
+        
+
+            caseitem.caseComment = new List<CaseComment>();
+            if (ModelState.IsValid) {
+                caseitemRepository.InsertOrUpdate(caseitem);
+                caseitemRepository.Save();
+                return RedirectToAction("Index");
+            } else {
 				return View();
 			}
         }
+
+        [HttpPost]
+        public ActionResult CreateComment(CaseComment caseComment)
+        {
+            if (ModelState.IsValid)
+            {
+                var casecommentRepository = new CaseCommentRepository();
+                casecommentRepository.InsertOrUpdate(caseComment);
+                casecommentRepository.Save();
+
+                return RedirectToAction("Details", new { id = caseComment.caseID });
+            }
+            return RedirectToAction("Index");
+        }
+
         
         //
         // GET: /CaseItems/Edit/5
@@ -207,6 +249,7 @@ namespace PoliticImpact.Controllers
 
         //
         // GET: /CaseItems/Delete/5
+
         //Edited by johannes dahlgren 20/11 2012
         public ActionResult Delete(int id)
         {
@@ -214,6 +257,7 @@ namespace PoliticImpact.Controllers
             caseitemRepository.Save();
 
             return View();
+
         }
 
         //
@@ -238,7 +282,9 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+
         //added by Christoffer Dahl 2012-11-07 10:32
+
         [HttpPost]
         public ActionResult ShareMail(int id)
         {
@@ -279,6 +325,7 @@ namespace PoliticImpact.Controllers
 
             return View();
         }
+
 
         //added by Christoffer Dahl 2012-11-16 09:50
         public ActionResult ReportMail(int id, String pw)
@@ -321,6 +368,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
@@ -329,8 +377,10 @@ namespace PoliticImpact.Controllers
             base.Dispose(disposing);
         }
 
+
         public CaseLikeRepository CaseLikeRepository { get; set; }
     }
+
 
 
 
