@@ -13,7 +13,8 @@ namespace PoliticImpact.Controllers
     {
 		private readonly ICaseItemRepository caseitemRepository;
         private readonly ICaseCategoryRepository casecategoryRepository;
-        private readonly ICaseVotingRepository CaseVotingRepository;
+        private readonly CaseVotingRepository caseVotingRepository;
+        private readonly CaseVoteRepository caseVoteRepository;
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseItemsController() : this(new CaseItemRepository())
         {
@@ -23,7 +24,8 @@ namespace PoliticImpact.Controllers
         {
 			this.caseitemRepository = caseitemRepository;
             this.casecategoryRepository = new CaseCategoryRepository();
-            this.CaseVotingRepository = new CaseVotingRepository();
+            this.caseVotingRepository = new CaseVotingRepository();
+            this.caseVoteRepository = new CaseVoteRepository();
         }
 
         //
@@ -40,6 +42,26 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            Boolean ÚserHasVoted = false;
+            CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
+            
+
+            if(casevoting!=null)
+            {
+                IQueryable<CaseVote> votes = caseVoteRepository.FindAllByVotingId(casevoting.VotingID);
+                ViewBag.votes = votes.Count();
+                foreach(var vote in votes)
+                {
+                    if(vote.UserID==1337)//TODO compare with actual fb userid
+                    {
+                        ÚserHasVoted = true;
+
+                    }
+
+                }
+                ViewBag.userhasvoted = ÚserHasVoted;
+
+            }
             return View(caseitemRepository.Find(id));
         }
 
@@ -76,8 +98,8 @@ namespace PoliticImpact.Controllers
                         casevoting.StartDate = DateTime.Now;
                         casevoting.EndDate = DateTime.Now;
                         casevoting.Created = DateTime.Now;
-                        CaseVotingRepository.InsertOrUpdate(casevoting);
-                        CaseVotingRepository.Save();
+                        caseVotingRepository.InsertOrUpdate(casevoting);
+                        caseVotingRepository.Save();
                     }
                     
                 }

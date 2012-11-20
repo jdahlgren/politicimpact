@@ -31,6 +31,13 @@ namespace PoliticImpact.Models
             return context.CaseVotes.Find(id);
         }
 
+        public IQueryable<CaseVote> FindAllByVotingId(int id)
+        {
+            return (from l in context.CaseVotes
+                    where l.VotingID == id
+                    select l);
+        }
+
         public void InsertOrUpdate(CaseVote casevote)
         {
             if (casevote.VoteID == default(int)) {

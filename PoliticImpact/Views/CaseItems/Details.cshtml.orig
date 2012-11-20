@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @model PoliticImpact.Models.CaseItem
 
 @{
@@ -13,13 +14,6 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
         <h1>@ViewBag.Title</h1>
-<<<<<<< HEAD
-		@if(Model.Owner == 1337)
-        {//Added by johannes Dahlgren 20/11 2012
-            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Delete</a>
-        }
-=======
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
@@ -89,8 +83,6 @@
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
         }
-<<<<<<< HEAD
-=======
         @if(ViewBag.voting!=null)
         {
             <h3>@ViewBag.voting.Title</h3>
@@ -111,7 +103,6 @@
                 <p>@vote.VoteID</p>
             }
         }
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
     </div>
 </div>
 <style>
@@ -134,7 +125,124 @@
         </div>
 	</form>
 </div>
-<<<<<<< HEAD
+@*<script>
+    function LikeCase(id) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/CaseLikes/LikeCase/" + id,
+            // data: { email: jQuery('#friend_email').val() }
+        }).done(function (msg) {
+            // jQuery('#share_by_email').html("<p>Email sent</p>");
+            // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
+        });
+    }
+=======
+@model PoliticImpact.Models.CaseItem
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
+}
+@section scripts{
+    @*@Scripts.Render("~/Scripts/facebookPublish.js")
+    @Scripts.Render("~/Scripts/facebookConnect.js")*@
+}
+
+<div data-role="page" data-theme="b" data-add-back-btn="true">
+    <div data-role="header">
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div data-role="content">
+        <h2>@Model.Title</h2>
+        <p>
+            @Model.Text
+        </p>
+        
+
+        <div class="display-label">Deadline</div>
+        <div class="display-field">@String.Format("{0:g}", Model.Deadline)</div>
+
+        <div class="display-label">Reicever</div>
+        <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
+
+            
+
+            @if(Model.imageName != null)
+            {
+                <div class="display-label">imageId</div>
+                <div class="display-field">@Model.imageId</div>
+                <img src="@Model.imageName" width ="75" height ="75">
+                <div class="display-label">imageBytes</div>
+                <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
+                <div class="display-label">imageName</div>
+                <div class="display-field">@Model.imageName</div>
+            }
+    
+       @if(Model.enableLikes == true)
+        { 
+            <a href="@Url.Action("LikeCase", "CaseLikes", new { id = @Model.ID},null)">
+          @* <a href="#" onclick="LikeCase(@Model.ID);"> *@
+           <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                </a>
+                // </a>
+           
+        @*   //  </a> data-role="button"
+           //<img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+ 
+           // <a href ="#">
+     //   <img src="~/Content/images/thumbs_up.png" width="75" height="75"  id="ShowCaseLike" onclick="LikeCase(@Model.ID);" />
+  //         </a>
+       
+  
+        @*<div>
+            <a id="testLike" onclick="jQuery('#test_like').slideDown();"> <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike"></a>
+		</div>
+            <div id="test_like">
+            <a onclick="LikeCase(@Model.ID);" data-role="button"></a>
+            </div>*@
+        
+        } 
+
+        @if(Model.enableComments == true)
+        {
+            <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+        }
+
+        @if(Model.enableSigns == true)
+        {
+            <a href="#popupShare" data-rel="popup">
+                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
+            </a>
+        }
+        
+        <a href="#popupShare" data-rel="popup" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
+        @if(!Model.Published && Model.Owner == 1337)
+        {
+            <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
+        }
+    </div>
+</div>
+<style>
+    #share_by_email
+    {
+        display: none;
+    }
+</style>
+<div data-role="popup" id="popupShare" data-overlay-theme="b" data-theme="a" class="ui-corner-all" data-position-to="window">
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+	<form>
+		<div style="padding:10px 20px;" >
+			<h3>Share @Model.Title</h3>
+            <a href="venta.html" onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
+            <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
+		</div>
+        <div id="share_by_email">
+            <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+            <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">Send link</a>
+        </div>
+	</form>
+</div>
 
 <script>
     function ShareCaseByEmail(id) {
@@ -149,7 +257,6 @@
     }
 </script>
 
-=======
 @*<script>
     function LikeCase(id) {
         jQuery.ajax({
@@ -161,22 +268,5 @@
             // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
         });
     }
+>>>>>>> origin/master
 </script>*@
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
-@*<script>
-    function LikeCase(id) {
-        jQuery.ajax({
-            type: "POST",
-            url: "/CaseLikes/LikeCase/" + id,
-            // data: { email: jQuery('#friend_email').val() }
-        }).done(function (msg) {
-            // jQuery('#share_by_email').html("<p>Email sent</p>");
-            // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
-        });
-    }
-<<<<<<< HEAD
-</script>*@
->>>>>>> 0ceee2a8c934de0b636303da80325ba1f022e9cb
-=======
-</script>*@
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
