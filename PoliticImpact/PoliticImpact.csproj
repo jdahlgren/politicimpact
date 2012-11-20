@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CaseCategoriesController.cs" />
     <Compile Include="Controllers\CaseItemsController.cs" />
+    <Compile Include="Controllers\CaseLikesController.cs" />
     <Compile Include="Controllers\CaseSignUpsController.cs" />
     <Compile Include="Controllers\CaseVotesController.cs" />
     <Compile Include="Controllers\CaseVotingsController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CaseCategoryRepository.cs" />
     <Compile Include="Models\CaseItemRepository.cs" />
+    <Compile Include="Models\CaseLikeRepository.cs" />
     <Compile Include="Models\CaseSignUpRepository.cs" />
     <Compile Include="Models\CaseVoteRepository.cs" />
     <Compile Include="Models\CaseVotingRepository.cs" />
@@ -306,6 +308,12 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\CaseItems\ShareMail.cshtml" />
+    <Content Include="Views\CaseLikes\Create.cshtml" />
+    <Content Include="Views\CaseLikes\Delete.cshtml" />
+    <Content Include="Views\CaseLikes\Details.cshtml" />
+    <Content Include="Views\CaseLikes\Edit.cshtml" />
+    <Content Include="Views\CaseLikes\Index.cshtml" />
+    <Content Include="Views\CaseLikes\_CreateOrEdit.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
