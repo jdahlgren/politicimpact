@@ -13,6 +13,7 @@ namespace PoliticImpact.Controllers
     {
 		private readonly ICaseItemRepository caseitemRepository;
         private readonly ICaseCategoryRepository casecategoryRepository;
+        private readonly ICaseSignUpRepository casesignupRepository;
 
         private readonly ICaseVotingRepository CaseVotingRepository;
         private readonly CaseLikeRepository caselikeRepository;
@@ -35,7 +36,50 @@ namespace PoliticImpact.Controllers
 
             this.caseVotingRepository = new CaseVotingRepository();
             this.caseVoteRepository = new CaseVoteRepository();
+            this.casesignupRepository = new CaseSignUpRepository();
 
+        }
+
+
+        [HttpGet]
+        public ActionResult SignUp(int caseitem)
+        {
+            //Semone Kallin Clarke 2012-11-13
+
+            //Hämta användaren som är inloggad, nu hårdkodad (2012-11-16)
+            int theUser = 555;
+
+            //Borde kolla så att den som är inloggad inte redan har signat detta caset
+            foreach (var item in casesignupRepository.All)
+            {
+                if (theUser == item.userID && caseitem == item.CaseItemID)
+                {
+                    //returna någon schyst variabel till popupen
+                    //Meddela användaren om att den redan har signat
+                    return View();
+                }
+
+            }
+
+            CaseSignUp casesignup = new CaseSignUp();
+
+            casesignup.created = DateTime.Now;
+            casesignup.CaseItemID = caseitem;
+            casesignup.userID = theUser; //den som är inloggad.
+
+
+            if (ModelState.IsValid)
+            {
+                casesignupRepository.InsertOrUpdate(casesignup);
+                casesignupRepository.Save();
+                return RedirectToAction("Details/" + caseitem);
+                //Meddela användaren om att signen gick bra
+            }
+            else
+            {
+                //returna någon schyst variabel till popupen
+                return View();
+            }
         }
 
         //
@@ -53,7 +97,7 @@ namespace PoliticImpact.Controllers
         public ViewResult Details(int id)
         {
 
-            int numberOfLikes = caselikeRepository.FindLike(id);
+            //int numberOfLikes = caselikeRepository.FindLike(id);
 
             Boolean ÚserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
@@ -73,6 +117,19 @@ namespace PoliticImpact.Controllers
 
                 }
                 ViewBag.userhasvoted = ÚserHasVoted;
+
+            }
+
+            //TODO real user
+            int theUser = 555;
+            foreach (var item in casesignupRepository.All)
+            {
+                if (theUser == item.userID && id == item.CaseItemID)
+                {
+                    //returna någon schyst variabel till popupen
+                    //Meddela användaren om att den redan har signat
+                    ViewBag.status = "signed";
+                }
 
             }
 
@@ -274,5 +331,9 @@ namespace PoliticImpact.Controllers
 
         public CaseLikeRepository CaseLikeRepository { get; set; }
     }
+
+
+
+
 }
 

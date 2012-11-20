@@ -73,19 +73,7 @@ namespace PoliticImpact.Models
         [ForeignKey("CategoryID")]
         public virtual CaseCategory caseCategory { get; set; }
     }
-    
-    public class CaseSignUp
-    {
-        [Key]
-        public int caseID { get; set; }
-
-        public long userID { get; set; }
-
-        public virtual CaseItem CaseItem { get; set; }
-
-        public DateTime created { get; set; }
-    }
-
+   
     public class CaseCategory
     {
         [Key]
@@ -128,6 +116,24 @@ namespace PoliticImpact.Models
 
         public virtual CaseItem CaseItem { get; set; }
 
+        public DateTime created { get; set; }
+    }
+
+    public class CaseSignUp
+    {
+        [Key]
+        public int caseID { get; set; }
+
+        [Required]
+        public long userID { get; set; }
+
+
+        [ForeignKey("CaseItem")]
+        public int CaseItemID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
         public DateTime created { get; set; }
     }
 
