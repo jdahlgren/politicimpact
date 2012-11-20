@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Advanced Search";
+    Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
+}
+<div data-role="page" data-theme="b" class="type-interior">
+    <div data-role="header">
+        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Back</a>
+         <h1>Advanced Search</h1>
+    </div>
+    <div data-role="content">
+        @using (Html.BeginForm("SubmitSearch","CaseItems",FormMethod.Post))
+        {
+        <input type="search" name="search" id="search-basic" value="" placeholder="Search..." />
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+	        <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom"/>
+	        <label for="checkbox-1">Cases</label>
+            <input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" disabled="disabled"/>
+	        <label for="checkbox-2">Groups</label>
+            <input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+	        <label for="checkbox-3">Users</label>
+            </fieldset>
+        </div>
+        <input type="submit" value="Search"/>
+        }
+    </div>
+</div>

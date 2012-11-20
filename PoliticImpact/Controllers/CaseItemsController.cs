@@ -142,6 +142,21 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SubmitSearch(FormCollection collection)
+        {
+            
+            string searchWord = collection.Get("search");
+            ViewBag.test = searchWord;
+            return View();
+        }
+
         //added by Christoffer Dahl 2012-11-07 10:32
         [HttpPost]
         public ActionResult ShareMail(int id)
