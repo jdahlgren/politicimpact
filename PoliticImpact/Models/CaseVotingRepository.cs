@@ -31,6 +31,14 @@ namespace PoliticImpact.Models
             return context.CaseVotings.Find(id);
         }
 
+        public CaseVoting FindByCaseId(int CaseId){
+            //return null;// context.CaseVotings.Where(CaseVoting.Equals(aVoting));
+            CaseVoting aVoting = (from l in context.CaseVotings
+                                  where l.CaseID == CaseId
+                                  select l).FirstOrDefault();
+            return aVoting;
+        }
+
         public void InsertOrUpdate(CaseVoting casevoting)
         {
             if (casevoting.VotingID == default(int)) {
