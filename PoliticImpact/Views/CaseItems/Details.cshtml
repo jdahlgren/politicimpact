@@ -13,6 +13,10 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
         <h1>@ViewBag.Title</h1>
+         @if(Model.Owner == 1337)
+        {
+            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Delete</a>
+        }
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>

@@ -14,8 +14,8 @@ function deleteCaseItem(id) {
             type: "POST",
             url: "/CaseItems/Delete/" + id,
             datatype: "json"
-        }).done(function() {
-            
+        }).done(function () {
+
             window.location = "/CaseItems/Index";
         });
     }
@@ -24,6 +24,7 @@ function deleteCaseItem(id) {
             type: "POST", url: "/CaseItems/Details/" + id
         });
     }
+}
 
 
 function SendVote(id) {
@@ -31,7 +32,7 @@ function SendVote(id) {
     jQuery.ajax({
         type: "POST",
         url: "/CaseVotes/Create/" + id,
-        data: { Vote:  strVote}
+        data: { Vote: strVote }
     }).done(function (msg) {
         jQuery('#voting_container').slideUp();
         jQuery('#voting_container').after("<p>You voted " + strVote + "</p>");
@@ -49,5 +50,4 @@ function ShareCaseByEmail(id) {
         jQuery('#share_by_email').html("<p>Email sent</p>");
         jQuery('#friend_email').val("");
     });
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
 }
