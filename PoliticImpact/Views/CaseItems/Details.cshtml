@@ -13,13 +13,12 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
         <h1>@ViewBag.Title</h1>
-<<<<<<< HEAD
+
 		@if(Model.Owner == 1337)
         {//Added by johannes Dahlgren 20/11 2012
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Delete</a>
         }
-=======
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
+
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
@@ -89,8 +88,7 @@
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
         }
-<<<<<<< HEAD
-=======
+
         @if(ViewBag.voting!=null)
         {
             <h3>@ViewBag.voting.Title</h3>
@@ -111,7 +109,7 @@
                 <p>@vote.VoteID</p>
             }
         }
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
+
     </div>
 </div>
 <style>
@@ -134,7 +132,7 @@
         </div>
 	</form>
 </div>
-<<<<<<< HEAD
+
 
 <script>
     function ShareCaseByEmail(id) {
@@ -149,7 +147,7 @@
     }
 </script>
 
-=======
+
 @*<script>
     function LikeCase(id) {
         jQuery.ajax({
@@ -162,7 +160,7 @@
         });
     }
 </script>*@
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa
+
 @*<script>
     function LikeCase(id) {
         jQuery.ajax({
@@ -174,9 +172,5 @@
             // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
         });
     }
-<<<<<<< HEAD
+
 </script>*@
->>>>>>> 0ceee2a8c934de0b636303da80325ba1f022e9cb
-=======
-</script>*@
->>>>>>> f443870b552e45e355eb73f7d4b3ca7deb4f3efa

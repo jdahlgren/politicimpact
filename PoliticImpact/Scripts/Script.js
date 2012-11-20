@@ -7,7 +7,6 @@
     }
 }
 
-<<<<<<< HEAD
 //Added by Johannes Dahlgren 20/11 2012
 function deleteCaseItem(id) {
     if (confirm("Do you want to delete?")) {
@@ -25,8 +24,7 @@ function deleteCaseItem(id) {
             type: "POST", url: "/CaseItems/Details/" + id
         });
     }
-    
-=======
+
 
 function SendVote(id) {
     var strVote = jQuery("input:radio[name=voting-choice]").val();
