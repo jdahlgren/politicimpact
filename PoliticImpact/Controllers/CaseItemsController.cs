@@ -11,10 +11,10 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace PoliticImpact.Controllers
-{   
+{
     public class CaseItemsController : Controller
     {
-		private readonly ICaseItemRepository caseitemRepository;
+        private readonly ICaseItemRepository caseitemRepository;
 
         private readonly ICaseCategoryRepository casecategoryRepository;
         private readonly ICaseSignUpRepository casesignupRepository;
@@ -32,15 +32,14 @@ namespace PoliticImpact.Controllers
         private int theUser = 1414;
 
 
-
-		// If you are using Dependency Injection, you can delete the following constructor
+        // If you are using Dependency Injection, you can delete the following constructor
         public CaseItemsController() : this(new CaseItemRepository())
         {
         }
 
         public CaseItemsController(ICaseItemRepository caseitemRepository)
         {
-			this.caseitemRepository = caseitemRepository;
+            this.caseitemRepository = caseitemRepository;
 
             this.casecategoryRepository = new CaseCategoryRepository();
 
@@ -59,7 +58,7 @@ namespace PoliticImpact.Controllers
         public ActionResult LikeCase(int id)
         {
 
-          
+
 
 
             //från Semone
@@ -86,13 +85,13 @@ namespace PoliticImpact.Controllers
             caselike.userID = theUser;
             caselike.created = DateTime.Now;
 
-           
+
 
             if (ModelState.IsValid)
             {
                 caselikeRepository.InsertOrUpdate(caselike);
                 caselikeRepository.Save();
-                return RedirectToAction("Details/"+ id);
+                return RedirectToAction("Details/" + id);
             }
             else
             {
@@ -174,21 +173,23 @@ namespace PoliticImpact.Controllers
             }
             //slut på kod för respons på case
 
-            //int numberOfLikes = caselikeRepository.FindLike(id);
+
+            int numberOfLikes = caselikeRepository.FindLike(id);
+            ViewBag.numberOfLikes = numberOfLikes;
 
             Boolean UserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
-            
 
-            if(casevoting!=null)
+
+            if (casevoting != null)
             {
                 ViewBag.voting = casevoting;
                 IQueryable<CaseVote> votes = caseVoteRepository.FindAllByVotingId(casevoting.VotingID);
                 ViewBag.votes = votes.Count();
-                
-                foreach(var vote in votes)
+
+                foreach (var vote in votes)
                 {
-                    if(vote.UserID==1337)//TODO compare with actual fb userid
+                    if (vote.UserID == 1337)//TODO compare with actual fb userid
                     {
                         UserHasVoted = true;
 
@@ -242,6 +243,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+
         /* Returnerar en "one time code" för givet CaseItem
          */
         private string GenerateResponseCode(CaseItem caseitem)
@@ -259,6 +261,7 @@ namespace PoliticImpact.Controllers
             return BitConverter.ToString(bArr).Replace("-", "");
         }
 
+
         //
         // POST: /CaseItems/Create
 
@@ -275,14 +278,15 @@ namespace PoliticImpact.Controllers
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;
 
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
-                
+
                 if (Request["create_voting"] != "" && Request["create_voting"] != null)
                 {
                     //have the user requested a voting on this case?
-                    if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"]!=null)
+                    if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"] != null)
                     {
                         CaseVoting casevoting = new CaseVoting();
                         casevoting.CaseID = caseitem.ID;
@@ -293,24 +297,29 @@ namespace PoliticImpact.Controllers
                         caseVotingRepository.InsertOrUpdate(casevoting);
                         caseVotingRepository.Save();
                     }
-                    
+
                 }
-                
-                
-            } else {
+
+
+            }
+            else
+            {
                 ViewBag.PossibleCategories = casecategoryRepository.All;
-				
-			}
-        
+
+            }
+
 
             caseitem.caseComment = new List<CaseComment>();
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
                 return RedirectToAction("Index");
-            } else {
-				return View();
-			}
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -327,13 +336,13 @@ namespace PoliticImpact.Controllers
             return RedirectToAction("Index");
         }
 
-        
+
         //
         // GET: /CaseItems/Edit/5
- 
+
         public ActionResult Edit(int id)
         {
-             return View(caseitemRepository.Find(id));
+            return View(caseitemRepository.Find(id));
         }
 
         //
@@ -342,13 +351,16 @@ namespace PoliticImpact.Controllers
         [HttpPost]
         public ActionResult Edit(CaseItem caseitem)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
                 return RedirectToAction("Index");
-            } else {
-				return View();
-			}
+            }
+            else
+            {
+                return View();
+            }
         }
 
         //
@@ -386,7 +398,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
-public ActionResult Search()
+        public ActionResult Search()
         {
             return View();
         }
@@ -397,7 +409,7 @@ public ActionResult Search()
             string searchWord = collection.Get("search");
             ViewBag.result = caseitemRepository.SearchItem(searchWord);
             ViewBag.word = searchWord;
-            
+
             return View();
         }
 
@@ -487,7 +499,8 @@ public ActionResult Search()
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
+            if (disposing)
+            {
                 caseitemRepository.Dispose();
             }
             base.Dispose(disposing);
@@ -498,7 +511,8 @@ public ActionResult Search()
     }
 
 
-
-
-
 }
+
+
+
+
