@@ -20,12 +20,17 @@ namespace PoliticImpact.Controllers
         private readonly ICaseSignUpRepository casesignupRepository;
 
         private readonly ICaseVotingRepository CaseVotingRepository;
-        private readonly CaseLikeRepository CaselikeRepository;
+        private readonly ICaseLikeRepository caselikeRepository;
+
 
         private readonly CaseVotingRepository caseVotingRepository;
         private readonly CaseVoteRepository caseVoteRepository;
 
+
         private readonly IRecieverResponseRepository recieverresponseRepository;
+
+        private int theUser = 1414;
+
 
 
 		// If you are using Dependency Injection, you can delete the following constructor
@@ -40,15 +45,62 @@ namespace PoliticImpact.Controllers
             this.casecategoryRepository = new CaseCategoryRepository();
 
             this.CaseVotingRepository = new CaseVotingRepository();
-            this.CaseLikeRepository = new CaseLikeRepository();
 
             this.caseVotingRepository = new CaseVotingRepository();
             this.caseVoteRepository = new CaseVoteRepository();
             this.casesignupRepository = new CaseSignUpRepository();
+            this.caselikeRepository = new CaseLikeRepository();
 
             this.recieverresponseRepository = new RecieverResponseRepository();
 
         }
+
+        [HttpGet]
+        public ActionResult LikeCase(int id)
+        {
+
+          
+
+
+            //från Semone
+            //Borde kolla så att den som är inloggad inte redan har signat detta caset
+
+            foreach (var item in caselikeRepository.All)
+            {
+                if (theUser == item.userID && id == item.caseID)
+                {
+                    //returna någon schyst variabel till popupen
+                    //Meddela användaren om att den redan har signat
+                    return View();
+                }
+
+
+            
+
+
+            }
+
+            CaseLike caselike = new CaseLike();
+
+            caselike.caseID = id;
+            caselike.userID = theUser;
+            caselike.created = DateTime.Now;
+
+           
+
+            if (ModelState.IsValid)
+            {
+                caselikeRepository.InsertOrUpdate(caselike);
+                caselikeRepository.Save();
+                return RedirectToAction("Details/"+ id);
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+
 
 
         [HttpGet]
@@ -57,7 +109,6 @@ namespace PoliticImpact.Controllers
             //Semone Kallin Clarke 2012-11-13
 
             //Hämta användaren som är inloggad, nu hårdkodad (2012-11-16)
-            int theUser = 555;
 
             //Borde kolla så att den som är inloggad inte redan har signat detta caset
             foreach (var item in casesignupRepository.All)
@@ -149,7 +200,6 @@ namespace PoliticImpact.Controllers
             }
 
             //TODO real user
-            int theUser = 555;
             foreach (var item in casesignupRepository.All)
             {
                 if (theUser == item.userID && id == item.CaseItemID)
@@ -157,6 +207,17 @@ namespace PoliticImpact.Controllers
                     //returna någon schyst variabel till popupen
                     //Meddela användaren om att den redan har signat
                     ViewBag.status = "signed";
+                }
+
+            }
+
+            foreach (var item in caselikeRepository.All)
+            {
+                if (theUser == item.userID && id == item.caseID)
+                {
+                    //returna någon schyst variabel till popupen
+                    //Meddela användaren om att den redan har signat
+                    ViewBag.likeStatus = "signed";
                 }
 
             }
@@ -325,8 +386,20 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+public ActionResult Search()
+        {
+            return View();
+        }
 
-        //added by Christoffer Dahl 2012-11-07 10:32
+        [HttpPost]
+        public ActionResult SubmitSearch(FormCollection collection)
+        {
+            string searchWord = collection.Get("search");
+            ViewBag.result = caseitemRepository.SearchItem(searchWord);
+            ViewBag.word = searchWord;
+            
+            return View();
+        }
 
         [HttpPost]
         public ActionResult ShareMail(int id)
@@ -429,4 +502,3 @@ namespace PoliticImpact.Controllers
 
 
 }
-

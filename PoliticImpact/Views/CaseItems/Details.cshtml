@@ -19,10 +19,10 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
         <h1>@ViewBag.Title</h1>
-         @if(Model.Owner == 1337)
-        {
+         @if (Model.Owner == 1337)
+         {
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Delete</a>
-        }
+         }
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
@@ -39,7 +39,7 @@
 
             
 
-            @if(Model.imageName != null)
+            @if (Model.imageName != null)
             {
                 <div class="display-label">imageId</div>
                 <div class="display-field">@Model.imageId</div>
@@ -51,11 +51,22 @@
             }
 
     
-       @if(Model.enableLikes == true)
-        { 
-            <a href="@Url.Action("LikeCase", "CaseLikes", new { id = @Model.ID},null)">
-           <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+       @if (Model.enableLikes == true)
+       {
+           if (ViewBag.likeStatus == "signed")
+           {
+               //Kanske skall vara en bild istället?
+            <p>You have liked this!</p>
+           
+           }
+           else
+           {
+                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
+                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
                 </a>
+           }
+            
+             <p>Number of likes: @ViewBag.numberOfLikes</p>
        }
         @if (Model.enableComments == true)
         {
@@ -204,7 +215,7 @@
     <h3>Sign petition</h3></div>
     <div data-role="content" data-theme="c">
         <p>Do you want to sign the petition for  @Model.Title ? </p>
-        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID},null) " data-role="button" data-theme= "b">Yes</a>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">Yes</a>
         <a href="#" data-rel="back" data-role="button" data-theme="b">No</a>
         </div>
 
@@ -222,15 +233,4 @@
     }
 </script>
 
-@*<script>
-    function LikeCase(id) {
-        jQuery.ajax({
-            type: "POST",
-            url: "/CaseLikes/LikeCase/" + id,
-            // data: { email: jQuery('#friend_email').val() }
-        }).done(function (msg) {
-            // jQuery('#share_by_email').html("<p>Email sent</p>");
-            // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
-        });
-    }
-</script>*@
+
