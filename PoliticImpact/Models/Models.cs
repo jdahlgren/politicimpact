@@ -84,6 +84,12 @@ namespace PoliticImpact.Models
         public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public virtual CaseCategory caseCategory { get; set; }
+
+        //added by Joel Brüde, 2012-11-18 22:04
+        [Required]
+        public int ResponseID { get; set; }
+        [ForeignKey("ResponseID")]
+        public virtual RecieverResponse recieverResponse { get; set; }
     }
    
     public class CaseCategory
@@ -145,6 +151,15 @@ namespace PoliticImpact.Models
         public DateTime created { get; set; }
     }
 
+    public class RecieverResponse
+    {
+        [Key]
+        public int ResponseID { get; set; }
+
+        public string ResponseText { get; set; }
+
+        public string ResponseCode { get; set; }
+    }
 
     //Frida Mattisson 2012-11-16
     public class CaseComment

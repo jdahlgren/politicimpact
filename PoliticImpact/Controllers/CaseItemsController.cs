@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using System.Net.Mail;
 using System.Net.Mime;
 using PoliticImpact.Models;
+using System.Web.Security;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PoliticImpact.Controllers
 {
@@ -22,16 +25,17 @@ namespace PoliticImpact.Controllers
 
         private readonly CaseVotingRepository caseVotingRepository;
         private readonly CaseVoteRepository caseVoteRepository;
-<<<<<<< HEAD
+
+
+        private readonly IRecieverResponseRepository recieverresponseRepository;
+
         private readonly CaseCommentRepository caseCommentRepository;
-=======
+
         private int theUser = 1414;
->>>>>>> dbf34c079f905e1e4779fb07a68f31029aa954fb
 
 
         // If you are using Dependency Injection, you can delete the following constructor
-        public CaseItemsController()
-            : this(new CaseItemRepository())
+        public CaseItemsController() : this(new CaseItemRepository())
         {
         }
 
@@ -46,10 +50,11 @@ namespace PoliticImpact.Controllers
             this.caseVotingRepository = new CaseVotingRepository();
             this.caseVoteRepository = new CaseVoteRepository();
             this.casesignupRepository = new CaseSignUpRepository();
-<<<<<<< HEAD
+
             this.caseCommentRepository = new CaseCommentRepository();
-=======
             this.caselikeRepository = new CaseLikeRepository();
+
+            this.recieverresponseRepository = new RecieverResponseRepository();
 
         }
 
@@ -72,6 +77,10 @@ namespace PoliticImpact.Controllers
                     return View();
                 }
 
+
+            
+
+
             }
 
             CaseLike caselike = new CaseLike();
@@ -92,7 +101,7 @@ namespace PoliticImpact.Controllers
             {
                 return View();
             }
->>>>>>> dbf34c079f905e1e4779fb07a68f31029aa954fb
+
         }
 
 
@@ -154,7 +163,19 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            //Kod för att skicka eventuell respons till ett case i CaseItem-view
+            string response = recieverresponseRepository.GetResponseText(id);
 
+            if (response != null)
+            {
+                ViewBag.responded = true;
+                ViewBag.response = response;
+            }
+            else
+            {
+                ViewBag.responded = false;
+            }
+            //slut på kod för respons på case
 
 
             int numberOfLikes = caselikeRepository.FindLike(id);
@@ -195,10 +216,6 @@ namespace PoliticImpact.Controllers
 
             }
 
-<<<<<<< HEAD
-            IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
-            ViewBag.casecomments = (IEnumerable<CaseComment>) casecomments.ToList();
-=======
             foreach (var item in caselikeRepository.All)
             {
                 if (theUser == item.userID && id == item.caseID)
@@ -216,7 +233,6 @@ namespace PoliticImpact.Controllers
             //    model.caseComment = casecommentRepository.AllIncluding(comment => comment.caseID == id).ToList();
             //}
 
->>>>>>> dbf34c079f905e1e4779fb07a68f31029aa954fb
             return View(caseitemRepository.Find(id));
         }
 
@@ -231,15 +247,40 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+
+        /* Returnerar en "one time code" för givet CaseItem
+         */
+        private string GenerateResponseCode(CaseItem caseitem)
+        {
+            //Koden som genereras är baserad på aktuellt CaseItems ID och titel:
+            string stringToCode = caseitem.ID + caseitem.Title;
+            MD5CryptoServiceProvider md5CSP = new MD5CryptoServiceProvider();
+
+            //Skapar en array av bytes som motsvarar strängen som ska kodas
+            byte[] bArr = Encoding.ASCII.GetBytes(stringToCode);
+            //Krypterar med en md5 hash 
+            bArr = md5CSP.ComputeHash(bArr);
+
+            //Konverterar till string, tar bort bindestreck och returnerar den färdiga koden
+            return BitConverter.ToString(bArr).Replace("-", "");
+        }
+
+
         //
         // POST: /CaseItems/Create
 
         [HttpPost]
         public ActionResult Create(CaseItem caseitem)
         {
+            RecieverResponse resp = new RecieverResponse();
+            resp.ResponseCode = GenerateResponseCode(caseitem);
+            recieverresponseRepository.InsertOrUpdate(resp);
+            recieverresponseRepository.Save();
+
             caseitem.Owner = 1337;  //TODO should be the logged in users facebook-id
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+            caseitem.ResponseID = resp.ResponseID;
 
             if (ModelState.IsValid)
             {
@@ -475,5 +516,7 @@ namespace PoliticImpact.Controllers
 
 
 }
+
+
 
 

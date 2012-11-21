@@ -94,7 +94,19 @@
         
         <a href="#popupShare" data-rel="dialog" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
        
-            
+        @* Visa respons från mottagare *@
+        @{
+            if(ViewBag.responded)
+            {
+                <form>
+                    <fieldset>
+                        <legend>Responses by Reciever</legend>
+                        <p>@ViewBag.response</p>
+                    </fieldset>
+               </form>
+            }  
+        }
+        @* slut på visa respons *@
    
         @*start: Frida Mattisson 2012-11-16*@
 
