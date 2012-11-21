@@ -31,13 +31,15 @@ namespace PoliticImpact.Models
             return context.CaseItems.Find(id);
         }
 
-        public IQueryable<CaseItem> SearchItem(String searchWord)
+        public List<CaseItem> SearchItem(String searchWord)
         {
-            var matches = from CaseItem in context.CaseItems
+            IQueryable<CaseItem> QueryMatches = from CaseItem in context.CaseItems
                           where CaseItem.Text.Contains(searchWord) ||
                                 CaseItem.Title.Contains(searchWord) ||
                                 CaseItem.RecieverName.Contains(searchWord)
                           select CaseItem;
+
+            List<CaseItem> matches = QueryMatches.ToList(); ;
 
             return matches;
         }
@@ -74,7 +76,7 @@ namespace PoliticImpact.Models
     {
         IQueryable<CaseItem> All { get; }
         IQueryable<CaseItem> AllIncluding(params Expression<Func<CaseItem, object>>[] includeProperties);
-        IQueryable<CaseItem> SearchItem(String searchWord);
+        List<CaseItem> SearchItem(String searchWord);
         CaseItem Find(int id);
         void InsertOrUpdate(CaseItem caseitem);
         void Delete(int id);

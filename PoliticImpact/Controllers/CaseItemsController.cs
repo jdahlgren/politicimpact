@@ -152,12 +152,12 @@ namespace PoliticImpact.Controllers
         public ActionResult SubmitSearch(FormCollection collection)
         {
             string searchWord = collection.Get("search");
-            ViewBag.test = searchWord;
+            ViewBag.result = caseitemRepository.SearchItem(searchWord);
+            ViewBag.word = searchWord;
             
-            return View(caseitemRepository.SearchItem(searchWord));
+            return View();
         }
 
-        //added by Christoffer Dahl 2012-11-07 10:32
         [HttpPost]
         public ActionResult ShareMail(int id)
         {
@@ -199,7 +199,6 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
-        //added by Christoffer Dahl 2012-11-16 09:50
         public ActionResult ReportMail(int id, String pw)
         {
             if (pw == "allow")
