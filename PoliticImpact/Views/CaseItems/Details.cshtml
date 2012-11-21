@@ -11,7 +11,7 @@
 
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
+        <a href="~/CaseItems/Index" data-direction="reverse" data-icon="back">Back</a>
         <h1>@ViewBag.Title</h1>
          @if(Model.Owner == 1337)
         {
@@ -46,29 +46,34 @@
     
        @if(Model.enableLikes == true)
         { 
-            <a href="@Url.Action("LikeCase", "CaseLikes", new { id = @Model.ID},null)">
-           <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+            if (ViewBag.likeStatus == "signed")
+            {
+                //Kanske skall vara en bild istället?
+            <p>You have liked this!</p>
+           
+            }
+            else
+            {
+                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
+                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
                 </a>
+            }
+            
+             <p>Number of likes: @ViewBag.numberOfLikes</p>
+            
         
         } 
 
 
-
-
-
-
-
-        @if(Model.enableComments == true)
+        @if (Model.enableComments == true)
         {
             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
         }
 
-        @if(Model.enableSigns == true)
+        @if (Model.enableSigns == true)
         {
-            @*<a href="#popupShare" data-rel="popup">
-                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
-            </a>*@
-            
+
+            //Semone Kallin Clarke 2012-11-20
             if (ViewBag.status == "signed")
             {
                 //Kanske skall vara en bild istället?
@@ -109,9 +114,8 @@
         </div>
 	</form>
 </div>
-
+@*Semone Kallin Clarke 2012-11-20*@ 
 <div data-role ="dialog" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
-      @*<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>*@
     		<div data-role="header" data-theme="d" data-position="inline">
     <h3>Sign petition</h3></div>
     <div data-role="content" data-theme="c">
@@ -119,7 +123,6 @@
         <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID},null) " data-role="button" data-theme= "b">Yes</a>
         <a href="#" data-rel="back" data-role="button" data-theme="b">No</a>
         </div>
-
 </div>
 <script>
     function ShareCaseByEmail(id) {
@@ -133,16 +136,3 @@
         });
     }
 </script>
-
-@*<script>
-    function LikeCase(id) {
-        jQuery.ajax({
-            type: "POST",
-            url: "/CaseLikes/LikeCase/" + id,
-            // data: { email: jQuery('#friend_email').val() }
-        }).done(function (msg) {
-            // jQuery('#share_by_email').html("<p>Email sent</p>");
-            // jQuery('#ShowCaseLikes').html("<p>testtttttttt</p>");
-        });
-    }
-</script>*@
