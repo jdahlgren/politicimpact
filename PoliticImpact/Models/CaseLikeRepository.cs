@@ -76,5 +76,7 @@ namespace PoliticImpact.Models
         void InsertOrUpdate(CaseLike caselike);
         void Delete(long id);
         void Save();
+
+        int FindLike(int id);
     }
 }

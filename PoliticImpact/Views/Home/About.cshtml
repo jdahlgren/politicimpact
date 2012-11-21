@@ -2,19 +2,18 @@
     ViewBag.Title = "About";
 }
 @section header{
-    <div data-role="header">
-        <h2>Politic Impact</h2>
-        @Html.ActionLink("Add", "Create",  new { shift = -1 }, new { data_icon = "plus", data_mini = "true", @class="ui-btn-right"})
-        <!-- navigation -->
-        <div data-role="navbar" data-iconpos="top">
-	        <ul>
-		        <li><a href="/Home/Index" data-icon="home">Home</a></li>
-                <li>@Html.ActionLink("Browse cases", "Index", "CaseItems" , new { data_icon = "search"})</li>
-                <li>@Html.ActionLink("About", "About", "Home", new { data_icon = "gear", @class = "ui-btn-active ui-state-persist"  })</li>
-	        </ul>
-        </div>
-        <!-- /navigation -->
+    <!-- top menu, to be implemented on other pages -->
+    
+    <h2>About</h2>
+    <!-- navigation -->
+    <div data-role="navbar" data-iconpos="top">
+	    <ul>
+		    <li>@Html.ActionLink("Home", "Index", new { Controller = "Home"}, new { data_icon = "home"})</li>
+            <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search" })</li>
+            <li>@Html.ActionLink("About", "About", "Home", new { data_icon = "gear" , @class = "ui-btn-active ui-state-persist" })</li>
+	    </ul>
     </div>
+    <!-- /navigation -->
 }
 <h2>About</h2>
 <p>

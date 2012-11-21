@@ -1,0 +1,21 @@
+@model PoliticImpact.Models.RecieverResponse
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<!--<div class="editor-label">
+    @Html.LabelFor(model => model.ResponseText)
+</div>-->
+<div class="editor-field">
+    @Html.TextAreaFor(model => model.ResponseText, new { placeholder = "Type your response here" })
+    <!--@Html.ValidationMessageFor(model => model.ResponseText)-->
+</div>
+
+<!--
+<div class="editor-label">
+    @Html.LabelFor(model => model.ResponseCode)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.ResponseCode)
+    @Html.ValidationMessageFor(model => model.ResponseCode)
+</div>-->
+

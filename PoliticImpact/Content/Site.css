@@ -47,3 +47,14 @@
 .ui-btn-active  {
     text-shadow: none;
 }
+
+.center
+{
+    text-align: center;
+}
+#newComment{
+    display: none;
+}
+#allComments{
+    display: none;
+}
