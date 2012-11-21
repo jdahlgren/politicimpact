@@ -21,6 +21,7 @@ namespace PoliticImpact.Controllers
 
         private readonly CaseVotingRepository caseVotingRepository;
         private readonly CaseVoteRepository caseVoteRepository;
+        private readonly CaseCommentRepository caseCommentRepository;
 
 
 
@@ -41,7 +42,7 @@ namespace PoliticImpact.Controllers
             this.caseVotingRepository = new CaseVotingRepository();
             this.caseVoteRepository = new CaseVoteRepository();
             this.casesignupRepository = new CaseSignUpRepository();
-
+            this.caseCommentRepository = new CaseCommentRepository();
         }
 
 
@@ -143,12 +144,8 @@ namespace PoliticImpact.Controllers
 
             }
 
-
-            //var model = caseitemRepository.Find(id);
-            //using (var casecommentRepository = new CaseCommentRepository()){
-            //    model.caseComment = casecommentRepository.AllIncluding(comment => comment.caseID == id).ToList();
-            //}
-
+            IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
+            ViewBag.casecomments = (IEnumerable<CaseComment>) casecomments.ToList();
             return View(caseitemRepository.Find(id));
         }
 

@@ -90,24 +90,45 @@
         @* Visa de 5 senaste kommentarerna från början, vid klick kommer en möjlighet att kommentera och alla kommentarer visas*@
              
         @*Print 5 comments for the case*@
-        <form id="fiveComments">
+        <div id="fiveComments">
             <fieldset>
                 <legend>Comments</legend>
                 @*Om kommentarerna är tomma*@
-                @if (Model.caseComment == null)
+                @if (ViewBag.casecomments == null)
                 {
-                     <p>No comments for this case</p>
+                        <p id="nocomments">No comments for this case</p>
                 }
                 else
                 {
-                    foreach (var comment in Model.caseComment.Take(5))
+                    foreach (var comment in ViewBag.casecomments)
                     {
-                        <p>comment.commentStr</p>
+                        <p>@comment.commentStr</p>
                     }
                 }
             </fieldset>
-        </form>
+        </div>
          @*Print all comments for the case där id är samma*@
+        <div id="newComment">
+            <input type="text" id="newCommentStr" />
+            <button onclick="PostComment(@Model.ID);">Post</button>
+        </div>
+        <div id="allComments">
+            <fieldset>
+                <legend id="titleComments">Comments</legend>
+                @if (ViewBag.casecomments == null)
+                {
+                        <p id="nocomments">No comments for this case</p>
+                }
+                else
+                {
+                    foreach (var comment in ViewBag.casecomments)
+                    {
+                        <p>@comment.commentStr</p>
+                    }
+                }
+            </fieldset>
+        </div>
+
        <!--Kommenteras bort tills att vi kan hämta data ur databasen
         
          @using (Html.BeginForm("CreateComment", "CaseItems", FormMethod.Post, new { @style = "display: none;", @id = "allComments" }))

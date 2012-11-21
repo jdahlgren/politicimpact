@@ -51,3 +51,20 @@ function ShareCaseByEmail(id) {
         jQuery('#friend_email').val("");
     });
 }
+
+function PostComment(id) {
+    var strComment = jQuery("#newCommentStr").val();
+    jQuery.ajax({
+        type: "POST",
+        url: "/CaseComments/Create/" + id,
+        data: { comment: strComment }
+    }).done(function (msg) {
+        $("#titleComments").after("<p>" + strComment + "</p>");
+        $("#newComment").slideUp();
+        $("#newCommentStr").val("");
+        $("#nocomments").remove();
+
+
+        console.log("comment created");
+    });
+}

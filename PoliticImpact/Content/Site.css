@@ -52,3 +52,9 @@
 {
     text-align: center;
 }
+#newComment{
+    display: none;
+}
+#allComments{
+    display: none;
+}
