@@ -147,7 +147,8 @@ namespace PoliticImpact.Controllers
         {
 
 
-            //int numberOfLikes = caselikeRepository.FindLike(id);
+            int numberOfLikes = caselikeRepository.FindLike(id);
+            ViewBag.numberOfLikes = numberOfLikes;
 
             Boolean UserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
