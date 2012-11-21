@@ -107,24 +107,26 @@ namespace PoliticImpact.Controllers
 
             //int numberOfLikes = caselikeRepository.FindLike(id);
 
-            Boolean ÚserHasVoted = false;
+            Boolean UserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
             
 
             if(casevoting!=null)
             {
+                ViewBag.voting = casevoting;
                 IQueryable<CaseVote> votes = caseVoteRepository.FindAllByVotingId(casevoting.VotingID);
                 ViewBag.votes = votes.Count();
+                
                 foreach(var vote in votes)
                 {
                     if(vote.UserID==1337)//TODO compare with actual fb userid
                     {
-                        ÚserHasVoted = true;
+                        UserHasVoted = true;
 
                     }
 
                 }
-                ViewBag.userhasvoted = ÚserHasVoted;
+                ViewBag.userhasvoted = UserHasVoted;
 
             }
 

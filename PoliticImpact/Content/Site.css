@@ -47,3 +47,8 @@
 .ui-btn-active  {
     text-shadow: none;
 }
+
+.center
+{
+    text-align: center;
+}

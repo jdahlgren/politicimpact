@@ -5,6 +5,8 @@
         <title>@ViewBag.Title</title>
         <meta name="viewport" content="width=device-width" />
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href="~/Content/images/apple-startup-iPhone.jpg" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
+        <link rel="apple-touch-icon" href="~/Content/images/icon.png"/>  
         @Styles.Render("~/Content/mobileCss", "~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
@@ -12,7 +14,7 @@
     </head>
     <body>
         <div data-role="page" data-theme="b" class="type-interior">
-            <div data-role="header">
+            <div data-role="header" data-id="top-menu" data-position="fixed">
                 @if (IsSectionDefined("Header")) {
                     @RenderSection("Header")
                 } else {
