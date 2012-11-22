@@ -334,6 +334,8 @@
     <Content Include="Views\RecieverResponses\Edit.cshtml" />
     <Content Include="Views\RecieverResponses\Index.cshtml" />
     <Content Include="Views\RecieverResponses\_CreateOrEdit.cshtml" />
+    <Content Include="Views\CaseItems\Search.cshtml" />
+    <Content Include="Views\CaseItems\SubmitSearch.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
