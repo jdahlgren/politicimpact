@@ -68,3 +68,9 @@ function PostComment(id) {
         console.log("comment created");
     });
 }
+
+function ShowCommentField() {
+    $("#fiveComments").hide();
+    $("#allComments").show();
+    $("#newComment").show();
+}
