@@ -19,10 +19,11 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
         <h1>@ViewBag.Title</h1>
-         @if (Model.Owner == 1337)
-         {
+         @{ var user = (String)HttpContext.Current.Session["uid"]; }
+        @if (user != null)
+        {
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
-         }
+        }
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
@@ -107,7 +108,7 @@
        
         @* Visa respons från mottagare *@
         @{
-            if(ViewBag.responded)
+            if (ViewBag.responded)
             {
                 <form>
                     <fieldset>
