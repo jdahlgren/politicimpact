@@ -7,9 +7,9 @@
     }
 }
 
-//Added by Johannes Dahlgren 20/11 2012
+
 function deleteCaseItem(id) {
-    if (confirm("Do you want to delete?")) {
+    if (confirm("Vill du ta bort förslaget?")) {
         jQuery.ajax({
             type: "POST",
             url: "/CaseItems/Delete/" + id,
