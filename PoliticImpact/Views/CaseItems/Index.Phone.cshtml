@@ -15,7 +15,7 @@
 	        <ul>
 		        <li><a href="/Home/Index" data-icon="home">Home</a></li>
                 <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("About", "About", new { Controller = "Home"}, new { data_icon = "gear" })</li>
+                <li>@Html.ActionLink("Sign in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
 	        </ul>
         </div>
         <!-- /navigation -->
