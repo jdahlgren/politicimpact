@@ -17,6 +17,7 @@
 
                 @Html.HiddenFor(model => model.ResponseID)
 		        @Html.Partial("_CreateOrEdit", Model)
+                @Html.HiddenFor(model => model.ResponseCode)
 
                 <p>
                     <input type="submit" value="Submit Response" />
