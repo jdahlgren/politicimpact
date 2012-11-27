@@ -1,6 +1,6 @@
 ﻿@model PoliticImpact.Models.CaseItem
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Model.Title;
 }
 <style>
     #share_by_email
@@ -104,7 +104,7 @@
     @if (!Model.Published && Model.Owner == 1337)
     {
         <div class="span2">
-            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Edit</a>
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
         </div>
     }
     @if (ViewBag.voting != null)
@@ -122,7 +122,7 @@
         }
         else
         {
-            <p>You have already voted</p>
+            <p>Du har redan röstat</p>
         }
     }
 </div>
