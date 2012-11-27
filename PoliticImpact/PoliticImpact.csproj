@@ -181,7 +181,10 @@
     <Content Include="Content\images\share-email.png" />
     <Content Include="Content\images\share-facebook.png" />
     <Content Include="Content\images\Signing.png" />
+    <Content Include="Content\images\signups.png" />
+    <Content Include="Content\images\speech_bubble.png" />
     <Content Include="Content\images\thumbs_up.png" />
+    <Content Include="Content\images\thumbs_up_metro.png" />
     <Content Include="Content\jquery.mobile-1.2.0.css" />
     <Content Include="Content\jquery.mobile-1.2.0.min.css" />
     <Content Include="Content\jquery.mobile.structure-1.2.0.css" />
@@ -250,7 +253,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DetailsView.js" />
-    <Content Include="Scripts\Facebook.js" />
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
     <Content Include="Scripts\HideAdressBar.js" />
@@ -352,7 +354,6 @@
     <Content Include="Views\CaseItems\Details.cshtml" />
     <Content Include="Views\CaseItems\Edit.Phone.cshtml" />
     <Content Include="Views\CaseItems\Create.cshtml" />
-    <Content Include="Views\RecieverResponses\Edit.Phone.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
