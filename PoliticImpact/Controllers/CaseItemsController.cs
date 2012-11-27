@@ -77,10 +77,6 @@ namespace PoliticImpact.Controllers
                     return View();
                 }
 
-
-            
-
-
             }
 
             CaseLike caselike = new CaseLike();
