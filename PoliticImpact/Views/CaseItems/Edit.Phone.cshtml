@@ -22,6 +22,30 @@
         @Html.HiddenFor(model => model.RecieverEmail)
         @Html.HiddenFor(model => model.CategoryID)
 
+        @*Edit Case Mode*@
+         <div class="editor-label">
+                        Ärendets progress
+                    </div>
+        @{
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem
+            {
+                Text = "Godkänd",
+                Value = "1",
+            });
+            items.Add(new SelectListItem
+            {
+                Text = "Avslagen",
+                Value = "2",                
+            });
+        }
+        
+        <div class="editor-field">
+            @Html.DropDownList("Välj status", items);
+
+            @*@Html.ValidationMessageFor(model => model.CategoryID)*@
+        </div>
+
 		@Html.Partial("_CreateOrEdit", Model)
         <div id="published_status">
             @if(Model.Published){

@@ -286,6 +286,8 @@ namespace PoliticImpact.Controllers
             {
                 caseitem.Owner = 4;
             }
+            //caseitem.caseMode.caseModeInt = 0; //Sätter Mode till "inte valt"
+            //caseitem.caseMode = new CaseMode("None", 0);
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;

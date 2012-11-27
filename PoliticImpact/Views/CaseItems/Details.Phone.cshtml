@@ -26,6 +26,14 @@
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
+        @*@if (Model.caseMode.caseModeInt == 1)
+        {
+              <img src="~/Content/images/Approved_icon.png" width="75" height="75" id="Approved" />
+        }
+        else if (Model.caseMode.caseModeInt == 2)
+        {
+             <img src="~/Content/images/Dismissed_icon.png" width="75" height="75" id="Dismissed" />
+        }*@
         <p>
             @Model.Text
         </p>

@@ -41,6 +41,8 @@ namespace PoliticImpact.Models
         public DbSet<PoliticImpact.Models.CaseComment> CaseComments { get; set; }
 
         public DbSet<PoliticImpact.Models.RecieverResponse> RecieverResponses { get; set; }
+
+        public DbSet<PoliticImpact.Models.CaseMode> CaseModes { get; set; }
     }
 
 }
