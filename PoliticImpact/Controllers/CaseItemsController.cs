@@ -478,16 +478,16 @@ namespace PoliticImpact.Controllers
                 //FileStream fs = new FileStream("E:\\TestFolder\\test.pdf", FileMode.Open, FileAccess.Read);
                 //Attachment a = new Attachment(fs, "test.pdf", MediaTypeNames.Application.Octet);
                 int numberOfLikes = caselikeRepository.FindLike(id);
-                IQueryable<CaseSignUp> caseSignUps = casesignupRepository.FindAllByCaseId(id);
-                int numberOfSignUps = caseSignUps.Count();
-
+                int numberOfSignUps = casesignupRepository.FindSignUps(id);
+                int numberOfVotes = caseVotingRepository.FindVotes(id);
                 string str = @"<html><body><h1> Rapport på " + caseItem.Title + " </h1>" +
                     "Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact<br>" +
-                    "<h3>Förslagbeskrivning: </h3>" + caseItem.Text + "<br>" +
+                    "<h3>Förslagsbeskrivning: </h3>" + caseItem.Text + "<br>" +
                     "<h3>Deadline för förslaget: </h3>" + caseItem.Deadline + "<br>" +
                     "<h3>Statistik för förslaget:</h3>" +
                     "<b>Antal gillanden:</b> " + numberOfLikes + "<br>" +
                     "<b>Antal underskrifter:</b> " + numberOfSignUps + "<br>" +
+                    "<b>Antal röster:</b> " + numberOfVotes + "<br>" +
                     "</body></html>";
                 AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
                 //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
