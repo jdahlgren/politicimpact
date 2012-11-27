@@ -200,9 +200,9 @@ namespace PoliticImpact.Controllers
             }
             
             
-            ViewBag.casecomments = caseCommentRepository.FindAllByCaseId(id);
-            
-            
+            IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
+            ViewBag.casecomments = casecomments;
+            ViewBag.nrOfComments = casecomments.Count();
 
             //TODO real user
             foreach (var item in casesignupRepository.All)

@@ -81,7 +81,7 @@
     @if (Model.enableComments == true)
     {  
         <div class="span2">
-            <p>2 <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+            <p>@ViewBag.nrOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
             <button class="btn" onclick="ShowCommentField();">Kommentera</button>
 
         </div>
