@@ -39,6 +39,14 @@ namespace PoliticImpact.Models
             return aVoting;
         }
 
+        public int FindVotes(int id)
+        {
+            IQueryable<CaseVoting> casevotings = (from CVi in context.CaseVotings
+                                              where CVi.CaseID == id
+                                              select CVi);
+            return casevotings.Count();
+        }
+
         public void InsertOrUpdate(CaseVoting casevoting)
         {
             if (casevoting.VotingID == default(int)) {
@@ -72,6 +80,7 @@ namespace PoliticImpact.Models
         IQueryable<CaseVoting> All { get; }
         IQueryable<CaseVoting> AllIncluding(params Expression<Func<CaseVoting, object>>[] includeProperties);
         CaseVoting Find(int id);
+        int FindVotes(int id);
         void InsertOrUpdate(CaseVoting casevoting);
         void Delete(int id);
         void Save();
