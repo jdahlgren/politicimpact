@@ -407,6 +407,10 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        /**
+         * SubmitSearch - en funktion som hämtar sökvariabel och skickar den till caseitemRepository,
+         * returnerar en view.
+         */
         [HttpPost]
         public ActionResult SubmitSearch(FormCollection collection)
         {
