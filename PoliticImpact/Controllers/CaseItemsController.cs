@@ -154,10 +154,11 @@ namespace PoliticImpact.Controllers
         {
 
             System.Diagnostics.Debug.WriteLine("asdf");
+
             return View(caseitemRepository.All);
         }
 
-
+        //
         // GET: /CaseItems/Details/5
 
         public ViewResult Details(int id)
@@ -252,7 +253,7 @@ namespace PoliticImpact.Controllers
         private string GenerateResponseCode(CaseItem caseitem)
         {
             //Koden som genereras är baserad på aktuellt CaseItems ID och titel:
-            string stringToCode = caseitem.ID + caseitem.Title;
+            string stringToCode = caseitem.ID.ToString() + caseitem.Title;
             MD5CryptoServiceProvider md5CSP = new MD5CryptoServiceProvider();
 
             //Skapar en array av bytes som motsvarar strängen som ska kodas
@@ -272,11 +273,19 @@ namespace PoliticImpact.Controllers
         public ActionResult Create(CaseItem caseitem)
         {
             RecieverResponse resp = new RecieverResponse();
-            resp.ResponseCode = GenerateResponseCode(caseitem);
             recieverresponseRepository.InsertOrUpdate(resp);
             recieverresponseRepository.Save();
 
-            caseitem.Owner = 1337;  //TODO should be the logged in users facebook-id
+            if (Session["uid"] != null)
+            {
+                //Hämta session-id
+                long userId = Convert.ToInt64(Session["uid"].ToString());
+                caseitem.Owner = userId;
+            }
+            else
+            {
+                caseitem.Owner = 4;
+            }
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;
@@ -285,6 +294,10 @@ namespace PoliticImpact.Controllers
             {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
+
+                resp.ResponseCode = GenerateResponseCode(caseitem);
+                recieverresponseRepository.InsertOrUpdate(resp);
+                recieverresponseRepository.Save();
 
                 if (Request["create_voting"] != "" && Request["create_voting"] != null)
                 {
@@ -519,3 +532,4 @@ namespace PoliticImpact.Controllers
 
 
 
+>>>>>>> 1fea86aca9b416d5a13a46f14188bbd73170a107

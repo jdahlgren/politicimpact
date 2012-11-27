@@ -1,26 +1,22 @@
-@model PoliticImpact.Models.RecieverResponse
+ï»¿@model PoliticImpact.Models.RecieverResponse
 
 @{
     ViewBag.Title = "Respond";
-
-    <div class="row">
-
-    @if(ViewBag.caseFound)
+    
+    if(ViewBag.caseFound)
     { 
-        <h2>@ViewBag.caseTitle</h2>
-        <p>@ViewBag.caseText</p>
+        <div>
+            <h2>@ViewBag.caseTitle</h2>
+            <p>@ViewBag.caseText</p>
+        </div>
 
         using (Html.BeginForm()) {
             @Html.ValidationSummary(true)
             <fieldset>
-                <legend>Svara på förslag</legend>
+                <legend>Svara pÃ¥ fÃ¶rslag</legend>
 
                 @Html.HiddenFor(model => model.ResponseID)
-		        
-                <div class="editor-field">
-                    @Html.TextAreaFor(model => model.ResponseText, new { style="width: 500px; height:100px", placeholder = "Skriv ditt svar här" })
-                </div>
-
+		        @Html.Partial("_CreateOrEdit", Model)
                 @Html.HiddenFor(model => model.ResponseCode)
 
                 <p>
@@ -31,9 +27,10 @@
     }
     else
     {
-        <h2>There is no case awaiting response.</h2>
+        <div>
+            <h2>There is no case awaiting response.</h2>
+        </div>
     }
-    </div>
 }
 
 <!--<div>

@@ -1,4 +1,3 @@
-
 using System;
 
 using System.Collections.Generic;
@@ -15,9 +14,8 @@ namespace PoliticImpact.Models
     public class CaseItem
     {
         /*
-            * Variables from "Dropbox/Arkitektur/tables.doc"
-            * */
-        [Required]
+           * Variables from "Dropbox/Arkitektur/tables.doc"
+            * */ [Required]
         public int ID { get; set; }
 
         [Required]
@@ -174,6 +172,13 @@ namespace PoliticImpact.Models
         public int caseID { get; set; }
         public virtual CaseItem CaseItem { get; set; }
         public string commentStr{ get; set;}
+    }
+
+    public class User
+    {
+        public string uid { get; set; }
+        public string accessToken { get; set; }
+        public string name { get; set; }
     }
     
 }
