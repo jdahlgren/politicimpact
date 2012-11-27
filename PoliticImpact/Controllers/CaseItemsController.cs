@@ -253,7 +253,7 @@ namespace PoliticImpact.Controllers
         private string GenerateResponseCode(CaseItem caseitem)
         {
             //Koden som genereras är baserad på aktuellt CaseItems ID och titel:
-            string stringToCode = caseitem.ID + caseitem.Title;
+            string stringToCode = caseitem.ID.ToString() + caseitem.Title;
             MD5CryptoServiceProvider md5CSP = new MD5CryptoServiceProvider();
 
             //Skapar en array av bytes som motsvarar strängen som ska kodas
@@ -273,7 +273,6 @@ namespace PoliticImpact.Controllers
         public ActionResult Create(CaseItem caseitem)
         {
             RecieverResponse resp = new RecieverResponse();
-            resp.ResponseCode = GenerateResponseCode(caseitem);
             recieverresponseRepository.InsertOrUpdate(resp);
             recieverresponseRepository.Save();
 
@@ -295,6 +294,10 @@ namespace PoliticImpact.Controllers
             {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
+
+                resp.ResponseCode = GenerateResponseCode(caseitem);
+                recieverresponseRepository.InsertOrUpdate(resp);
+                recieverresponseRepository.Save();
 
                 if (Request["create_voting"] != "" && Request["create_voting"] != null)
                 {
