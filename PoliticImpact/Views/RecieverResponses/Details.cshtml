@@ -1,0 +1,23 @@
+@model PoliticImpact.Models.RecieverResponse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>RecieverResponse</legend>
+
+    <div class="display-label">ResponseText</div>
+    <div class="display-field">@Model.ResponseText</div>
+
+    <div class="display-label">ResponseCode</div>
+    <div class="display-field">@Model.ResponseCode</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ResponseID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

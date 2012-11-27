@@ -47,10 +47,20 @@ namespace PoliticImpact.Controllers
 
         //
         // POST: /CaseComments/Create
-
-        [HttpPost]
-        public ActionResult Create(CaseComment casecomment)
+        /*
+       [HttpPost]
+        public ActionResult Create(int CaseId)
         {
+            CaseComment casecomment = new CaseComment();
+            casecomment.caseID = CaseId;
+            casecomment.userID = 1337; //TODO actual user-id
+            if(Request["comment"]!=null && Request["comment"]!=""){
+                casecomment.commentStr = Request["comment"];
+            }
+            else
+            {
+                casecomment.commentStr = "asdf";
+            }
             //Spara ner variablerna från vyn
 
             //Lägg till i databasen
@@ -60,11 +70,37 @@ namespace PoliticImpact.Controllers
             if (ModelState.IsValid) {
                 casecommentRepository.InsertOrUpdate(casecomment);
                 casecommentRepository.Save();
-                return RedirectToAction("Index");
-            } else {
-				return View();
 			}
+            return View();
         }
+        */
+
+       [HttpPost]
+       public ActionResult Create(int id)
+       {
+           CaseComment casecomment = new CaseComment();
+           casecomment.caseID = id;
+           casecomment.userID = 1337; //TODO actual user-id
+           if (Request["comment"] != null && Request["comment"] != "")
+           {
+               casecomment.commentStr = Request["comment"];
+           }
+           else
+           {
+               casecomment.commentStr = "asdf";
+           }
+
+           if (ModelState.IsValid)
+           {
+               casecommentRepository.InsertOrUpdate(casecomment);
+               casecommentRepository.Save();
+               return RedirectToAction("Index");
+           }
+           else
+           {
+               return View();
+           }
+       }
         
         /// Till Admin-delen
         ////

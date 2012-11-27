@@ -3,38 +3,43 @@
     <head>
         <meta charset="utf-8" />
         <title>@ViewBag.Title</title>
-        <meta name="viewport" content="width=device-width" />
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="~/Content/images/apple-startup-iPhone.jpg" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" rel="apple-touch-startup-image">
-        <link rel="apple-touch-icon" href="~/Content/images/icon.png"/>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        @Styles.Render("~/Content/mobileCss", "~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery", "~/bundles/jquerymobile")
+        @Styles.Render("~/Content/bootstrap.min.css")
+        @Styles.Render("~/Content/Site.css")
         @RenderSection("head", false)
     </head>
     <body>
-        <div data-role="page" data-theme="b" class="type-interior">
-            <div data-role="header" data-id="top-menu" data-position="fixed">
-                @if (IsSectionDefined("Header")) {
-                    @RenderSection("Header")
-                } else {
-                    <h1>@ViewBag.Title</h1>
-                    //@Html.Partial("_LoginPartial")
-                }
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              @Html.ActionLink("Politic Impact", "Index", new { Controller = "Home" }, new { @class = "brand"  })
+              <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <!-- class="active"-->
+                  <li>@Html.ActionLink("Start", "Index", new { Controller = "Home"})</li>
+                  <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems"})</li>
+                  <li>@Html.ActionLink("Om", "About", new { Controller = "Home"})</li>
+                </ul>
+              </div><!--/.nav-collapse -->
             </div>
-            <div data-role="content">
-                @RenderBody()
-            </div>
+          </div>
         </div>
+        <div class="container">
+            <hr />
+            @RenderBody()
 
+          <footer>
+            <p>© PUM-GAIA 2012</p>
+          </footer>
+        </div>
         
         @RenderSection("scripts", required: false)
-
-        <!-- Added by Johannes Dahlgren 16/11 -->
-        <style type="text/css">body {min-height: 480px;}</style>
-        @Scripts.Render("~/Scripts/HideAdressBar.js")
-         @Scripts.Render("~/Scripts/Script.js")
+        @Scripts.Render("~/bundles/jquery", "~/bundles/jquery")
+        @Scripts.Render("~/Scripts/Script.js")
+        @Scripts.Render("~/Scripts/Script.js")
+        @Scripts.Render("~/Scripts/bootstrap.min.js")
+        @Scripts.Render("~/bundles/modernizr")
+        
 
 
     </body>

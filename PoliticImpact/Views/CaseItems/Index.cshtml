@@ -3,22 +3,6 @@
 @{
     ViewBag.Title = "Case list";
 }
-@section header{
-    <div data-role="header">
-        <h2>Case list</h2>
-        @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
-        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Add</a>
-        <!-- navigation -->
-        <div data-role="navbar" data-iconpos="top">
-	        <ul>
-		        <li><a href="/Home/Index" data-icon="home">Home</a></li>
-                <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("About", "About", new { Controller = "Home"}, new { data_icon = "gear" })</li>
-	        </ul>
-        </div>
-        <!-- /navigation -->
-    </div>
-}
 <ul data-role="listview" data-filter="true">
 @foreach (var item in Model) {
     <li>

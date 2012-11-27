@@ -1,10 +1,15 @@
-﻿@model PoliticImpact.Models.CaseItem
+@model PoliticImpact.Models.CaseItem
 
 @{
     ViewBag.Title = "Create Case";
+    Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
-    <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Back</a>
-    <h1>Create Case</h1>
+<div data-role="page" data-theme="b" class="type-interior">
+    <div data-role="header">
+        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Back</a>
+         <h1>Create Case</h1>
+    </div>
+    <div data-role="content">
 
     @using (Html.BeginForm()) {
         @Html.ValidationSummary(true)
@@ -128,6 +133,8 @@
             </p>
         </fieldset>
     }
+    </div>
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

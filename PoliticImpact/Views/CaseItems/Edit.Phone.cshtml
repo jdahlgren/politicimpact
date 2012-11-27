@@ -1,9 +1,15 @@
-@model PoliticImpact.Models.CaseItem
+ï»¿@model PoliticImpact.Models.CaseItem
 
 @{
     ViewBag.Title = "Edit";
 }
 
+@section Header{
+    <div data-role="header">
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
+        <h1>Edit Case</h1>
+    </div>
+}
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -19,7 +25,7 @@
 		@Html.Partial("_CreateOrEdit", Model)
         <div id="published_status">
             @if(Model.Published){
-                <p>Publicerad, går ej att ändra</p>
+                <p>Publicerad, gÃ¥r ej att Ã¤ndra</p>
             }
             else{
                 <p>Ej publiceread</p>
@@ -37,8 +43,8 @@
         jQuery.ajax({
             type: "POST",
             url: "/CaseItems/Publish/" + id,
-            }).done(function (msg) {
-                jQuery('#published_status').html('<p>Publicerad, går ej att ändra</p>');
+        }).done(function (msg) {
+            jQuery('#published_status').html('<p>Publicerad, gÃ¥r ej att Ã¤ndra</p>');
         });
     }
 

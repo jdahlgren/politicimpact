@@ -1,213 +1,255 @@
-@model PoliticImpact.Models.CaseItem
-
+Ôªø@model PoliticImpact.Models.CaseItem
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
-@section scripts{
-
-    @*@Scripts.Render("~/Scripts/facebookPublish.js")
-    @Scripts.Render("~/Scripts/facebookConnect.js")*@
-
-    @Scripts.Render("~/Scripts/facebookPublish.js")
-    @Scripts.Render("~/Scripts/facebookConnect.js")
-    @Scripts.Render("~/Scripts/DetailsView.js")
-
-}
-
-<div data-role="page" data-theme="b" data-add-back-btn="true">
-    <div data-role="header">
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
-        <h1>@ViewBag.Title</h1>
-         @if (Model.Owner == 1337)
-         {
-            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Delete</a>
-         }
-    </div>
-    <div data-role="content">
-        <h2>@Model.Title</h2>
-        <p>
-            @Model.Text
-        </p>
-        
-
-        <div class="display-label">Deadline</div>
-        <div class="display-field">@String.Format("{0:g}", Model.Deadline)</div>
-
-        <div class="display-label">Reicever</div>
-        <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
-
-            
-
-            @if (Model.imageName != null)
-            {
-                <div class="display-label">imageId</div>
-                <div class="display-field">@Model.imageId</div>
-                <img src="@Model.imageName" width ="75" height ="75">
-                <div class="display-label">imageBytes</div>
-                <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
-                <div class="display-label">imageName</div>
-                <div class="display-field">@Model.imageName</div>
-            }
-
-    
-       @if (Model.enableLikes == true)
-       {
-           if (ViewBag.likeStatus == "signed")
-           {
-               //Kanske skall vara en bild ist‰llet?
-            <p>You have liked this!</p>
-           
-           }
-           else
-           {
-                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
-                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
-                </a>
-           }
-            
-             <p>Number of likes: @ViewBag.numberOfLikes</p>
-       }
-        @if (Model.enableComments == true)
-        {
-             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
-        }
-
-        @if (Model.enableSigns == true)
-        {
-            @*<a href="#popupShare" data-rel="popup">
-                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
-            </a>*@
-            
-            if (ViewBag.status == "signed")
-            {
-                //Kanske skall vara en bild ist‰llet?
-            <p>You have signup for this case</p>
-            }
-            else
-            {
-             <a href="#popupSignUp" data-rel="dialog"> 
-                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
-             </a>
-            }
-        }
-        
-        <a href="#popupShare" data-rel="dialog" data-role="button" data-inline="true" data-position-to="window">Share Case</a>
-       
-            
-   
-        @*start: Frida Mattisson 2012-11-16*@
-
-        @* Visa de 5 senaste kommentarerna frÂn bˆrjan, vid klick kommer en mˆjlighet att kommentera och alla kommentarer visas*@
-             
-        @*Print 5 comments for the case*@
-        <form id="fiveComments">
-            <fieldset>
-                <legend>Comments</legend>
-                @*Om kommentarerna ‰r tomma*@
-                @if (Model.caseComment == null)
-                {
-                     <p>No comments for this case</p>
-                }
-                else
-                {
-                    foreach (var comment in Model.caseComment.Take(5))
-                    {
-                        <p>comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-        </form>
-         @*Print all comments for the case d‰r id ‰r samma*@
-       <!--Kommenteras bort tills att vi kan h‰mta data ur databasen
-        
-         @using (Html.BeginForm("CreateComment", "CaseItems", FormMethod.Post, new { @style = "display: none;", @id = "allComments" }))
-         {
-            @*<form style="display: none;" id="allComments">*@
-            @Html.Hidden("caseID", Model.ID)
-            @Html.TextBox("commentStr")
-
-            @*<input aria-multiline="true" class="commentString"/>*@
-            <input type="submit" value="Submit"/>
-            <fieldset>
-                <legend>Comments</legend>
-                @if (Model.caseComment == null)
-                {
-                     <p>No comments for this case</p>
-                }
-                else
-                {
-                    foreach (var comment in Model.caseComment)
-                    {
-                        <p>comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-         }-->
-        @*end: Frida Mattisson 2012-11-16*@
- 
-
-        @if (ViewBag.voting != null)
-        {
-            <h3>@ViewBag.voting.Title</h3>
-            if (!ViewBag.UserHasVoted)
-            {
-                <div id="voting_container">
-                    <fieldset data-role="controlgroup">
-                        <div id="voting-alternatives">
-                            <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                            <label for="voting-choice-1">Yes</label>
-                            <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                            <label for="voting-choice-2">No</label>
-                        </div>
-                        </fieldset>
-                    <button onclick="SendVote(@ViewBag.voting.VotingID);" id="btnVote">Vote</button>
-                </div>
-            }
-            else
-            {
-                <p>You have already voted</p>
-            }
-        }
-
-        @if (!Model.Published && Model.Owner == 1337)
-        {
-            <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Edit</a>
-        }
-    </div>
-</div>
 <style>
     #share_by_email
     {
         display: none;
     }
+    hr
+    {
+        border-bottom: 1px #808080 solid !important;
+    }
 </style>
-<div data-role ="dialog" id ="popupShare" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-	<form>
-		<div style="padding:10px 20px;" >
-			<h3>Share @Model.Title</h3>
-            <a onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
-            <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
-		</div>
-        <div id="share_by_email">
-            <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
-            <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">Send link</a>
+<div class="row">
+    <div class="span2">
+        <!-- Button to trigger modal -->
+        <a href="#shareCase" role="button" class="btn" data-toggle="modal">Share case</a>
+    </div>
+    @if (Model.enableLikes == true)
+    {
+        <div class="span2">
+           @if (ViewBag.likeStatus == "signed")
+            {
+                //Kanske skall vara en bild ist√§llet?
+                <p>You have liked this!</p>
+            }
+            else
+            {
+                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
+                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                </a>
+            }
+            <p>Number of likes: @ViewBag.numberOfLikes</p>
+        </div>       
+    }
+    @if (Model.enableComments == true)
+    {  
+        <div class="span2">
+            <img src="~/Content/images/Comment.png" width="75" height="75" onclick="ShowCommentField();" id="ShowCaseComment" />
         </div>
-	</form>
+    }
+
+    @if (Model.enableSigns == true)
+    {
+        <div class="span2">            
+            @if (ViewBag.status == "signed")
+            {
+                //Kanske skall vara en bild ist√§llet?
+            <p>You have signup for this case</p>
+            }
+            else
+            {
+            <a href="#signupCase" role="button" data-toggle="modal">
+                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
+                </a>
+            }
+        </div>
+    }
+    @if (!Model.Published && Model.Owner == 1337)
+    {
+        <div class="span2">
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Edit</a>
+        </div>
+    }
+</div>
+<hr />
+<div class="row">
+   <h2>@Model.Title</h2>
+    <p>
+        @Model.Text
+    </p>
+
+
+    <div class="display-label">Deadline</div>
+    <div class="display-field">@String.Format("{0:g}", Model.Deadline)</div>
+
+    <div class="display-label">Reicever</div>
+    <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
+
+            
+
+        @if (Model.imageName != null)
+        {
+            <div class="display-label">imageId</div>
+            <div class="display-field">@Model.imageId</div>
+            <img src="@Model.imageName" width ="75" height ="75">
+            <div class="display-label">imageBytes</div>
+            <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
+            <div class="display-label">imageName</div>
+            <div class="display-field">@Model.imageName</div>
+        }
+
+    
+    
+        
+       
+    @* Visa respons fr√•n mottagare *@
+    @{
+        if (ViewBag.responded)
+        {
+            <form>
+                <fieldset>
+                    <legend>Responses by Reciever</legend>
+                    <p>@ViewBag.response</p>
+                </fieldset>
+            </form>
+        }  
+    }
+    @* slut p√• visa respons *@
+   
+    @*start: Frida Mattisson 2012-11-16*@
+
+    @* Visa de 5 senaste kommentarerna fr√•n b√∂rjan, vid klick kommer en m√∂jlighet att kommentera och alla kommentarer visas*@
+             
+    @*Print 5 comments for the case*@
+    <div id="fiveComments">
+        <fieldset>
+            <legend>Comments</legend>
+            @*Om kommentarerna √§r tomma*@
+            @if (ViewBag.casecomments == null)
+            {
+                    <p id="nocomments">No comments for this case</p>
+            }
+            else
+            {
+                foreach (var comment in ViewBag.casecomments)
+                {
+                    <p>@comment.commentStr</p>
+                }
+            }
+        </fieldset>
+    </div>
+        @*Print all comments for the case d√§r id √§r samma*@
+    <div id="newComment">
+        <input type="text" id="newCommentStr" />
+        <button onclick="PostComment(@Model.ID);">Post</button>
+    </div>
+    <div id="allComments">
+        <fieldset>
+            <legend id="titleComments">Comments</legend>
+            @if (ViewBag.casecomments == null)
+            {
+                    <p id="nocomments">No comments for this case</p>
+            }
+            else
+            {
+                foreach (var comment in ViewBag.casecomments)
+                {
+                    <p>@comment.commentStr</p>
+                }
+            }
+        </fieldset>
+    </div>
+
+    <!--Kommenteras bort tills att vi kan h√§mta data ur databasen
+        
+        @using (Html.BeginForm("CreateComment", "CaseItems", FormMethod.Post, new { @style = "display: none;", @id = "allComments" }))
+        {
+        @*<form style="display: none;" id="allComments">*@
+        @Html.Hidden("caseID", Model.ID)
+        @Html.TextBox("commentStr")
+
+        @*<input aria-multiline="true" class="commentString"/>*@
+        <input type="submit" value="Submit"/>
+        <fieldset>
+            <legend>Comments</legend>
+            @if (Model.caseComment == null)
+            {
+                    <p>No comments for this case</p>
+            }
+            else
+            {
+                foreach (var comment in Model.caseComment)
+                {
+                    <p>comment.commentStr</p>
+                }
+            }
+        </fieldset>
+        }-->
+    @*end: Frida Mattisson 2012-11-16*@
+ 
+
+    @if (ViewBag.voting != null)
+    {
+        <h3>@ViewBag.voting.Title</h3>
+        if (!ViewBag.UserHasVoted)
+        {
+            <div id="voting_container">
+                <fieldset data-role="controlgroup">
+                    <div id="voting-alternatives">
+                        <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                        <label for="voting-choice-1">Yes</label>
+                        <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+                        <label for="voting-choice-2">No</label>
+                    </div>
+                    </fieldset>
+                <button onclick="SendVote(@ViewBag.voting.VotingID);" id="btnVote">Vote</button>
+            </div>
+        }
+        else
+        {
+            <p>You have already voted</p>
+        }
+    }
 </div>
 
-<div data-role ="dialog" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
-      @*<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>*@
-    		<div data-role="header" data-theme="d" data-position="inline">
-    <h3>Sign petition</h3></div>
-    <div data-role="content" data-theme="c">
+ 
+
+
+
+<!-- Modal -->
+<div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">√ó</button>
+    <h3>Share @Model.Title</h3>
+    </div>
+    <div class="modal-body">
+    <div style="padding:10px 20px;" >
+			    
+        <a onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
+        <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
+	</div>
+    <div id="share_by_email">
+        <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+        <button onclick="ShareCaseByEmail(@Model.ID);">Send link</button>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+<!-- Button to trigger modal -->
+ 
+<!-- Modal -->
+<div id="signupCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">√ó</button>
+    <h3>Sign petition for @Model.Title</h3>
+    </div>
+    <div class="modal-body">
         <p>Do you want to sign the petition for  @Model.Title ? </p>
         <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">Yes</a>
         <a href="#" data-rel="back" data-role="button" data-theme="b">No</a>
-        </div>
-
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
 </div>
+
+
 <script>
     function ShareCaseByEmail(id) {
         jQuery.ajax({
@@ -220,5 +262,6 @@
         });
     }
 </script>
+
 
 

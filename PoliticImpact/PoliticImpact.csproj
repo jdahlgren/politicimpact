@@ -29,6 +29,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <IncludeIisSettings>true</IncludeIisSettings>
+    <PrecompileBeforePublish>true</PrecompileBeforePublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -135,6 +137,7 @@
     <Compile Include="Controllers\CaseVotesController.cs" />
     <Compile Include="Controllers\CaseVotingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RecieverResponsesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -157,9 +160,14 @@
     <Compile Include="Models\CaseVotingRepository.cs" />
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\PoliticImpactContext.cs" />
+    <Compile Include="Models\RecieverResponseRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\apple-startup-iPhone.jpg" />
@@ -239,6 +247,8 @@
     <None Include="Properties\PublishProfiles\politicimpact - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\politicimpact - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DetailsView.js" />
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
@@ -274,12 +284,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout.Phone.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\CaseItems\Create.cshtml" />
+    <Content Include="Views\CaseItems\Create.Phone.cshtml" />
     <Content Include="Views\CaseItems\Edit.cshtml" />
     <Content Include="Views\CaseItems\Delete.cshtml" />
-    <Content Include="Views\CaseItems\Details.cshtml" />
+    <Content Include="Views\CaseItems\Details.Phone.cshtml" />
     <Content Include="Views\CaseItems\Index.cshtml" />
     <Content Include="Views\CaseItems\_CreateOrEdit.cshtml" />
     <Content Include="Views\Shared\_LayoutNoPageDiv.cshtml" />
@@ -326,6 +336,21 @@
     <Content Include="Views\CaseComments\Index.cshtml" />
     <Content Include="Views\CaseComments\Partial_commentView.cshtml" />
     <Content Include="Views\CaseComments\_CreateOrEdit.cshtml" />
+    <Content Include="Views\RecieverResponses\Create.cshtml" />
+    <Content Include="Views\RecieverResponses\Delete.cshtml" />
+    <Content Include="Views\RecieverResponses\Details.cshtml" />
+    <Content Include="Views\RecieverResponses\Edit.cshtml" />
+    <Content Include="Views\RecieverResponses\Index.cshtml" />
+    <Content Include="Views\RecieverResponses\_CreateOrEdit.cshtml" />
+    <Content Include="Views\CaseItems\Search.cshtml" />
+    <Content Include="Views\CaseItems\SubmitSearch.cshtml" />
+    <Content Include="Views\Home\Index.Phone.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\CaseItems\Index.Phone.cshtml" />
+    <Content Include="Views\Home\About.Phone.cshtml" />
+    <Content Include="Views\CaseItems\Details.cshtml" />
+    <Content Include="Views\CaseItems\Edit.Phone.cshtml" />
+    <Content Include="Views\CaseItems\Create.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -363,7 +388,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>63325</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:56397/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
