@@ -17,10 +17,12 @@
                 <ul class="nav">
                     <!-- class="active"-->
                   <li>@Html.ActionLink("Start", "Index", new { Controller = "Home"})</li>
-                  <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems"})</li>
+                  <li>@Html.ActionLink("Lista förslag", "Index", new { Controller = "CaseItems"})</li>
                   <li>@Html.ActionLink("Om", "About", new { Controller = "Home"})</li>
                 </ul>
+
               </div><!--/.nav-collapse -->
+                  @Html.ActionLink("+ Skapa förslag", "Create", new { Controller = "CaseItems"}, new { @class = "btn btn-success"  })
             </div>
           </div>
         </div>

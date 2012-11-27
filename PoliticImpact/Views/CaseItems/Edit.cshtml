@@ -5,9 +5,9 @@
 }
 
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
-    <fieldset>
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.Created)
         @Html.HiddenFor(model => model.LastEdited)
@@ -16,21 +16,35 @@
         @Html.HiddenFor(model => model.RecieverEmail)
         @Html.HiddenFor(model => model.CategoryID)
 
-		@Html.Partial("_CreateOrEdit", Model)
-        <div id="published_status">
-            @if(Model.Published){
+    
+        <table class="span12">
+            <tr>
+                <td class="span2">Titel</td>
+                <td class="span7">@Html.TextBoxFor(model => model.Title, new { @class = "span5" })</td>
+                <td class="span2"> @Html.ValidationMessageFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td>Beskrivning</td>
+                <td>@Html.TextAreaFor(model => model.Text, new { @class = "span5" })</td>
+                <td> @Html.ValidationMessageFor(model => model.Text)</td>
+            </tr>
+            <tr>
+                <td>Slutdatum</td>
+                <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5" })</td>
+                <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
+            </tr>
+        </table>
+            if (Model.Published)
+            {
                 <p>Publicerad, går ej att ändra</p>
             }
-            else{
+            else
+            {
                 <p>Ej publiceread</p>
-                <a data-role="button" onclick="PublishCaseItem(@Model.ID);">Publicera</a>
-                <p>
-                    <input type="submit" value="Save" />
-                </p>
+                <button onclick="PublishCaseItem(@Model.ID);" class="btn">Publicera</button>
+                <button type="submit" class="btn btn-success">Spara</button>
             }
-        </div>
         
-    </fieldset>
 }
 <script>
     function PublishCaseItem(id) {
