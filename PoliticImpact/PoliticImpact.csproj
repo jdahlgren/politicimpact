@@ -356,6 +356,7 @@
     <Content Include="Views\CaseItems\Edit.Phone.cshtml" />
     <Content Include="Views\CaseItems\Create.cshtml" />
     <Content Include="Views\RecieverResponses\Edit.Phone.cshtml" />
+    <Content Include="Views\Account\Logout.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

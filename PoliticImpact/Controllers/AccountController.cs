@@ -72,6 +72,13 @@ namespace PoliticImpact.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return View();
+        }
+
         //
         // GET: /Account/LogOff
 

@@ -13,6 +13,10 @@
             credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken };
             SubmitLogin(credentials);
         });
+
+        FB.Event.subscribe("auth.logout", function (response) {
+            location.href = "Account/Logout";
+        });
         
         FB.getLoginStatus(function (response) {
             

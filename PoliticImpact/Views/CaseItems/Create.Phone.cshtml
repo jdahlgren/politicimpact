@@ -17,7 +17,7 @@
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-
+    
     <fieldset>
         <!--<legend>CaseModel</legend>-->
 
@@ -30,6 +30,7 @@
                 @Html.ValidationMessageFor(model => model.Owner)
             </div>
             -->
+        @{ var user = (String) HttpContext.Current.Session["uid"]; }
         <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
             @Html.TextBoxFor(model => model.Title, new { placeholder = "Förslagets titel" })
             @Html.ValidationMessageFor(model => model.Title)
@@ -115,9 +116,15 @@
             @Html.ValidationMessageFor(model => model.Published)
         </div>
 
+            @if ( user != null){
             <p>
-                <input type="submit" value="Spara" />
+                <input type="submit" value="Save" />
             </p>
+           }else{
+               <p>
+                Var god logga in för att spara.
+               </p>
+           }
         </fieldset>
     }
 
