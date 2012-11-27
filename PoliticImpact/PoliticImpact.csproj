@@ -357,6 +357,7 @@
     <Content Include="Views\CaseItems\Edit.Phone.cshtml" />
     <Content Include="Views\CaseItems\Create.cshtml" />
     <Content Include="Views\RecieverResponses\Edit.Phone.cshtml" />
+    <Content Include="Views\Account\Logout.cshtml" />
     <Content Include="Views\CaseItems\Search.cshtml" />
     <Content Include="Views\CaseItems\SubmitSearch.Phone.cshtml" />
     <None Include="web.Debug.config">
