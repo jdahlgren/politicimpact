@@ -1,0 +1,41 @@
+@model IEnumerable<PoliticImpact.Models.CaseMode>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            caseModeName
+        </th>
+        <th>
+            caseModeInt
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.caseModeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.caseModeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.caseModeID })
+        </td>
+        <td>
+			@item.caseModeName
+        </td>
+        <td>
+			@item.caseModeInt
+        </td>
+    </tr>
+}
+
+</table>
+
+
