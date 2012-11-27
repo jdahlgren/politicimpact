@@ -1,0 +1,38 @@
+﻿@model PoliticImpact.Models.RecieverResponse
+
+@{
+    ViewBag.Title = "Respond";
+    
+    if(ViewBag.caseFound)
+    { 
+        <div>
+            <h2>@ViewBag.caseTitle</h2>
+            <p>@ViewBag.caseText</p>
+        </div>
+
+        using (Html.BeginForm()) {
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <legend>Svara på förslag</legend>
+
+                @Html.HiddenFor(model => model.ResponseID)
+		        @Html.Partial("_CreateOrEdit", Model)
+                @Html.HiddenFor(model => model.ResponseCode)
+
+                <p>
+                    <input type="submit" value="Skicka svar" />
+                </p>
+            </fieldset>
+        }
+    }
+    else
+    {
+        <div>
+            <h2>There is no case awaiting response.</h2>
+        </div>
+    }
+}
+
+<!--<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>-->

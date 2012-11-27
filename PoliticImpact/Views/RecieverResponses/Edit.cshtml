@@ -3,34 +3,37 @@
 @{
     ViewBag.Title = "Respond";
 
-    if(ViewBag.caseFound)
+    <div class="row">
+
+    @if(ViewBag.caseFound)
     { 
-        <div>
-            <h2>@ViewBag.caseTitle</h2>
-            <p>@ViewBag.caseText</p>
-        </div>
+        <h2>@ViewBag.caseTitle</h2>
+        <p>@ViewBag.caseText</p>
 
         using (Html.BeginForm()) {
             @Html.ValidationSummary(true)
             <fieldset>
-                <legend>Respond to Case</legend>
+                <legend>Svara på förslag</legend>
 
                 @Html.HiddenFor(model => model.ResponseID)
-		        @Html.Partial("_CreateOrEdit", Model)
+		        
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.ResponseText, new { style="width: 500px; height:100px", placeholder = "Skriv ditt svar här" })
+                </div>
+
                 @Html.HiddenFor(model => model.ResponseCode)
 
                 <p>
-                    <input type="submit" value="Submit Response" />
+                    <input type="submit" value="Skicka svar" />
                 </p>
             </fieldset>
         }
     }
     else
     {
-        <div>
-            <h2>There is no case awaiting response.</h2>
-        </div>
+        <h2>There is no case awaiting response.</h2>
     }
+    </div>
 }
 
 <!--<div>
