@@ -104,6 +104,10 @@ div.caseresult {
     float: left;
 }
 
+div.caseresult:hover {
+    background: #00d6eb;
+}
+
 div.caseresult:last-child {
     border-bottom: 0px;
 }

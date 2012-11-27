@@ -30,7 +30,7 @@
         <p>@Model.Text</p>
 
 
-        <div class="display-label">Reicever</div>
+        <div class="display-label">Mottagare</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
         @if (Model.imageName != null)
@@ -61,46 +61,43 @@
 <hr />
 <div class="row">
     <div class="span2">
-        <!-- Button to trigger modal -->
-        <a href="#shareCase" role="button" class="btn" data-toggle="modal">Share case</a>
+        <p><img src="~/Content/images/external_link.png" alt="Likes"/></p>
+        <a href="#shareCase" role="button" class="btn" data-toggle="modal">Dela</a>
     </div>
     @if (Model.enableLikes == true)
     {
         <div class="span2">
+            <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
             {
-                //Kanske skall vara en bild istället?
-                <p>You have liked this!</p>
+                <p>Du gillade detta!</p>
             }
             else
             {
-                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
-                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
-                </a>
+                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
             }
-            <p>Number of likes: @ViewBag.numberOfLikes</p>
         </div>       
     }
     @if (Model.enableComments == true)
     {  
         <div class="span2">
-            <img src="~/Content/images/Comment.png" width="75" height="75" onclick="ShowCommentField();" id="ShowCaseComment" />
+            <p>2 <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+            <button class="btn" onclick="ShowCommentField();">Kommentera</button>
+
         </div>
     }
 
     @if (Model.enableSigns == true)
     {
-        <div class="span2">            
+        <div class="span2">
+            <p>2 <img src="~/Content/images/signups.png" alt="Signups"/></p>
             @if (ViewBag.status == "signed")
             {
-                //Kanske skall vara en bild istället?
-            <p>You have signup for this case</p>
+                <p>Du har skrivit under detta förslag</p>
             }
             else
             {
-            <a href="#signupCase" role="button" data-toggle="modal">
-                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
-                </a>
+            <a href="#signupCase" class="btn">Skriv under</a>
             }
         </div>
     }
@@ -115,14 +112,12 @@
         <h3>@ViewBag.voting.Title</h3>
         if (!ViewBag.UserHasVoted)
         {
-            <div id="voting_container" class="span3">
-                <div id="voting-alternatives">
-                    <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                    <label for="voting-choice-1">Yes</label>
-                    <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                    <label for="voting-choice-2">No</label>
-                </div>
-                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Vote</button>
+            <div id="voting_container" class="span4">
+                <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                <label for="voting-choice-1">Ja</label>
+                <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+                <label for="voting-choice-2">Nej</label>
+                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
             </div>
         }
         else
@@ -132,72 +127,45 @@
     }
 </div>
 
-        <div id="fiveComments">
-            <fieldset>
-                <legend>Comments</legend>
-                @*Om kommentarerna är tomma*@
-                @if (ViewBag.casecomments == null)
-                {
-                        <p id="nocomments">No comments for this case</p>
-                }
-                else
-                {
-                    foreach (var comment in ViewBag.casecomments)
-                    {
-                        <p>@comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-        </div>
-        @*Print all comments for the case där id är samma*@
-        <div id="newComment">
-            <input type="text" id="newCommentStr" />
-            <button onclick="PostComment(@Model.ID);">Post</button>
-        </div>
-        <div id="allComments">
-            <fieldset>
-                <legend id="titleComments">Comments</legend>
-                @if (ViewBag.casecomments == null)
-                {
-                        <p id="nocomments">No comments for this case</p>
-                }
-                else
-                {
-                    foreach (var comment in ViewBag.casecomments)
-                    {
-                        <p>@comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-        </div>
-
-        <!--Kommenteras bort tills att vi kan hämta data ur databasen
-        
-            @using (Html.BeginForm("CreateComment", "CaseItems", FormMethod.Post, new { @style = "display: none;", @id = "allComments" }))
+<div id="fiveComments">
+    <fieldset>
+        <legend>Kommentarer</legend>
+        @*Om kommentarerna är tomma*@
+        @if (ViewBag.casecomments == null)
+        {
+                <p id="nocomments">Det finns inga kommentarer</p>
+        }
+        else
+        {
+            foreach (var comment in ViewBag.casecomments)
             {
-            @*<form style="display: none;" id="allComments">*@
-            @Html.Hidden("caseID", Model.ID)
-            @Html.TextBox("commentStr")
-
-            @*<input aria-multiline="true" class="commentString"/>*@
-            <input type="submit" value="Submit"/>
-            <fieldset>
-                <legend>Comments</legend>
-                @if (Model.caseComment == null)
-                {
-                        <p>No comments for this case</p>
-                }
-                else
-                {
-                    foreach (var comment in Model.caseComment)
-                    {
-                        <p>comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-            }-->
-
-
+                <p>@comment.commentStr</p>
+            }
+        }
+    </fieldset>
+</div>
+@*Print all comments for the case där id är samma*@
+<div id="newComment">
+    <input type="text" id="newCommentStr" />
+    <button class="btn" onclick="PostComment(@Model.ID);">Spara</button>
+</div>
+<div id="allComments">
+    <fieldset>
+        <legend id="titleComments">Kommentarer</legend>
+        @if (ViewBag.casecomments == null)
+        {
+                <p id="nocomments">Det finns inga kommentarer</p>
+        }
+        else
+        {
+            foreach (var comment in ViewBag.casecomments)
+            {
+                <p>@comment.commentStr</p>
+            }
+        }
+    </fieldset>
+</div>
+    
 <!-- Modal -->
 <div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">

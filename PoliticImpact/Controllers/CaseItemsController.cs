@@ -203,6 +203,11 @@ namespace PoliticImpact.Controllers
                 ViewBag.userhasvoted = UserHasVoted;
 
             }
+            
+            
+            ViewBag.casecomments = caseCommentRepository.FindAllByCaseId(id);
+            
+            
 
             //TODO real user
             foreach (var item in casesignupRepository.All)
@@ -226,13 +231,6 @@ namespace PoliticImpact.Controllers
                 }
 
             }
-
-
-            //var model = caseitemRepository.Find(id);
-            //using (var casecommentRepository = new CaseCommentRepository()){
-            //    model.caseComment = casecommentRepository.AllIncluding(comment => comment.caseID == id).ToList();
-            //}
-
             return View(caseitemRepository.Find(id));
         }
 

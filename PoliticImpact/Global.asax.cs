@@ -39,7 +39,9 @@ namespace PoliticImpact
                         (ctx.GetOverriddenUserAgent() != null) &&
                         (//...either iPhone or iPod                           
                             (ctx.GetOverriddenUserAgent().IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) ||
-                            (ctx.GetOverriddenUserAgent().IndexOf("iPod", StringComparison.OrdinalIgnoreCase) >= 0)
+                            (ctx.GetOverriddenUserAgent().IndexOf("iPod", StringComparison.OrdinalIgnoreCase) >= 0) || 
+                            (ctx.GetOverriddenUserAgent().IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0)
+
                         )
                 ))
                 });
