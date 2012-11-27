@@ -66,7 +66,7 @@ div.caseitem-list
     margin-bottom: 5px;
     padding: 5px;
     float: left;
-    border-bottom: 1px#a8a8a8  solid;
+    border-bottom: 1px#a8a8a8 solid;
 }
 div.caseitem-list:last-child
 {
@@ -79,12 +79,12 @@ div.caseitem-list:hover
 }
 div.caseitem-list-main {
     float: left;
-    width: 350px;
+    width: 450px;
     position: relative;
 }
 div.caseitem-list-main-info
 {
-    width: 350px;
+    width: 450px;
     height: 100px;
     float: left;
 }
@@ -118,6 +118,7 @@ div.templateimage
 }
 div.caseitem-additional-info
 {
+    width: 450px;
     border-top: 1px #ccc solid;
     height: 25px;
     padding-top: 2px;

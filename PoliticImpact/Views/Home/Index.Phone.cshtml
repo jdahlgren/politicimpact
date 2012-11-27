@@ -57,14 +57,14 @@
 			    </a></li>
 		    </ul>
 	    </div>
+        //Get name from facebook
         <script type='text/javascript'>
-                                $(document).ready(function () {
-                                    $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
-                                    $('<p>' + data.name + '<p>').appendTo('#divName@(item.ID)');
-                                })
-                                })
-
-                        </script>
+            $(document).ready(function () {
+                $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
+                $('<p>' + data.name + '<p>').appendTo('#divName@(item.ID)');
+            })
+            })
+        </script>
     } 
 </div>
 

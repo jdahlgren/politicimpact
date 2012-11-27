@@ -154,7 +154,6 @@ namespace PoliticImpact.Controllers
         {
 
             System.Diagnostics.Debug.WriteLine("asdf");
-
             return View(caseitemRepository.All);
         }
 
@@ -529,7 +528,3 @@ namespace PoliticImpact.Controllers
 
 }
 
-
-
-
->>>>>>> 1fea86aca9b416d5a13a46f14188bbd73170a107

@@ -26,6 +26,17 @@
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
+
+        @*Get creator name from facebook*@
+        <p id="divName@(Model.ID)"></p>
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                $.getJSON('https://graph.facebook.com/' + @Model.Owner + "", function (data) {
+                $('<strong>' + data.name + '</strong>').appendTo('#divName@(Model.ID)');
+                })
+            })
+        </script>
+
         <p>
             @Model.Text
         </p>
