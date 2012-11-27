@@ -31,6 +31,13 @@ namespace PoliticImpact.Models
             return context.CaseSignUps.Find(id);
         }
 
+        public IQueryable<CaseSignUp> FindAllByCaseId(int id)
+        {
+            return (from cs in context.CaseSignUps
+                    where cs.caseID == id
+                    select cs);
+        }
+
         public void InsertOrUpdate(CaseSignUp casesignup)
         {
             if (casesignup.caseID == default(int)) {
@@ -63,6 +70,7 @@ namespace PoliticImpact.Models
     {
         IQueryable<CaseSignUp> All { get; }
         IQueryable<CaseSignUp> AllIncluding(params Expression<Func<CaseSignUp, object>>[] includeProperties);
+        IQueryable<CaseSignUp> FindAllByCaseId(int id);
         CaseSignUp Find(int id);
         void InsertOrUpdate(CaseSignUp casesignup);
         void Delete(int id);
