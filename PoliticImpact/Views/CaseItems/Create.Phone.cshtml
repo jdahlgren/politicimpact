@@ -31,13 +31,13 @@
             </div>
             -->
         <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
-            @Html.TextBoxFor(model => model.Title, new { placeholder = "Name of the case" })
+            @Html.TextBoxFor(model => model.Title, new { placeholder = "Förslagets titel" })
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
 
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextAreaFor(model => model.Text, new { placeholder = "Description" })
+            @Html.TextAreaFor(model => model.Text, new { placeholder = "Beskrivning" })
             @Html.ValidationMessageFor(model => model.Text)
         </div>
 
@@ -47,11 +47,11 @@
             @Html.ValidationMessageFor(model => model.Deadline)
         </div>
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
+            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Mottagarens namn" })
             @Html.ValidationMessageFor(model => model.RecieverName)
         </div>
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
+            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mottagarens mail" })
             @Html.ValidationMessageFor(model => model.RecieverEmail)
         </div>
 
@@ -107,13 +107,13 @@
             <tr>
                 <td>
                     <div data-role="fieldcontain">
-                        <label for="slider2">Use voting:</label>
+                        <label for="slider2">Omröstning:</label>
                         <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
+                            <option value="no">Nej</option>
+                            <option value="yes">Ja</option>
                         </select>
                         <div data-role="fieldcontain" id="voting_input">
-                            <label for="name">Voting title:</label>
+                            <label for="name">Fråga (Ja/Nej):</label>
                             <input type="text" name="voting_title" id="voting_title" value="" data-mini="true" />
                         </div>
 
@@ -130,8 +130,6 @@
             @Html.ValidationMessageFor(model => model.Published)
         </div>
 
-
-<<<<<<< HEAD
             <p>
                 <input type="submit" value="Spara" />
             </p>
