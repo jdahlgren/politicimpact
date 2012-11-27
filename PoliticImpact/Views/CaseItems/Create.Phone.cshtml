@@ -1,13 +1,13 @@
 @model PoliticImpact.Models.CaseItem
 
 @{
-    ViewBag.Title = "Create Case";
+    ViewBag.Title = "Skapa Förslag";
     Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
 <div data-role="page" data-theme="b" class="type-interior">
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Back</a>
-         <h1>Create Case</h1>
+        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Tillbaka</a>
+         <h1>Skapa förslag</h1>
     </div>
     <div data-role="content">
 
@@ -28,13 +28,13 @@
             -->
 
             <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
-                @Html.TextBoxFor(model => model.Title, new { placeholder = "Name of the case" })
+                @Html.TextBoxFor(model => model.Title, new { placeholder = "Förslagets titel" })
                 @Html.ValidationMessageFor(model => model.Title)
             </div>
 
         
             <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextAreaFor(model => model.Text,  new { placeholder = "Description" })
+                @Html.TextAreaFor(model => model.Text,  new { placeholder = "Beskrivning" })
                 @Html.ValidationMessageFor(model => model.Text)
             </div>
 
@@ -44,11 +44,11 @@
                 @Html.ValidationMessageFor(model => model.Deadline)
             </div>
             <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
+                @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Mottagarens namn" })
                 @Html.ValidationMessageFor(model => model.RecieverName)
             </div>
             <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
+                @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mottagarens mails" })
                 @Html.ValidationMessageFor(model => model.RecieverEmail)
             </div>
 
@@ -87,14 +87,14 @@
                     <td>
                     
                         <div class="editor-label">
-                            Category
+                            Kategori
                         </div>
                         <div class="editor-field">
                             @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
                                 Text = (option == null ? "None" : option.Title), 
                                 Value = option.CategoryID.ToString(),
                                 Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
-                            }), "Choose...")
+                            }), "Välj...")
 
                             @Html.ValidationMessageFor(model => model.CategoryID)
                         </div>
@@ -103,13 +103,13 @@
                 <tr>
                     <td>
                        <div data-role="fieldcontain">
-				            <label for="slider2">Use voting:</label>
+				            <label for="slider2">Änvänd omröstning:</label>
 				            <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
-					            <option value="no">No</option>
-					            <option value="yes">Yes</option>
+					            <option value="no">Nej</option>
+					            <option value="yes">Ja</option>
                             </select>
                             <div data-role="fieldcontain" id="voting_input">
-                                <label for="name">Voting title:</label>
+                                <label for="name">Titel på omröstning:</label>
                                 <input type="text" name="voting_title" id="voting_title" value="" data-mini="true" />
                             </div>
                            
@@ -129,7 +129,7 @@
 
 
             <p>
-                <input type="submit" value="Save" />
+                <input type="submit" value="Spara" />
             </p>
         </fieldset>
     }

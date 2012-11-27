@@ -1,7 +1,7 @@
 ﻿@model PoliticImpact.Models.CaseItem
 
 @{
-    ViewBag.Title = "Create Case";
+    ViewBag.Title = "Skapa ärendes";
 }
     <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Back</a>
     <h1>Create Case</h1>
@@ -23,13 +23,13 @@
             -->
 
             <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
-                @Html.TextBoxFor(model => model.Title, new { placeholder = "Name of the case" })
+                @Html.TextBoxFor(model => model.Title, new { placeholder = "Namn på ärendet" })
                 @Html.ValidationMessageFor(model => model.Title)
             </div>
 
         
             <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextAreaFor(model => model.Text,  new { placeholder = "Description" })
+                @Html.TextAreaFor(model => model.Text,  new { placeholder = "Beskrivning" })
                 @Html.ValidationMessageFor(model => model.Text)
             </div>
 
@@ -39,18 +39,18 @@
                 @Html.ValidationMessageFor(model => model.Deadline)
             </div>
             <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
+                @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Namn på mottagaren" })
                 @Html.ValidationMessageFor(model => model.RecieverName)
             </div>
             <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
+                @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail till mottagaren" })
                 @Html.ValidationMessageFor(model => model.RecieverEmail)
             </div>
 
             <table>
                 <tr>
                     <td>
-                        <div class="editor-label">
+                        <div class="editor-label">s
                             @Html.LabelFor(model => model.enableLikes)
                         </div>
                         <div class="editor-field">

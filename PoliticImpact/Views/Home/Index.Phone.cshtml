@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Hem";
 }
 @section header{
     <!-- top menu, to be implemented on other pages -->
     
-    <h2>Home</h2>
+    <h2>Hem</h2>
     <!-- navigation -->
     <div data-role="navbar" data-iconpos="top">
 	    <ul>
-		    <li>@Html.ActionLink("Home", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
-            <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search" })</li>
-            <li>@Html.ActionLink("About", "About", "Home", new { data_icon = "gear" })</li>
+		    <li>@Html.ActionLink("Hem", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
+            <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "search" })</li>
+            <li>@Html.ActionLink("Om", "About", "Home", new { data_icon = "gear" })</li>
 	    </ul>
     </div>
     <!-- /navigation -->
@@ -40,7 +40,7 @@
 
 <img src="~/Content/images/medborgarforslag.jpg" class="center"/>
 
-<h3>Recent cases</h3>
+<h3>Senaste förslag</h3>
 <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
     @foreach (var item in Model.Reverse().Take(5)){
         <div data-role="collapsible">
@@ -48,7 +48,7 @@
 		    <ul data-role="listview" data-theme="d" data-divider-theme="d">
 			    <!--<li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2 views</span></li>-->
 			    <li><a href="/CaseItems/Details/@item.ID" rel="external">
-					    <h3>Name writer</h3>
+					    <h3>Namn Författare</h3>
 					    <p>@item.Text</p>
 					   <!-- <p class="ui-li-aside"><strong>5</strong> Likes</p>-->
 			    </a></li>

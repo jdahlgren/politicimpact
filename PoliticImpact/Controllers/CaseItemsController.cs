@@ -154,11 +154,10 @@ namespace PoliticImpact.Controllers
         {
 
             System.Diagnostics.Debug.WriteLine("asdf");
-
             return View(caseitemRepository.All);
         }
 
-        //
+
         // GET: /CaseItems/Details/5
 
         public ViewResult Details(int id)
