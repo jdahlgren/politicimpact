@@ -77,10 +77,6 @@ namespace PoliticImpact.Controllers
                     return View();
                 }
 
-
-            
-
-
             }
 
             CaseLike caselike = new CaseLike();
@@ -272,6 +268,7 @@ namespace PoliticImpact.Controllers
         public ActionResult Create(CaseItem caseitem)
         {
             RecieverResponse resp = new RecieverResponse();
+            resp.ResponseCode = GenerateResponseCode(caseitem);
             recieverresponseRepository.InsertOrUpdate(resp);
             recieverresponseRepository.Save();
 
@@ -418,6 +415,10 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        /**
+         * SubmitSearch - en funktion som hämtar sökvariabel och skickar den till caseitemRepository,
+         * returnerar en view.
+         */
         [HttpPost]
         public ActionResult SubmitSearch(FormCollection collection)
         {

@@ -52,7 +52,7 @@ namespace PoliticImpact.Models
 
 
         public string imageName { get; set; }
-        //added by Michaela
+        //added by Michaela - tas bort?
         public int numberOfLikes { get; set; }
         
 
