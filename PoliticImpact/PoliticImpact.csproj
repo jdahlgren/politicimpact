@@ -250,6 +250,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DetailsView.js" />
+    <Content Include="Scripts\Facebook.js" />
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
     <Content Include="Scripts\HideAdressBar.js" />

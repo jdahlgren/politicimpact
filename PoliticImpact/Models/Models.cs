@@ -172,5 +172,12 @@ namespace PoliticImpact.Models
         public virtual CaseItem CaseItem { get; set; }
         public string commentStr{ get; set;}
     }
+
+    public class User
+    {
+        public string uid { get; set; }
+        public string accessToken { get; set; }
+        public string name { get; set; }
+    }
     
 }

@@ -277,7 +277,16 @@ namespace PoliticImpact.Controllers
             recieverresponseRepository.InsertOrUpdate(resp);
             recieverresponseRepository.Save();
 
-            caseitem.Owner = 1337;  //TODO should be the logged in users facebook-id
+            if (Session["uid"] != null)
+            {
+                //Hämta session-id
+                long userId = Convert.ToInt64(Session["uid"].ToString());
+                caseitem.Owner = userId;
+            }
+            else
+            {
+                caseitem.Owner = 4;
+            }
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;
