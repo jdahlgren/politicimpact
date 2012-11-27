@@ -1,14 +1,16 @@
 @model PoliticImpact.Models.CaseItem
 
 @{
-    ViewBag.Title = "Create Case";
-    Layout = "~/Views/Shared/_Layout.Phone.cshtml";
+
+    ViewBag.Title = "Skapa Förslag";
+   Layout = "~/Views/Shared/_Layout.Phone.cshtml";
 }
 
 @section Header{
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
-        <h1>Create Case</h1>
+
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
+        <h1>Skapa förslag</h1>
     </div>
 }
 
@@ -28,15 +30,14 @@
                 @Html.ValidationMessageFor(model => model.Owner)
             </div>
             -->
-
         <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
-            @Html.TextBoxFor(model => model.Title, new { placeholder = "Name of the case" })
+            @Html.TextBoxFor(model => model.Title, new { placeholder = "Förslagets titel" })
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
 
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextAreaFor(model => model.Text, new { placeholder = "Description" })
+            @Html.TextAreaFor(model => model.Text, new { placeholder = "Beskrivning" })
             @Html.ValidationMessageFor(model => model.Text)
         </div>
 
@@ -46,80 +47,65 @@
             @Html.ValidationMessageFor(model => model.Deadline)
         </div>
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
+            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Mottagarens namn" })
             @Html.ValidationMessageFor(model => model.RecieverName)
         </div>
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
+            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mottagarens mail" })
             @Html.ValidationMessageFor(model => model.RecieverEmail)
         </div>
 
-        <table>
-            <tr>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.enableLikes)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.enableLikes)
-                        @Html.ValidationMessageFor(model => model.enableLikes)
-                    </div>
-                </td>
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.enableComments)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.enableComments)
-                        @Html.ValidationMessageFor(model => model.enableComments)
-                    </div>
-                </td>
 
-                <td>
-                    <div class="editor-label">
-                        @Html.LabelFor(model => model.enableSigns)
-                    </div>
-                    <div class="editor-field">
-                        @Html.EditorFor(model => model.enableSigns)
-                        @Html.ValidationMessageFor(model => model.enableSigns)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.enableLikes)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.enableLikes)
+            @Html.ValidationMessageFor(model => model.enableLikes)
+        </div>
 
-                    <div class="editor-label">
-                        Category
-                    </div>
-                    <div class="editor-field">
-                        @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem
+        <div class="editor-label">
+            @Html.LabelFor(model => model.enableComments)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.enableComments)
+            @Html.ValidationMessageFor(model => model.enableComments)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.enableSigns)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.enableSigns)
+            @Html.ValidationMessageFor(model => model.enableSigns)
+        </div>
+
+
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem
                    {
                        Text = (option == null ? "None" : option.Title),
                        Value = option.CategoryID.ToString(),
                        Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
-                   }), "Choose...")
+                   }), "Välj kategori...")
 
-                        @Html.ValidationMessageFor(model => model.CategoryID)
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div data-role="fieldcontain">
-                        <label for="slider2">Use voting:</label>
-                        <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
-                            <option value="no">No</option>
-                            <option value="yes">Yes</option>
-                        </select>
-                        <div data-role="fieldcontain" id="voting_input">
-                            <label for="name">Voting title:</label>
-                            <input type="text" name="voting_title" id="voting_title" value="" data-mini="true" />
-                        </div>
+            @Html.ValidationMessageFor(model => model.CategoryID)
+        </div>
+        
+        <div data-role="fieldcontain">
+            <label for="slider2">Omröstning:</label><br/>
+            <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
+                <option value="no">Nej</option>
+                <option value="yes">Ja</option>
+            </select>
+            <div data-role="fieldcontain" id="voting_input">
+                <label for="name">Fråga (Ja/Nej):</label>
+                <input type="text" name="voting_title" id="voting_title" value="" data-mini="true" />
+            </div>
 
-                    </div>
-                </td>
-            </tr>
-        </table>
+        </div>
+               
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Published)
@@ -129,15 +115,12 @@
             @Html.ValidationMessageFor(model => model.Published)
         </div>
 
+            <p>
+                <input type="submit" value="Spara" />
+            </p>
+        </fieldset>
+    }
 
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
-}
-</div>
-</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

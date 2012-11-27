@@ -1,12 +1,13 @@
 ﻿@model PoliticImpact.Models.CaseItem
 
 @{
-    ViewBag.Title = "Create Case";
+    ViewBag.Title = "Skapa förslag";
 }
     <h2>Skapa förslag</h2>
 
     @using (Html.BeginForm()) {
         @Html.ValidationSummary(true)
+
         <table class="span12">
             <tr>
                 <td class="span2">Titel</td>

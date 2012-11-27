@@ -1,38 +1,52 @@
 ﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
 
 @{
-    ViewBag.Title = "Case list";
+    ViewBag.Title = "Föslag";
     Layout = "~/Views/Shared/_Layout.Phone.cshtml";
 }
 @section header{
+
     <div data-role="header">
-        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Search</a>
-        <h2>Case list</h2>
+        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+        <h2>Förslag</h2>
         @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
-        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Add</a>
+        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Lägg till</a>
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
-		        <li><a href="/Home/Index" data-icon="home">Home</a></li>
-                <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("Sign in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
+		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
+                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "search", @class = "ui-btn-active ui-state-persist"  })</li>
+                <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
+
 	        </ul>
         </div>
         <!-- /navigation -->
     </div>
 }
-<ul data-role="listview" data-filter="true">
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrera förslag..."  >
 @foreach (var item in Model) {
     <li>
         <a href= "/CaseItems/Details/@item.ID" rel="external"> 
             <h3>@item.Title</h3>
-            <p><strong>Anders Andersson</strong></p>
+            <p id="divName@(item.ID)"></p>
             <p>@item.Text.</p>
-            <p class="ui-li-aside">4 Likes</p>
+            <p class="ui-li-aside">4 Gillar</p>
         </a>
      </li>
+    
+    //Get name from facebook
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
+            $('<strong>' + data.name + '</strong>').appendTo('#divName@(item.ID)');
+        })
+        })
+    </script>
+
 }
 </ul>
+
+
 
 
 

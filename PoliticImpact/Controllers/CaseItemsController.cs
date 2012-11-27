@@ -77,10 +77,6 @@ namespace PoliticImpact.Controllers
                     return View();
                 }
 
-
-            
-
-
             }
 
             CaseLike caselike = new CaseLike();
@@ -154,7 +150,6 @@ namespace PoliticImpact.Controllers
         {
 
             System.Diagnostics.Debug.WriteLine("asdf");
-
             return View(caseitemRepository.All);
         }
 
@@ -271,6 +266,7 @@ namespace PoliticImpact.Controllers
         public ActionResult Create(CaseItem caseitem)
         {
             RecieverResponse resp = new RecieverResponse();
+            resp.ResponseCode = GenerateResponseCode(caseitem);
             recieverresponseRepository.InsertOrUpdate(resp);
             recieverresponseRepository.Save();
 
@@ -417,6 +413,10 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        /**
+         * SubmitSearch - en funktion som hämtar sökvariabel och skickar den till caseitemRepository,
+         * returnerar en view.
+         */
         [HttpPost]
         public ActionResult SubmitSearch(FormCollection collection)
         {
@@ -468,44 +468,52 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
-
-        //added by Christoffer Dahl 2012-11-16 09:50
-        public ActionResult ReportMail(int id, String pw)
+        /**
+        * ReportMail – En funktion som sammanställer en rapport och skickar ut till mottagaren av ett förslag.
+        */
+        public ActionResult ReportMail(int id)
         {
-            if (pw == "allow")
+            CaseItem caseItem = caseitemRepository.Find(id);
+            MailMessage m = new MailMessage();
+            SmtpClient sc = new SmtpClient();
+
+            try
             {
-                CaseItem caseItem = caseitemRepository.Find(4);
-                MailMessage m = new MailMessage();
-                SmtpClient sc = new SmtpClient();
+                m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
+                m.To.Add(new MailAddress(caseItem.RecieverEmail, caseItem.RecieverName));
+                m.Subject = "Politic Impact: Rapport på "+caseItem.Title;
+                //m.Body = "Behövs inte om man har AlternativeView";
 
-                try
-                {
-                    m.From = new MailAddress("politicalimpact@gmail.com", "Politic Impact");
-                    m.To.Add(new MailAddress(caseItem.RecieverEmail, caseItem.RecieverName));
-                    m.Subject = "Political Impact: Report on Case";
-                    m.Body = caseItem.Title + caseItem.Text + "Antal likes o lite sånt shieeeet";
+                //Attachment
+                //FileStream fs = new FileStream("E:\\TestFolder\\test.pdf", FileMode.Open, FileAccess.Read);
+                //Attachment a = new Attachment(fs, "test.pdf", MediaTypeNames.Application.Octet);
+                int numberOfLikes = caselikeRepository.FindLike(id);
+                int numberOfSignUps = casesignupRepository.FindSignUps(id);
+                int numberOfVotes = caseVotingRepository.FindVotes(id);
+                string str = @"<html><body><h1> Rapport på " + caseItem.Title + " </h1>" +
+                    "Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact<br>" +
+                    "<h3>Förslagsbeskrivning: </h3>" + caseItem.Text + "<br>" +
+                    "<h3>Deadline för förslaget: </h3>" + caseItem.Deadline + "<br>" +
+                    "<h3>Statistik för förslaget:</h3>" +
+                    "<b>Antal gillanden:</b> " + numberOfLikes + "<br>" +
+                    "<b>Antal underskrifter:</b> " + numberOfSignUps + "<br>" +
+                    "<b>Antal röster:</b> " + numberOfVotes + "<br>" +
+                    "</body></html>";
+                AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
+                //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
+                //lr.ContentId = "image1";
+                //av.LinkedResources.Add(lr);
+                m.AlternateViews.Add(av);
 
-                    //Attachment
-                    //FileStream fs = new FileStream("E:\\TestFolder\\test.pdf", FileMode.Open, FileAccess.Read);
-                    //Attachment a = new Attachment(fs, "test.pdf", MediaTypeNames.Application.Octet);
-
-                    //string str = "<html><body><h1>Picture<h/h1><br/><img src=\cid:image1\"></body></html>";
-                    //AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
-                    //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
-                    //lr.ContentId = "image1";
-                    //av.LinkedResources.Add(lr);
-                    //m.AlternateViews.Add(av);
-
-                    sc.Host = "smtp.gmail.com";
-                    sc.Port = 587;
-                    sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
-                    sc.EnableSsl = true;
-                    sc.Send(m);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                sc.Host = "smtp.gmail.com";
+                sc.Port = 587;
+                sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
+                sc.EnableSsl = true;
+                sc.Send(m);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
             return View();
         }
@@ -526,7 +534,4 @@ namespace PoliticImpact.Controllers
 
 
 }
-
-
-
 
