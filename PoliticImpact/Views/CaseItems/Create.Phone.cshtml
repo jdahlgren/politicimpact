@@ -2,22 +2,24 @@
 
 @{
     ViewBag.Title = "Create Case";
-    Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
+    Layout = "~/Views/Shared/_Layout.Phone.cshtml";
 }
-<div data-role="page" data-theme="b" class="type-interior">
+
+@section Header{
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Back</a>
-         <h1>Create Case</h1>
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
+        <h1>Create Case</h1>
     </div>
-    <div data-role="content">
+}
 
-    @using (Html.BeginForm()) {
-        @Html.ValidationSummary(true)
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
 
-        <fieldset>
-            <!--<legend>CaseModel</legend>-->
+    <fieldset>
+        <!--<legend>CaseModel</legend>-->
 
-            <!--
+        <!--
             <div class="editor-label">
                 @Html.LabelFor(model => model.Owner)
             </div>
@@ -27,113 +29,114 @@
             </div>
             -->
 
-            <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
-                @Html.TextBoxFor(model => model.Title, new { placeholder = "Name of the case" })
-                @Html.ValidationMessageFor(model => model.Title)
-            </div>
-
-        
-            <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextAreaFor(model => model.Text,  new { placeholder = "Description" })
-                @Html.ValidationMessageFor(model => model.Text)
-            </div>
-
-        
-            <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.Deadline, new { placeholder = "Deadline xx-xx-xx, 00:00" })
-                @Html.ValidationMessageFor(model => model.Deadline)
-            </div>
-            <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
-                @Html.ValidationMessageFor(model => model.RecieverName)
-            </div>
-            <div class="editor-field" style="padding-bottom: 14px;">
-                @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
-                @Html.ValidationMessageFor(model => model.RecieverEmail)
-            </div>
-
-            <table>
-                <tr>
-                    <td>
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.enableLikes)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.enableLikes)
-                            @Html.ValidationMessageFor(model => model.enableLikes)
-                        </div>
-                    </td>
-                    <td>
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.enableComments)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.enableComments)
-                            @Html.ValidationMessageFor(model => model.enableComments)
-                        </div>
-                    </td>
-                
-                    <td>
-                        <div class="editor-label">
-                            @Html.LabelFor(model => model.enableSigns)
-                        </div>
-                        <div class="editor-field">
-                            @Html.EditorFor(model => model.enableSigns)
-                            @Html.ValidationMessageFor(model => model.enableSigns)
-                        </div>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                    
-                        <div class="editor-label">
-                            Category
-                        </div>
-                        <div class="editor-field">
-                            @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
-                                Text = (option == null ? "None" : option.Title), 
-                                Value = option.CategoryID.ToString(),
-                                Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
-                            }), "Choose...")
-
-                            @Html.ValidationMessageFor(model => model.CategoryID)
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                       <div data-role="fieldcontain">
-				            <label for="slider2">Use voting:</label>
-				            <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
-					            <option value="no">No</option>
-					            <option value="yes">Yes</option>
-                            </select>
-                            <div data-role="fieldcontain" id="voting_input">
-                                <label for="name">Voting title:</label>
-                                <input type="text" name="voting_title" id="voting_title" value="" data-mini="true" />
-                            </div>
-                           
-			            </div>
-                    </td>
-                </tr>
-            </table>
-
-            <div class="editor-label">
-                @Html.LabelFor(model => model.Published)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.Published)
-                @Html.ValidationMessageFor(model => model.Published)
-            </div>
+        <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
+            @Html.TextBoxFor(model => model.Title, new { placeholder = "Name of the case" })
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
 
 
+        <div class="editor-field" style="padding-bottom: 14px;">
+            @Html.TextAreaFor(model => model.Text, new { placeholder = "Description" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
 
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        </fieldset>
-    }
-    </div>
+
+        <div class="editor-field" style="padding-bottom: 14px;">
+            @Html.TextBoxFor(model => model.Deadline, new { placeholder = "Deadline xx-xx-xx, 00:00" })
+            @Html.ValidationMessageFor(model => model.Deadline)
+        </div>
+        <div class="editor-field" style="padding-bottom: 14px;">
+            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Name reicever" })
+            @Html.ValidationMessageFor(model => model.RecieverName)
+        </div>
+        <div class="editor-field" style="padding-bottom: 14px;">
+            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mail reicever" })
+            @Html.ValidationMessageFor(model => model.RecieverEmail)
+        </div>
+
+        <table>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.enableLikes)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.enableLikes)
+                        @Html.ValidationMessageFor(model => model.enableLikes)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.enableComments)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.enableComments)
+                        @Html.ValidationMessageFor(model => model.enableComments)
+                    </div>
+                </td>
+
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.enableSigns)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.enableSigns)
+                        @Html.ValidationMessageFor(model => model.enableSigns)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    <div class="editor-label">
+                        Category
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem
+                   {
+                       Text = (option == null ? "None" : option.Title),
+                       Value = option.CategoryID.ToString(),
+                       Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
+                   }), "Choose...")
+
+                        @Html.ValidationMessageFor(model => model.CategoryID)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div data-role="fieldcontain">
+                        <label for="slider2">Use voting:</label>
+                        <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                        <div data-role="fieldcontain" id="voting_input">
+                            <label for="name">Voting title:</label>
+                            <input type="text" name="voting_title" id="voting_title" value="" data-mini="true" />
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Published)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Published)
+            @Html.ValidationMessageFor(model => model.Published)
+        </div>
+
+
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+</div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
