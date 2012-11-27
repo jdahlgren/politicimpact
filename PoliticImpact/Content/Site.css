@@ -133,3 +133,21 @@ div.caseitem-additional-info-box
     float: left;
     width: 100px;
 }
+
+
+div.startcarousel
+{
+    height: 200px;
+    padding: 70px;
+    background: #00d6eb;
+}
+#recent-cases
+{
+    border-right: 1px #808080 solid;
+}
+.caseitem-list h3, p{
+    color: #000;
+}
+div.caseresult h3, p{
+    color: #000;
+}
