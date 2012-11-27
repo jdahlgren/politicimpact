@@ -74,7 +74,9 @@
                         @Html.ValidationMessageFor(model => model.enableComments)
                     </div>
                 </td>
-
+            </tr>
+            <tr>
+                
                 <td>
                     <div class="editor-label">
                         @Html.LabelFor(model => model.enableSigns)
@@ -84,20 +86,15 @@
                         @Html.ValidationMessageFor(model => model.enableSigns)
                     </div>
                 </td>
-            </tr>
-            <tr>
                 <td>
 
-                    <div class="editor-label">
-                        Category
-                    </div>
                     <div class="editor-field">
                         @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem
                    {
                        Text = (option == null ? "None" : option.Title),
                        Value = option.CategoryID.ToString(),
                        Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
-                   }), "Choose...")
+                   }), "Välj kategori:")
 
                         @Html.ValidationMessageFor(model => model.CategoryID)
                     </div>
