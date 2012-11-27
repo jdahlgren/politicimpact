@@ -79,14 +79,24 @@ namespace PoliticImpact.Controllers
                 string caseText = recieverresponseRepository.GetCaseText(id);
 
                 if (caseTitle != null)
+                {
                     ViewBag.caseTitle = caseTitle;
+                }
                 else
-                    return RedirectToAction("Index", "Home");
+                {
+                    ViewBag.caseFound = false;
+                    return View();
+                }
 
                 if (caseText != null)
+                {
                     ViewBag.caseText = caseText;
+                }
                 else
-                    return RedirectToAction("Index", "Home");
+                {
+                    ViewBag.caseFound = false;
+                    return View();
+                }
             }
 
             ViewBag.caseFound = true;

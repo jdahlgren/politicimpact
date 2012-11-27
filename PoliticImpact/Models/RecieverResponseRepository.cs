@@ -123,8 +123,12 @@ namespace PoliticImpact.Models
         {
             string caseTitle = (from p in context.CaseItems
                              where p.ResponseID == respId
-                             select p.Title).SingleOrDefault().ToString();
+                             select p.Title).SingleOrDefault();
 
+            if (caseTitle != null)
+            {
+                caseTitle = caseTitle.ToString();
+            }
 
             return caseTitle;
         }
@@ -137,7 +141,12 @@ namespace PoliticImpact.Models
         {
             string caseText = (from b in context.CaseItems
                             where b.ResponseID == respId
-                            select b.Text).SingleOrDefault().ToString();
+                            select b.Text).SingleOrDefault();
+
+            if(caseText != null)
+            {
+                caseText = caseText.ToString();
+            }
 
             return caseText;
         }
@@ -155,7 +164,7 @@ namespace PoliticImpact.Models
             int id;
             if (caseItem != null)
             {
-                id = caseItem.ResponseID;
+                id = caseItem.ID;
                 return id;
             }
             else

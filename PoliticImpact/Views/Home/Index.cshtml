@@ -14,6 +14,9 @@
     {
         border-right: 1px #808080 solid;
     }
+    .caseitem-list h3, p{
+        color: #000;
+    }
 </style>
 <div id="myCarousel" class="carousel slide">
   <!-- Carousel items -->
@@ -31,27 +34,39 @@
         <h4>Senaste förslagen</h4>
         @foreach (var item in Model)
         {
+            
             <div class="caseitem-list">
-                <div class="templateimage"></div>
-                <div class="caseitem-list-main">
-                     <div class="caseitem-list-main-info">
-                        <h3>@item.Title</h3>
-                        <p>@item.Text</p>
-                    </div>
+                <a href="/CaseItems/Details/@item.ID">
+                    <div class="templateimage"></div>
+                    <div class="caseitem-list-main">
+                            <div class="caseitem-list-main-info">
+                            <h3>@item.Title</h3>
+                            <p>
+                                @if( @item.Text.Length > 120)
+                                {                                
+                                    @item.Text.Substring(0, 120)
+                                }
+                                else
+                                {
+                                    @item.Text
+                                }
+
+                            </p>
+                        </div>
                    
-                    <div class="caseitem-additional-info">
-                        <div class="caseitem-additional-info-box">
-                            <p>10 <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
-                        </div>
-                        <div class="caseitem-additional-info-box">
-                            <p>12 <img src="~/Content/images/signups.png" alt="Signups"/></p>
-                        </div>
-                        <div class="caseitem-additional-info-box">
-                            <p>3 <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+                        <div class="caseitem-additional-info">
+                            <div class="caseitem-additional-info-box">
+                                <p>10 <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
+                            </div>
+                            <div class="caseitem-additional-info-box">
+                                <p>12 <img src="~/Content/images/signups.png" alt="Signups"/></p>
+                            </div>
+                            <div class="caseitem-additional-info-box">
+                                <p>3 <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="caseitem-list-link"><a class="btn" href="/CaseItems/Details/@item.ID">Mer »</a></div>         
+                </a>
             </div>
         }
     </div>

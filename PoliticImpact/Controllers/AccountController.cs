@@ -10,15 +10,26 @@ using PoliticImpact.Models;
 namespace PoliticImpact.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     public class AccountController : Controller
     {
         //
         // GET: /Account/Index
 
+        //[AllowAnonymous]
         public ActionResult Index()
         {
             return View();
+        }
+
+        //[AllowAnonymous]
+        [HttpPost]
+        public JsonResult Index(User user)
+        {
+            Session["uid"] = user.uid;
+            Session["accessToken"] = user.accessToken;
+            Session["name"] = user.name;
+            return Json(new { success = true });
         }
 
         //

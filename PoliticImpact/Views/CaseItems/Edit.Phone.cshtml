@@ -1,13 +1,13 @@
 ﻿@model PoliticImpact.Models.CaseItem
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Redigera";
 }
 
 @section Header{
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Back</a>
-        <h1>Edit Case</h1>
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
+        <h1>Redigera förslag</h1>
     </div>
 }
 
@@ -31,7 +31,7 @@
                 <p>Ej publiceread</p>
                 <a data-role="button" onclick="PublishCaseItem(@Model.ID);">Publicera</a>
                 <p>
-                    <input type="submit" value="Save" />
+                    <input type="submit" value="Spara" />
                 </p>
             }
         </div>
