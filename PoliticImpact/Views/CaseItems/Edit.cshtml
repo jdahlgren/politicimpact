@@ -34,16 +34,27 @@
                 <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
             </tr>
         </table>
-            if (Model.Published)
+    if (Model.Archived)
             {
-                <p>Publicerad, går ej att ändra</p>
+                <p>Arkiverad, går inte längre att interagera.</p>
             }
-            else
-            {
+    else
+    {
+                <p>Ej arkiverad</p>
+                <button onclick="ArchiveCaseItem(@Model.ID);" class="btn">Arkivera</button>
+    }
+    if (Model.Published)
+    {
+                <p>Publicerad, går ej att ändra</p>
+    }
+    else
+    {
                 <p>Ej publiceread</p>
                 <button onclick="PublishCaseItem(@Model.ID);" class="btn">Publicera</button>
                 <button type="submit" class="btn btn-success">Spara</button>
-            }
+    }
+            
+        
         
 }
 <script>
