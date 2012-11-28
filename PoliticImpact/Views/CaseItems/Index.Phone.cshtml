@@ -27,25 +27,28 @@
     </div>
 }
 <ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrera förslag..."  >
-@foreach (var item in Model) {
-    <li>
-        <a href= "/CaseItems/Details/@item.ID" rel="external"> 
-            <h3>@item.Title</h3>
-            <p id="divName@(item.ID)"></p>
-            <p>@item.Text.</p>
-            <p class="ui-li-aside">4 Gillar</p>
-        </a>
-     </li>
+@foreach (var item in Model)
+{
+    if (!item.Archived)
+    {
+        <li>
+            <a href= "/CaseItems/Details/@item.ID" rel="external">
+                <h3>@item.Title</h3>
+                <p id="divName@(item.ID)"></p>
+                <p>@item.Text.</p>
+                <p class="ui-li-aside">4 Gillar</p>
+            </a>
+        </li>
     
-    //Get name from facebook
-    <script type='text/javascript'>
-        $(document).ready(function () {
-            $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
-            $('<strong>' + data.name + '</strong>').appendTo('#divName@(item.ID)');
+        //Get name from facebook
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
+                $('<strong>' + data.name + '</strong>').appendTo('#divName@(item.ID)');
+            })
         })
-        })
-    </script>
-
+        </script>
+    }
 }
 </ul>
 

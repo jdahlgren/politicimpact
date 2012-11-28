@@ -20,12 +20,18 @@
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
         <h1>@ViewBag.Title</h1>
          @{ var user = (String)HttpContext.Current.Session["uid"]; }
-        @if (user != null)
+        @if (user == @Model.Owner.ToString() && !@Model.Archived)
         {
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
         }
     </div>
+    @if(!@Model.Archived || user == @Model.Owner.ToString())
+    {
     <div data-role="content">
+        @if(!@Model.Archived && user == @Model.Owner.ToString())
+        {
+        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+        }
         <h2>@Model.Title</h2>
 
         @*Get creator name from facebook*@
@@ -220,7 +226,7 @@
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Redigera</a>
         }
     </div>
-</div>
+@*</div>*@
 <style>
     #share_by_email
     {
@@ -265,5 +271,9 @@
         });
     }
 </script>
-
+}
+    else
+    {
+     <h3>Ärendet är arkiverat</h3>   
+    }
 

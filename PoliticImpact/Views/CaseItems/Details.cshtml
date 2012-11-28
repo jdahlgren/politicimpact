@@ -1,7 +1,11 @@
 ﻿@model PoliticImpact.Models.CaseItem
-@{
+
+@* || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
+@if(!@Model.Archived) 
+{
+
     ViewBag.Title = @Model.Title;
-}
+
 <style>
     #share_by_email
     {
@@ -221,4 +225,8 @@
 </script>
 
 
-
+}
+    else
+    {
+     <h3>Ärendet är arkiverat</h3>   
+    }
