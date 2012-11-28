@@ -491,6 +491,7 @@ namespace PoliticImpact.Controllers
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
                 string link;
+                //OBS! Länken är just nu hårdkodad till min localhost, bör ändras till azure senare.
                 link = "<" + "a href=" + "http://" + "localhost:56397/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
                 string str = @"<html><body><h1> Rapport på " + caseItem.Title + " </h1>" +
                     "Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact<br>" +
@@ -522,6 +523,9 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        /**
+        * PrintCase – Sammanställer data och skickar vidare till vyn för utskrift av förslag.
+        */
         public ActionResult PrintCase(int id)
         {
             int numberOfLikes = caselikeRepository.FindLike(id);
