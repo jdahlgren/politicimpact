@@ -8,7 +8,9 @@
     <div class="span8" id="recent-cases">
         <h4>Senaste förslagen</h4>
         @foreach (var item in Model)
-        {
+        { 
+            @*TODO when users exist in desktop*@
+            @*if (!item.Archived || user == item.Owner.ToString())*@           
             if (!item.Archived)
             {
             

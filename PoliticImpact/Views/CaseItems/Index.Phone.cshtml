@@ -3,14 +3,18 @@
 @{
     ViewBag.Title = "Förslag";
     Layout = "~/Views/Shared/_Layout.Phone.cshtml";
+    
 }
+
+@{ var user = (String) HttpContext.Current.Session["uid"]; }
+s
 @section header{
 
     <div data-role="header">
         <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
         <h2>Förslag</h2>
         @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
-        @{ var user = (String) HttpContext.Current.Session["uid"]; }
+        
         @if ( user != null) {
             <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Add</a>
         }        
@@ -29,7 +33,7 @@
 <ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrera förslag..."  >
 @foreach (var item in Model)
 {
-    if (!item.Archived)
+    if (!item.Archived || user == item.Owner.ToString())
     {
         <li>
             <a href= "/CaseItems/Details/@item.ID" rel="external">

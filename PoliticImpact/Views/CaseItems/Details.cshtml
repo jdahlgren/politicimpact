@@ -1,6 +1,6 @@
 ﻿@model PoliticImpact.Models.CaseItem
 
-@* || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
+@*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
 @if(!@Model.Archived) 
 {
 
