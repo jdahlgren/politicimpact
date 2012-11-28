@@ -91,6 +91,9 @@ namespace PoliticImpact.Models
         public int ResponseID { get; set; }
         [ForeignKey("ResponseID")]
         public virtual RecieverResponse recieverResponse { get; set; }
+
+        [Required]
+        public bool Archived { get; set; }
     }
    
     public class CaseCategory

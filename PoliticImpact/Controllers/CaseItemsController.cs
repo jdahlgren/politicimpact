@@ -407,6 +407,21 @@ namespace PoliticImpact.Controllers
             caseitemRepository.Save();
             return View();
         }
+        /**
+         * public ActionResult Archive
+         * En action som arkiverar ett ärende.
+         * Sätter boolean "Archived" till true när funktionen anropas
+         * och updaterar databasen.
+         */
+        [HttpPost]
+        public ActionResult Archive(int id)
+        {
+            CaseItem caseitem = caseitemRepository.Find(id);
+            caseitem.Archived = true;
+            caseitemRepository.InsertOrUpdate(caseitem);
+            caseitemRepository.Save();
+            return View();
+        }
 
         public ActionResult Search()
         {
