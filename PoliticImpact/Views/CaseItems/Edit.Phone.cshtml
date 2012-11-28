@@ -22,11 +22,26 @@
         @Html.HiddenFor(model => model.RecieverEmail)
         @Html.HiddenFor(model => model.CategoryID)
 
-        @*Edit Case Mode*@
-         <div class="editor-label">
-                        Ärendets progress
-                    </div>
-        @{
+        @*Edit CaseMode*@
+         
+        <form runat="server">
+           <div class="editor-label">Ärendets progress</div>
+            <br>
+            <RadioButton id="Progress" Text="Progress" Checked="True"
+            GroupName="ModeOfCase" runat="server"/>
+            <br>
+            <RadioButton id="Accepted" Text="Godkänd"
+            GroupName="ModeOfCase" runat="server"/>
+            <br>
+            <RadioButton id="Declined" Text="Avslagen"
+            GroupName="ModeOfCase" runat="server"/>
+            <br>
+            <asp:Button text="Submit" OnClick="submit" runat="server"/>
+            <p><asp:Label id="Label1" runat="server"/></p>
+            </form>
+        
+
+        @*@{
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem
             {
@@ -41,10 +56,18 @@
         }
         
         <div class="editor-field">
-            @Html.DropDownList("Välj status", items);
+            <div class="dropdown">@Html.DropDownListFor(m => m.caseMode.caseModeInt, "Välj status", items)</div>
+            @if (SelectListItem.Equals)
+            {
+                //Sparas i caseItem 
+            }
+            else if(SelectListItem == 2)
+            {
+                //Sparas i caseItem
+            }
 
-            @*@Html.ValidationMessageFor(model => model.CategoryID)*@
-        </div>
+            @Html.ValidationMessageFor(model => model.CategoryID)
+        </div>*@
 
 		@Html.Partial("_CreateOrEdit", Model)
         <div id="published_status">

@@ -59,11 +59,7 @@ namespace PoliticImpact.Controllers
 				return View();
 			}
         }
-        public Action CreateFirst()
-        {
- 
-        }
-        
+                
         //
         // GET: /CaseModes/Edit/5
  
