@@ -1,0 +1,16 @@
+﻿@model PoliticImpact.Models.CaseItem
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+<h2>@Model.Title</h2>
+<h4>Förslagsbeskrivning: </h4> @Model.Text <br>
+<h4>Skapad: </h4> @Model.Created <br>
+<h4>Deadline: </h4> @Model.Deadline <br>
+<h4>Statistik:</h4>
+    <b>Antal gillanden:</b> @ViewBag.numberOfLikes<br>
+    <b>Antal underskrifter:</b> @ViewBag.numberOfSignUps<br>
+    <b>Antal röster:</b> @ViewBag.numberOfVotes<br>
+<br><br>
+
+

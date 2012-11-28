@@ -490,14 +490,18 @@ namespace PoliticImpact.Controllers
                 int numberOfLikes = caselikeRepository.FindLike(id);
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
+                string link;
+                link = "<" + "a href=" + "http://" + "localhost:56397/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
                 string str = @"<html><body><h1> Rapport på " + caseItem.Title + " </h1>" +
                     "Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact<br>" +
                     "<h3>Förslagsbeskrivning: </h3>" + caseItem.Text + "<br>" +
-                    "<h3>Deadline för förslaget: </h3>" + caseItem.Deadline + "<br>" +
-                    "<h3>Statistik för förslaget:</h3>" +
+                    "<h3>Skapad: </h3>" + caseItem.Created + "<br>" +
+                    "<h3>Deadline: </h3>" + caseItem.Deadline + "<br>" +
+                    "<h3>Statistik:</h3>" +
                     "<b>Antal gillanden:</b> " + numberOfLikes + "<br>" +
                     "<b>Antal underskrifter:</b> " + numberOfSignUps + "<br>" +
                     "<b>Antal röster:</b> " + numberOfVotes + "<br>" +
+                    "Ser det här mailet konstigt ut? " + link +  
                     "</body></html>";
                 AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
                 //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
@@ -518,6 +522,17 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        public ActionResult PrintCase(int id)
+        {
+            int numberOfLikes = caselikeRepository.FindLike(id);
+            int numberOfSignUps = casesignupRepository.FindSignUps(id);
+            int numberOfVotes = caseVotingRepository.FindVotes(id);
+            ViewBag.numberOfLikes = numberOfLikes;
+            ViewBag.numberOfSignUps = numberOfSignUps;
+            ViewBag.numberOfVotes = numberOfVotes;
+
+            return View(caseitemRepository.Find(id));
+        }
 
         protected override void Dispose(bool disposing)
         {
