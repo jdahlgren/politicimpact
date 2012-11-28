@@ -527,6 +527,7 @@ namespace PoliticImpact.Controllers
             int numberOfLikes = caselikeRepository.FindLike(id);
             int numberOfSignUps = casesignupRepository.FindSignUps(id);
             int numberOfVotes = caseVotingRepository.FindVotes(id);
+
             ViewBag.numberOfLikes = numberOfLikes;
             ViewBag.numberOfSignUps = numberOfSignUps;
             ViewBag.numberOfVotes = numberOfVotes;
