@@ -97,7 +97,7 @@
             }
             else
             {
-            <a href="#signupCase" class="btn">Skriv under</a>
+            <a href="#signupCase" role="button" class="btn" data-toggle="modal">Skriv under</a>
             }
         </div>
     }
@@ -198,11 +198,8 @@
     </div>
     <div class="modal-body">
         <p>Do you want to sign the petition for  @Model.Title ? </p>
-        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">Yes</a>
-        <a href="#" data-rel="back" data-role="button" data-theme="b">No</a>
-    </div>
-    <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Yes</a>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
     </div>
 </div>
 
