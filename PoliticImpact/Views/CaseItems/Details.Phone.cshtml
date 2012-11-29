@@ -26,16 +26,17 @@
     </div>
     <div data-role="content">
         <h2>@Model.Title</h2>
-        @*@if (Model.caseMode.caseModeInt == 1)
+        @*Ritar ut en bild beroende på caseMode*@
+        @if (Model.caseMode == 1)
         {
-               Godkänd
-              <img src="~/Content/images/Approved_icon.png" width="75" height="75" id="Approved" />
+            <label>Ärendet har: Gått igenom</label>
+              <img src="~/Content/images/Approved_icon.png" width="45" height="45" id="Approved" />
         }
-        else if (Model.caseMode.caseModeInt == 2)
+        else if (Model.caseMode == 2)
         {
-               Avslagen
-             <img src="~/Content/images/Dismissed_icon.png" width="75" height="75" id="Dismissed" />
-        }*@
+            <label>Ärendet är: Avslaget</label>
+             <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
+        }
         <p>
             @Model.Text
         </p>

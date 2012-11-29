@@ -287,12 +287,7 @@ namespace PoliticImpact.Controllers
                 caseitem.Owner = 4;
             }
             
-            //Skapar en mode som sätts till progressvärden //Ändras i Edit (Progress/Godkänd/Avslagen)
-            CaseMode mode = new CaseMode();
-            mode.caseModeInt = 0;
-            mode.caseModeName = "Progress";
-            
-            caseitem.caseMode = mode;
+            caseitem.caseMode = 0;
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;

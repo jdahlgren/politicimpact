@@ -58,7 +58,7 @@ namespace PoliticImpact.Models
         
         //Frida Mattisson 2012-11-19
         public List<CaseComment> caseComment { get; set; }
-        public CaseMode caseMode { get; set; } //Approved, dismissed, none
+        public int caseMode { get; set; }
                 
 
         //added by Johannes Ullström 2012-11-08 15:11
@@ -173,14 +173,7 @@ namespace PoliticImpact.Models
         public virtual CaseItem CaseItem { get; set; }
         public string commentStr{ get; set;}
     }
-    public class CaseMode
-    {
-        [Key]
-        public long caseModeID { get; set; }
-        public string caseModeName { get; set; }
-        public int caseModeInt { get; set; }
-    }
-
+    
     public class User
     {
         public string uid { get; set; }
