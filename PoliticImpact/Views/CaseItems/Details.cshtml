@@ -3,7 +3,11 @@
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
 @if(!@Model.Archived) 
 {
-
+    @*TODO - When user exist on Desktop*@
+    @*if (@Model.Archived && user == @Model.Owner.ToString())
+    {
+        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+    }*@
     ViewBag.Title = @Model.Title;
 
 <style>
@@ -73,16 +77,19 @@
         <div class="span2">
             <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
-            {
+           {
                 <p>Du gillade detta!</p>
-            }
-            else
-            {
-                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
-            }
+           }
+           else
+           {    
+               if (!@Model.Archived)
+               {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
+               }
+           }
         </div>       
     }
-    @if (Model.enableComments == true)
+    @if (Model.enableComments == true && !Model.Archived)
     {  
         <div class="span2">
             <p>@ViewBag.nrOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
@@ -101,7 +108,10 @@
             }
             else
             {
-            <a href="#signupCase" class="btn">Skriv under</a>
+                if (!@Model.Archived)
+               {
+                <a href="#signupCase" class="btn">Skriv under</a>
+               }
             }
         </div>
     }
@@ -111,7 +121,7 @@
             <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
         </div>
     }
-    @if (ViewBag.voting != null)
+    @if (ViewBag.voting != null && !Model.Archived)
     {
         <h3>@ViewBag.voting.Title</h3>
         if (!ViewBag.UserHasVoted)
@@ -226,7 +236,7 @@
 
 
 }
-    else
-    {
+else
+{
      <h3>Ärendet är arkiverat</h3>   
     }
