@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 
 namespace PoliticImpact.Models
 { 
@@ -64,8 +66,23 @@ public List<CaseItem> SearchItem(String searchWord)
 
         public void Save()
         {
-            context.SaveChanges();
+            /*try
+            {*/
+                context.SaveChanges();
+            /*}
+            catch (DbUpdateException updateException)
+            {
+                //often in innerException
+                if (updateException.InnerException != null)
+                    Debug.WriteLine(updateException.InnerException.Message);
+                //which exceptions does it relate to
+                foreach (var entry in updateException.Entries)
+                {
+                    Debug.WriteLine(entry.Entity);
+                }
+            }*/
         }
+        
 
         public void Dispose() 
         {

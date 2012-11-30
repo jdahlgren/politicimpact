@@ -28,7 +28,7 @@ function deleteCaseItem(id) {
 
 
 function SendVote(id) {
-    var strVote = jQuery("input:radio[name=voting-choice]").val();
+    var strVote = jQuery("input:radio[name=voting-choice]:checked").val();
     jQuery.ajax({
         type: "POST",
         url: "/CaseVotes/Create/" + id,

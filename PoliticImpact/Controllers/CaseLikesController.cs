@@ -75,7 +75,7 @@ namespace PoliticImpact.Controllers
             // caselike.caseID = caseID;
             CaseLike caselike = new CaseLike();
 
-            theUser = 166;
+            theUser = Int64.Parse(Session["uid"].ToString());
             caselike.caseID = id;
             caselike.userID = theUser;
             caselike.created = DateTime.Now;
@@ -87,7 +87,7 @@ namespace PoliticImpact.Controllers
                 if (theUser == item.userID && id == item.caseID)
                 {
                     //returna någon schyst variabel till popupen
-                    //Meddela användaren om att den redan har signat
+                    //Meddela användaren om att den redan har gillat
                     return View();
                 }
 

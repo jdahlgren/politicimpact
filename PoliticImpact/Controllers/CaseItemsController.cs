@@ -31,7 +31,7 @@ namespace PoliticImpact.Controllers
 
         private readonly CaseCommentRepository caseCommentRepository;
 
-        private int theUser = 1414;
+        private long theUser = 1414;
 
 
         // If you are using Dependency Injection, you can delete the following constructor
@@ -62,7 +62,11 @@ namespace PoliticImpact.Controllers
         public ActionResult LikeCase(int id)
         {
 
-
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+                System.Diagnostics.Debug.WriteLine("The user: " + theUser + "");
+            }
 
 
             //från Semone
@@ -105,6 +109,12 @@ namespace PoliticImpact.Controllers
         [HttpGet]
         public ActionResult SignUp(int caseitem)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+                System.Diagnostics.Debug.WriteLine("The user: " + theUser + "");
+            }
+
             //Semone Kallin Clarke 2012-11-13
 
             //Hämta användaren som är inloggad, nu hårdkodad (2012-11-16)
@@ -150,6 +160,15 @@ namespace PoliticImpact.Controllers
         {
 
             System.Diagnostics.Debug.WriteLine("asdf");
+            
+            //Hämta antal likes för case. MAX 100 cases.
+            ViewBag.likes = new int[100];
+            int i = 0;
+            foreach (CaseItem c in caseitemRepository.All)
+            {
+                ViewBag.likes[i] = caselikeRepository.FindLike(c.ID);
+                i++;
+            }
             return View(caseitemRepository.All);
         }
 
@@ -158,6 +177,11 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+                System.Diagnostics.Debug.WriteLine("The user: " + theUser + "");
+            }
             //Kod för att skicka eventuell respons till ett case i CaseItem-view
             string response = recieverresponseRepository.GetResponseText(id);
 
@@ -188,7 +212,7 @@ namespace PoliticImpact.Controllers
 
                 foreach (var vote in votes)
                 {
-                    if (vote.UserID == 1337)//TODO compare with actual fb userid
+                    if (vote.UserID == theUser)//TODO compare with actual fb userid
                     {
                         UserHasVoted = true;
 
@@ -218,10 +242,13 @@ namespace PoliticImpact.Controllers
 
             foreach (var item in caselikeRepository.All)
             {
+
+                System.Diagnostics.Debug.WriteLine("i for loopen");
                 if (theUser == item.userID && id == item.caseID)
                 {
                     //returna någon schyst variabel till popupen
                     //Meddela användaren om att den redan har signat
+                    System.Diagnostics.Debug.WriteLine("Liked by user");
                     ViewBag.likeStatus = "signed";
                 }
 

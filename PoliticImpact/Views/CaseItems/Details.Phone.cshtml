@@ -19,8 +19,12 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
         <h1>@ViewBag.Title</h1>
-         @{ var user = (String)HttpContext.Current.Session["uid"]; }
-        @if (user != null)
+        @{ var user = (long) 0;}
+        @if ( HttpContext.Current.Session["uid"] != null){
+              user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
+        }
+        @*Ensure that user is the owner of the case to allow deletion *@
+        @if (user == Model.Owner)
         {
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
         }
@@ -65,24 +69,39 @@
     
        @if (Model.enableLikes == true)
        {
-           if (ViewBag.likeStatus == "signed")
+           if(user != 0)
            {
-               //Kanske skall vara en bild istället?
-            <p>Du har gillat detta!</p>
+               if (ViewBag.likeStatus == "signed")
+               {
+                   //Kanske skall vara en bild istället?
+                   <p>Du har gillat detta!</p>
            
+               }
+               else
+               {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
+                        <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                    </a>
+               }
            }
            else
            {
-                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
-                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
-                </a>
+               <p>Logga in för att gilla.</p>
            }
             
              <p>Antal som gillar: @ViewBag.numberOfLikes</p>
        }
+
         @if (Model.enableComments == true)
         {
-             <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+            if(user != 0)
+            {
+                <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+            }
+            else
+            {
+                <p> Logga in för att kommentera.</p>
+            }
         }
 
         @if (Model.enableSigns == true)
@@ -90,17 +109,23 @@
             @*<a href="#popupShare" data-rel="popup">
                 <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
             </a>*@
-            
-            if (ViewBag.status == "signed")
+            if(user != 0)
             {
-                //Kanske skall vara en bild istället?
-            <p>Du har skrivit på namninsamlingen</p>
+                if (ViewBag.status == "signed")
+                {
+                    //Kanske skall vara en bild istället?
+                <p>Du har skrivit på namninsamlingen</p>
+                }
+                else
+                {
+                 <a href="#popupSignUp" data-rel="dialog"> 
+                    <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
+                 </a>
+                }
             }
             else
             {
-             <a href="#popupSignUp" data-rel="dialog"> 
-                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
-             </a>
+                <p>Logga in för att skriva under.</p>
             }
         }
         
@@ -137,6 +162,15 @@
                 {
                     foreach (var comment in ViewBag.casecomments)
                     {
+                        <p id="divName1@(comment.commentID)"></p>
+                        //Get name from facebook
+                        <script type='text/javascript'>
+                            $(document).ready(function () {
+                                $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
+                                    $('<strong>' + data.name + '</strong>').appendTo('#divName1@(comment.commentID)');
+                                })
+                            })
+                        </script>
                         <p>@comment.commentStr</p>
                     }
                 }
@@ -158,6 +192,15 @@
                 {
                     foreach (var comment in ViewBag.casecomments)
                     {
+                        <p id="divName2@(comment.commentID)"></p>
+                        //Get name from facebook
+                        <script type='text/javascript'>
+                            $(document).ready(function () {
+                                $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
+                                    $('<strong>' + data.name + '</strong>').appendTo('#divName2@(comment.commentID)');
+                                })
+                            })
+                        </script>
                         <p>@comment.commentStr</p>
                     }
                 }
@@ -195,7 +238,7 @@
         @if (ViewBag.voting != null)
         {
             <h3>@ViewBag.voting.Title</h3>
-            if (!ViewBag.UserHasVoted)
+            if (!ViewBag.userhasvoted)
             {
                 <div id="voting_container">
                     <fieldset data-role="controlgroup">
@@ -215,7 +258,8 @@
             }
         }
 
-        @if (!Model.Published && Model.Owner == 1337)
+        @*Check that owner is the logged in user before allowing edits*@
+        @if (!Model.Published && Model.Owner == user)
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Redigera</a>
         }

@@ -11,6 +11,8 @@ namespace PoliticImpact.Controllers
     {
 		private readonly ICaseVoteRepository casevoteRepository;
 
+        private long theUser = 1414;
+
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseVotesController() : this(new CaseVoteRepository())
         {
@@ -51,6 +53,12 @@ namespace PoliticImpact.Controllers
         [HttpPost]
         public ActionResult Create(int id)
         {
+            if (Session["uid"] != null)
+            {
+                //Hämta session-id
+                theUser = Convert.ToInt64(Session["uid"].ToString());
+                
+            }
             CaseVote casevote = new CaseVote();
             casevote.VotingID = id;
             if(Request["Vote"]=="yes"){
@@ -60,7 +68,9 @@ namespace PoliticImpact.Controllers
             {
                 casevote.Vote = false;
             }
-            casevote.UserID = 1337;//TODO: fix so that this is the actual user fb-id
+
+            casevote.UserID = theUser;//TODO: fix so that this is the actual user fb-id
+            
             if (ModelState.IsValid) {
                 casevoteRepository.InsertOrUpdate(casevote);
                 casevoteRepository.Save();

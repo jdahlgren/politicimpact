@@ -14,6 +14,20 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
     <fieldset>
+        @Html.HiddenFor(model => model.Owner)
+        @Html.HiddenFor(model => model.enableLikes)
+        @Html.HiddenFor(model => model.enableComments)
+        @Html.HiddenFor(model => model.enableSigns)
+        @Html.HiddenFor(model => model.Published)
+        @Html.HiddenFor(model => model.imageId)
+        @Html.HiddenFor(model => model.imageBytes)
+        @Html.HiddenFor(model => model.imageName)
+        @Html.HiddenFor(model => model.numberOfLikes)
+        @Html.HiddenFor(model => model.caseComment)
+        @Html.HiddenFor(model => model.caseCategory)
+        @Html.HiddenFor(model => model.ResponseID)
+        @Html.HiddenFor(model => model.recieverResponse)
+
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.Created)
         @Html.HiddenFor(model => model.LastEdited)
@@ -23,6 +37,7 @@
         @Html.HiddenFor(model => model.CategoryID)
 
 		@Html.Partial("_CreateOrEdit", Model)
+        
         <div id="published_status">
             @if(Model.Published){
                 <p>Publicerad, går ej att ändra</p>
