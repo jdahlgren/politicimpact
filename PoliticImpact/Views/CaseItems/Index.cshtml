@@ -8,16 +8,20 @@
     <div class="span8" id="recent-cases">
         <h4>Senaste förslagen</h4>
         @foreach (var item in Model)
-        {
+        { 
+            @*TODO when users exist in desktop*@
+            @*if (!item.Archived || user == item.Owner.ToString())*@           
+            if (!item.Archived)
+            {
             
             <div class="caseitem-list">
                 <a href="/CaseItems/Details/@item.ID">
                     <div class="templateimage"></div>
                     <div class="caseitem-list-main">
-                            <div class="caseitem-list-main-info">
+                        <div class="caseitem-list-main-info">
                             <h3>@item.Title</h3>
                             <p>
-                                @if( @item.Text.Length > 120)
+                                @if (@item.Text.Length > 120)
                                 {                                
                                     @item.Text.Substring(0, 120)
                                 }
@@ -27,21 +31,25 @@
                                 }
                             </p>
                         </div>
-                   
+
                         <div class="caseitem-additional-info">
                             <div class="caseitem-additional-info-box">
-                                <p>10 <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
+                                <p>10
+                                    <img src="~/Content/images/thumbs_up_metro.png" alt="Likes" /></p>
                             </div>
                             <div class="caseitem-additional-info-box">
-                                <p>12 <img src="~/Content/images/signups.png" alt="Signups"/></p>
+                                <p>12
+                                    <img src="~/Content/images/signups.png" alt="Signups" /></p>
                             </div>
                             <div class="caseitem-additional-info-box">
-                                <p>3 <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+                                <p>3
+                                    <img src="~/Content/images/speech_bubble.png" alt="Comments" /></p>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
+            }
         }
     </div>
 

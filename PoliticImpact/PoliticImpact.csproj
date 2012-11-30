@@ -360,6 +360,7 @@
     <Content Include="Views\Account\Logout.cshtml" />
     <Content Include="Views\CaseItems\Search.cshtml" />
     <Content Include="Views\CaseItems\SubmitSearch.Phone.cshtml" />
+    <Content Include="Views\CaseItems\Archive.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
