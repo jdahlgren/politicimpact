@@ -11,20 +11,22 @@
         <h1>Redigera förslag</h1>
     </div>
 }
+@if (!@Model.Archived)
+{
+    using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.Created)
+            @Html.HiddenFor(model => model.LastEdited)
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        @Html.HiddenFor(model => model.ID)
-        @Html.HiddenFor(model => model.Created)
-        @Html.HiddenFor(model => model.LastEdited)
+            @Html.HiddenFor(model => model.RecieverName)
+            @Html.HiddenFor(model => model.RecieverEmail)
+            @Html.HiddenFor(model => model.CategoryID)
 
-        @Html.HiddenFor(model => model.RecieverName)
-        @Html.HiddenFor(model => model.RecieverEmail)
-        @Html.HiddenFor(model => model.CategoryID)
-        
 
-<!--
+            <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.Owner)
 </div>
@@ -34,31 +36,31 @@
 </div>
 -->
 
-<div class="editor-label">
-    @Html.LabelFor(model => model.Title)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Title)
-    @Html.ValidationMessageFor(model => model.Title)
-</div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Title)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Title)
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
 
-<div class="editor-label">
-    @Html.LabelFor(model => model.Text)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Text)
-    @Html.ValidationMessageFor(model => model.Text)
-</div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Text)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Text)
+                @Html.ValidationMessageFor(model => model.Text)
+            </div>
 
-<div class="editor-label">
-    @Html.LabelFor(model => model.Deadline)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Deadline)
-    @Html.ValidationMessageFor(model => model.Deadline)
-</div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Deadline)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Deadline)
+                @Html.ValidationMessageFor(model => model.Deadline)
+            </div>
 
-<!--
+            <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.Published)
 </div>
@@ -68,7 +70,7 @@
 </div>
 -->
 
-<!--
+            <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.Created)
 </div>
@@ -78,7 +80,7 @@
 </div>
 -->
 
-<!--
+            <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.LastEdited)
 </div>
@@ -88,7 +90,7 @@
 </div>
 -->
 
-<!--
+            <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.imageId)
 </div>
@@ -98,7 +100,7 @@
 </div>
 -->
 
-<!--
+            <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.imageName)
 </div>
@@ -109,36 +111,41 @@
 -->
 
 
-        <div id="archived_status">
-            @if (Model.Archived)
-            {
-                <p>Arkiverad, går inte längre att interagera.</p>
-            }
-            else
-            {
-                <p>Ej arkiverad</p>
-                <a data-role="button" onclick="ArchiveCaseItem(@Model.ID);">Arkivera</a>
-            }
-        </div>
+            <div id="archived_status">
+                @if (Model.Archived)
+                {
+                    <p>Arkiverad, går inte längre att interagera.</p>
+                }
+                else
+                {
+                    <p>Ej arkiverad</p>
+                    <a data-role="button" onclick="ArchiveCaseItem(@Model.ID);">Arkivera</a>
+                }
+            </div>
 
-        <div id="published_status">
-            @if (Model.Published)
-            {
-                <p>Publicerad, går ej att ändra</p>
-            }
-            else
-            {
-                <p>Ej publiceread</p>
-                <a data-role="button" onclick="PublishCaseItem(@Model.ID);">Publicera</a>
-                <p>
-                    <input type="submit" value="Spara" />
-                </p>
-            }
-        </div>
+            <div id="published_status">
+                @if (Model.Published)
+                {
+                    <p>Publicerad, går ej att ändra</p>
+                }
+                else
+                {
+                    <p>Ej publiceread</p>
+                    <a data-role="button" onclick="PublishCaseItem(@Model.ID);">Publicera</a>
+                    <p>
+                        <input type="submit" value="Spara" />
+                    </p>
+                }
+            </div>
 
-        
-        
-    </fieldset>
+
+
+        </fieldset>
+    }
+}
+else
+{
+    <h3>Förslaget är arkiverat och kan inte ändras</h3>
 }
 <script>
     function PublishCaseItem(id) {
