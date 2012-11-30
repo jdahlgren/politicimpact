@@ -490,6 +490,33 @@ namespace PoliticImpact.Controllers
                 int numberOfLikes = caselikeRepository.FindLike(id);
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
+                IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
+                List<CaseComment> comments2  = comments.ToList<CaseComment>();
+                comments2.Reverse();
+                int numberOfComments = comments.Count();
+                string commentsString; 
+                if (numberOfComments > 5)
+                {
+                    commentsString = "<b>Förslagets fem senaste kommentarer:</b><br>";
+                    int i = 0;
+                    foreach (var comment in comments2)
+                    {
+                        commentsString += "<p>" + comment.commentStr + "</p>";
+                        i++;
+                        if (i >= 5)
+                        {
+                            break;
+                        }
+                }
+                }
+                else
+                {
+                    commentsString = "<b>Förslagets " + numberOfComments + " kommentarer:</b><br>";
+                    foreach (var comment in comments2)
+                    {
+                        commentsString += "<p>" + comment.commentStr + "</p>";
+                    }
+                }
                 string link;
                 //OBS! Länken är just nu hårdkodad till min localhost, bör ändras till azure senare.
                 link = "<" + "a href=" + "http://" + "localhost:56397/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
@@ -502,6 +529,7 @@ namespace PoliticImpact.Controllers
                     "<b>Antal gillanden:</b> " + numberOfLikes + "<br>" +
                     "<b>Antal underskrifter:</b> " + numberOfSignUps + "<br>" +
                     "<b>Antal röster:</b> " + numberOfVotes + "<br>" +
+                    "<b>Antal kommentarer:</b> " + numberOfComments + "<br>" + commentsString +
                     "Ser det här mailet konstigt ut? " + link +  
                     "</body></html>";
                 AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
@@ -515,10 +543,11 @@ namespace PoliticImpact.Controllers
                 sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
                 sc.EnableSsl = true;
                 sc.Send(m);
+                ViewBag.message = "Rapportmail skickat!";
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                ViewBag.message = "Mailet kunde tyvärr inte skickas iväg! Felmeddelande: " + ex.Message;
             }
             return View();
         }
@@ -528,6 +557,13 @@ namespace PoliticImpact.Controllers
         */
         public ActionResult PrintCase(int id)
         {
+            IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
+            List<CaseComment> comments2  = comments.ToList<CaseComment>();
+            comments2.Reverse();
+            ViewBag.casecomments = comments2;
+            ViewBag.nrOfComments = comments.Count();
+
+
             int numberOfLikes = caselikeRepository.FindLike(id);
             int numberOfSignUps = casesignupRepository.FindSignUps(id);
             int numberOfVotes = caseVotingRepository.FindVotes(id);
