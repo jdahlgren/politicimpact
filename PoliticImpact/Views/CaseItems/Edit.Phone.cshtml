@@ -11,7 +11,8 @@
     </div>
 }
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "CaseItems", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.ValidationSummary(true)
     <fieldset>
         @Html.HiddenFor(model => model.ID)
@@ -24,11 +25,14 @@
 
 
 		@Html.Partial("_CreateOrEdit", Model)
+
         <div id="published_status">
-            @if(Model.Published){
+            @if (Model.Published)
+            {
                 <p>Publicerad, går ej att ändra</p>
             }
-            else{
+            else
+            {
                 <p>Ej publiceread</p>
                 <a data-role="button" onclick="PublishCaseItem(@Model.ID);">Publicera</a>
                 <p>

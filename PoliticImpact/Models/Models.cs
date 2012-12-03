@@ -46,19 +46,21 @@ namespace PoliticImpact.Models
         public DateTime LastEdited { get; set; }
 
         public int imageId { get; set; }
-
         public byte[] imageBytes { get; set; }
-
-
         public string imageName { get; set; }
+        
         //added by Michaela
         public int numberOfLikes { get; set; }
         
-
-        
+              
         //Frida Mattisson 2012-11-19
         public List<CaseComment> caseComment { get; set; }
         public int caseMode { get; set; }
+        
+        public byte[] documentBytes { get; set; }
+        public string documentMimeType { get; set; }
+        public string documentName { get; set; }
+
                 
 
         //added by Johannes Ullström 2012-11-08 15:11
@@ -173,7 +175,7 @@ namespace PoliticImpact.Models
         public virtual CaseItem CaseItem { get; set; }
         public string commentStr{ get; set;}
     }
-    
+     
     public class User
     {
         public string uid { get; set; }
