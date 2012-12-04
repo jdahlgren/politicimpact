@@ -56,7 +56,7 @@ namespace PoliticImpact.Models
         
 
         
-        //Frida Mattisson 2012-11-19
+        //Frida Mattisson 2012-11-19 (och document)
         public List<CaseComment> caseComment { get; set; }
         public int caseMode { get; set; }
                 
