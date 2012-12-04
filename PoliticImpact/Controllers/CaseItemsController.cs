@@ -31,6 +31,8 @@ namespace PoliticImpact.Controllers
 
         private readonly CaseCommentRepository caseCommentRepository;
 
+        private readonly ICaseImageRepository caseimageRepository;
+
         private int theUser = 1414;
 
 
@@ -56,6 +58,7 @@ namespace PoliticImpact.Controllers
 
             this.recieverresponseRepository = new RecieverResponseRepository();
 
+            this.caseimageRepository = new CaseImageRepository();
         }
         /**
          *Funktion för att användaren ska kunna Gilla ett ärende såvida den inte redan gillat. 
@@ -149,6 +152,17 @@ namespace PoliticImpact.Controllers
             return View(caseitemRepository.All);
         }
 
+        public ViewResult Image(int id)
+        {
+            byte[] imgData = caseimageRepository.GetImageDataById(id);
+            if (imgData != null)
+            {
+                ViewBag.image = imgData;
+            }
+
+            return View();
+        }
+
         //
         // GET: /CaseItems/Details/5
 
@@ -167,7 +181,6 @@ namespace PoliticImpact.Controllers
                 ViewBag.responded = false;
             }
             //slut på kod för respons på case
-
 
             int numberOfLikes = caselikeRepository.FindLike(id);
             ViewBag.numberOfLikes = numberOfLikes;
@@ -259,7 +272,7 @@ namespace PoliticImpact.Controllers
         // POST: /CaseItems/Create
 
         [HttpPost]
-        public ActionResult Create(CaseItem caseitem)
+        public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image)
         {
             RecieverResponse resp = new RecieverResponse();
             resp.ResponseCode = GenerateResponseCode(caseitem);
@@ -284,6 +297,41 @@ namespace PoliticImpact.Controllers
             {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
+
+                //validering och sparning av bild
+                if (image != null)
+                {
+                    switch (image.ContentType)
+                    {
+                        //tillåtna filtyper:
+                        case "image/jpeg":
+                        case "image/png":
+                        case "image/gif":
+                            CaseImage img = new CaseImage();
+                            img.CaseID = caseitem.ID;
+                            img.ImageBytes = new byte[image.ContentLength];
+                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+
+                            caseimageRepository.InsertOrUpdate(img);
+                            caseimageRepository.Save();
+
+                            caseitem.AttachedImage = true;
+                            break;
+                        default: //Otillåten filtyp
+                            caseitem.AttachedImage = false;
+                            /* Lägg till validerings-errormeddelande i vy:
+                             * ModelState.AddModelError("key", "message");
+                             * i view: @Html.ValidationSummary(false)
+                             */
+                            break;
+                    }
+
+                }
+                else
+                {
+                    caseitem.AttachedImage = false;
+                }
+                //slut på validering och sparning bild
 
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
@@ -403,6 +451,21 @@ namespace PoliticImpact.Controllers
             caseitemRepository.Save();
             return View();
         }
+        /**
+         * public ActionResult Archive
+         * En action som arkiverar ett ärende.
+         * Sätter boolean "Archived" till true när funktionen anropas
+         * och updaterar databasen.
+         */
+        [HttpPost]
+        public ActionResult Archive(int id)
+        {
+            CaseItem caseitem = caseitemRepository.Find(id);
+            caseitem.Archived = true;
+            caseitemRepository.InsertOrUpdate(caseitem);
+            caseitemRepository.Save();
+            return View();
+        }
 
         public ActionResult Search()
         {
@@ -486,14 +549,47 @@ namespace PoliticImpact.Controllers
                 int numberOfLikes = caselikeRepository.FindLike(id);
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
+                IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
+                List<CaseComment> comments2  = comments.ToList<CaseComment>();
+                comments2.Reverse();
+                int numberOfComments = comments.Count();
+                string commentsString; 
+                if (numberOfComments > 5)
+                {
+                    commentsString = "<b>Förslagets fem senaste kommentarer:</b><br>";
+                    int i = 0;
+                    foreach (var comment in comments2)
+                    {
+                        commentsString += "<p>" + comment.commentStr + "</p>";
+                        i++;
+                        if (i >= 5)
+                        {
+                            break;
+                        }
+                }
+                }
+                else
+                {
+                    commentsString = "<b>Förslagets " + numberOfComments + " kommentarer:</b><br>";
+                    foreach (var comment in comments2)
+                    {
+                        commentsString += "<p>" + comment.commentStr + "</p>";
+                    }
+                }
+                string link;
+                //OBS! Länken är just nu hårdkodad till min localhost, bör ändras till azure senare.
+                link = "<" + "a href=" + "http://" + "localhost:56397/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
                 string str = @"<html><body><h1> Rapport på " + caseItem.Title + " </h1>" +
                     "Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact<br>" +
                     "<h3>Förslagsbeskrivning: </h3>" + caseItem.Text + "<br>" +
-                    "<h3>Deadline för förslaget: </h3>" + caseItem.Deadline + "<br>" +
-                    "<h3>Statistik för förslaget:</h3>" +
+                    "<h3>Skapad: </h3>" + caseItem.Created + "<br>" +
+                    "<h3>Deadline: </h3>" + caseItem.Deadline + "<br>" +
+                    "<h3>Statistik:</h3>" +
                     "<b>Antal gillanden:</b> " + numberOfLikes + "<br>" +
                     "<b>Antal underskrifter:</b> " + numberOfSignUps + "<br>" +
                     "<b>Antal röster:</b> " + numberOfVotes + "<br>" +
+                    "<b>Antal kommentarer:</b> " + numberOfComments + "<br>" + commentsString +
+                    "Ser det här mailet konstigt ut? " + link +  
                     "</body></html>";
                 AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
                 //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
@@ -506,14 +602,37 @@ namespace PoliticImpact.Controllers
                 sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
                 sc.EnableSsl = true;
                 sc.Send(m);
+                ViewBag.message = "Rapportmail skickat!";
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                ViewBag.message = "Mailet kunde tyvärr inte skickas iväg! Felmeddelande: " + ex.Message;
             }
             return View();
         }
 
+        /**
+        * PrintCase – Sammanställer data och skickar vidare till vyn för utskrift av förslag.
+        */
+        public ActionResult PrintCase(int id)
+        {
+            IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
+            List<CaseComment> comments2  = comments.ToList<CaseComment>();
+            comments2.Reverse();
+            ViewBag.casecomments = comments2;
+            ViewBag.nrOfComments = comments.Count();
+
+
+            int numberOfLikes = caselikeRepository.FindLike(id);
+            int numberOfSignUps = casesignupRepository.FindSignUps(id);
+            int numberOfVotes = caseVotingRepository.FindVotes(id);
+
+            ViewBag.numberOfLikes = numberOfLikes;
+            ViewBag.numberOfSignUps = numberOfSignUps;
+            ViewBag.numberOfVotes = numberOfVotes;
+
+            return View(caseitemRepository.Find(id));
+        }
 
         protected override void Dispose(bool disposing)
         {

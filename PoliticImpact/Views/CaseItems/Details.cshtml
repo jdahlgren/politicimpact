@@ -1,7 +1,15 @@
 ﻿@model PoliticImpact.Models.CaseItem
-@{
+
+@*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
+@if(!@Model.Archived) 
+{
+    @*TODO - When user exist on Desktop*@
+    @*if (@Model.Archived && user == @Model.Owner.ToString())
+    {
+        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+    }*@
     ViewBag.Title = @Model.Title;
-}
+
 <style>
     #share_by_email
     {
@@ -33,7 +41,8 @@
         <div class="display-label">Mottagare</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
-        @if (Model.imageName != null)
+        <!--
+        @* @if (Model.imageName != null)
         {
             <div class="display-label">imageId</div>
             <div class="display-field">@Model.imageId</div>
@@ -42,7 +51,7 @@
             <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
             <div class="display-label">imageName</div>
             <div class="display-field">@Model.imageName</div>
-        }
+        } *@ -->
 
         @* Visa respons från mottagare *@
         
@@ -55,7 +64,14 @@
         }        
     </div>
     <div class="span4">
-        <div class="caseitem-details-template-image"></div>
+        <div class="caseitem-details-template-image">
+            @{ 
+                if(Model.AttachedImage)
+                {
+                    <img src="~/CaseItems/Image/@Model.ID" />
+                }
+            }
+        </div>
     </div>
 </div>
 <hr />
@@ -69,16 +85,19 @@
         <div class="span2">
             <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
-            {
+           {
                 <p>Du gillade detta!</p>
-            }
-            else
-            {
-                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
-            }
+           }
+           else
+           {    
+               if (!@Model.Archived)
+               {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
+               }
+           }
         </div>       
     }
-    @if (Model.enableComments == true)
+    @if (Model.enableComments == true && !Model.Archived)
     {  
         <div class="span2">
             <p>@ViewBag.nrOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
@@ -97,17 +116,25 @@
             }
             else
             {
-            <a href="#signupCase" class="btn">Skriv under</a>
+                if (!@Model.Archived)
+               {
+                <a href="#signupCase" class="btn">Skriv under</a>
+               }
             }
         </div>
     }
+        <div class="span2">
+            <p><img src="~/Content/images/print.png" alt="Print"/></p>
+           
+            <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Skriv ut</a>
+        </div>
     @if (!Model.Published && Model.Owner == 1337)
     {
         <div class="span2">
             <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
         </div>
     }
-    @if (ViewBag.voting != null)
+    @if (ViewBag.voting != null && !Model.Archived)
     {
         <h3>@ViewBag.voting.Title</h3>
         if (!ViewBag.UserHasVoted)
@@ -198,8 +225,8 @@
     </div>
     <div class="modal-body">
         <p>Do you want to sign the petition for  @Model.Title ? </p>
-        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">Yes</a>
-        <a href="#" data-rel="back" data-role="button" data-theme="b">No</a>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Yes</a>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
     </div>
     <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -221,4 +248,8 @@
 </script>
 
 
-
+}
+else
+{
+     <h3>Ärendet är arkiverat</h3>   
+    }

@@ -1,7 +1,7 @@
 ﻿@*@model PoliticImpact.Models.LoginModel*@
 
 @{
-    ViewBag.Title = "Sign in";
+    ViewBag.Title = "Logga in";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,13 +9,13 @@
     @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
     <h1>@ViewBag.Title</h1>
 }
-<h2>Sign in</h2>
+<h2>Logga in</h2>
 <script src="@Url.Content("~/Scripts/Facebook.js")" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
                 InitialiseFacebook("432491363480247");
             });
         </script>
-<fb:login-button autologoutlink="true" show-faces="true">Sign in</fb:login-button>
+<fb:login-button autologoutlink="true" show-faces="true">Logga in</fb:login-button>
 
 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>

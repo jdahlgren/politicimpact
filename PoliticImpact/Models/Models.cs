@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using System.ComponentModel;
+using System.Web.Helpers;
+
 
 
 namespace PoliticImpact.Models
@@ -46,12 +48,6 @@ namespace PoliticImpact.Models
         [DataType(DataType.DateTime) ]
         public DateTime LastEdited { get; set; }
 
-        public int imageId { get; set; }
-
-        public byte[] imageBytes { get; set; }
-
-
-        public string imageName { get; set; }
         //added by Michaela - tas bort?
         public int numberOfLikes { get; set; }
         
@@ -91,6 +87,12 @@ namespace PoliticImpact.Models
         public int ResponseID { get; set; }
         [ForeignKey("ResponseID")]
         public virtual RecieverResponse recieverResponse { get; set; }
+
+        
+        public bool AttachedImage { get; set; }
+        
+        [Required]
+        public bool Archived { get; set; }
     }
    
     public class CaseCategory
@@ -180,5 +182,15 @@ namespace PoliticImpact.Models
         public string accessToken { get; set; }
         public string name { get; set; }
     }
-    
+
+    public class CaseImage
+    {
+        [Key]
+        public int ImageID { get; set; }
+        [ForeignKey("CaseItem")]
+        public int CaseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public byte[] ImageBytes { get; set; }
+        //public HttpPostedFileBase File { get; set; }
+    }
 }

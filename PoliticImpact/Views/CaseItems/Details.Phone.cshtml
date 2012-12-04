@@ -4,6 +4,9 @@
     ViewBag.Title = "Detaljer";
     Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
+
+@{ var user = (String)HttpContext.Current.Session["uid"]; }
+
 @section scripts{
 
     @*@Scripts.Render("~/Scripts/facebookPublish.js")
@@ -18,14 +21,19 @@
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
-        <h1>@ViewBag.Title</h1>
-         @{ var user = (String)HttpContext.Current.Session["uid"]; }
-        @if (user != null)
+        <h1>@ViewBag.Title</h1>         
+        @if (user == @Model.Owner.ToString() && !@Model.Archived)
         {
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
         }
     </div>
+    @if(!@Model.Archived || user == @Model.Owner.ToString())
+    {
     <div data-role="content">
+        @if(@Model.Archived && user == @Model.Owner.ToString())
+        {
+        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+        }
         <h2>@Model.Title</h2>
 
         @*Get creator name from facebook*@
@@ -51,7 +59,7 @@
 
             
 
-            @if (Model.imageName != null)
+            @* @if (Model.imageName != null)
             {
                 <div class="display-label">imageId</div>
                 <div class="display-field">@Model.imageId</div>
@@ -60,6 +68,15 @@
                 <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
                 <div class="display-label">imageName</div>
                 <div class="display-field">@Model.imageName</div>
+            }*@
+
+            @{ 
+                if(Model.AttachedImage)
+                {
+                    <div class="caseitem-details-template-image">
+                        <img src="~/CaseItems/Image/@Model.ID" />
+                    </div>
+                }
             }
 
     
@@ -73,14 +90,17 @@
            }
            else
            {
-                <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
-                    <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
-                </a>
+               if (!@Model.Archived)
+               {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
+                        <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                    </a>
+               }
            }
             
              <p>Antal som gillar: @ViewBag.numberOfLikes</p>
        }
-        @if (Model.enableComments == true)
+        @if (Model.enableComments == true && !Model.Archived)
         {
              <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
         }
@@ -98,14 +118,19 @@
             }
             else
             {
-             <a href="#popupSignUp" data-rel="dialog"> 
-                <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
-             </a>
+               if (!@Model.Archived)
+               {
+                    <a href="#popupSignUp" data-rel="dialog"> 
+                        <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
+                    </a>
+                }
             }
         }
-        
-        <a href="#popupShare" data-rel="dialog" data-role="button" data-inline="true" data-position-to="window">Dela</a>
-       
+        @if (!@Model.Archived)
+        {
+            <a href="#popupShare" data-rel="dialog" data-role="button" data-inline="true" data-position-to="window">Dela</a>
+        }
+
         @* Visa respons från mottagare *@
         @{
             if (ViewBag.responded)
@@ -192,7 +217,7 @@
         @*end: Frida Mattisson 2012-11-16*@
  
 
-        @if (ViewBag.voting != null)
+        @if (ViewBag.voting != null && !@Model.Archived)
         {
             <h3>@ViewBag.voting.Title</h3>
             if (!ViewBag.UserHasVoted)
@@ -220,7 +245,7 @@
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Redigera</a>
         }
     </div>
-</div>
+@*</div>*@
 <style>
     #share_by_email
     {
@@ -265,5 +290,9 @@
         });
     }
 </script>
-
+}
+    else
+    {
+     <h3>Ärendet är arkiverat</h3>   
+    }
 

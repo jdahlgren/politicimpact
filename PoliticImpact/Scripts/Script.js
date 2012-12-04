@@ -74,3 +74,17 @@ function ShowCommentField() {
     $("#allComments").show();
     $("#newComment").show();
 }
+
+/**
+*function ArchiveCaseItem(id)
+*en funktion som skickar ett POSTrequest till /CaseItems/Archive/id 
+*där controllerns action "Archive" anropas.
+*/
+function ArchiveCaseItem(id) {
+    jQuery.ajax({
+        type: "POST",
+        url: "/CaseItems/Archive/" + id,
+    }).done(function (msg) {
+        jQuery('#archived_status').html('<p>Arkiverad, går inte längre att interagera.</p>');
+    });
+}
