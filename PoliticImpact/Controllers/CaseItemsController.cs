@@ -416,10 +416,18 @@ namespace PoliticImpact.Controllers
         // POST: /CaseItems/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(CaseItem caseitem)
+        public ActionResult Edit(CaseItem caseitem, HttpPostedFileBase image, HttpPostedFileBase document)
         {
             if (ModelState.IsValid)
             {
+                if (document != null)
+                {
+                    caseitem.documentMimeType = document.ContentType;
+                    caseitem.documentName = document.FileName;
+                    string location = "~/Content/uploadedDocuments/" + document.FileName;
+                    caseitem.documentUrl = location;
+                    document.SaveAs(Server.MapPath(location));
+                }
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
                 return RedirectToAction("Index");

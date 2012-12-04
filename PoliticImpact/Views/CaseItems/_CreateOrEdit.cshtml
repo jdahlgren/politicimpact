@@ -65,24 +65,37 @@
     @Html.ValidationMessageFor(model => model.LastEdited)
 </div>
 -->
+@*Dokumentet till ärendet, går endast att bifoga om det inte finns något dokument bifogat*@
+@if(Model.documentUrl == null)
+{
+    <div class="editor-label"> Välj vilket dokument som ska bifogas:</div> 
+    <div class="editor-field">
+        <input name="document" type="file" />
+    </div>
+}
+else
+{
+    <div class="editor-label">Detta dokument är bifogat:</div>
+    <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+}
 
 <!--
 <div class="editor-label">
-    @Html.LabelFor(model => model.imageId)
+    @*@Html.LabelFor(model => model.imageId)*@
 </div>
 <div class="editor-field">
-    @Html.EditorFor(model => model.imageId)
+    @*@Html.EditorFor(model => model.imageId)
     @Html.ValidationMessageFor(model => model.imageId)
 </div>
 -->
 
 <!--
 <div class="editor-label">
-    @Html.LabelFor(model => model.imageName)
+    @Html.LabelFor(model => model.imageName)*@
 </div>
 <div class="editor-field">
-    @Html.EditorFor(model => model.imageName)
-    @Html.ValidationMessageFor(model => model.imageName)
+    @*@Html.EditorFor(model => model.imageName)
+    @Html.ValidationMessageFor(model => model.imageName)*@
 </div>
 -->
  @*Edit CaseMode*@

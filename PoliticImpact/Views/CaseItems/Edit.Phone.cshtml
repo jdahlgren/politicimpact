@@ -59,7 +59,15 @@
                 @Html.EditorFor(model => model.Deadline)
                 @Html.ValidationMessageFor(model => model.Deadline)
             </div>
-
+            
+            @*Dokumentet till ärendet, går endast att bifoga om det inte finns något dokument bifogat*@
+            @if(Model.documentUrl == null)
+            {
+                <div class="editor-label"> Välj vilket dokument som ska bifogas:</div> 
+                <div class="editor-field">
+                    <input name="document" type="file" />
+                </div>
+            }
             <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.Published)
@@ -90,7 +98,7 @@
 </div>
 -->
 
-            <!--
+   @*         <!--
 <div class="editor-label">
     @Html.LabelFor(model => model.imageId)
 </div>
@@ -106,7 +114,7 @@
 </div>
 <div class="editor-field">
     @Html.EditorFor(model => model.imageName)
-    @Html.ValidationMessageFor(model => model.imageName)
+    @Html.ValidationMessageFor(model => model.imageName)*@
 </div>
 -->
 

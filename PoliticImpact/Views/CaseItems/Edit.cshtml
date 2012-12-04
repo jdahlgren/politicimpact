@@ -35,25 +35,40 @@
             <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
         </tr>
     </table>
-        if (Model.Archived)
-        {
+    
+    
+@*Dokumentet till ärendet, går endast att bifoga om det inte finns något dokument bifogat*@
+@if (Model.documentUrl == null)
+{
+    <p> Välj vilket dokument som ska bifogas:</p>
+    <input name="document" type="file" />    
+}
+else
+{
+    <p>Detta dokument är bifogat:</p>
+    <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+}
+    
+    
+if (Model.Archived)
+{
     <p>Arkiverad, går inte längre att interagera.</p>
-        }
-        else
-        {
+}
+else
+{
     <p>Ej arkiverad</p>
     <button onclick="ArchiveCaseItem(@Model.ID);" class="btn">Arkivera</button>
-        }
-        if (Model.Published)
-        {
+}
+if (Model.Published)
+{
     <p>Publicerad, går ej att ändra</p>
-        }
-        else
-        {
+}
+else
+{
     <p>Ej publiceread</p>
     <button onclick="PublishCaseItem(@Model.ID);" class="btn">Publicera</button>
     <button type="submit" class="btn btn-success">Spara</button>
-        }
+}
 
 
 

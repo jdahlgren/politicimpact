@@ -29,27 +29,21 @@
         margin-right: 5px;
     }
 </style>
-    
-    
-    if(Model.documentUrl != null)
-     {
-           <h1>Här är dokument</h1>
-           <a href="@Url.Content(Model.documentUrl)">dokumentlänk!</a>
-     }
-    
-    
-
+   
 <div class="row">
     <div class="span8">
        <h2>@Model.Title</h2>
-        @* Detta är för caseitem-Mode@if (Model.caseMode == 1)
+       @*Ritar ut en bild beroende på caseMode*@
+        @if (Model.caseMode == 1)
         {
-              <img src="~/Content/images/Approved_icon.png" width="75" height="75" id="Approved" />
+            <label>Ärendet har: Gått igenom</label>
+             <img src="~/Content/images/Approved_icon.png" width="45" height="45" id="Approved" />
         }
         else if (Model.caseMode == 2)
         {
-             <img src="~/Content/images/Dismissed_icon.png" width="75" height="75" id="Dismissed" />
-        }*@
+            <label>Ärendet är: Avslaget</label>
+            <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
+        }
         <p>Deadline: @String.Format("{0:g}", Model.Deadline)</p>
 
         <p>@Model.Text</p>
@@ -58,6 +52,13 @@
         <div class="display-label">Mottagare</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
+        @*Visa alla dokument till ärendet*@
+        if(Model.documentUrl != null)
+        {
+           <h1>Det bifogade dokumentet:</h1>
+           <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+           <h4>DocumentURL: @Model.documentUrl</h4>
+        }
         <!--
         @* @if (Model.imageName != null)
         {
@@ -70,8 +71,7 @@
             <div class="display-field">@Model.imageName</div>
         } *@ -->
 
-        @* Visa respons från mottagare *@
-        
+        @* Visa respons från mottagare *@        
         @if (ViewBag.responded)
         {
             <fieldset>
@@ -103,7 +103,6 @@
             <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
            {
-<<<<<<< HEAD
                 <p>Du gillade detta!</p>
            }
            else
@@ -271,4 +270,4 @@
 else
 {
      <h3>Ärendet är arkiverat</h3>   
-    }
+}
