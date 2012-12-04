@@ -91,46 +91,7 @@
     *@
 </ul>
 -->
-﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
-@{
-    ViewBag.Title = "Home Page";
-}
-@section header{
-    <!-- top menu, to be implemented on other pages -->
-    
-    <h2>Home</h2>
-    <!-- navigation -->
-    <div data-role="navbar" data-iconpos="top">
-	    <ul>
-		    <li>@Html.ActionLink("Home", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
-            <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search" })</li>
-            <li>@Html.ActionLink("Sign in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
-	    </ul>
-    </div>
-    <!-- /navigation -->
-}
 
-@*@section head{
-
-
-<!-- script to toggle visibility of cases -->
-<script>
-    /*
-    function toggleVisibility(id){
-        var section = document.getElementById(id);
-        if (section.style.display != 'none') {
-            section.style.display = 'none';
-        }
-        else {
-            section.style.display = 'block';
-        }
-    }
-    */
-</script>
-
-}
-
-*@
 
 <img src="~/Content/images/medborgarforslag.jpg" class="center"/>
 
