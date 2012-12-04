@@ -178,6 +178,7 @@
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />
     <Content Include="Content\images\icons-36-white.png" />
+    <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\medborgarforslag.jpg" />
     <Content Include="Content\images\share-email.png" />
     <Content Include="Content\images\share-facebook.png" />
@@ -339,7 +340,6 @@
     <Content Include="Views\CaseComments\Details.cshtml" />
     <Content Include="Views\CaseComments\Edit.cshtml" />
     <Content Include="Views\CaseComments\Index.cshtml" />
-    <Content Include="Views\CaseComments\Partial_commentView.cshtml" />
     <Content Include="Views\CaseComments\_CreateOrEdit.cshtml" />
     <Content Include="Views\RecieverResponses\Create.cshtml" />
     <Content Include="Views\RecieverResponses\Delete.cshtml" />
@@ -361,6 +361,7 @@
     <Content Include="Views\CaseItems\Search.cshtml" />
     <Content Include="Views\CaseItems\SubmitSearch.Phone.cshtml" />
     <Content Include="Views\CaseItems\Archive.cshtml" />
+    <Content Include="Views\Shared\_LayoutAjax.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

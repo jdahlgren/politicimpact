@@ -1,27 +1,39 @@
-﻿
-
-@{
+﻿@{
+    Layout = null;
     ViewBag.Title = "Sökresultat";
 }
-
-        <h2>Resultat för: @ViewBag.word</h2>
-        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Lägg till</a>
-        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
-		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
-                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("Om", "About", new { Controller = "Home"}, new { data_icon = "gear" })</li>
-
-
-@*<ul data-role="listview" data-filter="true">*@
-<ul data-role="listview">
-@foreach (var item in ViewBag.Result) {
-    <li>
-        <a href= "/CaseItems/Details/@item.ID" data-transition="slide" rel="external"> 
-            <h3>@item.Title</h3>
-            <p><strong>Anders Andersson</strong></p>
-            <p>@item.Text.</p>
-            <p class="ui-li-aside">4 Likes</p>
+@foreach (var item in ViewBag.Result)
+{
+    <div class="caseitem-list">
+        <a href="/CaseItems/Details/@item.ID">
+            <div class="templateimage"></div>
+            <div class="caseitem-list-main">
+                    <div class="caseitem-list-main-info">
+                    <h3>@item.Title</h3>
+                    <p>
+                        @if( @item.Text.Length > 120)
+                        {                                
+                            @item.Text.Substring(0, 120)
+                        }
+                        else
+                        {
+                            @item.Text
+                        }
+                    </p>
+                </div>
+                   
+                <div class="caseitem-additional-info">
+                    <div class="caseitem-additional-info-box">
+                        <p>10 <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
+                    </div>
+                    <div class="caseitem-additional-info-box">
+                        <p>12 <img src="~/Content/images/signups.png" alt="Signups"/></p>
+                    </div>
+                    <div class="caseitem-additional-info-box">
+                        <p>3 <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+                    </div>
+                </div>
+            </div>
         </a>
-     </li>
+    </div>
 }
-</ul>
