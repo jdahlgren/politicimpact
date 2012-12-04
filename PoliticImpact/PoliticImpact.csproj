@@ -362,6 +362,7 @@
     <Content Include="Views\CaseItems\SubmitSearch.Phone.cshtml" />
     <Content Include="Views\CaseItems\Archive.cshtml" />
     <Content Include="Views\Shared\_LayoutAjax.cshtml" />
+    <Content Include="Views\CaseItems\PrintCase.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
