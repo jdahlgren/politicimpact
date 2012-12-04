@@ -82,6 +82,9 @@
             @Html.ValidationMessageFor(model => model.enableSigns)
         </div>
 
+        <div class="editor-label">Ladda upp bild:</div>
+        <div class="editor-field"><input name="image" type="file" /></div>
+            
 
         <div class="editor-field">
             @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem

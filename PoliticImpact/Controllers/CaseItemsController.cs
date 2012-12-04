@@ -31,7 +31,9 @@ namespace PoliticImpact.Controllers
 
         private readonly CaseCommentRepository caseCommentRepository;
 
-        private int theUser = 1414;
+        private readonly ICaseImageRepository caseimageRepository;
+
+        private long theUser = 1414;
 
 
         // If you are using Dependency Injection, you can delete the following constructor
@@ -56,29 +58,31 @@ namespace PoliticImpact.Controllers
 
             this.recieverresponseRepository = new RecieverResponseRepository();
 
+            this.caseimageRepository = new CaseImageRepository();
         }
-
+        /**
+         *Funktion för att användaren ska kunna Gilla ett ärende såvida den inte redan gillat. 
+         */
         [HttpGet]
         public ActionResult LikeCase(int id)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+            }
 
-
-
-
-            //från Semone
-            //Borde kolla så att den som är inloggad inte redan har signat detta caset
-
+            //från Semones kod för signup
+            //kollar så att den som är inloggad inte redan har gillat förslaget
             foreach (var item in caselikeRepository.All)
             {
                 if (theUser == item.userID && id == item.caseID)
                 {
-                    //returna någon schyst variabel till popupen
-                    //Meddela användaren om att den redan har signat
-                    return View();
+                    //Detailsaction har koll på om användaren har gillat förslaget 
+                    return View(); //returnerar detailsvyn.
                 }
 
             }
-
+            
             CaseLike caselike = new CaseLike();
 
             caselike.caseID = id;
@@ -105,6 +109,11 @@ namespace PoliticImpact.Controllers
         [HttpGet]
         public ActionResult SignUp(int caseitem)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+            }
+
             //Semone Kallin Clarke 2012-11-13
 
             //Hämta användaren som är inloggad, nu hårdkodad (2012-11-16)
@@ -149,8 +158,26 @@ namespace PoliticImpact.Controllers
         public ViewResult Index()
         {
 
-            System.Diagnostics.Debug.WriteLine("asdf");
+            //Hämta antal likes för case. MAX 100 cases.
+            ViewBag.likes = new int[100];
+            int i = 0;
+            foreach (CaseItem c in caseitemRepository.All)
+            {
+                ViewBag.likes[i] = caselikeRepository.FindLike(c.ID);
+                i++;
+            }
             return View(caseitemRepository.All);
+        }
+
+        public ViewResult Image(int id)
+        {
+            byte[] imgData = caseimageRepository.GetImageDataById(id);
+            if (imgData != null)
+            {
+                ViewBag.image = imgData;
+            }
+
+            return View();
         }
 
         //
@@ -158,6 +185,11 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+            }
+
             //Kod för att skicka eventuell respons till ett case i CaseItem-view
             string response = recieverresponseRepository.GetResponseText(id);
 
@@ -171,7 +203,6 @@ namespace PoliticImpact.Controllers
                 ViewBag.responded = false;
             }
             //slut på kod för respons på case
-
 
             int numberOfLikes = caselikeRepository.FindLike(id);
             ViewBag.numberOfLikes = numberOfLikes;
@@ -188,7 +219,7 @@ namespace PoliticImpact.Controllers
 
                 foreach (var vote in votes)
                 {
-                    if (vote.UserID == 1337)//TODO compare with actual fb userid
+                    if (vote.UserID == theUser)//TODO compare with actual fb userid
                     {
                         UserHasVoted = true;
 
@@ -263,7 +294,7 @@ namespace PoliticImpact.Controllers
         // POST: /CaseItems/Create
 
         [HttpPost]
-        public ActionResult Create(CaseItem caseitem)
+        public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image, HttpPostedFileBase document)
         {
             RecieverResponse resp = new RecieverResponse();
             resp.ResponseCode = GenerateResponseCode(caseitem);
@@ -280,6 +311,7 @@ namespace PoliticImpact.Controllers
             {
                 caseitem.Owner = 4;
             }
+            caseitem.caseMode = 0;
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;
@@ -288,6 +320,53 @@ namespace PoliticImpact.Controllers
             {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
+
+                //validering och sparning av bild
+                if (image != null)
+                {
+                    switch (image.ContentType)
+                    {
+                        //tillåtna filtyper:
+                        case "image/jpeg":
+                        case "image/png":
+                        case "image/gif":
+                            CaseImage img = new CaseImage();
+                            img.CaseID = caseitem.ID;
+                 
+                            img.ImageBytes = new byte[image.ContentLength];
+
+                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+
+                            caseimageRepository.InsertOrUpdate(img);
+                            caseimageRepository.Save();
+
+                            caseitem.AttachedImage = true;
+                            break;
+                        default: //Otillåten filtyp
+                            caseitem.AttachedImage = false;
+                            /* Lägg till validerings-errormeddelande i vy:
+                             * ModelState.AddModelError("key", "message");
+                             * i view: @Html.ValidationSummary(false)
+                             */
+                            break;
+                    }
+
+                }
+                else
+                {
+                    caseitem.AttachedImage = false;
+                }
+                //slut på validering och sparning bild
+
+                //dokumentuppladdning:
+                if (document != null)
+                {
+                    caseitem.documentMimeType = document.ContentType;
+                    caseitem.documentName = document.FileName;
+                    string location =   "~/Content/uploadedDocuments/" + document.FileName;
+                    caseitem.documentUrl = location;
+                    document.SaveAs(Server.MapPath(location));
+                }
 
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);

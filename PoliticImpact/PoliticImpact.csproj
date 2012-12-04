@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CaseCategoriesController.cs" />
     <Compile Include="Controllers\CaseCommentsController.cs" />
+    <Compile Include="Controllers\CaseImagesController.cs" />
     <Compile Include="Controllers\CaseItemsController.cs" />
     <Compile Include="Controllers\CaseLikesController.cs" />
     <Compile Include="Controllers\CaseSignUpsController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CaseCategoryRepository.cs" />
     <Compile Include="Models\CaseCommentRepository.cs" />
+    <Compile Include="Models\CaseImageRepository.cs" />
     <Compile Include="Models\CaseItemRepository.cs" />
     <Compile Include="Models\CaseLikeRepository.cs" />
     <Compile Include="Models\CaseSignUpRepository.cs" />
@@ -168,6 +170,8 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\Dismissed_icon.png" />
+    <Content Include="Content\images\Approved_icon.png" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\apple-startup-iPhone.jpg" />
@@ -249,6 +253,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\politicalimpact - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\politicalimpact - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\politicimpact - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\politicimpact - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
@@ -363,6 +369,13 @@
     <Content Include="Views\CaseItems\Archive.cshtml" />
     <Content Include="Views\Shared\_LayoutAjax.cshtml" />
     <Content Include="Views\CaseItems\PrintCase.cshtml" />
+    <Content Include="Views\CaseImages\Create.cshtml" />
+    <Content Include="Views\CaseImages\Edit.cshtml" />
+    <Content Include="Views\CaseImages\Delete.cshtml" />
+    <Content Include="Views\CaseImages\Details.cshtml" />
+    <Content Include="Views\CaseImages\Index.cshtml" />
+    <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
+    <Content Include="Views\CaseItems\Image.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

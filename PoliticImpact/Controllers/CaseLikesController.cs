@@ -45,26 +45,7 @@ namespace PoliticImpact.Controllers
             return View();
         } 
 
-        //
-        // POST: /CaseLikes/Create
-
-        //[HttpPost]
-        //public ActionResult Create(int caseID)
-        //{
-        //    CaseLike caselike = new CaseLike(); 
-        //    caselike.caseID = caseID;
-        //    //TODO, användarens id.
-        //    caselike.userID = 12;
-        //    caselike.created = DateTime.Now;
-
-        //    if (ModelState.IsValid) {
-        //        caselikeRepository.InsertOrUpdate(caselike);
-        //        caselikeRepository.Save();
-        //      return RedirectToAction("Index");
-        //    } else {
-        //        return View();
-        //    }
-        //}
+  
 
         [HttpGet]
         public ActionResult LikeCase(int id)
@@ -75,13 +56,12 @@ namespace PoliticImpact.Controllers
             // caselike.caseID = caseID;
             CaseLike caselike = new CaseLike();
 
-            theUser = 166;
+            theUser = Int64.Parse(Session["uid"].ToString());
             caselike.caseID = id;
             caselike.userID = theUser;
             caselike.created = DateTime.Now;
 
-            //från Semone
-            //Borde kolla så att den som är inloggad inte redan har signat detta caset
+            //från Semones kod för signup
             foreach (var item in caselikeRepository.All)
             {
                 if (theUser == item.userID && id == item.caseID)
@@ -104,56 +84,6 @@ namespace PoliticImpact.Controllers
                 return View();
             }
         }
-        //
-        // GET: /CaseLikes/Edit/5
-
-        //public ActionResult Edit(long id)
-        //{
-        //     return View(caselikeRepository.Find(id));
-        //}
-
-        ////
-        //// POST: /CaseLikes/Edit/5
-
-        //[HttpPost]
-        //public ActionResult Edit(CaseLike caselike)
-        //{
-        //    if (ModelState.IsValid) {
-        //        caselikeRepository.InsertOrUpdate(caselike);
-        //        caselikeRepository.Save();
-        //        return RedirectToAction("Index");
-        //    } else {
-        //        return View();
-        //    }
-        //}
-
-        ////
-        //// GET: /CaseLikes/Delete/5
-
-        //public ActionResult Delete(long id)
-        //{
-        //    return View(caselikeRepository.Find(id));
-        //}
-
-        ////
-        //// POST: /CaseLikes/Delete/5
-
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(long id)
-        //{
-        //    caselikeRepository.Delete(id);
-        //    caselikeRepository.Save();
-
-        //    return RedirectToAction("Index");
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing) {
-        //        caselikeRepository.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
 
         public long theUser { get; set; }
     }

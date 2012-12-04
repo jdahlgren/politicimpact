@@ -1,4 +1,4 @@
-﻿@model PoliticImpact.Models.CaseItem
+﻿﻿@model PoliticImpact.Models.CaseItem
 
 
 @{
@@ -90,7 +90,7 @@
 </div>
 -->
 
-            <!--
+            @*
 <div class="editor-label">
     @Html.LabelFor(model => model.imageId)
 </div>
@@ -98,9 +98,9 @@
     @Html.EditorFor(model => model.imageId)
     @Html.ValidationMessageFor(model => model.imageId)
 </div>
--->
+*@
 
-            <!--
+@*
 <div class="editor-label">
     @Html.LabelFor(model => model.imageName)
 </div>
@@ -108,7 +108,7 @@
     @Html.EditorFor(model => model.imageName)
     @Html.ValidationMessageFor(model => model.imageName)
 </div>
--->
+*@
 
 
             <div id="archived_status">
@@ -142,6 +142,20 @@
 
         </fieldset>
     }
+     @*Edit CaseMode*@
+<div data-role="fieldcontain">
+    <fieldset data-role="controlgroup">           
+        @Html.RadioButtonFor(model => model.caseMode, "0", new { id = "radio-choice-1"}) 
+        <label for="radio-choice-1">Ärendet är under granskning</label>  
+                    
+        @Html.RadioButtonFor(model => model.caseMode, "1", new { id = "radio-choice-2"}) 
+        <label for="radio-choice-2">Ärendet är godkänt</label>
+                     
+        @Html.RadioButtonFor(model => model.caseMode, "2", new { id = "radio-choice-3"})
+        <label for="radio-choice-3">Ärendet är avslaget</label>
+    </fieldset>  
+                 
+</div>
 }
 else
 {
@@ -158,3 +172,4 @@ else
     }
 
 </script>
+

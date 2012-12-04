@@ -12,7 +12,7 @@
 }
     <h2>@Res.CreateCase</h2>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm(null,null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
         @Html.ValidationSummary(true)
 
         <table class="span12">
@@ -86,6 +86,16 @@
                 <td>@Html.EditorFor(model => model.Published)</td>
                 <td> @Html.ValidationMessageFor(model => model.Published)</td>
             </tr>
+            <tr>
+                <td>Ladda upp bild:</td>
+                <td><input name="image" type="file" /></td>
+            </tr>
+
+            <tr>
+                <td>Välj vilket dokument som ska bifogas:</td>
+                <td><input name="document" type="file" /></td>
+            </tr>
+
         </table>
         <button type="submit" class="btn btn-success">@Res.Save</button>
     }
