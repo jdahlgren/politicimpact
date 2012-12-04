@@ -93,6 +93,11 @@ namespace PoliticImpact.Models
         
         [Required]
         public bool Archived { get; set; }
+
+
+        public string documentUrl { get; set; }
+        public string documentMimeType { get; set; }
+        public string documentName { get; set; }
     }
    
     public class CaseCategory

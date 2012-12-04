@@ -272,7 +272,7 @@ namespace PoliticImpact.Controllers
         // POST: /CaseItems/Create
 
         [HttpPost]
-        public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image)
+        public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image, HttpPostedFileBase document)
         {
             RecieverResponse resp = new RecieverResponse();
             resp.ResponseCode = GenerateResponseCode(caseitem);
@@ -309,7 +309,9 @@ namespace PoliticImpact.Controllers
                         case "image/gif":
                             CaseImage img = new CaseImage();
                             img.CaseID = caseitem.ID;
+                 
                             img.ImageBytes = new byte[image.ContentLength];
+
                             image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
 
                             caseimageRepository.InsertOrUpdate(img);
@@ -332,6 +334,16 @@ namespace PoliticImpact.Controllers
                     caseitem.AttachedImage = false;
                 }
                 //slut på validering och sparning bild
+
+                //dokumentuppladdning:
+                if (document != null)
+                {
+                    caseitem.documentMimeType = document.ContentType;
+                    caseitem.documentName = document.FileName;
+                    string location =   "~/Content/uploadedDocuments/" + document.FileName;
+                    caseitem.documentUrl = location;
+                    document.SaveAs(Server.MapPath(location));
+                }
 
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
