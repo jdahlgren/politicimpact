@@ -367,17 +367,10 @@ namespace PoliticImpact.Controllers
         // POST: /CaseItems/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(CaseItem caseitem, HttpPostedFileBase fileUpload)
+        public ActionResult Edit(CaseItem caseitem)
         {
             if (ModelState.IsValid)
             {
-                if (fileUpload != null)
-                {
-                    caseitem.documentMimeType = fileUpload.ContentType;
-                    caseitem.documentBytes = new byte[fileUpload.ContentLength];
-                    caseitem.documentName = fileUpload.FileName;
-                    fileUpload.InputStream.Read(caseitem.documentBytes, 0, fileUpload.ContentLength);
-                }
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
                 return RedirectToAction("Index");

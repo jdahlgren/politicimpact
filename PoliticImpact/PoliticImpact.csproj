@@ -133,6 +133,7 @@
     <Compile Include="Controllers\CaseCommentsController.cs" />
     <Compile Include="Controllers\CaseItemsController.cs" />
     <Compile Include="Controllers\CaseLikesController.cs" />
+    <Compile Include="Controllers\CaseModesController.cs" />
     <Compile Include="Controllers\CaseSignUpsController.cs" />
     <Compile Include="Controllers\CaseVotesController.cs" />
     <Compile Include="Controllers\CaseVotingsController.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Models\CaseCommentRepository.cs" />
     <Compile Include="Models\CaseItemRepository.cs" />
     <Compile Include="Models\CaseLikeRepository.cs" />
+    <Compile Include="Models\CaseModeRepository.cs" />
     <Compile Include="Models\CaseSignUpRepository.cs" />
     <Compile Include="Models\CaseVoteRepository.cs" />
     <Compile Include="Models\CaseVotingRepository.cs" />
@@ -358,6 +360,12 @@
     <Content Include="Views\CaseItems\Edit.Phone.cshtml" />
     <Content Include="Views\CaseItems\Create.cshtml" />
     <Content Include="Views\RecieverResponses\Edit.Phone.cshtml" />
+    <Content Include="Views\CaseModes\Create.cshtml" />
+    <Content Include="Views\CaseModes\Edit.cshtml" />
+    <Content Include="Views\CaseModes\Delete.cshtml" />
+    <Content Include="Views\CaseModes\Details.cshtml" />
+    <Content Include="Views\CaseModes\Index.cshtml" />
+    <Content Include="Views\CaseModes\_CreateOrEdit.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
