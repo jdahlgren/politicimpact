@@ -31,6 +31,8 @@ namespace PoliticImpact.Controllers
 
         private readonly CaseCommentRepository caseCommentRepository;
 
+        private readonly ICaseImageRepository caseimageRepository;
+
         private int theUser = 1414;
 
 
@@ -56,29 +58,26 @@ namespace PoliticImpact.Controllers
 
             this.recieverresponseRepository = new RecieverResponseRepository();
 
+            this.caseimageRepository = new CaseImageRepository();
         }
-
+        /**
+         *Funktion för att användaren ska kunna Gilla ett ärende såvida den inte redan gillat. 
+         */
         [HttpGet]
         public ActionResult LikeCase(int id)
         {
-
-
-
-
-            //från Semone
-            //Borde kolla så att den som är inloggad inte redan har signat detta caset
-
+            //från Semones kod för signup
+            //kollar så att den som är inloggad inte redan har gillat förslaget
             foreach (var item in caselikeRepository.All)
             {
                 if (theUser == item.userID && id == item.caseID)
                 {
-                    //returna någon schyst variabel till popupen
-                    //Meddela användaren om att den redan har signat
-                    return View();
+                    //Detailsaction har koll på om användaren har gillat förslaget 
+                    return View(); //returnerar detailsvyn.
                 }
 
             }
-
+            
             CaseLike caselike = new CaseLike();
 
             caselike.caseID = id;
@@ -153,6 +152,17 @@ namespace PoliticImpact.Controllers
             return View(caseitemRepository.All);
         }
 
+        public ViewResult Image(int id)
+        {
+            byte[] imgData = caseimageRepository.GetImageDataById(id);
+            if (imgData != null)
+            {
+                ViewBag.image = imgData;
+            }
+
+            return View();
+        }
+
         //
         // GET: /CaseItems/Details/5
 
@@ -171,7 +181,6 @@ namespace PoliticImpact.Controllers
                 ViewBag.responded = false;
             }
             //slut på kod för respons på case
-
 
             int numberOfLikes = caselikeRepository.FindLike(id);
             ViewBag.numberOfLikes = numberOfLikes;
@@ -263,7 +272,7 @@ namespace PoliticImpact.Controllers
         // POST: /CaseItems/Create
 
         [HttpPost]
-        public ActionResult Create(CaseItem caseitem)
+        public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image)
         {
             RecieverResponse resp = new RecieverResponse();
             resp.ResponseCode = GenerateResponseCode(caseitem);
@@ -288,6 +297,41 @@ namespace PoliticImpact.Controllers
             {
                 caseitemRepository.InsertOrUpdate(caseitem);
                 caseitemRepository.Save();
+
+                //validering och sparning av bild
+                if (image != null)
+                {
+                    switch (image.ContentType)
+                    {
+                        //tillåtna filtyper:
+                        case "image/jpeg":
+                        case "image/png":
+                        case "image/gif":
+                            CaseImage img = new CaseImage();
+                            img.CaseID = caseitem.ID;
+                            img.ImageBytes = new byte[image.ContentLength];
+                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+
+                            caseimageRepository.InsertOrUpdate(img);
+                            caseimageRepository.Save();
+
+                            caseitem.AttachedImage = true;
+                            break;
+                        default: //Otillåten filtyp
+                            caseitem.AttachedImage = false;
+                            /* Lägg till validerings-errormeddelande i vy:
+                             * ModelState.AddModelError("key", "message");
+                             * i view: @Html.ValidationSummary(false)
+                             */
+                            break;
+                    }
+
+                }
+                else
+                {
+                    caseitem.AttachedImage = false;
+                }
+                //slut på validering och sparning bild
 
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
