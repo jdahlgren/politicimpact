@@ -131,6 +131,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CaseCategoriesController.cs" />
     <Compile Include="Controllers\CaseCommentsController.cs" />
+    <Compile Include="Controllers\CaseImagesController.cs" />
     <Compile Include="Controllers\CaseItemsController.cs" />
     <Compile Include="Controllers\CaseLikesController.cs" />
     <Compile Include="Controllers\CaseSignUpsController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CaseCategoryRepository.cs" />
     <Compile Include="Models\CaseCommentRepository.cs" />
+    <Compile Include="Models\CaseImageRepository.cs" />
     <Compile Include="Models\CaseItemRepository.cs" />
     <Compile Include="Models\CaseLikeRepository.cs" />
     <Compile Include="Models\CaseSignUpRepository.cs" />
@@ -363,6 +365,13 @@
     <Content Include="Views\CaseItems\Archive.cshtml" />
     <Content Include="Views\Shared\_LayoutAjax.cshtml" />
     <Content Include="Views\CaseItems\PrintCase.cshtml" />
+    <Content Include="Views\CaseImages\Create.cshtml" />
+    <Content Include="Views\CaseImages\Edit.cshtml" />
+    <Content Include="Views\CaseImages\Delete.cshtml" />
+    <Content Include="Views\CaseImages\Details.cshtml" />
+    <Content Include="Views\CaseImages\Index.cshtml" />
+    <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
+    <Content Include="Views\CaseItems\Image.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
