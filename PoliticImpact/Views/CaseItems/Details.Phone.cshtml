@@ -51,7 +51,7 @@
 
             
 
-            @if (Model.imageName != null)
+            @* @if (Model.imageName != null)
             {
                 <div class="display-label">imageId</div>
                 <div class="display-field">@Model.imageId</div>
@@ -60,6 +60,15 @@
                 <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
                 <div class="display-label">imageName</div>
                 <div class="display-field">@Model.imageName</div>
+            }*@
+
+            @{ 
+                if(Model.AttachedImage)
+                {
+                    <div class="caseitem-details-template-image">
+                        <img src="~/CaseItems/Image/@Model.ID" />
+                    </div>
+                }
             }
 
     
