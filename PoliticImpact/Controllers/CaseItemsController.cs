@@ -9,6 +9,8 @@ using PoliticImpact.Models;
 using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Script.Serialization;
+
 
 namespace PoliticImpact.Controllers
 {
@@ -646,6 +648,18 @@ namespace PoliticImpact.Controllers
 
             return View(caseitemRepository.Find(id));
         }
+
+        public ActionResult TheStatistics(int id)
+        {
+            int[] theLikes = caselikeRepository.StatisticLikes(id);
+            ViewBag.theLikes = theLikes;
+            return View();
+        }
+
+        //private JsonResult theStatisticsJSON
+        //{ 
+        
+        //}
 
         protected override void Dispose(bool disposing)
         {

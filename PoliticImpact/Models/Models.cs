@@ -200,4 +200,12 @@ namespace PoliticImpact.Models
         public byte[] ImageBytes { get; set; }
         //public HttpPostedFileBase File { get; set; }
     }
+
+    //Till statistik
+    public class GraphData
+    {
+        public string Name { get; set; }
+        public int[][] Serie { get; set; }
+    }
+
 }
