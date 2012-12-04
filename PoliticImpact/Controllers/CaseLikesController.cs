@@ -56,7 +56,7 @@ namespace PoliticImpact.Controllers
             // caselike.caseID = caseID;
             CaseLike caselike = new CaseLike();
 
-            theUser = 166;
+            theUser = Int64.Parse(Session["uid"].ToString());
             caselike.caseID = id;
             caselike.userID = theUser;
             caselike.created = DateTime.Now;

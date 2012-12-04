@@ -1,5 +1,4 @@
-
-﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
+@model IEnumerable<PoliticImpact.Models.CaseItem>
 @{
     ViewBag.Title = "Hem";
 }
@@ -55,7 +54,6 @@
                 <li><a href="/CaseItems/Details/@item.ID" rel="external">
 
 
-                    <p id="divName@(item.ID)"></p>
                     <p>@item.Text</p>
                     <!-- <p class="ui-li-aside"><strong>5</strong> Likes</p>-->
                 </a></li>
@@ -80,7 +78,7 @@
 <ul data-role="listview">
     <li data-role="list-divider">Recent cases</li>
 
-    <!-- limited to 5 and reversed to get most recent cases -->
+    @* limited to 5 and reversed to get most recent cases *@
     @*@foreach (var item in Model.Reverse().Take(5))
     {
         <li><a href="javascript:toggleVisibility('case_@item.ID')">@item.Title</a></li>
@@ -91,8 +89,8 @@
         </script>
     }
     *@
-<!--</ul>
-
+</ul>
+-->
 ﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
 @{
     ViewBag.Title = "Home Page";
@@ -157,6 +155,8 @@
                                 })
                                 })
 
+
+
                         </script>
     } 
 </div>
@@ -168,7 +168,7 @@
 <ul data-role="listview">
     <li data-role="list-divider">Recent cases</li>
 
-    <!-- limited to 5 and reversed to get most recent cases -->
+    @* limited to 5 and reversed to get most recent cases*@
     @*@foreach (var item in Model.Reverse().Take(5))
     {
         <li><a href="javascript:toggleVisibility('case_@item.ID')">@item.Title</a></li>
@@ -179,6 +179,5 @@
         </script>
     }
     *@
-<!--</ul>
-
+</ul>
 -->
