@@ -33,7 +33,7 @@ namespace PoliticImpact.Controllers
 
         private readonly ICaseImageRepository caseimageRepository;
 
-        private int theUser = 1414;
+        private long theUser = 1414;
 
 
         // If you are using Dependency Injection, you can delete the following constructor
@@ -66,6 +66,11 @@ namespace PoliticImpact.Controllers
         [HttpGet]
         public ActionResult LikeCase(int id)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+            }
+
             //från Semones kod för signup
             //kollar så att den som är inloggad inte redan har gillat förslaget
             foreach (var item in caselikeRepository.All)
@@ -104,6 +109,11 @@ namespace PoliticImpact.Controllers
         [HttpGet]
         public ActionResult SignUp(int caseitem)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+            }
+
             //Semone Kallin Clarke 2012-11-13
 
             //Hämta användaren som är inloggad, nu hårdkodad (2012-11-16)
@@ -148,7 +158,14 @@ namespace PoliticImpact.Controllers
         public ViewResult Index()
         {
 
-            System.Diagnostics.Debug.WriteLine("asdf");
+            //Hämta antal likes för case. MAX 100 cases.
+            ViewBag.likes = new int[100];
+            int i = 0;
+            foreach (CaseItem c in caseitemRepository.All)
+            {
+                ViewBag.likes[i] = caselikeRepository.FindLike(c.ID);
+                i++;
+            }
             return View(caseitemRepository.All);
         }
 
@@ -168,6 +185,11 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            if (Session["uid"] != null)
+            {
+                theUser = Int64.Parse(Session["uid"].ToString());
+            }
+
             //Kod för att skicka eventuell respons till ett case i CaseItem-view
             string response = recieverresponseRepository.GetResponseText(id);
 
@@ -197,7 +219,7 @@ namespace PoliticImpact.Controllers
 
                 foreach (var vote in votes)
                 {
-                    if (vote.UserID == 1337)//TODO compare with actual fb userid
+                    if (vote.UserID == theUser)//TODO compare with actual fb userid
                     {
                         UserHasVoted = true;
 

@@ -11,6 +11,8 @@ namespace PoliticImpact.Controllers
     {
 		private readonly ICaseCommentRepository casecommentRepository;
 
+        private long theUser = 1414;
+
 		// If you are using Dependency Injection, you can delete the following constructor
         public CaseCommentsController() : this(new CaseCommentRepository())
         {
@@ -78,9 +80,15 @@ namespace PoliticImpact.Controllers
        [HttpPost]
        public ActionResult Create(int id)
        {
+           if (Session["uid"] != null)
+           {
+               //Hämta session-id
+               theUser = Convert.ToInt64(Session["uid"].ToString());
+           }
+
            CaseComment casecomment = new CaseComment();
            casecomment.caseID = id;
-           casecomment.userID = 1337; //TODO actual user-id
+           casecomment.userID = theUser; //TODO actual user-id
            if (Request["comment"] != null && Request["comment"] != "")
            {
                casecomment.commentStr = Request["comment"];

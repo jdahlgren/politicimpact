@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
+@model IEnumerable<PoliticImpact.Models.CaseItem>
 @{
     ViewBag.Title = "Hem";
 }
@@ -91,94 +90,7 @@
         </script>
     }
     *@
-<!--</ul>
-=======
-﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
-@{
-    ViewBag.Title = "Home Page";
-}
-@section header{
-    <!-- top menu, to be implemented on other pages -->
-    
-    <h2>Home</h2>
-    <!-- navigation -->
-    <div data-role="navbar" data-iconpos="top">
-	    <ul>
-		    <li>@Html.ActionLink("Home", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
-            <li>@Html.ActionLink("Browse cases", "Index", new { Controller = "CaseItems" }, new { data_icon = "search" })</li>
-            <li>@Html.ActionLink("Sign in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
-	    </ul>
-    </div>
-    <!-- /navigation -->
-}
-
-@*@section head{
-
-
-<!-- script to toggle visibility of cases -->
-<script>
-    /*
-    function toggleVisibility(id){
-        var section = document.getElementById(id);
-        if (section.style.display != 'none') {
-            section.style.display = 'none';
-        }
-        else {
-            section.style.display = 'block';
-        }
-    }
-    */
-</script>
-
-}
-
-*@
-
-<img src="~/Content/images/medborgarforslag.jpg" class="center"/>
-
-<h3>Recent cases</h3>
-<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
-    @foreach (var item in Model.Reverse().Take(5)){
-        <div data-role="collapsible">
-		    <h2>@item.Title</h2>
-		    <ul data-role="listview" data-theme="d" data-divider-theme="d">
-			    <!--<li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2 views</span></li>-->
-			    <li><a href="/CaseItems/Details/@item.ID" rel="external">
-					    <p id="divName@(item.ID)"></p>
-					    <p>@item.Text</p>
-					   <!-- <p class="ui-li-aside"><strong>5</strong> Likes</p>-->
-			    </a></li>
-		    </ul>
-	    </div>
-        <script type='text/javascript'>
-                                $(document).ready(function () {
-                                    $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
-                                    $('<p>' + data.name + '<p>').appendTo('#divName@(item.ID)');
-                                })
-                                })
-
-                        </script>
-    } 
-</div>
 
 
 
-<!--list expandable cases -->
-<!--
-<ul data-role="listview">
-    <li data-role="list-divider">Recent cases</li>
 
-    <!-- limited to 5 and reversed to get most recent cases -->
-    @*@foreach (var item in Model.Reverse().Take(5))
-    {
-        <li><a href="javascript:toggleVisibility('case_@item.ID')">@item.Title</a></li>
-        <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID"  rel="external">@item.Text</a></div></li>
-        
-       <script>
-           toggleVisibility('case_@item.ID');
-        </script>
-    }
-    *@
-<!--</ul>
->>>>>>> Frida
--->

@@ -31,6 +31,7 @@
     </div>
 }
 <ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrera förslag..."  >
+@{var nr = 0;}
 @foreach (var item in Model)
 {
     if (!item.Archived || user == item.Owner.ToString())
@@ -40,10 +41,12 @@
                 <h3>@item.Title</h3>
                 <p id="divName@(item.ID)"></p>
                 <p>@item.Text.</p>
-                <p class="ui-li-aside">4 Gillar</p>
+                <p class="ui-li-aside">@ViewBag.likes[nr] Gillar</p>
             </a>
         </li>
-    
+        
+        nr++;
+        
         //Get name from facebook
         <script type='text/javascript'>
             $(document).ready(function () {
