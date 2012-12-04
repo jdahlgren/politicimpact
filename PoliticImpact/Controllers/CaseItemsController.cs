@@ -57,28 +57,24 @@ namespace PoliticImpact.Controllers
             this.recieverresponseRepository = new RecieverResponseRepository();
 
         }
-
+        /**
+         *Funktion för att användaren ska kunna Gilla ett ärende såvida den inte redan gillat. 
+         */
         [HttpGet]
         public ActionResult LikeCase(int id)
         {
-
-
-
-
-            //från Semone
-            //Borde kolla så att den som är inloggad inte redan har signat detta caset
-
+            //från Semones kod för signup
+            //kollar så att den som är inloggad inte redan har gillat förslaget
             foreach (var item in caselikeRepository.All)
             {
                 if (theUser == item.userID && id == item.caseID)
                 {
-                    //returna någon schyst variabel till popupen
-                    //Meddela användaren om att den redan har signat
-                    return View();
+                    //Detailsaction har koll på om användaren har gillat förslaget 
+                    return View(); //returnerar detailsvyn.
                 }
 
             }
-
+            
             CaseLike caselike = new CaseLike();
 
             caselike.caseID = id;
