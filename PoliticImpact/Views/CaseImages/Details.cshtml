@@ -1,0 +1,26 @@
+@model PoliticImpact.Models.CaseImage
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>CaseImage</legend>
+
+    <div class="display-label">CaseID</div>
+    <div class="display-field">@Model.CaseID</div>
+
+    <div class="display-label">CaseItem</div>
+    <div class="display-field">@(Model.CaseItem == null ? "None" : Model.CaseItem.Title)</div>
+
+    <div class="display-label">ImageBytes</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.ImageBytes).ToString()</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ImageID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

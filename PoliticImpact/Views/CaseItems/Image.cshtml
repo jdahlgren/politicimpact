@@ -1,0 +1,9 @@
+﻿@model PoliticImpact.Models.CaseItem
+
+@{ if(ViewBag.image != null)
+   {
+       WebImage webImage = new WebImage(ViewBag.image);
+       webImage.Write();
+       
+   }
+}
