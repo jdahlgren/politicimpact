@@ -80,7 +80,7 @@
                else
                {
                     <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
-                        <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                        <img src="~/Content/images/thumbs_up_metro.png" width="50" height="50" id="ShowCaseLike" />
                     </a>
                }
            }
@@ -88,15 +88,13 @@
            {
                <p>Logga in för att gilla.</p>
            }
-            
-             <p>Antal som gillar: @ViewBag.numberOfLikes</p>
        }
 
         @if (Model.enableComments == true)
         {
             if(user != 0)
             {
-                <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+                <img src="~/Content/images/speech_bubble.png" width="50" height="50" id="ShowCaseComment" />
             }
             else
             {
@@ -119,7 +117,7 @@
                 else
                 {
                  <a href="#popupSignUp" data-rel="dialog"> 
-                    <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
+                    <img src="~/Content/images/signups.png" width="50" height="50" id="ShowCaseSign"/>
                  </a>
                 }
             }
@@ -143,6 +141,9 @@
                </form>
             }  
         }
+
+        <p>Antal som gillar: @ViewBag.numberOfLikes</p>
+
         @* slut på visa respons *@
    
         @*start: Frida Mattisson 2012-11-16*@
