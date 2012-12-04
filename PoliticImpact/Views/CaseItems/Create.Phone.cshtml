@@ -56,6 +56,10 @@
             @Html.ValidationMessageFor(model => model.RecieverEmail)
         </div>
 
+        <div class="editor-label"> Välj vilket dokument som ska bifogas:</div> 
+        <div class="editor-field">
+            <input name="document" type="file" />
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.enableLikes)
