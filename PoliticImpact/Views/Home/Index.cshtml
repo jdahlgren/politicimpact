@@ -1,14 +1,21 @@
+@using Resources;
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if(!Request["lang"].IsEmpty()){
+        Culture = UICulture = Request["lang"];
+    }
+}
 @model IEnumerable<PoliticImpact.Models.CaseItem>
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = Res.Home;
 }
 
 <div id="myCarousel" class="carousel slide">
   <!-- Carousel items -->
   <div class="carousel-inner">
-    <div class="active item startcarousel"><h2>Politiskt Inflytande är till för att låta Dig vara med och påverka vad som händer runtomkring dig!</h2></div>
-    <div class="item startcarousel"><h2>Skapa egna förslag, rösta, kommentera och gilla andras</h2></div>
-    <div class="item startcarousel"><h2>Populära förslag skickas sedan till politiker som kan besvara och åtgärda dem</h2></div>
+    <div class="active item startcarousel"><h2>@Res.StartCarousel</h2></div>
+    <div class="item startcarousel"><h2>@Res.SecondCarousel</h2></div>
+    <div class="item startcarousel"><h2>@Res.ThirdCarousel</h2></div>
   </div>
   <!-- Carousel nav -->
   <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
@@ -16,7 +23,7 @@
 </div>
 <div class="row">
     <div class="span8" id="recent-cases">
-        <h4>Senaste förslagen</h4>
+        <h4>@Res.LatestCases</h4>
         @foreach (var item in Model)
         {
             if (!item.Archived)
@@ -61,7 +68,7 @@
         }
     </div>
     <div class="span3">
-        <h4>Senaste åtgärder</h4>
+        <h4>@Res.LatestAction</h4>
          @foreach (var item in Model)
         {
             <div class="caseresult">

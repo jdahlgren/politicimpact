@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Resources;
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -17,13 +18,23 @@
                 <ul class="nav">
                     <!-- class="active"-->
                   <li>@Html.ActionLink("Start", "Index", new { Controller = "Home"})</li>
-                  <li>@Html.ActionLink("Lista förslag", "Index", new { Controller = "CaseItems"})</li>
-                  <li>@Html.ActionLink("Sök", "Search", new { Controller = "CaseItems"})</li>
-                  <!--<li>@Html.ActionLink("Logga in", "Sign in", new { Controller = "Home"})</li>-->
+                  <li>@Html.ActionLink(@Res.Case, "Index", new { Controller = "CaseItems"})</li>
+                    <li>@Html.ActionLink(@Res.Search, "Search", new { Controller = "CaseItems" })</li>
+                    <!--<li>@Html.ActionLink(@Res.LogIn, "Sign in", new { Controller = "Home" })</li>-->
                 </ul>
-
-              </div><!--/.nav-collapse -->
-                  @Html.ActionLink("+ Skapa förslag", "Create", new { Controller = "CaseItems"}, new { @class = "btn btn-success"  })
+                  <form method="post">
+                      @Res.SelectLanguage
+                      <select name="lang">
+                          <option></option>
+                          <option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>
+                          <option value="sv-SE" @(Culture == "sv-SE" ? "selected=\"selected\"" : "")>@Res.Swedish</option>
+                          <option value="fr-FR" @(Culture == "fr-FR" ? "selected=\"selected\"" : "")>@Res.French</option>
+                      </select>
+                      <input type="submit" value="@Res.Submit" />
+                  </form>
+              </div>
+                <!--/.nav-collapse -->
+                @Html.ActionLink("+ " +@Res.CreateCase , "Create", new { Controller = "CaseItems" }, new { @class = "btn btn-success" })
             </div>
           </div>
         </div>
