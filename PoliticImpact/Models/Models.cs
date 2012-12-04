@@ -17,7 +17,8 @@ namespace PoliticImpact.Models
     {
         /*
            * Variables from "Dropbox/Arkitektur/tables.doc"
-            * */ [Required]
+            * */
+        [Required]
         public int ID { get; set; }
 
         [Required]
@@ -34,7 +35,7 @@ namespace PoliticImpact.Models
         public string Text { get; set; }
 
         [Required]
-        [DisplayName ("Publicera")]
+        [DisplayName("Publicera")]
         public bool Published { get; set; }
 
         [Required]
@@ -45,17 +46,18 @@ namespace PoliticImpact.Models
         [DataType(DataType.DateTime)]
         public DateTime Deadline { get; set; }
 
-        [DataType(DataType.DateTime) ]
+        [DataType(DataType.DateTime)]
         public DateTime LastEdited { get; set; }
 
         //added by Michaela - tas bort?
         public int numberOfLikes { get; set; }
-        
 
-        
+
+
         //Frida Mattisson 2012-11-19
         public List<CaseComment> caseComment { get; set; }
-                
+        public int caseMode { get; set; }
+
 
         //added by Johannes Ullström 2012-11-08 15:11
         [Required]
@@ -88,9 +90,9 @@ namespace PoliticImpact.Models
         [ForeignKey("ResponseID")]
         public virtual RecieverResponse recieverResponse { get; set; }
 
-        
+
         public bool AttachedImage { get; set; }
-        
+
         [Required]
         public bool Archived { get; set; }
 
@@ -99,7 +101,7 @@ namespace PoliticImpact.Models
         public string documentMimeType { get; set; }
         public string documentName { get; set; }
     }
-   
+
     public class CaseCategory
     {
         [Key]
@@ -135,11 +137,11 @@ namespace PoliticImpact.Models
     {
         [Key]
         public long likeID { get; set; }
-        public int caseID {get; set;}
-        public long userID {get; set;}
-        public DateTime created {get; set;}
+        public int caseID { get; set; }
+        public long userID { get; set; }
+        public DateTime created { get; set; }
     }
-    
+
 
     public class CaseSignUp
     {
@@ -175,10 +177,10 @@ namespace PoliticImpact.Models
         [Key]
         public int commentID { get; set; }
         public long userID { get; set; }
-        [ForeignKey ("CaseItem")] 
+        [ForeignKey("CaseItem")]
         public int caseID { get; set; }
         public virtual CaseItem CaseItem { get; set; }
-        public string commentStr{ get; set;}
+        public string commentStr { get; set; }
     }
 
     public class User

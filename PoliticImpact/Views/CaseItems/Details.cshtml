@@ -42,6 +42,14 @@
 <div class="row">
     <div class="span8">
        <h2>@Model.Title</h2>
+        @* Detta är för caseitem-Mode@if (Model.caseMode == 1)
+        {
+              <img src="~/Content/images/Approved_icon.png" width="75" height="75" id="Approved" />
+        }
+        else if (Model.caseMode == 2)
+        {
+             <img src="~/Content/images/Dismissed_icon.png" width="75" height="75" id="Dismissed" />
+        }*@
         <p>Deadline: @String.Format("{0:g}", Model.Deadline)</p>
 
         <p>@Model.Text</p>
@@ -95,6 +103,7 @@
             <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
            {
+<<<<<<< HEAD
                 <p>Du gillade detta!</p>
            }
            else
@@ -104,6 +113,7 @@
                     <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
                }
            }
+
         </div>       
     }
     @if (Model.enableComments == true && !Model.Archived)

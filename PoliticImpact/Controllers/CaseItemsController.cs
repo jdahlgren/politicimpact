@@ -289,6 +289,7 @@ namespace PoliticImpact.Controllers
             {
                 caseitem.Owner = 4;
             }
+            caseitem.caseMode = 0;
             caseitem.Created = DateTime.Now;
             caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
             caseitem.ResponseID = resp.ResponseID;
