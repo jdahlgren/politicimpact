@@ -136,7 +136,7 @@
             {
                 if (!@Model.Archived)
                {
-                <a href="#signupCase" class="btn">Skriv under</a>
+                <a href="#signupCase" class="btn" role="button"  data-toggle="modal">Skriv under</a>
                }
             }
         </div>
@@ -205,6 +205,15 @@
         {
             foreach (var comment in ViewBag.casecomments)
             {
+                <p id="divName1@(comment.commentID)"></p>
+                //Get name from facebook
+                <script type='text/javascript'>
+                    $(document).ready(function () {
+                        $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
+                            $('<strong>' + data.name + '</strong>').appendTo('#divName1@(comment.commentID)');
+                        })
+                    })
+                </script>
                 <p>@comment.commentStr</p>
             }
         }

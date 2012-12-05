@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td>Slutdatum</td>
-                <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5"  })</td>
+                <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5", id  = "deadline" })</td>
                 <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
             </tr>
             <tr>
@@ -95,3 +95,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script>
+    $(function() {
+        $( "#deadline" ).datepicker();
+    });
+</script>

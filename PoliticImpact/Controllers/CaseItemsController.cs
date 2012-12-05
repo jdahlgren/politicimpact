@@ -185,6 +185,7 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            CaseItem caseitem = caseitemRepository.Find(id);
             if (Session["uid"] != null)
             {
                 theUser = Int64.Parse(Session["uid"].ToString());
@@ -232,9 +233,9 @@ namespace PoliticImpact.Controllers
             
             
             IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
-            ViewBag.casecomments = casecomments;
-            ViewBag.nrOfComments = casecomments.Count();
+            ViewBag.casecomments = casecomments.OrderByDescending(c => c.commentID);
 
+            ViewBag.nrOfComments = casecomments.Count();
             //TODO real user
             foreach (var item in casesignupRepository.All)
             {
@@ -257,7 +258,7 @@ namespace PoliticImpact.Controllers
                 }
 
             }
-            return View(caseitemRepository.Find(id));
+            return View(caseitem);
         }
 
         //
