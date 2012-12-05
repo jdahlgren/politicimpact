@@ -1,0 +1,31 @@
+@model PoliticImpact.Models.GroupMember
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.userID)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.userID)
+    @Html.ValidationMessageFor(model => model.userID)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.role)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.role)
+    @Html.ValidationMessageFor(model => model.role)
+</div>
+
+<div class="editor-label">
+    userGroup
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.userGroupID, ((IEnumerable<PoliticImpact.Models.UserGroup>)ViewBag.PossibleuserGroups).Select(option => new SelectListItem {
+        Text = Html.DisplayTextFor(_ => option).ToString(), 
+        Value = option.userGroupID.ToString(),
+        Selected = (Model != null) && (option.userGroupID == Model.userGroupID)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.userGroupID)
+</div>

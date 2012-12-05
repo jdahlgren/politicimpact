@@ -1,0 +1,32 @@
+@model PoliticImpact.Models.UserGroup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>UserGroup</legend>
+
+    <div class="display-label">owner</div>
+    <div class="display-field">@Model.owner</div>
+
+    <div class="display-label">CaseItem</div>
+    <div class="display-field">@(Model.CaseItem == null ? "None" : Model.CaseItem.Title)</div>
+
+    <div class="display-label">title</div>
+    <div class="display-field">@Model.title</div>
+
+    <div class="display-label">description</div>
+    <div class="display-field">@Model.description</div>
+
+    <div class="display-label">created</div>
+    <div class="display-field">@String.Format("{0:g}", Model.created)</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.userGroupID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

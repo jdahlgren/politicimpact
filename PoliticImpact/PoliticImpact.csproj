@@ -139,6 +139,7 @@
     <Compile Include="Controllers\CaseVotingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RecieverResponsesController.cs" />
+    <Compile Include="Controllers\UserGroupsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +164,7 @@
     <Compile Include="Models\Models.cs" />
     <Compile Include="Models\PoliticImpactContext.cs" />
     <Compile Include="Models\RecieverResponseRepository.cs" />
+    <Compile Include="Models\UserGroupRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -376,6 +378,12 @@
     <Content Include="Views\CaseImages\Index.cshtml" />
     <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
     <Content Include="Views\CaseItems\Image.cshtml" />
+    <Content Include="Views\UserGroups\Create.cshtml" />
+    <Content Include="Views\UserGroups\Edit.cshtml" />
+    <Content Include="Views\UserGroups\Delete.cshtml" />
+    <Content Include="Views\UserGroups\Details.cshtml" />
+    <Content Include="Views\UserGroups\Index.cshtml" />
+    <Content Include="Views\UserGroups\_CreateOrEdit.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

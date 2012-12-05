@@ -1,0 +1,59 @@
+@model IEnumerable<PoliticImpact.Models.UserGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            owner
+        </th>
+        <th>
+            CaseItem
+        </th>
+        <th>
+            title
+        </th>
+        <th>
+            description
+        </th>
+        <th>
+            created
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.userGroupID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.userGroupID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.userGroupID })
+        </td>
+        <td>
+			@item.owner
+        </td>
+        <td>
+			@(item.CaseItem == null ? "None" : item.CaseItem.Title)
+        </td>
+        <td>
+			@item.title
+        </td>
+        <td>
+			@item.description
+        </td>
+        <td>
+			@String.Format("{0:g}", item.created)
+        </td>
+    </tr>
+}
+
+</table>
+
+

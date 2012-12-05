@@ -1,0 +1,36 @@
+@model PoliticImpact.Models.UserGroup
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+@*<div class="editor-label">
+    @Html.LabelFor(model => model.owner)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.owner)
+    @Html.ValidationMessageFor(model => model.owner)
+</div>*@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.title)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.title)
+    @Html.ValidationMessageFor(model => model.title)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.description)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.description)
+    @Html.ValidationMessageFor(model => model.description)
+</div>
+
+@*<div class="editor-label">
+    @Html.LabelFor(model => model.created)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.created)
+    @Html.ValidationMessageFor(model => model.created)
+</div>*@
+

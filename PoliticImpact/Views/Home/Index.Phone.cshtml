@@ -12,6 +12,7 @@
 		    <li>@Html.ActionLink("Hem", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
             <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
             <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
+            <li>@Html.ActionLink("Skapa grupp", "Create", new { Controller = "UserGroups"}, new { data_icon = "grid" })</li>
 
 	    </ul>
     </div>
@@ -23,7 +24,7 @@
 
 <h3>Senaste förslag</h3>
 <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
-    @foreach (var item in Model.Reverse().Take(5))
+    @foreach (var item in Model.Take(5))
     {
         if (!item.Archived)
         {

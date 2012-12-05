@@ -200,4 +200,23 @@ namespace PoliticImpact.Models
         public byte[] ImageBytes { get; set; }
         //public HttpPostedFileBase File { get; set; }
     }
+
+    public class UserGroup
+    {
+        [Key]
+        public int userGroupID { get; set; }
+        public int owner { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTime created { get; set; }
+        public List<GroupMembers> listOfGroupMembers { get; set; }
+    }
+    public class GroupMembers
+    {
+        [Key]
+        public int groupMembersID { get; set; }
+        public int userID { get; set; }
+        public int userGroupID { get; set; }
+        public string role { get; set; }
+    }
 }

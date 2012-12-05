@@ -1,0 +1,23 @@
+@model PoliticImpact.Models.GroupMember
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>GroupMember</legend>
+
+    <div class="display-label">userID</div>
+    <div class="display-field">@Model.userID</div>
+
+    <div class="display-label">role</div>
+    <div class="display-field">@Model.role</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.groupMemberID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

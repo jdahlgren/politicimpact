@@ -42,5 +42,7 @@ namespace PoliticImpact.Models
         public DbSet<PoliticImpact.Models.RecieverResponse> RecieverResponses { get; set; }
 
         public DbSet<PoliticImpact.Models.CaseImage> CaseImages { get; set; }
+
+        public DbSet<PoliticImpact.Models.UserGroup> UserGroups { get; set; }
     }
 }
