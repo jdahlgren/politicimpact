@@ -53,7 +53,7 @@
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
         @*Visa alla dokument till ärendet*@
-        if(Model.documentUrl != null)
+        @if(Model.documentUrl != null)
         {
            <h1>Det bifogade dokumentet:</h1>
            <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
