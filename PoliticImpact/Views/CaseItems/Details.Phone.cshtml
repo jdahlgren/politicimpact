@@ -108,19 +108,19 @@
                    if (!@Model.Archived)
                    {
                         <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)">
-                            <img src="~/Content/images/thumbs_up.png" width="75" height="75" id="ShowCaseLike" />
+                            <img src="~/Content/images/LikeWin8.png" width="50" height="50" id="ShowCaseLike" />
                         </a>
                    }
                }
             }
             
-             <p>Antal som gillar: @ViewBag.numberOfLikes</p>
+             
        }
         @if (Model.enableComments == true && !Model.Archived)
         {
             if(user != 0)
             {
-                <img src="~/Content/images/Comment.png" width="75" height="75" id="ShowCaseComment" />
+                <img src="~/Content/images/CommentWin8.png" width="50" height="50" id="ShowCaseComment" />
             }
         }
 
@@ -141,7 +141,7 @@
                    if (!@Model.Archived)
                    {
                         <a href="#popupSignUp" data-rel="dialog"> 
-                            <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign"/>
+                            <img src="~/Content/images/SignWin8.png" width="50" height="50" id="ShowCaseSign"/>
                         </a>
                     }
                 }
@@ -149,8 +149,12 @@
         }
         @if (!@Model.Archived)
         {
-            <a href="#popupShare" data-rel="dialog" data-role="button" data-inline="true" data-position-to="window">Dela</a>
+            <a href="#popupShare" data-rel="dialog" data-inline="true" data-position-to="window">
+                <img src="~/Content/images/ShareWin8.png" width="50" height="50 id ="ShowShareCase" />    
+            </a>
         }
+        
+        <p>Antal som gillar: @ViewBag.numberOfLikes</p>
 
         @* Visa respons från mottagare *@
         @{
