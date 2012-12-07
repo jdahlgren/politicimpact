@@ -17,9 +17,7 @@
 <div id="chartdiv" style="height:400px;width:600px; "></div>
 
 <P>Totalt antal som gillat senaste veckan: @ViewBag.totalLikes </P>
-<style>    .jqplot-grid-canvas {
-                border-color:red;    }
-</style>
+
 <script>
     
     var localJSON = [ @Html.Raw(ViewBag.Data)];
@@ -55,8 +53,6 @@
                     // Put a 30 pixel margin between bars.
                     varyBarColor: true,  
                     barMargin: 45,
-                    
-                   
                     
                 }
             },
