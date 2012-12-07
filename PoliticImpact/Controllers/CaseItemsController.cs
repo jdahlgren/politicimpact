@@ -449,7 +449,8 @@ namespace PoliticImpact.Controllers
             }
             else
             {
-                return View();
+                //return View();
+                return View(caseitem);
             }
         }
 

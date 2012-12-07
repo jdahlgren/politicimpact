@@ -56,6 +56,7 @@ namespace PoliticImpact.Models
 
         //Frida Mattisson 2012-11-19
         public List<CaseComment> caseComment { get; set; }
+        [DisplayName("Åtgärd")]
         public int caseMode { get; set; }
 
 
@@ -81,14 +82,14 @@ namespace PoliticImpact.Models
 
         [Required(ErrorMessage = "Värde måste sättas")]
         public int CategoryID { get; set; }
-        [ForeignKey("CategoryID")]
-        public virtual CaseCategory caseCategory { get; set; }
+        //[ForeignKey("CategoryID")]
+        //public virtual CaseCategory caseCategory { get; set; }
 
         //added by Joel Brüde, 2012-11-18 22:04
         [Required]
         public int ResponseID { get; set; }
-        [ForeignKey("ResponseID")]
-        public virtual RecieverResponse recieverResponse { get; set; }
+        //[ForeignKey("ResponseID")]
+        //public virtual RecieverResponse recieverResponse { get; set; }
 
 
         public bool AttachedImage { get; set; }
