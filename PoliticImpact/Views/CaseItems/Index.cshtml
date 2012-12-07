@@ -1,12 +1,24 @@
+@using Resources;
 @model IEnumerable<PoliticImpact.Models.CaseItem>
-
 @{
-    ViewBag.Title = "Ärende lista";
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@{
+    @Res.CaseList
 }
 
 <div class="row">
     <div class="span8" id="recent-cases">
-        <h4>Senaste förslagen</h4>
+        <h4>@Res.LatestCases</h4>
         @foreach (var item in Model)
         { 
             @*TODO when users exist in desktop*@

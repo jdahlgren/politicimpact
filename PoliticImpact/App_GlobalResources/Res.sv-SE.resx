@@ -129,11 +129,23 @@
   <data name="Case" xml:space="preserve">
     <value>Lista förslag</value>
   </data>
+  <data name="CaseList" xml:space="preserve">
+    <value>Ärendelista</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Kategori</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Kommentera</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentarer</value>
+  </data>
   <data name="CreateCase" xml:space="preserve">
     <value>Skapa förslag</value>
+  </data>
+  <data name="Deadline" xml:space="preserve">
+    <value>Deadline</value>
   </data>
   <data name="Desc" xml:space="preserve">
     <value>Beskrivning</value>
@@ -144,6 +156,9 @@
   <data name="French" xml:space="preserve">
     <value>Franska</value>
   </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Grupper</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Start</value>
   </data>
@@ -153,11 +168,20 @@
   <data name="LatestCases" xml:space="preserve">
     <value>Senaste förslagen</value>
   </data>
+  <data name="Like" xml:space="preserve">
+    <value>Gilla</value>
+  </data>
   <data name="LogIn" xml:space="preserve">
     <value>Logga in</value>
   </data>
+  <data name="Print" xml:space="preserve">
+    <value>Skriv ut</value>
+  </data>
   <data name="Publish" xml:space="preserve">
     <value>Publicera direkt</value>
+  </data>
+  <data name="Receiver" xml:space="preserve">
+    <value>Mottagare</value>
   </data>
   <data name="ReceiverMail" xml:space="preserve">
     <value>E-post mottagare</value>
@@ -171,11 +195,20 @@
   <data name="Search" xml:space="preserve">
     <value>Sök</value>
   </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Sökresultat för </value>
+  </data>
   <data name="SecondCarousel" xml:space="preserve">
     <value>Skapa egna förslag, rösta, kommentera och gilla andras</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Välj språk</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dela</value>
+  </data>
+  <data name="Sign" xml:space="preserve">
+    <value>Signera</value>
   </data>
   <data name="StartCarousel" xml:space="preserve">
     <value>Politiskt Inflytande är till för att låta Dig vara med och påverka vad som händer runtomkring dig!</value>
@@ -192,7 +225,13 @@
   <data name="Title" xml:space="preserve">
     <value>Titel</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Användare</value>
+  </data>
   <data name="Votes" xml:space="preserve">
     <value>Koppla omröstning</value>
+  </data>
+  <data name="YouLiked" xml:space="preserve">
+    <value>Du gillade detta!</value>
   </data>
 </root>

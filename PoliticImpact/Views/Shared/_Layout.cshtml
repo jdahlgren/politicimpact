@@ -21,20 +21,19 @@
                   <li>@Html.ActionLink(@Res.Case, "Index", new { Controller = "CaseItems"})</li>
                     <li>@Html.ActionLink(@Res.Search, "Search", new { Controller = "CaseItems" })</li>
                     <!--<li>@Html.ActionLink(@Res.LogIn, "Sign in", new { Controller = "Home" })</li>-->
+  
                 </ul>
-                  <form method="post">
-                      @Res.SelectLanguage
-                      <select name="lang">
-                          <option></option>
+                  <!--/.nav-collapse -->
+                @Html.ActionLink("+ " +@Res.CreateCase , "Create", new { Controller = "CaseItems" }, new { @class = "btn btn-success" })
+              </div>
+                <form method="post">
+                      <select name="lang" style="width: 100px;">
                           <option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>
                           <option value="sv-SE" @(Culture == "sv-SE" ? "selected=\"selected\"" : "")>@Res.Swedish</option>
                           <option value="fr-FR" @(Culture == "fr-FR" ? "selected=\"selected\"" : "")>@Res.French</option>
                       </select>
                       <input type="submit" value="@Res.Submit" />
                   </form>
-              </div>
-                <!--/.nav-collapse -->
-                @Html.ActionLink("+ " +@Res.CreateCase , "Create", new { Controller = "CaseItems" }, new { @class = "btn btn-success" })
             </div>
           </div>
         </div>

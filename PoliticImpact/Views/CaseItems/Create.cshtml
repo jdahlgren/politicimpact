@@ -1,14 +1,19 @@
-﻿@using Resources;
-@model PoliticImpact.Models.CaseItem
+﻿@model PoliticImpact.Models.CaseItem
+@using Resources;
 @{
     Layout = "../Shared/_Layout.cshtml";
-    if(!Request["lang"].IsEmpty()){
+    if (!Request["lang"].IsEmpty())
+    {
         Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
     }
 }
 @{
     @Res.CreateCase;
-    @*ViewBag.Title = "Skapa förslag";*@
 }
     <h2>@Res.CreateCase</h2>
 

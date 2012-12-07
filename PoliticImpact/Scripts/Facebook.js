@@ -1,5 +1,6 @@
 ﻿function InitialiseFacebook(appId) {
     var credentials
+    var langChoice = $("#lang").val()
     
     window.fbAsyncInit = function () {
         FB.init({
@@ -10,7 +11,7 @@
         });
 
         FB.Event.subscribe('auth.login', function (response) {
-            credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken };
+            credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken, language: langChoice};
             SubmitLogin(credentials);
         });
 
@@ -22,12 +23,12 @@
             
             if (response.session) {
                 // logged in and connected user, someone you know
-                credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken };
+                credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken, language: langChoice};
                 SubmitLogin(credentials);
             }
             
             if (response.status === 'connected') {
-                credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken };
+                credentials = { uid: response.authResponse.userID, accessToken: response.authResponse.accessToken, language: langChoice};
                 if (credentials == null) {
                     SubmitLogin(credentials);
                 }
