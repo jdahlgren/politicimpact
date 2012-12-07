@@ -15,7 +15,7 @@
         });
 
         FB.Event.subscribe("auth.logout", function (response) {
-            location.href = "Account/Logout";
+            location.href = "/Account/Logout";
         });
         
         FB.getLoginStatus(function (response) {

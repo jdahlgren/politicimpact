@@ -269,7 +269,6 @@ namespace PoliticImpact.Controllers
             if (Session["uid"] != null)
             {
                 ViewBag.PossibleCategories = casecategoryRepository.All;
-
                 return View();
             }
             else
