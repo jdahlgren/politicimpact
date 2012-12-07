@@ -189,6 +189,7 @@ namespace PoliticImpact.Models
         public string uid { get; set; }
         public string accessToken { get; set; }
         public string name { get; set; }
+        public string language { get; set; }
     }
 
     public class CaseImage

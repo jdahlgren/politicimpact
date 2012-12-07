@@ -158,7 +158,6 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Index()
         {
-
             //Hämta antal likes för case. MAX 100 cases.
             ViewBag.likes = new int[100];
             int i = 0;

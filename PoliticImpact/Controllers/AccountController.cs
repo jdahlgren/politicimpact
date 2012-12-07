@@ -26,6 +26,8 @@ namespace PoliticImpact.Controllers
         [HttpPost]
         public JsonResult Index(User user)
         {
+            //Deafault: english
+            Session["language"] = user.language;
             Session["uid"] = user.uid;
             Session["accessToken"] = user.accessToken;
             Session["name"] = user.name;

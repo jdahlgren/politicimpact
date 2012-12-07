@@ -1,5 +1,17 @@
 ﻿@model PoliticImpact.Models.CaseItem
-
+@using Resources;
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
 @if(!@Model.Archived) 
 {
@@ -44,12 +56,13 @@
             <label>Ärendet är: Avslaget</label>
             <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
         }
-        <p>Deadline: @String.Format("{0:g}", Model.Deadline)</p>
+        <p>@Res.Deadline: @String.Format("{0:g}", Model.Deadline)</p>
 
         <p>@Model.Text</p>
 
 
         <div class="display-label">Mottagare</div>
+        <div class="display-label">@Res.Receiver</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
         @*Visa alla dokument till ärendet*@
@@ -99,7 +112,7 @@
 <div class="row">
     <div class="span2">
         <p><img src="~/Content/images/external_link.png" alt="Likes"/></p>
-        <a href="#shareCase" role="button" class="btn" data-toggle="modal">Dela</a>
+        <a href="#shareCase" role="button" class="btn" data-toggle="modal">@Res.Share</a>
     </div>
     @if (Model.enableLikes == true)
     {
@@ -107,13 +120,13 @@
             <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
            {
-                <p>Du gillade detta!</p>
+                <p>@Res.YouLiked</p>
            }
            else
            {
                if (!@Model.Archived)
                {
-                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Like</a>
                }
            }
 
@@ -123,7 +136,7 @@
     {  
         <div class="span2">
             <p>@ViewBag.nrOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
-            <button class="btn" onclick="ShowCommentField();">Kommentera</button>
+            <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
 
         </div>
     }
@@ -140,7 +153,7 @@
             {
                 if (!@Model.Archived)
                 {
-                <a href="#signupCase" class="btn" role="button"  data-toggle="modal">Skriv under</a>
+                <a href="#signupCase" class="btn">@Res.Sign</a>
                 }
             }
         </div>
@@ -148,7 +161,7 @@
         <div class="span2">
             <p><img src="~/Content/images/print.png" alt="Print"/></p>
            
-            <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Skriv ut</a>
+            <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
         </div>
     @if (!Model.Published && Model.Owner == 1337)
     {
@@ -178,7 +191,7 @@
 
 <div id="fiveComments">
     <fieldset>
-        <legend>Kommentarer</legend>
+        <legend>@Res.Comments</legend>
         @*Om kommentarerna är tomma*@
         @if (ViewBag.casecomments == null)
         {
