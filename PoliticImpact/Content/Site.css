@@ -156,3 +156,22 @@ div.startcarousel
 div.caseresult h3, p{
     color: #000;
 }
+
+/*Styling for create-case button*/
+.ui-btn-right.ui-btn.ui-btn-up-a.ui-shadow.ui-btn-corner-all.ui-mini.ui-btn-icon-left {
+background-color: #5BB75B;
+    background-image: linear-gradient(to bottom, #62C462, #51A351);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+}
+
+.ui-btn-right.ui-btn.ui-btn.ui-shadow.ui-btn-corner-all.ui-mini.ui-btn-icon-left.ui-btn-hover-a {
+background-color: #5BB75B;
+    background-image: linear-gradient(to bottom, #62C462, #51A351);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+}

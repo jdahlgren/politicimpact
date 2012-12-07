@@ -11,9 +11,10 @@
         <h1>Redigera förslag</h1>
     </div>
 }
+@*
 @if (!@Model.Archived)
-{
-    using (Html.BeginForm())
+{*@
+    @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
         <fieldset>
@@ -25,16 +26,24 @@
             @Html.HiddenFor(model => model.RecieverEmail)
             @Html.HiddenFor(model => model.CategoryID)
 
+            
+            @Html.HiddenFor(model => model.Published);
+            @Html.HiddenFor(model => model.numberOfLikes);
+            @Html.HiddenFor(model => model.caseComment);
+            @Html.HiddenFor(model => model.caseMode);
+            @Html.HiddenFor(model => model.enableLikes);
+            @Html.HiddenFor(model => model.enableComments);
+            @Html.HiddenFor(model => model.enableSigns);
+            @Html.HiddenFor(model => model.caseCategory);
+            @Html.HiddenFor(model => model.ResponseID);
+            @Html.HiddenFor(model => model.recieverResponse);
+            @Html.HiddenFor(model => model.AttachedImage);
+            @Html.HiddenFor(model => model.Archived);
+            @Html.HiddenFor(model => model.documentUrl);
+            @Html.HiddenFor(model => model.documentMimeType);
+            @Html.HiddenFor(model => model.documentName);
+            
 
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.Owner)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Owner)
-    @Html.ValidationMessageFor(model => model.Owner)
-</div>
--->
 
             <div class="editor-label">
                 @Html.LabelFor(model => model.Title)
@@ -60,57 +69,8 @@
                 @Html.ValidationMessageFor(model => model.Deadline)
             </div>
 
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.Published)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Published)
-    @Html.ValidationMessageFor(model => model.Published)
-</div>
--->
-
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.Created)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Created)
-    @Html.ValidationMessageFor(model => model.Created)
-</div>
--->
-
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.LastEdited)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.LastEdited)
-    @Html.ValidationMessageFor(model => model.LastEdited)
-</div>
--->
 
             @*
-<div class="editor-label">
-    @Html.LabelFor(model => model.imageId)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.imageId)
-    @Html.ValidationMessageFor(model => model.imageId)
-</div>
-*@
-
-@*
-<div class="editor-label">
-    @Html.LabelFor(model => model.imageName)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.imageName)
-    @Html.ValidationMessageFor(model => model.imageName)
-</div>
-*@
-
-
             <div id="archived_status">
                 @if (Model.Archived)
                 {
@@ -137,8 +97,10 @@
                     </p>
                 }
             </div>
-
-
+            *@
+            <p>
+                        <input type="submit" value="Spara" />
+                    </p>
 
         </fieldset>
     }
@@ -156,11 +118,13 @@
     </fieldset>  
                  
 </div>
-}
+
+@*}
 else
 {
     <h3>Förslaget är arkiverat och kan inte ändras</h3>
-}
+}*@
+
 <script>
     function PublishCaseItem(id) {
         jQuery.ajax({
