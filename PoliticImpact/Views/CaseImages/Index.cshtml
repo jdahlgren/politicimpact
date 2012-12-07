@@ -19,7 +19,10 @@
             CaseItem
         </th>
         <th>
-            ImageBytes
+            ImageUrl
+        </th>
+        <th>
+            thumbnailUrl
         </th>
     </tr>
 
@@ -37,7 +40,10 @@
 			@(item.CaseItem == null ? "None" : item.CaseItem.Title)
         </td>
         <td>
-			@Html.DisplayTextFor(_ => item.ImageBytes).ToString()
+			@item.ImageUrl
+        </td>
+        <td>
+			@item.thumbnailUrl
         </td>
     </tr>
 }

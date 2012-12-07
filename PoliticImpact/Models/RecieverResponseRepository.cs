@@ -172,6 +172,39 @@ namespace PoliticImpact.Models
                 return 0;
             }
         }
+
+        public string GetResponseCode(int caseId)
+        {
+            var caseItem = (from q in context.CaseItems
+                            where q.ID == caseId
+                            select q).FirstOrDefault();
+
+            int respId;
+            if (caseItem != null)
+            {
+                respId = caseItem.ResponseID;
+
+                var resp = (from p in context.RecieverResponses
+                            where p.ResponseID == respId
+                            select p).FirstOrDefault();
+
+                string respCode;
+                if (resp != null)
+                {
+                    respCode = resp.ResponseCode;
+                    return respCode;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 
     public interface IRecieverResponseRepository : IDisposable
@@ -187,5 +220,6 @@ namespace PoliticImpact.Models
         string GetCaseText(int respId);
         int GetCaseId(int respId);
         string GetResponseText(int caseId);
+        string GetResponseCode(int caseId);
     }
 }

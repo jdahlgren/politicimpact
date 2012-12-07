@@ -58,19 +58,42 @@ namespace PoliticImpact.Models
             context.Dispose();
         }
 
-        public byte[] GetImageDataById(int caseId)
+        public string GetImageUrl(int CaseId)
         {
-            var imgItem = (from p in context.CaseImages
-                            where p.CaseID == caseId
-                            select p).SingleOrDefault();
+            //Hämtar CaseImage som har rätt CaseID
+            var img = (from l in context.CaseImages
+                       where l.CaseID == CaseId
+                       select l).FirstOrDefault();
 
-            byte[] imgData;
-            if (imgItem != null)
-                imgData = imgItem.ImageBytes;
+            string imgUrl;
+            if (img != null)
+            {
+                imgUrl = img.ImageUrl;
+                return imgUrl;
+            }
             else
+            {
                 return null;
+            }
+        }
 
-            return imgData;
+        public string GetThumbnailUrl(int CaseId)
+        {
+            //Hämtar CaseImage som har rätt CaseID
+            var img = (from l in context.CaseImages
+                       where l.CaseID == CaseId
+                       select l).FirstOrDefault();
+
+            string thumbUrl;
+            if (img != null)
+            {
+                thumbUrl = img.thumbnailUrl;
+                return thumbUrl;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 
@@ -82,6 +105,7 @@ namespace PoliticImpact.Models
         void InsertOrUpdate(CaseImage caseimage);
         void Delete(int id);
         void Save();
-        byte[] GetImageDataById(int caseId);
+        string GetImageUrl(int caseId);
+        string GetThumbnailUrl(int caseId);
     }
 }

@@ -70,24 +70,16 @@
         <div class="display-label">Mottagare</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
-            
-
-            @* @if (Model.imageName != null)
-            {
-                <div class="display-label">imageId</div>
-                <div class="display-field">@Model.imageId</div>
-                <img src="@Model.imageName" width ="75" height ="75">
-                <div class="display-label">imageBytes</div>
-                <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
-                <div class="display-label">imageName</div>
-                <div class="display-field">@Model.imageName</div>
-            }*@
-
             @{ 
                 if(Model.AttachedImage)
                 {
-                    <div class="caseitem-details-template-image">
-                        <img src="~/CaseItems/Image/@Model.ID" />
+                    <div class="display-field">
+                        <a href="#popupImage" data-rel="popup" data-position-to="window"><img src="@Url.Content(ViewBag.thumbnailUrl)" /></a>
+                						
+			            <div data-role="popup" id="popupImage" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
+				            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Stäng</a>
+                            <img src="@Url.Content(ViewBag.imageUrl)" />
+			            </div>                    
                     </div>
                 }
             }
