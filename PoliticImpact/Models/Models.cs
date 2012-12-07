@@ -197,7 +197,8 @@ namespace PoliticImpact.Models
         [ForeignKey("CaseItem")]
         public int CaseID { get; set; }
         public virtual CaseItem CaseItem { get; set; }
-        public byte[] ImageBytes { get; set; }
-        //public HttpPostedFileBase File { get; set; }
+        public string ImageUrl { get; set; }
+        public string thumbnailUrl { get; set; }
+        //public byte[] ImageBytes { get; set; }
     }
 }

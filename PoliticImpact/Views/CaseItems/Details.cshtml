@@ -20,8 +20,8 @@
         border-bottom: 1px #808080 solid !important;
     }
     div.caseitem-details-template-image{
-        width: 200px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
         background: #b1b1b1;
         border: 1px #808080 dashed;
         float: left;
@@ -84,7 +84,12 @@
             @{ 
                 if(Model.AttachedImage)
                 {
-                    <img src="~/CaseItems/Image/@Model.ID" />
+                    if(ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
+                    {
+                        <a href="@Url.Content(ViewBag.imageUrl)">
+                            <img src="@Url.Content(ViewBag.thumbnailUrl)" />
+                        </a>
+                    }
                 }
             }
         </div>
@@ -105,7 +110,7 @@
                 <p>Du gillade detta!</p>
            }
            else
-           {    
+           {
                if (!@Model.Archived)
                {
                     <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
@@ -134,9 +139,9 @@
             else
             {
                 if (!@Model.Archived)
-               {
+                {
                 <a href="#signupCase" class="btn" role="button"  data-toggle="modal">Skriv under</a>
-               }
+                }
             }
         </div>
     }
@@ -219,7 +224,7 @@
     </fieldset>
 </div>
     
-<!-- Modal -->
+<!-- shareCase Modal -->
 <div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
