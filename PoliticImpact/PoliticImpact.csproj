@@ -376,6 +376,7 @@
     <Content Include="Views\CaseImages\Index.cshtml" />
     <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
     <Content Include="Views\CaseItems\Image.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
