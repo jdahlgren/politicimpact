@@ -124,6 +124,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Res.Designer.cs" />
+    <Compile Include="App_GlobalResources\Res.fr-FR.designer.cs" />
+    <Compile Include="App_GlobalResources\Res.fr-FR1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.fr-FR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Res.sv-SE.designer.cs" />
+    <Compile Include="App_GlobalResources\Res.sv-SE1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.sv-SE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Res1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -396,6 +414,18 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Res.fr-FR.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Res.fr-FR1.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Res.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Res1.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Res.sv-SE.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Res.sv-SE1.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Migrations\201211062006196_InitialCreate.resx">
       <DependentUpon>201211062006196_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>

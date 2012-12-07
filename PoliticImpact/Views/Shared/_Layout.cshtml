@@ -37,7 +37,6 @@
                   <!--/.nav-collapse -->
                 @Html.ActionLink("+ " +@Res.CreateCase , "Create", new { Controller = "CaseItems" }, new { @class = "btn btn-success" })
                     @Html.ActionLink("+ Skapa förslag", "Create", new { Controller = "CaseItems"}, new { @class = "btn btn-success"  })
-              </div>
                 <form method="post">
                       <select name="lang" style="width: 100px;">
                           <option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>

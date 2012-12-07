@@ -1,5 +1,4 @@
-﻿@using Resources;
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -24,19 +23,6 @@
                     <h1>@ViewBag.Title</h1>
                     //@Html.Partial("_LoginPartial")
                 }
-                 <div data-role="fieldcontain">
-                @*<form method="post">*@
-                      <select name="lang" style="width: 100px;">
-                          @*<option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>
-                          <option value="sv-SE" @(Culture == "sv-SE" ? "selected=\"selected\"" : "")>@Res.Swedish</option>
-                          <option value="fr-FR" @(Culture == "fr-FR" ? "selected=\"selected\"" : "")>@Res.French</option>*@
-                          <option value="en-GB">@Res.English</option>
-                          <option value="sv-SE">@Res.Swedish</option>
-                          <option value="fr-FR">@Res.French</option>
-                      </select>
-                      <input type="submit" value="@Res.Submit" />
-                  @*</form>*@
-                     </div>
             </div>
             <div data-role="content">
                 @RenderBody()
