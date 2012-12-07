@@ -56,6 +56,11 @@
             @Html.ValidationMessageFor(model => model.RecieverEmail)
         </div>
 
+        <div class="editor-label">Ladda upp bild:</div>
+        <div class="editor-field">
+            <input name="image" type="file" />
+        </div>
+
         <div class="editor-label"> Välj vilket dokument som ska bifogas:</div> 
         <div class="editor-field">
             <input name="document" type="file" />
@@ -85,9 +90,6 @@
             @Html.EditorFor(model => model.enableSigns)
             @Html.ValidationMessageFor(model => model.enableSigns)
         </div>
-
-        <div class="editor-label">Ladda upp bild:</div>
-        <div class="editor-field"><input name="image" type="file" /></div>
             
 
         <div class="editor-field">

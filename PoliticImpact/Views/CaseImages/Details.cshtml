@@ -15,8 +15,11 @@
     <div class="display-label">CaseItem</div>
     <div class="display-field">@(Model.CaseItem == null ? "None" : Model.CaseItem.Title)</div>
 
-    <div class="display-label">ImageBytes</div>
-    <div class="display-field">@Html.DisplayTextFor(_ => Model.ImageBytes).ToString()</div>
+    <div class="display-label">ImageUrl</div>
+    <div class="display-field">@Model.ImageUrl</div>
+
+    <div class="display-label">thumbnailUrl</div>
+    <div class="display-field">@Model.thumbnailUrl</div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ImageID }) |

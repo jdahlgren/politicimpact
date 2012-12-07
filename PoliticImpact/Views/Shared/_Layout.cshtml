@@ -32,7 +32,21 @@
                 </ul>
 
               </div><!--/.nav-collapse -->
-                  @Html.ActionLink("+ Skapa förslag", "Create", new { Controller = "CaseItems"}, new { @class = "btn btn-success"  })
+                @{ var user = (String) HttpContext.Current.Session["uid"]; }
+                @if ( user != null){
+                    @Html.ActionLink("+ Skapa förslag", "Create", new { Controller = "CaseItems"}, new { @class = "btn btn-success"  })
+                }
+                  
+                
+                    <script src="@Url.Content("~/Scripts/Facebook.js")" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        $(function () {
+                            InitialiseFacebook("432491363480247");
+                        });
+                        </script>
+                <div id="loginBtnDiv" class="pull-right">
+                    <fb:login-button autologoutlink="true" size="large">Logga in</fb:login-button>
+                </div>
             </div>
           </div>
         </div>

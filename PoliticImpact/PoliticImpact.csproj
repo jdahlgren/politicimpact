@@ -170,6 +170,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\CommentWin8.png" />
     <Content Include="Content\images\Dismissed_icon.png" />
     <Content Include="Content\images\Approved_icon.png" />
     <Content Include="Content\images\ajax-loader.gif" />
@@ -182,12 +183,16 @@
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />
     <Content Include="Content\images\icons-36-white.png" />
+    <Content Include="Content\images\LikeWin8.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\medborgarforslag.jpg" />
+    <Content Include="Content\images\print.png" />
     <Content Include="Content\images\share-email.png" />
     <Content Include="Content\images\share-facebook.png" />
+    <Content Include="Content\images\ShareWin8.png" />
     <Content Include="Content\images\Signing.png" />
     <Content Include="Content\images\signups.png" />
+    <Content Include="Content\images\SignWin8.png" />
     <Content Include="Content\images\speech_bubble.png" />
     <Content Include="Content\images\thumbs_up.png" />
     <Content Include="Content\images\thumbs_up_metro.png" />
@@ -376,6 +381,7 @@
     <Content Include="Views\CaseImages\Index.cshtml" />
     <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
     <Content Include="Views\CaseItems\Image.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

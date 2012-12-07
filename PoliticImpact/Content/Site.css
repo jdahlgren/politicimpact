@@ -159,6 +159,9 @@ div.caseresult h3, p{
 
 /*Styling for create-case button*/
 .ui-btn-right.ui-btn.ui-btn-up-a.ui-shadow.ui-btn-corner-all.ui-mini.ui-btn-icon-left {
+#loginBtnDiv {
+    padding-top: 4px;
+}
 background-color: #5BB75B;
     background-image: linear-gradient(to bottom, #62C462, #51A351);
     background-repeat: repeat-x;

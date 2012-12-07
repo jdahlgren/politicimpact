@@ -59,13 +59,12 @@ function PostComment(id) {
         url: "/CaseComments/Create/" + id,
         data: { comment: strComment }
     }).done(function (msg) {
+        console.log("comment created");
+    }).always(function () {
         $("#titleComments").after("<p>" + strComment + "</p>");
         $("#newComment").slideUp();
         $("#newCommentStr").val("");
         $("#nocomments").remove();
-
-
-        console.log("comment created");
     });
 }
 
