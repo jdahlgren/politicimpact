@@ -35,7 +35,7 @@ namespace PoliticImpact.Controllers
 
         private readonly ICaseImageRepository caseimageRepository;
 
-        private int theUser = 1514;
+        private int theUser = 1114;
 
 
         // If you are using Dependency Injection, you can delete the following constructor
@@ -655,7 +655,7 @@ namespace PoliticImpact.Controllers
             var availblableTags = theStatisticsJSON(id);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             ViewBag.Data = serializer.Serialize(availblableTags.Data);
-            return View();
+            return View(caseitemRepository.Find(id));
             
             //return View();
         }
@@ -686,6 +686,8 @@ namespace PoliticImpact.Controllers
         }
         ViewBag.theDates = dayList;
         ViewBag.theLikes = likeList;
+
+        ViewBag.totalLikes = likeList.Sum();
 
 
         return Json(new { stats = likeList, days = dayList });

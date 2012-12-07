@@ -1,4 +1,4 @@
-﻿
+﻿@model PoliticImpact.Models.CaseItem
 
 @{
     ViewBag.Title = "Statistik";
@@ -11,39 +11,51 @@
 <link href="../../Scripts/jqPlot/jquery.jqplot.css" rel="stylesheet" type="text/css" />
 
 
-<h2>Statistik</h2>
+<h1>Statistik</h1>
+<p><i>Fördelning av gillanden för @Model.Title den senaste veckan</i></p>
 
 <div id="chartdiv" style="height:400px;width:600px; "></div>
 
-
-
-@foreach (var like in ViewBag.theLikes)
-            {
-                <p>@like</p>
-            }
-
-@foreach (var dates in ViewBag.theDates)
-            {
-                <p>@dates</p>
-            }
-
-@ViewBag.Data;
-
+<P>Totalt antal som gillat senaste veckan: @ViewBag.totalLikes </P>
+<style>    .jqplot-grid-canvas {
+                border-color:red;    }
+</style>
 <script>
+    
     var localJSON = [ @Html.Raw(ViewBag.Data)];
-   
+    var date = new Date();
+    date.setDate(date.getDate() - 7);
 
-    var line1 = [[localJSON[0].days[0], localJSON[0].stats[0]], [localJSON[0].days[1], localJSON[0].stats[1]], [localJSON[0].days[2], localJSON[0].stats[2]], [localJSON[0].days[3], localJSON[0].stats[3]], [localJSON[0].days[4], localJSON[0].stats[4]]];
+    var month = date.getUTCMonth()+1;
+    var day = date.getUTCDate();
+    var year = date.getUTCFullYear();
+    newdate = year + "-" + month + "-" + day;
+
+    var largest = Math.max.apply(Math, localJSON[0].stats);
+
+    var line1 = new Array();
+
+    for (var i = 0; i < (localJSON[0].stats).length; i++)
+    {
+        a = [localJSON[0].days[i], localJSON[0].stats[i]];
+        line1[i] = a;
+    }
 
     $.jqplot('chartdiv', [line1],
         {
+            grid: {
+                background: '#FFF',
+                shadow: false,
+            },
             seriesDefaults: {
                 
-                renderer:$.jqplot.BarRenderer,
+                renderer: $.jqplot.BarRenderer,
+                
                 rendererOptions: {
                     // Put a 30 pixel margin between bars.
-          
-                    barMargin: 50,
+                    varyBarColor: true,  
+                    barMargin: 45,
+                    
                    
                     
                 }
@@ -51,23 +63,31 @@
 
             axes: {
                 yaxis: {
-                    label: 'Antal som gillat',
-                    numberTicks: 5,
+                    label: 'Gillat',
+                    show: true,
+              
+                    
+                    numberTicks: largest+2,
                     min: 0,
-                    max:4
+                    max: largest + 1,
+                    //tickOptions: {showGridline: false }
                     
 
                 },
                 xaxis: {
                     label: 'Datum',
                     renderer:$.jqplot.DateAxisRenderer, 
-                    tickOptions:{formatString:'%a'},
-                    min:'Nov 29, 2012', 
-                    tickInterval:'1 day'
+                    tickOptions: {
+                        formatString: '%a', //showGridline: false
                     },
+                    min: newdate, 
+                    tickInterval:'1 day'
+                },
                    
-                    pad: 5
-                }
+                pad: 5
+            },
+            seriesColors: ["#ee5f5b"],
+
             }
         
 )
