@@ -17,27 +17,6 @@
     </div>
     <!-- /navigation -->
 }
-@*@section head{
-
-
-<!-- script to toggle visibility of cases -->
-<script>
-    /*
-    function toggleVisibility(id){
-        var section = document.getElementById(id);
-        if (section.style.display != 'none') {
-            section.style.display = 'none';
-        }
-        else {
-            section.style.display = 'block';
-        }
-    }
-    */
-</script>
-
-}
-
-*@
 
 <img src="~/Content/images/medborgarforslag.jpg" class="center"/>
 
@@ -72,22 +51,3 @@
     }
 </div>
 
-
-
-<!--list expandable cases -->
-<!--
-<ul data-role="listview">
-    <li data-role="list-divider">Recent cases</li>
-
-    <!-- limited to 5 and reversed to get most recent cases -->
-    @*@foreach (var item in Model.Reverse().Take(5))
-    {
-        <li><a href="javascript:toggleVisibility('case_@item.ID')">@item.Title</a></li>
-        <li id="case_@item.ID"><div><a href="/CaseItems/Details/@item.ID"  rel="external">@item.Text</a></div></li>
-        
-       <script>
-           toggleVisibility('case_@item.ID');
-        </script>
-    }
-    *@
-<!--</ul>

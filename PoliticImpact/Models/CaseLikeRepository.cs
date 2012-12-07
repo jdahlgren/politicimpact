@@ -53,9 +53,9 @@ namespace PoliticImpact.Models
             var dayLikes = new int[7];
             var today = DateTime.Now;
           
-            for (int i = 6; i >= 0; i--)
+            for (var i = 0; i < 7; i++)
             {    
-                dayLikes[i] = FindAndCountLikes(caseID,today.Date.AddDays(i));
+                dayLikes[i] = FindAndCountLikes(caseID,today.Date.AddDays(-i));
             }
            
            return dayLikes;

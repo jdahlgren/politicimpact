@@ -201,11 +201,11 @@ namespace PoliticImpact.Models
         //public HttpPostedFileBase File { get; set; }
     }
 
-    //Till statistik
+    //Till statistik Semone
     public class GraphData
     {
-        public string Name { get; set; }
-        public int[][] Serie { get; set; }
+        public DateTime Day { get; set; }
+        public int Value { get; set; }
     }
 
 }

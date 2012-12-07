@@ -35,7 +35,7 @@ namespace PoliticImpact.Controllers
 
         private readonly ICaseImageRepository caseimageRepository;
 
-        private int theUser = 1414;
+        private int theUser = 1514;
 
 
         // If you are using Dependency Injection, you can delete the following constructor
@@ -651,15 +651,46 @@ namespace PoliticImpact.Controllers
 
         public ActionResult TheStatistics(int id)
         {
-            int[] theLikes = caselikeRepository.StatisticLikes(id);
-            ViewBag.theLikes = theLikes;
+           
+            var availblableTags = theStatisticsJSON(id);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ViewBag.Data = serializer.Serialize(availblableTags.Data);
             return View();
+            
+            //return View();
         }
 
-        //private JsonResult theStatisticsJSON
-        //{ 
+    private JsonResult theStatisticsJSON(int id)
+    {
+        int[] theLikes = caselikeRepository.StatisticLikes(id);
+
         
-        //}
+        var theDates = new DateTime[7];
+        var theDatesString = new String[7];
+        var today = DateTime.Now;
+
+        var likeList = new List<int>();
+        var dayList = new List<String>();
+
+
+
+        for (var i = 0; i < 7; i++)
+        {
+            
+            likeList.Add(theLikes[i]);
+            theDates[i] = today.AddDays(-i);
+            theDatesString[i] = theDates[i].ToString("yyyy-MM-dd");
+            dayList.Add(theDatesString[i]);
+
+
+        }
+        ViewBag.theDates = dayList;
+        ViewBag.theLikes = likeList;
+
+
+        return Json(new { stats = likeList, days = dayList });
+    }
+
 
         protected override void Dispose(bool disposing)
         {
