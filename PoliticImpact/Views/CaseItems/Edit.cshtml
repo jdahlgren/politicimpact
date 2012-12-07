@@ -1,24 +1,5 @@
 
-@model PoliticImpact.Models.CaseItem
-
-@{
-    ViewBag.Title = "Edit";
-}
-
-@if (!@Model.Archived)
-{
-    using (Html.BeginForm())
-    {
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.Created)
-    @Html.HiddenFor(model => model.LastEdited)
-
-    @Html.HiddenFor(model => model.RecieverName)
-    @Html.HiddenFor(model => model.RecieverEmail)
-    @Html.HiddenFor(model => model.CategoryID)
-
-    
+    <br />
     <table class="span12">
         <tr>
             <td class="span2">Titel</td>

@@ -91,7 +91,13 @@
                     </div>
                 }
             }
-
+         @*Visa alla dokument till ärendet*@
+        @if(Model.documentUrl != null)
+        {
+           <h3>Det bifogade dokumentet:</h3>
+           <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+            <br />
+        }
     
        @if (Model.enableLikes == true)
        {
@@ -147,6 +153,7 @@
                 }
             }
         }
+        
         @if (!@Model.Archived)
         {
             <a href="#popupShare" data-rel="dialog" data-inline="true" data-position-to="window">

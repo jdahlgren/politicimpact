@@ -40,14 +40,6 @@ namespace PoliticImpact.Controllers
         }
 
         //
-        // GET: /CaseVotes/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
         // POST: /CaseVotes/Create
 
         [HttpPost]
@@ -72,10 +64,8 @@ namespace PoliticImpact.Controllers
             if (ModelState.IsValid) {
                 casevoteRepository.InsertOrUpdate(casevote);
                 casevoteRepository.Save();
-                return RedirectToAction("Index");
-            } else {
-				return View();
-			}
+            }
+            return View();
         }
         
         //

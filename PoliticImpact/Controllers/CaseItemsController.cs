@@ -266,10 +266,15 @@ namespace PoliticImpact.Controllers
 
         public ActionResult Create()
         {
-
-            ViewBag.PossibleCategories = casecategoryRepository.All;
-
-            return View();
+            if (Session["uid"] != null)
+            {
+                ViewBag.PossibleCategories = casecategoryRepository.All;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -297,118 +302,118 @@ namespace PoliticImpact.Controllers
         [HttpPost]
         public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image, HttpPostedFileBase document)
         {
-            RecieverResponse resp = new RecieverResponse();
-            resp.ResponseCode = GenerateResponseCode(caseitem);
-            recieverresponseRepository.InsertOrUpdate(resp);
-            recieverresponseRepository.Save();
-
             if (Session["uid"] != null)
             {
-                //Hämta session-id
                 long userId = Convert.ToInt64(Session["uid"].ToString());
                 caseitem.Owner = userId;
-            }
-            else
-            {
-                caseitem.Owner = 4;
-            }
-            caseitem.caseMode = 0;
-            caseitem.Created = DateTime.Now;
-            caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
-            caseitem.ResponseID = resp.ResponseID;
-
-            if (ModelState.IsValid)
-            {
-                caseitemRepository.InsertOrUpdate(caseitem);
-                caseitemRepository.Save();
-
-                //validering och sparning av bild
-                if (image != null)
-                {
-                    switch (image.ContentType)
-                    {
-                        //tillåtna filtyper:
-                        case "image/jpeg":
-                        case "image/png":
-                        case "image/gif":
-                            CaseImage img = new CaseImage();
-                            img.CaseID = caseitem.ID;
-                 
-                            img.ImageBytes = new byte[image.ContentLength];
-
-                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
-
-                            caseimageRepository.InsertOrUpdate(img);
-                            caseimageRepository.Save();
-
-                            caseitem.AttachedImage = true;
-                            break;
-                        default: //Otillåten filtyp
-                            caseitem.AttachedImage = false;
-                            /* Lägg till validerings-errormeddelande i vy:
-                             * ModelState.AddModelError("key", "message");
-                             * i view: @Html.ValidationSummary(false)
-                             */
-                            break;
-                    }
-
-                }
-                else
-                {
-                    caseitem.AttachedImage = false;
-                }
-                //slut på validering och sparning bild
-
-                //dokumentuppladdning:
-                if (document != null)
-                {
-                    caseitem.documentMimeType = document.ContentType;
-                    caseitem.documentName = document.FileName;
-                    string location =   "~/Content/uploadedDocuments/" + document.FileName;
-                    caseitem.documentUrl = location;
-                    document.SaveAs(Server.MapPath(location));
-                }
-
+            
+                RecieverResponse resp = new RecieverResponse();
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
                 recieverresponseRepository.Save();
 
-                if (Request["create_voting"] != "" && Request["create_voting"] != null)
+                caseitem.caseMode = 0;
+                caseitem.Created = DateTime.Now;
+                caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+                caseitem.ResponseID = resp.ResponseID;
+
+                if (ModelState.IsValid)
                 {
-                    //have the user requested a voting on this case?
-                    if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"] != null)
+                    caseitemRepository.InsertOrUpdate(caseitem);
+                    caseitemRepository.Save();
+
+                    //validering och sparning av bild
+                    if (image != null)
                     {
-                        CaseVoting casevoting = new CaseVoting();
-                        casevoting.CaseID = caseitem.ID;
-                        casevoting.Title = Request["voting_title"];
-                        casevoting.StartDate = DateTime.Now;
-                        casevoting.EndDate = DateTime.Now;
-                        casevoting.Created = DateTime.Now;
-                        caseVotingRepository.InsertOrUpdate(casevoting);
-                        caseVotingRepository.Save();
+                        switch (image.ContentType)
+                        {
+                            //tillåtna filtyper:
+                            case "image/jpeg":
+                            case "image/png":
+                            case "image/gif":
+                                CaseImage img = new CaseImage();
+                                img.CaseID = caseitem.ID;
+                 
+                                img.ImageBytes = new byte[image.ContentLength];
+
+                                image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+
+                                caseimageRepository.InsertOrUpdate(img);
+                                caseimageRepository.Save();
+
+                                caseitem.AttachedImage = true;
+                                break;
+                            default: //Otillåten filtyp
+                                caseitem.AttachedImage = false;
+                                /* Lägg till validerings-errormeddelande i vy:
+                                 * ModelState.AddModelError("key", "message");
+                                 * i view: @Html.ValidationSummary(false)
+                                 */
+                                break;
+                        }
+
                     }
+                    else
+                    {
+                        caseitem.AttachedImage = false;
+                    }
+                    //slut på validering och sparning bild
+
+                    //dokumentuppladdning:
+                    if (document != null)
+                    {
+                        caseitem.documentMimeType = document.ContentType;
+                        caseitem.documentName = document.FileName;
+                        string location =   "~/Content/uploadedDocuments/" + document.FileName;
+                        caseitem.documentUrl = location;
+                        document.SaveAs(Server.MapPath(location));
+                    }
+
+                    resp.ResponseCode = GenerateResponseCode(caseitem);
+                    recieverresponseRepository.InsertOrUpdate(resp);
+                    recieverresponseRepository.Save();
+
+                    if (Request["create_voting"] != "" && Request["create_voting"] != null)
+                    {
+                        //have the user requested a voting on this case?
+                        if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"] != null)
+                        {
+                            CaseVoting casevoting = new CaseVoting();
+                            casevoting.CaseID = caseitem.ID;
+                            casevoting.Title = Request["voting_title"];
+                            casevoting.StartDate = DateTime.Now;
+                            casevoting.EndDate = DateTime.Now;
+                            casevoting.Created = DateTime.Now;
+                            caseVotingRepository.InsertOrUpdate(casevoting);
+                            caseVotingRepository.Save();
+                        }
+
+                    }
+
+
+                }
+                else
+                {
+                    ViewBag.PossibleCategories = casecategoryRepository.All;
 
                 }
 
 
+                caseitem.caseComment = new List<CaseComment>();
+                if (ModelState.IsValid)
+                {
+                    caseitemRepository.InsertOrUpdate(caseitem);
+                    caseitemRepository.Save();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
-                ViewBag.PossibleCategories = casecategoryRepository.All;
-
-            }
-
-
-            caseitem.caseComment = new List<CaseComment>();
-            if (ModelState.IsValid)
-            {
-                caseitemRepository.InsertOrUpdate(caseitem);
-                caseitemRepository.Save();
                 return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
             }
         }
 
