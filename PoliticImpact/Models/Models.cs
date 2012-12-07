@@ -49,14 +49,15 @@ namespace PoliticImpact.Models
         [DataType(DataType.DateTime)]
         public DateTime LastEdited { get; set; }
 
-        //added by Michaela - tas bort?
+        //added by Michaela 
         public int numberOfLikes { get; set; }
 
-
-
+        
         //Frida Mattisson 2012-11-19
         public List<CaseComment> caseComment { get; set; }
-        public int caseMode { get; set; }
+        public int caseMode { get; set; } 
+        public int numberOfComments { get; set; }
+        public int numberOfSigns { get; set; }
 
 
         //added by Johannes Ullström 2012-11-08 15:11

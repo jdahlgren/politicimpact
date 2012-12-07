@@ -14,7 +14,7 @@ namespace PoliticImpact.Controllers
 {
     public class CaseItemsController : Controller
     {
-        private readonly ICaseItemRepository caseitemRepository;
+        private readonly CaseItemRepository caseitemRepository;
 
         private readonly ICaseCategoryRepository casecategoryRepository;
         private readonly ICaseSignUpRepository casesignupRepository;
@@ -41,7 +41,7 @@ namespace PoliticImpact.Controllers
         {
         }
 
-        public CaseItemsController(ICaseItemRepository caseitemRepository)
+        public CaseItemsController(CaseItemRepository caseitemRepository)
         {
             this.caseitemRepository = caseitemRepository;
 
@@ -157,16 +157,16 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Index()
         {
-
             //Hämta antal likes för case. MAX 100 cases.
             ViewBag.likes = new int[100];
             int i = 0;
-            foreach (CaseItem c in caseitemRepository.All)
+            foreach (CaseItem c in caseitemRepository.FindAll())
             {
                 ViewBag.likes[i] = caselikeRepository.FindLike(c.ID);
                 i++;
             }
-            return View(caseitemRepository.All);
+
+            return View(caseitemRepository.FindAll());
         }
 
         public ViewResult Image(int id)
@@ -185,6 +185,10 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
+            //----------------------------------------------
+            CaseItem caseItem = caseitemRepository.Find(id);
+            //----------------------------------------------
+
             if (Session["uid"] != null)
             {
                 theUser = Int64.Parse(Session["uid"].ToString());
@@ -204,8 +208,25 @@ namespace PoliticImpact.Controllers
             }
             //slut på kod för respons på case
 
+            //----------------------------------------------
+
+            int numberOfSignUps = casesignupRepository.FindSignUps(id);
+            int numberOfComments = caseCommentRepository.FindComments(id);
             int numberOfLikes = caselikeRepository.FindLike(id);
-            ViewBag.numberOfLikes = numberOfLikes;
+
+            caseItem.numberOfSigns = casesignupRepository.FindSignUps(id);
+            caseItem.numberOfLikes = caselikeRepository.FindLike(id);
+            caseItem.numberOfComments = caseCommentRepository.FindComments(id);
+
+
+
+
+            //ViewBag.numberOfLikes = numberOfLikes;
+            //ViewBag.numberOfComments = numberOfComments;
+            //ViewBag.numberOfSigns = numberOfSignUps;
+ 
+
+            ////------------------------------------------------
 
             Boolean UserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
@@ -229,11 +250,12 @@ namespace PoliticImpact.Controllers
                 ViewBag.userhasvoted = UserHasVoted;
 
             }
-            
-            
+
+
             IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
             ViewBag.casecomments = casecomments;
-            ViewBag.nrOfComments = casecomments.Count();
+            //ViewBag.nrOfComments = casecomments.Count();
+            
 
             //TODO real user
             foreach (var item in casesignupRepository.All)
@@ -254,10 +276,16 @@ namespace PoliticImpact.Controllers
                     //returna någon schyst variabel till popupen
                     //Meddela användaren om att den redan har signat
                     ViewBag.likeStatus = "signed";
+                    
                 }
 
             }
-            return View(caseitemRepository.Find(id));
+            ///---------------Frida
+            
+
+            return View(caseItem);
+
+            ///-------------Frida
         }
 
         //
@@ -584,6 +612,7 @@ namespace PoliticImpact.Controllers
                 int numberOfLikes = caselikeRepository.FindLike(id);
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
+
                 IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
                 List<CaseComment> comments2  = comments.ToList<CaseComment>();
                 comments2.Reverse();

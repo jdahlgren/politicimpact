@@ -20,7 +20,7 @@
                 <td> @Html.ValidationMessageFor(model => model.Text)</td>
             </tr>
             <tr>
-                <td>Slutdatum</td>
+                <td>Slutdatum (ÅÅ-MM-DD)</td>
                 <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5"  })</td>
                 <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
             </tr>
@@ -30,7 +30,7 @@
                 <td>@Html.ValidationMessageFor(model => model.RecieverName)</td>
             </tr>
             <tr>
-                <td>E-post mottagare</td>
+                <td>E-post mottagare (XXXX@XXX.XX)</td>
                 <td>@Html.TextBoxFor(model => model.RecieverEmail, new { @class = "span5"  })</td>
                 <td>@Html.ValidationMessageFor(model => model.RecieverEmail)</td>
             </tr>
@@ -90,7 +90,9 @@
             </tr>
 
         </table>
-        <button type="submit" class="btn btn-success">Spara</button>
+        <div class="span8">
+            <button type="submit" class="btn btn-success pull-right">Spara</button>
+        </div>
     }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
