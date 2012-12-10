@@ -77,57 +77,57 @@ namespace PoliticImpact.Controllers
 
        }
         
-        /// Till Admin-delen
-        ////
-        //// GET: /CaseComments/Edit/5
+        //Till Admin-delen
+        //
+        // GET: /CaseComments/Edit/5
  
-        //public ActionResult Edit(int id)
-        //{
-        //     return View(casecommentRepository.Find(id));
-        //}
+        public ActionResult Edit(int id)
+        {
+             return View(casecommentRepository.Find(id));
+        }
 
-        ////
-        //// POST: /CaseComments/Edit/5
+        //
+        // POST: /CaseComments/Edit/5
 
-        //[HttpPost]
-        //public ActionResult Edit(CaseComment casecomment)
-        //{
-        //    if (ModelState.IsValid) {
-        //        casecommentRepository.InsertOrUpdate(casecomment);
-        //        casecommentRepository.Save();
-        //        return RedirectToAction("Index");
-        //    } else {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult Edit(CaseComment casecomment)
+        {
+            if (ModelState.IsValid) {
+                casecommentRepository.InsertOrUpdate(casecomment);
+                casecommentRepository.Save();
+                return RedirectToAction("Index");
+            } else {
+                return View();
+            }
+        }
 
-        ////
-        //// GET: /CaseComments/Delete/5
+        //
+        // GET: /CaseComments/Delete/5
  
-        //public ActionResult Delete(int id)
-        //{
-        //    return View(casecommentRepository.Find(id));
-        //}
+        public ActionResult Delete(int id)
+        {
+            return View(casecommentRepository.Find(id));
+        }
 
-        ////
-        //// POST: /CaseComments/Delete/5
+        //
+        // POST: /CaseComments/Delete/5
 
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    casecommentRepository.Delete(id);
-        //    casecommentRepository.Save();
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            casecommentRepository.Delete(id);
+            casecommentRepository.Save();
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing) {
-        //        casecommentRepository.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                casecommentRepository.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
 

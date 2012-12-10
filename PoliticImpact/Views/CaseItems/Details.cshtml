@@ -206,15 +206,7 @@
     {
         foreach (var comment in ViewBag.casecomments)
         {
-            <p id="divName1@(comment.commentID)"></p>
-            //Get name from facebook
-            <script type='text/javascript'>
-                $(document).ready(function () {
-                    $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
-                        $('<strong>' + data.name + '</strong>').appendTo('#divName1@(comment.commentID)');
-                    })
-                })
-            </script>
+            <p class="comment_author author_@(comment.userID)"></p>
             <p>@comment.commentStr</p>
         }
     }
@@ -265,3 +257,27 @@ else
 {
      <h3>Ärendet är arkiverat</h3>   
 }
+<script type='text/javascript'>
+    var user_ids = [];
+    var counter = 0;
+    var id = null;
+    $(document).ready(function () {
+        //Get name from facebook
+        $('#allComments .comment_author').each(function () {
+            id = $(this).attr('class').split(' ')[1].split("_")[1];
+            user_ids.push(id);
+            
+        });
+
+        user_ids = $.unique(user_ids);
+ 
+        $.each(user_ids, function (index, value) {
+            $.getJSON('https://graph.facebook.com/' + value, function (data) {
+                $('<strong>' + data.name + '</strong>').appendTo('.author_' + value);
+            });
+        });
+            
+        
+
+    })
+</script>

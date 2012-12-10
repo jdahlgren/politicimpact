@@ -61,7 +61,7 @@ function PostComment(id) {
     }).done(function (msg) {
         console.log("comment created");
     }).always(function () {
-        $("#titleComments").after("<p>" + strComment + "</p>");
+        $("#newComment").after("<p>" + strComment + "</p>");
         $("#newComment").slideUp();
         $("#newCommentStr").val("");
         $("#nocomments").remove();
