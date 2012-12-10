@@ -1,0 +1,216 @@
+<<<<<<< HEAD
+﻿@model PoliticImpact.Models.CaseItem
+@using Resources;
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@{
+    @Res.CreateCase;
+}
+    <h2>@Res.CreateCase</h2>
+
+    @using (Html.BeginForm(null,null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+        @Html.ValidationSummary(true)
+
+        <table class="span12">
+            <tr>
+                <td class="span2">@Res.Title</td>
+                <td class="span7">@Html.TextBoxFor(model => model.Title, new { @class = "span5"  })</td>
+                <td class="span2"> @Html.ValidationMessageFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td>@Res.Desc</td>
+                <td>@Html.TextAreaFor(model => model.Text, new { @class = "span5"  })</td>
+                <td> @Html.ValidationMessageFor(model => model.Text)</td>
+            </tr>
+            <tr>
+                <td>@Res.Deadline</td>
+                <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5", id  = "deadline" })</td>
+                <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
+            </tr>
+            <tr>
+                <td>@Res.ReceiverName</td>
+                <td>@Html.TextBoxFor(model => model.RecieverName, new { @class = "span5"  })</td>
+                <td>@Html.ValidationMessageFor(model => model.RecieverName)</td>
+            </tr>
+            <tr>
+                <td>@Res.ReceiverMail</td>
+                <td>@Html.TextBoxFor(model => model.RecieverEmail, new { @class = "span5"  })</td>
+                <td>@Html.ValidationMessageFor(model => model.RecieverEmail)</td>
+            </tr>
+            <tr>
+                <td>@Res.AllowLikes</td>
+                <td>@Html.EditorFor(model => model.enableLikes)</td>
+                <td>@Html.ValidationMessageFor(model => model.enableLikes)</td>
+            </tr>
+            <tr>            
+                <td>@Res.AllowComment</td>
+                <td>@Html.EditorFor(model => model.enableComments)</td>
+                <td>@Html.ValidationMessageFor(model => model.enableComments)</td>
+            </tr>
+            <tr>
+                
+                <td>@Res.AllowSign</td>
+                <td>@Html.EditorFor(model => model.enableSigns)</td>
+                <td>@Html.ValidationMessageFor(model => model.enableSigns)</td>
+            </tr>
+                <tr>
+                <td>@Res.Category</td>
+                <td>
+                        @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
+                            Text = (option == null ? "None" : option.Title), 
+                            Value = option.CategoryID.ToString(),
+                            Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
+                        }), "Välj...")
+                </td>
+                    <td>@Html.ValidationMessageFor(model => model.CategoryID)</td>
+            </tr>
+            <tr>
+                <td>@Res.Votes</td>
+                <td>
+				    <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
+					    <option value="no">Nej</option>
+					    <option value="yes">Ja</option>
+                    </select>
+                    <div data-role="fieldcontain" id="voting_input">
+                        <label for="name">Titel på omröstning:</label>
+                        <input type="text" name="voting_title" id="voting_title" class="span5" value="" data-mini="true" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>@Res.Publish</td>
+                <td>@Html.EditorFor(model => model.Published)</td>
+                <td> @Html.ValidationMessageFor(model => model.Published)</td>
+            </tr>
+            <tr>
+                <td>Ladda upp bild:</td>
+                <td><input name="image" type="file" /></td>
+            </tr>
+
+            <tr>
+                <td>Välj vilket dokument som ska bifogas:</td>
+                <td><input name="document" type="file" /></td>
+            </tr>
+
+        </table>
+        <button type="submit" class="btn btn-success">@Res.Save</button>
+    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(function() {
+        $( "#deadline" ).datepicker();
+    });
+</script>
+=======
+﻿@model PoliticImpact.Models.CaseItem
+
+@{
+    ViewBag.Title = "Skapa förslag";
+}
+    <h2>Skapa förslag</h2>
+
+    @using (Html.BeginForm(null,null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+        @Html.ValidationSummary(true)
+
+        <table class="span12">
+            <tr>
+                <td class="span2">Titel</td>
+                <td class="span7">@Html.TextBoxFor(model => model.Title, new { @class = "span5"  })</td>
+                <td class="span2"> @Html.ValidationMessageFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td>Beskrivning</td>
+                <td>@Html.TextAreaFor(model => model.Text, new { @class = "span5"  })</td>
+                <td> @Html.ValidationMessageFor(model => model.Text)</td>
+            </tr>
+            <tr>
+                <td>Slutdatum (ÅÅ-MM-DD)</td>
+                <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5"  })</td>
+                <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
+            </tr>
+            <tr>
+                <td>Namn mottagare</td>
+                <td>@Html.TextBoxFor(model => model.RecieverName, new { @class = "span5"  })</td>
+                <td>@Html.ValidationMessageFor(model => model.RecieverName)</td>
+            </tr>
+            <tr>
+                <td>E-post mottagare (XXXX@XXX.XX)</td>
+                <td>@Html.TextBoxFor(model => model.RecieverEmail, new { @class = "span5"  })</td>
+                <td>@Html.ValidationMessageFor(model => model.RecieverEmail)</td>
+            </tr>
+            <tr>
+                <td>Tillåt gilla</td>
+                <td>@Html.EditorFor(model => model.enableLikes)</td>
+                <td>@Html.ValidationMessageFor(model => model.enableLikes)</td>
+            </tr>
+            <tr>            
+                <td>Tillåt kommentarer</td>
+                <td>@Html.EditorFor(model => model.enableComments)</td>
+                <td>@Html.ValidationMessageFor(model => model.enableComments)</td>
+            </tr>
+            <tr>
+                
+                <td>Tillåt underskrifter</td>
+                <td>@Html.EditorFor(model => model.enableSigns)</td>
+                <td>@Html.ValidationMessageFor(model => model.enableSigns)</td>
+            </tr>
+                <tr>
+                <td>Kategori</td>
+                <td>
+                        @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
+                            Text = (option == null ? "None" : option.Title), 
+                            Value = option.CategoryID.ToString(),
+                            Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
+                        }), "Välj...")
+                </td>
+                    <td>@Html.ValidationMessageFor(model => model.CategoryID)</td>
+            </tr>
+            <tr>
+                <td>Koppla omröstning</td>
+                <td>
+				    <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
+					    <option value="no">Nej</option>
+					    <option value="yes">Ja</option>
+                    </select>
+                    <div data-role="fieldcontain" id="voting_input">
+                        <label for="name">Titel på omröstning:</label>
+                        <input type="text" name="voting_title" id="voting_title" class="span5" value="" data-mini="true" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Publicera direkt</td>
+                <td>@Html.EditorFor(model => model.Published)</td>
+                <td> @Html.ValidationMessageFor(model => model.Published)</td>
+            </tr>
+            <tr>
+                <td>Ladda upp bild:</td>
+                <td><input name="image" type="file" /></td>
+            </tr>
+
+            <tr>
+                <td>Välj vilket dokument som ska bifogas:</td>
+                <td><input name="document" type="file" /></td>
+            </tr>
+
+        </table>
+        <div class="span8">
+            <button type="submit" class="btn btn-success pull-right">Spara</button>
+        </div>
+    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+>>>>>>> Frida-Testing

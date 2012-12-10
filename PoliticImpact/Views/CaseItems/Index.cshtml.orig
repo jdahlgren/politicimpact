@@ -1,0 +1,129 @@
+<<<<<<< HEAD
+@using Resources;
+@model IEnumerable<PoliticImpact.Models.CaseItem>
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@{
+    @Res.CaseList
+}
+
+<div class="row">
+    <div class="span8" id="recent-cases">
+        <h4>@Res.LatestCases</h4>
+        @foreach (var item in Model)
+        { 
+            @*TODO when users exist in desktop*@
+            @*if (!item.Archived || user == item.Owner.ToString())*@           
+            if (!item.Archived)
+            {
+            
+            <div class="caseitem-list">
+                <a href="/CaseItems/Details/@item.ID">
+                    <div class="templateimage"></div>
+                    <div class="caseitem-list-main">
+                        <div class="caseitem-list-main-info">
+                            <h3>@item.Title</h3>
+                            <p>
+                                @if (@item.Text.Length > 120)
+                                {                                
+                                    @item.Text.Substring(0, 120)
+                                }
+                                else
+                                {
+                                    @item.Text
+                                }
+                            </p>
+                        </div>
+
+                        <div class="caseitem-additional-info">
+                            <div class="caseitem-additional-info-box">
+                                <p>10
+                                    <img src="~/Content/images/thumbs_up_metro.png" alt="Likes" /></p>
+                            </div>
+                            <div class="caseitem-additional-info-box">
+                                <p>12
+                                    <img src="~/Content/images/signups.png" alt="Signups" /></p>
+                            </div>
+                            <div class="caseitem-additional-info-box">
+                                <p>3
+                                    <img src="~/Content/images/speech_bubble.png" alt="Comments" /></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            }
+        }
+    </div>
+
+</div>
+
+=======
+@model IEnumerable<PoliticImpact.Models.CaseItem>
+
+@{
+    ViewBag.Title = "Ärende lista";
+}
+
+<div class="row">
+    <div class="span8" id="recent-cases">
+        <h4>Senaste förslagen</h4>
+        @foreach (var item in Model)
+        { 
+            @*TODO when users exist in desktop*@
+            @*if (!item.Archived || user == item.Owner.ToString())*@           
+            if (!item.Archived)
+            {
+            
+            <div class="caseitem-list">
+                <a href="/CaseItems/Details/@item.ID">
+                    <div class="templateimage"></div>
+                    <div class="caseitem-list-main">
+                        <div class="caseitem-list-main-info">
+                            <h3>@item.Title</h3>
+                            <p>
+                                @if (@item.Text.Length > 120)
+                                {                                
+                                    @item.Text.Substring(0, 120)
+                                }
+                                else
+                                {
+                                    @item.Text
+                                }
+                            </p>
+                        </div>
+                        
+                        <div class="caseitem-additional-info">
+                            <div class="caseitem-additional-info-box">
+                                <p>@item.numberOfLikes
+                                    <img src="~/Content/images/thumbs_up_metro.png" alt="Likes" /></p>
+                            </div>
+                            <div class="caseitem-additional-info-box">
+                                <p>@item.numberOfSigns
+                                    <img src="~/Content/images/signups.png" alt="Signups" /></p>
+                            </div>
+                            <div class="caseitem-additional-info-box">
+                                <p>@item.numberOfComments
+                                    <img src="~/Content/images/speech_bubble.png" alt="Comments" /></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            }
+        }
+    </div>
+
+</div>
+
+>>>>>>> Frida-Testing
