@@ -87,3 +87,14 @@ function ArchiveCaseItem(id) {
         jQuery('#archived_status').html('<p>Arkiverad, går inte längre att interagera.</p>');
     });
 }
+
+function ShareCaseByEmail(id) {
+    jQuery.ajax({
+        type: "POST",
+        url: "/CaseItems/ShareMail/" + id,
+        data: { email: jQuery('#friend_email').val() }
+    }).done(function (msg) {
+        jQuery('#share_by_email').html("<p>Email sent</p>");
+        jQuery('#friend_email').val("");
+    });
+}

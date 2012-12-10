@@ -283,7 +283,6 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\DetailsView.js" />
     <Content Include="Scripts\Facebook.js" />
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
@@ -306,7 +305,6 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Script.js" />
-    <Content Include="Scripts\ShowCase.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
