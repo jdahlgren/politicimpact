@@ -26,6 +26,13 @@ namespace PoliticImpact.Models
             return query;
         }
 
+        public int FindComments(int caseId)
+        {
+            IQueryable<CaseComment> casecomments = (from CL in context.CaseComments
+                                              where CL.caseID == caseId
+                                              select CL);
+            return casecomments.Count();
+        }
         public CaseComment Find(int id)
         {
             return context.CaseComments.Find(id);

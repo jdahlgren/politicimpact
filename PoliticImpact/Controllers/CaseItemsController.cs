@@ -15,7 +15,7 @@ namespace PoliticImpact.Controllers
 {
     public class CaseItemsController : Controller
     {
-        private readonly ICaseItemRepository caseitemRepository;
+        private readonly CaseItemRepository caseitemRepository;
 
         private readonly ICaseCategoryRepository casecategoryRepository;
         private readonly ICaseSignUpRepository casesignupRepository;
@@ -42,7 +42,7 @@ namespace PoliticImpact.Controllers
         {
         }
 
-        public CaseItemsController(ICaseItemRepository caseitemRepository)
+        public CaseItemsController(CaseItemRepository caseitemRepository)
         {
             this.caseitemRepository = caseitemRepository;
 
@@ -161,11 +161,13 @@ namespace PoliticImpact.Controllers
             //Hämta antal likes för case. MAX 100 cases.
             ViewBag.likes = new int[100];
             int i = 0;
-            foreach (CaseItem c in caseitemRepository.All)
+            foreach (CaseItem c in caseitemRepository.FindAll())
             {
                 ViewBag.likes[i] = caselikeRepository.FindLike(c.ID);
                 i++;
             }
+
+            return View(caseitemRepository.FindAll());
 
             //Hämta thumbnailUrls till eventuella bilder för cases. Max 100 cases.
             ViewBag.thumbnailUrls = new string[100];
@@ -185,7 +187,10 @@ namespace PoliticImpact.Controllers
 
         public ViewResult Details(int id)
         {
-            CaseItem caseitem = caseitemRepository.Find(id);
+            //----------------------------------------------
+            CaseItem caseItem = caseitemRepository.Find(id);
+            //----------------------------------------------
+
             if (Session["uid"] != null)
             {
                 theUser = Int64.Parse(Session["uid"].ToString());
@@ -218,7 +223,20 @@ namespace PoliticImpact.Controllers
 
 
             int numberOfLikes = caselikeRepository.FindLike(id);
-            ViewBag.numberOfLikes = numberOfLikes;
+
+            caseItem.numberOfSigns = casesignupRepository.FindSignUps(id);
+            caseItem.numberOfLikes = caselikeRepository.FindLike(id);
+            caseItem.numberOfComments = caseCommentRepository.FindComments(id);
+
+
+
+
+            //ViewBag.numberOfLikes = numberOfLikes;
+            //ViewBag.numberOfComments = numberOfComments;
+            //ViewBag.numberOfSigns = numberOfSignUps;
+ 
+
+            ////------------------------------------------------
 
             Boolean UserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
@@ -242,10 +260,12 @@ namespace PoliticImpact.Controllers
                 ViewBag.userhasvoted = UserHasVoted;
 
             }
-            
-            
+
+
             IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
             ViewBag.casecomments = casecomments.OrderByDescending(c => c.commentID);
+            ViewBag.nrOfComments = casecomments.Count();
+            
 
             ViewBag.nrOfComments = casecomments.Count();
             //TODO real user
@@ -267,10 +287,18 @@ namespace PoliticImpact.Controllers
                     //returna någon schyst variabel till popupen
                     //Meddela användaren om att den redan har signat
                     ViewBag.likeStatus = "signed";
+                    
                 }
 
             }
+            return View(caseitemRepository.Find(id));
             return View(caseitem);
+            ///---------------Frida
+            
+
+            return View(caseItem);
+
+            ///-------------Frida
         }
 
         //
@@ -323,6 +351,10 @@ namespace PoliticImpact.Controllers
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
                 recieverresponseRepository.Save();
+            RecieverResponse resp = new RecieverResponse();
+            resp.ResponseCode = GenerateResponseCode(caseitem);
+            recieverresponseRepository.InsertOrUpdate(resp);
+            recieverresponseRepository.Save();
 
                 caseitem.caseMode = 0;
                 caseitem.Created = DateTime.Now;
@@ -365,6 +397,7 @@ namespace PoliticImpact.Controllers
                             img.thumbnailUrl = thumbnailLocation;
                             thumbnail.Save(Server.MapPath(thumbnailLocation));
                             thumbnail.Dispose();
+                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
 
                                 caseimageRepository.InsertOrUpdate(img);
                                 caseimageRepository.Save();
@@ -619,6 +652,7 @@ namespace PoliticImpact.Controllers
                 int numberOfLikes = caselikeRepository.FindLike(id);
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
+
                 IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
                 List<CaseComment> comments2  = comments.ToList<CaseComment>();
                 comments2.Reverse();

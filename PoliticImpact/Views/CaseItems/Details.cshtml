@@ -117,7 +117,7 @@
     @if (Model.enableLikes == true)
     {
         <div class="span2">
-            <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
+            <p>@Model.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
            @if (ViewBag.likeStatus == "signed")
            {
                 <p>@Res.YouLiked</p>
@@ -135,7 +135,7 @@
     @if (Model.enableComments == true && !Model.Archived)
     {  
         <div class="span2">
-            <p>@ViewBag.nrOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+            <p>@Model.numberOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
             <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
 
         </div>
@@ -144,7 +144,7 @@
     @if (Model.enableSigns == true)
     {
         <div class="span2">
-            <p>2 <img src="~/Content/images/signups.png" alt="Signups"/></p>
+            <p>@Model.numberOfSigns <img src="~/Content/images/signups.png" alt="Signups"/></p>
             @if (ViewBag.status == "signed")
             {
                 <p>Du har skrivit under detta förslag</p>
