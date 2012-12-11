@@ -278,7 +278,9 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\politicalimpact - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\politicalimpact - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\politicimpact - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\politicimpact - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\politicimpact - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\politicimpact - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -470,13 +472,6 @@
     <Content Include="Views\CaseImages\Details.cshtml" />
     <Content Include="Views\CaseImages\Index.cshtml" />
     <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
-    <Content Include="Views\CaseItems\Image.cshtml" />
-    <Content Include="Views\CaseModes\Create.cshtml" />
-    <Content Include="Views\CaseModes\Edit.cshtml" />
-    <Content Include="Views\CaseModes\Delete.cshtml" />
-    <Content Include="Views\CaseModes\Details.cshtml" />
-    <Content Include="Views\CaseModes\Index.cshtml" />
-    <Content Include="Views\CaseModes\_CreateOrEdit.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Index.Phone.cshtml" />
     <Content Include="Views\CaseItems\TheStatistics.cshtml">
