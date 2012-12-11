@@ -349,8 +349,9 @@ namespace PoliticImpact.Controllers
 
                 caseitem.caseMode = 0;
                 caseitem.Created = DateTime.Now;
-                caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+                caseitem.LastEdited = DateTime.Now;
                 caseitem.ResponseID = resp.ResponseID;
+                caseitem.Archived = false;
 
                 if (ModelState.IsValid)
                 {
@@ -561,7 +562,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public void ArchiveCaseItem()
         {
             IQueryable<CaseItem> CaseItems = caseitemRepository.All;
@@ -571,53 +572,77 @@ namespace PoliticImpact.Controllers
 
             foreach (var item in CaseItems)
             {
+                 if (caselikeRepository.All.Count() != 0)
+                     CaseLike = CaseLikeRepository.FindAllByCaseId(item.ID);
+                 if(caseCommentRepository.All.Count() !=0)
+                     CaseComment = caseCommentRepository.FindAllByCaseId(item.ID);
+                 if(casesignupRepository.All.Count() != 0)
+                     CaseSign = casesignupRepository.FindAllByCaseId(item.ID);
+
                 if (!item.Archived)
                 {
-                    if (item.Deadline > DateTime.Now)
+                    if (item.Deadline < DateTime.Now)
                     {
                         item.Archived = true;
+                        caseitemRepository.InsertOrUpdate(item);
+                        caseitemRepository.Save();
+                        break;
                     }
-                    /*TODO - ändra till if ((item.LastEdited - DateTime.Now).Days >= 7) när testning är klart*/
-                    if ((item.LastEdited - DateTime.Now).Minutes >= 5)
+                    if ((DateTime.Now - item.LastEdited).Days >= 7)
                     {
                         item.Archived = true;
+                        caseitemRepository.InsertOrUpdate(item);
+                        caseitemRepository.Save();
+                        break;
                     }
                     if (item.caseMode != 0)
                     {
                         item.Archived = true;
+                        caseitemRepository.InsertOrUpdate(item);
+                        caseitemRepository.Save();
+                        break;
                     }
                     /*TODO when comment have a created date */
                     /*if (item.enableComments)
                     {
                         foreach (var comment in CaseComment)
                         {
-                            if ((comment.created - DateTime.Now).Days >= 7)
+                            if ((DateTime.Now - comment.created).Days >= 7)
                             {
                                 item.Archived = true;
+                                caseitemRepository.InsertOrUpdate(item);
+                                caseitemRepository.Save();
+                                break;
                             }
                         }
                     }//End enableComments*/
-                    if (item.enableLikes)
-                    {
-                        foreach (var like in CaseLike)
-                        {/*TODO - ändra till if ((like.created - DateTime.Now).Days >= 7) när testning är klart*/
-                            if ((like.created - DateTime.Now).Minutes >= 5)
-                            {
-                                item.Archived = true;
-                            }
-                        }
-                    }//End enableLikes
-                    if (item.enableSigns)
-                    {
-                        foreach (var sign in CaseSign)
-                        {/*TODO - ändra till if ((sign.created - DateTime.Now).Days >= 7) när testning är klart*/
-                            if ((sign.created - DateTime.Now).Minutes >= 5)
-                            {
-                                item.Archived = true;
-                            }
-                        }
-                    }//End enableSigns
-                    
+                     if (item.enableLikes)
+                     {
+                         foreach (var like in CaseLike)
+                         {
+                             if ((DateTime.Now - like.created).Days >= 7)                             
+                             {
+                                 item.Archived = true;
+                                 caseitemRepository.InsertOrUpdate(item);
+                                 caseitemRepository.Save();
+                                 break;
+                             }
+                         }
+                     }//End enableLikes
+                     if (item.enableSigns)
+                     {
+                         foreach (var sign in CaseSign)
+                         {
+                             if ((DateTime.Now - sign.created).Days >= 7)
+                             {
+                                 item.Archived = true;
+                                 caseitemRepository.InsertOrUpdate(item);
+                                 caseitemRepository.Save();
+                                 break;
+                             }
+                         }
+                     }//End enableSigns
+
                 }//End If(!item.Archived)
             }
         }//End ArchiveCaseItem()
