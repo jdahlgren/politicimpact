@@ -8,6 +8,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.WebPages;
 
+
+
 namespace PoliticImpact
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -24,7 +26,26 @@ namespace PoliticImpact
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             EvaluateDisplayMode(); //Evaluate incoming request and update Display Mode table
+
+            System.Threading.ThreadStart archiveThread = new System.Threading.ThreadStart(TaskLoop);
+            System.Threading.Thread myTask = new System.Threading.Thread(archiveThread);
+            myTask.Start();
+            
         }
+
+        static void TaskLoop()
+        {
+            Controllers.CaseItemsController controller = new Controllers.CaseItemsController();
+            while (true)
+            {                
+                controller.ArchiveCaseItem();
+                /*TODO ändra så att Timespan är kanske en gång om dagen istället för var tionde minut detta är endast för testning*/
+                /*System.Threading.Thread.Sleep(TimeSpan.FromDays(1));*/
+                System.Threading.Thread.Sleep(TimeSpan.FromMinutes(5));
+            }
+        }
+         
+
         /// <summary>
         /// Evaluates incoming request and determines and adds an entry into the Display mode table
         /// </summary>
