@@ -297,6 +297,9 @@
   <data name="SendLink" xml:space="preserve">
     <value>Send link</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
   </data>

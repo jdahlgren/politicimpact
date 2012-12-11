@@ -4,14 +4,9 @@
 @{ var user = (String) HttpContext.Current.Session["uid"]; }
 
 @{
-    if (user != null)
-    {
-        ViewBag.Title = "Logga ut";
-    }
-    else
-    {
-        ViewBag.Title = "Logga in";
-    }
+    
+        ViewBag.Title = Res.Home;
+    
     @*Layout = "~/Views/Shared/_Layout.cshtml";*@
 }
 @{
@@ -34,16 +29,9 @@
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
-		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
-                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid"})</li>
-                @if(user != null)
-                {
-                    <li>@Html.ActionLink("Logga ut", "Index", new { Controller = "Account" }, new { data_icon = "gear", @class = "ui-btn-active ui-state-persist" })</li>
-                }
-                else
-                {
-                    <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear", @class = "ui-btn-active ui-state-persist" })</li>
-                }
+		        <li><a href="/Home/Index" data-icon="home">@Res.Home</a></li>
+                <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid"})</li>
+                <li>@Html.ActionLink(Res.Settings, "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
 	        </ul>
         </div>
         <!-- /navigation -->

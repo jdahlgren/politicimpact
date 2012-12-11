@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow comments.
         /// </summary>
         internal static string AllowComment {
@@ -84,6 +93,33 @@ namespace Resources {
         internal static string AllowSign {
             get {
                 return ResourceManager.GetString("AllowSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approved.
+        /// </summary>
+        internal static string Approved {
+            get {
+                return ResourceManager.GetString("Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which document to attach.
+        /// </summary>
+        internal static string AttachDoc {
+            get {
+                return ResourceManager.GetString("AttachDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
             }
         }
         
@@ -304,7 +340,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Français.
+        ///   Looks up a localized string similar to Filter cases....
         /// </summary>
         internal static string FilterCase {
             get {
@@ -322,6 +358,7 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Français.
         /// </summary>
         internal static string French {
             get {
@@ -560,6 +597,15 @@ namespace Resources {
         internal static string SendLink {
             get {
                 return ResourceManager.GetString("SendLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         

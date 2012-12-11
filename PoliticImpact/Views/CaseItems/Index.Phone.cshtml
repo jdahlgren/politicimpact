@@ -37,14 +37,9 @@
 	        <ul>
 		        <li><a href="/Home/Index" data-icon="home">@Res.Home</a></li>
                 <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
-                @if(user != null)
-                {
-                    <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
-                }
-                else
-                {
-                    <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
-                }
+                
+                    <li>@Html.ActionLink(Res.Settings, "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                
 	        </ul>
         </div>
         <!-- /navigation -->
