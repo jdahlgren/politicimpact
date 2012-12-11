@@ -1,21 +1,56 @@
 ﻿@*@model PoliticImpact.Models.LoginModel*@
 
+@{ var user = (String) HttpContext.Current.Session["uid"]; }
+
 @{
-    ViewBag.Title = "Logga in";
+    if(user != null)
+    {
+        ViewBag.Title = "Logga ut";
+    }
+    else
+    {
+        ViewBag.Title = "Logga in";
+    }
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 @section Header {
-    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
-    <h1>@ViewBag.Title</h1>
+
+        <div data-role="header">
+        @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
+        <h1>@ViewBag.Title</h1>
+        @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
+        
+        @if ( user != null) {
+            <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }        
+        <!-- navigation -->
+        <div data-role="navbar" data-iconpos="top">
+	        <ul>
+		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
+                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid"})</li>
+                @if(user != null)
+                {
+                    <li>@Html.ActionLink("Logga ut", "Index", new { Controller = "Account" }, new { data_icon = "gear", @class = "ui-btn-active ui-state-persist" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear", @class = "ui-btn-active ui-state-persist" })</li>
+                }
+	        </ul>
+        </div>
+        <!-- /navigation -->
+    </div>
 }
-<h2>Logga in</h2>
+<h2>@ViewBag.Title</h2>
 <script src="@Url.Content("~/Scripts/Facebook.js")" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
                 InitialiseFacebook("432491363480247");
             });
         </script>
-<fb:login-button autologoutlink="true" show-faces="true">Logga in</fb:login-button>
+<fb:login-button autologoutlink="true" show-faces="true">@ViewBag.Title</fb:login-button>
 
 <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
