@@ -1,0 +1,559 @@
+<<<<<<< HEAD
+﻿@model PoliticImpact.Models.CaseItem
+@using Resources;
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
+@if(!@Model.Archived) 
+{
+    @*TODO - When user exist on Desktop*@
+    @*if (@Model.Archived && user == @Model.Owner.ToString())
+    {
+        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+    }*@
+    ViewBag.Title = @Model.Title;
+
+<style>
+    #share_by_email
+    {
+        display: none;
+    }
+    hr
+    {
+        border-bottom: 1px #808080 solid !important;
+    }
+    div.caseitem-details-template-image{
+        width: 130px;
+        height: 130px;
+        background: #b1b1b1;
+        border: 1px #808080 dashed;
+        float: left;
+        margin: 15px;
+        margin-right: 5px;
+    }
+</style>
+   
+<div class="row">
+    <div class="span8">
+       <h2>@Model.Title</h2>
+       @*Ritar ut en bild beroende på caseMode*@
+        @if (Model.caseMode == 1)
+        {
+            <label>Ärendet har: Gått igenom</label>
+             <img src="~/Content/images/Approved_icon.png" width="45" height="45" id="Approved" />
+        }
+        else if (Model.caseMode == 2)
+        {
+            <label>Ärendet är: Avslaget</label>
+            <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
+        }
+        <p>@Res.Deadline: @String.Format("{0:g}", Model.Deadline)</p>
+
+        <p>@Model.Text</p>
+
+
+        <div class="display-label">Mottagare</div>
+        <div class="display-label">@Res.Receiver</div>
+        <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
+
+        @*Visa alla dokument till ärendet*@
+        @if(Model.documentUrl != null)
+        {
+           <h1>Det bifogade dokumentet:</h1>
+           <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+        }
+        <!--
+        @* @if (Model.imageName != null)
+        {
+            <div class="display-label">imageId</div>
+            <div class="display-field">@Model.imageId</div>
+            <img src="@Model.imageName" width ="75" height ="75">
+            <div class="display-label">imageBytes</div>
+            <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
+            <div class="display-label">imageName</div>
+            <div class="display-field">@Model.imageName</div>
+        } *@ -->
+
+        @* Visa respons från mottagare *@        
+        @if (ViewBag.responded)
+        {
+            <fieldset>
+                <legend>Responses by Reciever</legend>
+                <p>@ViewBag.response</p>
+            </fieldset>
+        }        
+    </div>
+    <div class="span4">
+        <div class="caseitem-details-template-image">
+            @{ 
+                if(Model.AttachedImage)
+                {
+                    if(ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
+                    {
+                        <a href="@Url.Content(ViewBag.imageUrl)">
+                            <img src="@Url.Content(ViewBag.thumbnailUrl)" />
+                        </a>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="span2">
+        <p><img src="~/Content/images/external_link.png" alt="Likes"/></p>
+        <a href="#shareCase" role="button" class="btn" data-toggle="modal">@Res.Share</a>
+    </div>
+    @if (Model.enableLikes == true)
+    {
+        <div class="span2">
+            <p>@ViewBag.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
+           @if (ViewBag.likeStatus == "signed")
+           {
+                <p>@Res.YouLiked</p>
+           }
+           else
+           {
+               if (!@Model.Archived)
+               {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Like</a>
+               }
+           }
+
+        </div>       
+    }
+    @if (Model.enableComments == true && !Model.Archived)
+    {  
+        <div class="span2">
+            <p>@ViewBag.nrOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+            <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
+
+        </div>
+    }
+
+    @if (Model.enableSigns == true)
+    {
+        <div class="span2">
+            <p>2 <img src="~/Content/images/signups.png" alt="Signups"/></p>
+            @if (ViewBag.status == "signed")
+            {
+                <p>Du har skrivit under detta förslag</p>
+            }
+            else
+            {
+                if (!@Model.Archived)
+                {
+                <a href="#signupCase" class="btn">@Res.Sign</a>
+                }
+            }
+        </div>
+    }
+        <div class="span2">
+            <p><img src="~/Content/images/print.png" alt="Print"/></p>
+           
+            <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
+        </div>
+    @if (!Model.Published && Model.Owner == 1337)
+    {
+        <div class="span2">
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
+        </div>
+    }
+    @if (ViewBag.voting != null && !Model.Archived)
+    {
+        <h3>@ViewBag.voting.Title</h3>
+        if (!ViewBag.UserHasVoted)
+        {
+            <div id="voting_container" class="span4">
+                <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                <label for="voting-choice-1">Ja</label>
+                <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+                <label for="voting-choice-2">Nej</label>
+                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
+            </div>
+        }
+        else
+        {
+            <p>Du har redan röstat</p>
+        }
+    }
+</div>
+
+        <legend>@Res.Comments</legend>
+@*Print all comments for the case där id är samma*@
+<div id="allComments">
+    <h3>Kommentarer</h3>
+    <div id="newComment">
+        <input type="text" id="newCommentStr" />
+        <button class="btn" onclick="PostComment(@Model.ID);">Spara</button>
+    </div>
+    <br />
+    @if (ViewBag.casecomments == null)
+    {
+            <p id="nocomments">Det finns inga kommentarer</p>
+    }
+    else
+    {
+        foreach (var comment in ViewBag.casecomments)
+        {
+            <p class="comment_author author_@(comment.userID)"></p>
+            <p>@comment.commentStr</p>
+        }
+    }
+</div>
+
+<!-- shareCase Modal -->
+<div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Share @Model.Title</h3>
+    </div>
+    <div class="modal-body">
+    <div style="padding:10px 20px;" >
+			    
+        <a onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
+        <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
+	</div>
+    <div id="share_by_email">
+        <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+        <button onclick="ShareCaseByEmail(@Model.ID);">Send link</button>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+<!-- Button to trigger modal -->
+ 
+<!-- Modal -->
+<div id="signupCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Sign petition for @Model.Title</h3>
+    </div>
+    <div class="modal-body">
+        <p>Do you want to sign the petition for  @Model.Title ? </p>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Yes</a>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+}
+else
+{
+     <h3>Ärendet är arkiverat</h3>   
+}
+<script type='text/javascript'>
+    var user_ids = [];
+    var counter = 0;
+    var id = null;
+    $(document).ready(function () {
+        //Get name from facebook
+        $('#allComments .comment_author').each(function () {
+            id = $(this).attr('class').split(' ')[1].split("_")[1];
+            user_ids.push(id);
+            
+        });
+
+        user_ids = $.unique(user_ids);
+ 
+        $.each(user_ids, function (index, value) {
+            $.getJSON('https://graph.facebook.com/' + value, function (data) {
+                $('<strong>' + data.name + '</strong>').appendTo('.author_' + value);
+            });
+        });
+            
+        
+
+    })
+</script>
+=======
+﻿@model PoliticImpact.Models.CaseItem
+
+@*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
+@if(!@Model.Archived) 
+{
+    @*TODO - When user exist on Desktop*@
+    @*if (@Model.Archived && user == @Model.Owner.ToString())
+    {
+        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+    }*@
+    ViewBag.Title = @Model.Title;
+
+<style>
+    #share_by_email
+    {
+        display: none;
+    }
+    hr
+    {
+        border-bottom: 1px #808080 solid !important;
+    }
+    div.caseitem-details-template-image{
+        width: 200px;
+        height: 150px;
+        background: #b1b1b1;
+        border: 1px #808080 dashed;
+        float: left;
+        margin: 15px;
+        margin-right: 5px;
+    }
+</style>
+   
+<div class="row">
+    <div class="span8">
+       <h2>@Model.Title</h2>
+       @*Ritar ut en bild beroende på caseMode*@
+        @if (Model.caseMode == 1)
+        {
+            <label>Ärendet har: Gått igenom</label>
+             <img src="~/Content/images/Approved_icon.png" width="45" height="45" id="Approved" />
+        }
+        else if (Model.caseMode == 2)
+        {
+            <label>Ärendet är: Avslaget</label>
+            <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
+        }
+        <p>Deadline: @String.Format("{0:g}", Model.Deadline)</p>
+
+        <p>@Model.Text</p>
+
+
+        <div class="display-label">Mottagare</div>
+        <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
+
+        @*Visa alla dokument till ärendet*@
+        @if(Model.documentUrl != null)
+        {
+           <h1>Det bifogade dokumentet:</h1>
+           <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+           <h4>DocumentURL: @Model.documentUrl</h4>
+        }
+        <!--
+        @* @if (Model.imageName != null)
+        {
+            <div class="display-label">imageId</div>
+            <div class="display-field">@Model.imageId</div>
+            <img src="@Model.imageName" width ="75" height ="75">
+            <div class="display-label">imageBytes</div>
+            <div class="display-field">@Html.DisplayTextFor(_ => Model.imageBytes).ToString()</div>
+            <div class="display-label">imageName</div>
+            <div class="display-field">@Model.imageName</div>
+        } *@ -->
+
+        @* Visa respons från mottagare *@        
+        @if (ViewBag.responded)
+        {
+            <fieldset>
+                <legend>Responses by Reciever</legend>
+                <p>@ViewBag.response</p>
+            </fieldset>
+        }        
+    </div>
+    <div class="span4">
+        <div class="caseitem-details-template-image">
+            @{ 
+                if(Model.AttachedImage)
+                {
+                    <img src="~/CaseItems/Image/@Model.ID" />
+                }
+            }
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="span2">
+        <p><img src="~/Content/images/external_link.png" alt="Likes"/></p>
+        <a href="#shareCase" role="button" class="btn" data-toggle="modal">Dela</a>
+    </div>
+    @if (Model.enableLikes == true)
+    {
+        <div class="span2">
+            <p>@Model.numberOfLikes <img src="~/Content/images/thumbs_up_metro.png" alt="Likes"/></p>
+           @if (ViewBag.likeStatus == "signed")
+           {
+                <p>Du gillade detta!</p>
+           }
+           else
+           {    
+               if (!@Model.Archived)
+               {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Gilla</a>
+               }
+           }
+
+        </div>       
+    }
+    @if (Model.enableComments == true && !Model.Archived)
+    {  
+        <div class="span2">
+            <p>@Model.numberOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
+            <button class="btn" onclick="ShowCommentField();">Kommentera</button>
+
+        </div>
+    }
+
+    @if (Model.enableSigns == true)
+    {
+        <div class="span2">
+            <p>@Model.numberOfSigns <img src="~/Content/images/signups.png" alt="Signups"/></p>
+            @if (ViewBag.status == "signed")
+            {
+                <p>Du har skrivit under detta förslag</p>
+            }
+            else
+            {
+                if (!@Model.Archived)
+               {
+                <a href="#signupCase" class="btn">Skriv under</a>
+               }
+            }
+        </div>
+    }
+        <div class="span2">
+            <p><img src="~/Content/images/print.png" alt="Print"/></p>
+           
+            <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">Skriv ut</a>
+        </div>
+    @if (!Model.Published && Model.Owner == 1337)
+    {
+        <div class="span2">
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
+        </div>
+    }
+    @if (ViewBag.voting != null && !Model.Archived)
+    {
+        <h3>@ViewBag.voting.Title</h3>
+        if (!ViewBag.UserHasVoted)
+        {
+            <div id="voting_container" class="span4">
+                <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                <label for="voting-choice-1">Ja</label>
+                <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+                <label for="voting-choice-2">Nej</label>
+                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
+            </div>
+        }
+        else
+        {
+            <p>Du har redan röstat</p>
+        }
+    }
+</div>
+
+<div id="fiveComments">
+    <fieldset>
+        <legend>Kommentarer</legend>
+        @*Om kommentarerna är tomma*@
+        @if (ViewBag.casecomments == null)
+        {
+                <p id="nocomments">Det finns inga kommentarer</p>
+        }
+        else
+        {
+            foreach (var comment in ViewBag.casecomments)
+            {
+                <p>@comment.commentStr</p>
+            }
+        }
+    </fieldset>
+</div>
+@*Print all comments for the case där id är samma*@
+<div id="newComment">
+    <input type="text" id="newCommentStr" />
+    <button class="btn" onclick="PostComment(@Model.ID);">Spara</button>
+</div>
+<div id="allComments">
+    <fieldset>
+        <legend id="titleComments">Kommentarer</legend>
+        @if (ViewBag.casecomments == null)
+        {
+                <p id="nocomments">Det finns inga kommentarer</p>
+        }
+        else
+        {
+            foreach (var comment in ViewBag.casecomments)
+            {
+                <p>@comment.commentStr</p>
+            }
+        }
+    </fieldset>
+</div>
+    
+<!-- Modal -->
+<div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Share @Model.Title</h3>
+    </div>
+    <div class="modal-body">
+    <div style="padding:10px 20px;" >
+			    
+        <a onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
+        <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
+	</div>
+    <div id="share_by_email">
+        <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+        <button onclick="ShareCaseByEmail(@Model.ID);">Send link</button>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+<!-- Button to trigger modal -->
+ 
+<!-- Modal -->
+<div id="signupCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Sign petition for @Model.Title</h3>
+    </div>
+    <div class="modal-body">
+        <p>Do you want to sign the petition for  @Model.Title ? </p>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Yes</a>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    </div>
+</div>
+
+
+<script>
+    function ShareCaseByEmail(id) {
+        jQuery.ajax({
+            type: "POST",
+            url: "/CaseItems/ShareMail/" + id,
+            data: { email: jQuery('#friend_email').val() }
+        }).done(function (msg) {
+            jQuery('#share_by_email').html("<p>Email sent</p>");
+            jQuery('#friend_email').val("");
+        });
+    }
+</script>
+
+
+}
+else
+{
+     <h3>Ärendet är arkiverat</h3>   
+}
+>>>>>>> Frida-Testing

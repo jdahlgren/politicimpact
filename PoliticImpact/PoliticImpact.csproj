@@ -124,6 +124,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Res.Designer.cs" />
+    <Compile Include="App_GlobalResources\Res.fr-FR.designer.cs" />
+    <Compile Include="App_GlobalResources\Res.fr-FR1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.fr-FR.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Res.sv-SE.designer.cs" />
+    <Compile Include="App_GlobalResources\Res.sv-SE1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.sv-SE.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Res1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Res.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -170,6 +188,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\CommentWin8.png" />
     <Content Include="Content\images\Dismissed_icon.png" />
     <Content Include="Content\images\Approved_icon.png" />
     <Content Include="Content\images\ajax-loader.gif" />
@@ -182,12 +201,16 @@
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />
     <Content Include="Content\images\icons-36-white.png" />
+    <Content Include="Content\images\LikeWin8.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\images\medborgarforslag.jpg" />
+    <Content Include="Content\images\print.png" />
     <Content Include="Content\images\share-email.png" />
     <Content Include="Content\images\share-facebook.png" />
+    <Content Include="Content\images\ShareWin8.png" />
     <Content Include="Content\images\Signing.png" />
     <Content Include="Content\images\signups.png" />
+    <Content Include="Content\images\SignWin8.png" />
     <Content Include="Content\images\speech_bubble.png" />
     <Content Include="Content\images\thumbs_up.png" />
     <Content Include="Content\images\thumbs_up_metro.png" />
@@ -265,6 +288,81 @@
     <Content Include="Scripts\facebookConnect.js" />
     <Content Include="Scripts\facebookPublish.js" />
     <Content Include="Scripts\HideAdressBar.js" />
+    <Content Include="Scripts\jqPlot\changes.txt" />
+    <Content Include="Scripts\jqPlot\copyright.txt" />
+    <Content Include="Scripts\jqPlot\excanvas.js" />
+    <Content Include="Scripts\jqPlot\excanvas.min.js" />
+    <Content Include="Scripts\jqPlot\gpl-2.0.txt" />
+    <Content Include="Scripts\jqPlot\jqPlotCssStyling.txt" />
+    <Content Include="Scripts\jqPlot\jqPlotOptions.txt" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.css" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.js" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.min.css" />
+    <Content Include="Scripts\jqPlot\jquery.jqplot.min.js" />
+    <Content Include="Scripts\jqPlot\jquery.js" />
+    <Content Include="Scripts\jqPlot\jquery.min.js" />
+    <Content Include="Scripts\jqPlot\MIT-LICENSE.txt" />
+    <Content Include="Scripts\jqPlot\optionsTutorial.txt" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.barRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.barRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.BezierCurveRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.BezierCurveRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.blockRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.blockRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.bubbleRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.bubbleRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisLabelRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisLabelRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisTickRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasAxisTickRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasOverlay.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasOverlay.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasTextRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.canvasTextRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.categoryAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.categoryAxisRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ciParser.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ciParser.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.cursor.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.cursor.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dateAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dateAxisRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.donutRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.donutRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dragable.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.dragable.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.enhancedLegendRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.enhancedLegendRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.funnelRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.funnelRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.highlighter.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.highlighter.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.json2.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.json2.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.logAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.logAxisRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoAxisRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.mekkoRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.meterGaugeRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.meterGaugeRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ohlcRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.ohlcRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pieRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pieRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pointLabels.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pointLabels.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidAxisRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidAxisRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidGridRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidGridRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidRenderer.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.pyramidRenderer.min.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.trendline.js" />
+    <Content Include="Scripts\jqPlot\plugins\jqplot.trendline.min.js" />
+    <Content Include="Scripts\jqPlot\README.txt" />
+    <Content Include="Scripts\jqPlot\usage.txt" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
@@ -376,6 +474,14 @@
     <Content Include="Views\CaseImages\Index.cshtml" />
     <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
     <Content Include="Views\CaseItems\Image.cshtml" />
+    <Content Include="Views\CaseModes\Create.cshtml" />
+    <Content Include="Views\CaseModes\Edit.cshtml" />
+    <Content Include="Views\CaseModes\Delete.cshtml" />
+    <Content Include="Views\CaseModes\Details.cshtml" />
+    <Content Include="Views\CaseModes\Index.cshtml" />
+    <Content Include="Views\CaseModes\_CreateOrEdit.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -390,6 +496,18 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\Res.fr-FR.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Res.fr-FR1.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Res.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Res1.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Res.sv-SE.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Res.sv-SE1.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Migrations\201211062006196_InitialCreate.resx">
       <DependentUpon>201211062006196_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>

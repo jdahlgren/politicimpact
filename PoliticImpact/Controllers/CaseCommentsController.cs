@@ -45,38 +45,8 @@ namespace PoliticImpact.Controllers
         public ActionResult Create()
         {
             return View();
-        } 
-
-        //
-        // POST: /CaseComments/Create
-        /*
-       [HttpPost]
-        public ActionResult Create(int CaseId)
-        {
-            CaseComment casecomment = new CaseComment();
-            casecomment.caseID = CaseId;
-            casecomment.userID = 1337; //TODO actual user-id
-            if(Request["comment"]!=null && Request["comment"]!=""){
-                casecomment.commentStr = Request["comment"];
-            }
-            else
-            {
-                casecomment.commentStr = "asdf";
-            }
-            //Spara ner variablerna från vyn
-
-            //Lägg till i databasen
-
-            //Uppdatera vyn
-
-            if (ModelState.IsValid) {
-                casecommentRepository.InsertOrUpdate(casecomment);
-                casecommentRepository.Save();
-			}
-            return View();
         }
-        */
-
+ 
        [HttpPost]
        public ActionResult Create(int id)
        {
@@ -102,65 +72,62 @@ namespace PoliticImpact.Controllers
            {
                casecommentRepository.InsertOrUpdate(casecomment);
                casecommentRepository.Save();
-               return RedirectToAction("Index");
            }
-           else
-           {
-               return View();
-           }
+           return View();
+
        }
         
-        /// Till Admin-delen
-        ////
-        //// GET: /CaseComments/Edit/5
+        //Till Admin-delen
+        //
+        // GET: /CaseComments/Edit/5
  
-        //public ActionResult Edit(int id)
-        //{
-        //     return View(casecommentRepository.Find(id));
-        //}
+        public ActionResult Edit(int id)
+        {
+             return View(casecommentRepository.Find(id));
+        }
 
-        ////
-        //// POST: /CaseComments/Edit/5
+        //
+        // POST: /CaseComments/Edit/5
 
-        //[HttpPost]
-        //public ActionResult Edit(CaseComment casecomment)
-        //{
-        //    if (ModelState.IsValid) {
-        //        casecommentRepository.InsertOrUpdate(casecomment);
-        //        casecommentRepository.Save();
-        //        return RedirectToAction("Index");
-        //    } else {
-        //        return View();
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult Edit(CaseComment casecomment)
+        {
+            if (ModelState.IsValid) {
+                casecommentRepository.InsertOrUpdate(casecomment);
+                casecommentRepository.Save();
+                return RedirectToAction("Index");
+            } else {
+                return View();
+            }
+        }
 
-        ////
-        //// GET: /CaseComments/Delete/5
+        //
+        // GET: /CaseComments/Delete/5
  
-        //public ActionResult Delete(int id)
-        //{
-        //    return View(casecommentRepository.Find(id));
-        //}
+        public ActionResult Delete(int id)
+        {
+            return View(casecommentRepository.Find(id));
+        }
 
-        ////
-        //// POST: /CaseComments/Delete/5
+        //
+        // POST: /CaseComments/Delete/5
 
-        //[HttpPost, ActionName("Delete")]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    casecommentRepository.Delete(id);
-        //    casecommentRepository.Save();
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            casecommentRepository.Delete(id);
+            casecommentRepository.Save();
 
-        //    return RedirectToAction("Index");
-        //}
+            return RedirectToAction("Index");
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing) {
-        //        casecommentRepository.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                casecommentRepository.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
 

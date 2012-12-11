@@ -1,0 +1,412 @@
+<<<<<<< HEAD
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+using System.ComponentModel;
+using System.Web.Helpers;
+
+
+
+namespace PoliticImpact.Models
+{
+    public class CaseItem
+    {
+        /*
+           * Variables from "Dropbox/Arkitektur/tables.doc"
+            * */
+        [Required]
+        public int ID { get; set; }
+
+        [Required]
+        public long Owner { get; set; }
+
+        [Required]
+        [DisplayName("Titel")]
+        [StringLength(100, ErrorMessage = "{0} måste vara minst {2} tecken lång.", MinimumLength = 5)]
+        public string Title { get; set; }
+
+        [Required]
+        [DisplayName("Beskrivning")]
+        [StringLength(1000, ErrorMessage = "Du måste ha en beskrivning", MinimumLength = 1)]
+        public string Text { get; set; }
+
+        [Required]
+        [DisplayName("Publicera")]
+        public bool Published { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime Created { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime Deadline { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime LastEdited { get; set; }
+
+        //added by Michaela - tas bort?
+        public int numberOfLikes { get; set; }
+
+
+
+        //Frida Mattisson 2012-11-19
+        public List<CaseComment> caseComment { get; set; }
+        [DisplayName("Åtgärd")]
+        public int caseMode { get; set; }
+
+
+        //added by Johannes Ullström 2012-11-08 15:11
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} måste vara minst {2} tecken lång .", MinimumLength = 2)]
+        public string RecieverName { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Ingen giltlig mailadress")]
+        public string RecieverEmail { get; set; }
+
+
+        //added by Daniel Jonsson, David Falk 2012-11-13 13:59
+        [DisplayName("Tillåt gilla")]
+        public bool enableLikes { get; set; }
+
+        [DisplayName("Kommentarer")]
+        public bool enableComments { get; set; }
+
+        [DisplayName("Underskrifter")]
+        public bool enableSigns { get; set; }
+
+        [Required(ErrorMessage = "Värde måste sättas")]
+        public int CategoryID { get; set; }
+        //[ForeignKey("CategoryID")]
+        //public virtual CaseCategory caseCategory { get; set; }
+
+        //added by Joel Brüde, 2012-11-18 22:04
+        [Required]
+        public int ResponseID { get; set; }
+        //[ForeignKey("ResponseID")]
+        //public virtual RecieverResponse recieverResponse { get; set; }
+
+
+        public bool AttachedImage { get; set; }
+
+        [Required]
+        public bool Archived { get; set; }
+
+
+        public string documentUrl { get; set; }
+        public string documentMimeType { get; set; }
+        public string documentName { get; set; }
+    }
+
+    public class CaseCategory
+    {
+        [Key]
+        public int CategoryID { get; set; }
+
+        public string Title { get; set; }
+    }
+
+    public class CaseVoting
+    {
+        [Key]
+        public int VotingID { get; set; }
+        public int CaseID { get; set; }
+        [StringLength(100, ErrorMessage = "{0} måste vara minst {2} tecken lång.", MinimumLength = 2)]
+        public string Title { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime Created { get; set; }
+    }
+
+    public class CaseVote
+    {
+        [Key]
+        public int VoteID { get; set; }
+        public int VotingID { get; set; }
+        public long UserID { get; set; }
+        [ForeignKey("VotingID")]
+        public virtual CaseVoting casevoting { get; set; }
+        public Boolean Vote { get; set; }
+    }
+
+    public class CaseLike
+    {
+        [Key]
+        public long likeID { get; set; }
+        public int caseID { get; set; }
+        public long userID { get; set; }
+        public DateTime created { get; set; }
+    }
+
+
+    public class CaseSignUp
+    {
+        [Key]
+        public int caseID { get; set; }
+
+        [Required]
+        public long userID { get; set; }
+
+
+        [ForeignKey("CaseItem")]
+        public int CaseItemID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime created { get; set; }
+    }
+
+    public class RecieverResponse
+    {
+        [Key]
+        public int ResponseID { get; set; }
+
+        public string ResponseText { get; set; }
+
+        public string ResponseCode { get; set; }
+    }
+
+    //Frida Mattisson 2012-11-16
+    public class CaseComment
+    {
+        [Key]
+        public int commentID { get; set; }
+        public long userID { get; set; }
+        [ForeignKey("CaseItem")]
+        public int caseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public string commentStr { get; set; }
+    }
+
+    public class User
+    {
+        public string uid { get; set; }
+        public string accessToken { get; set; }
+        public string name { get; set; }
+        public string language { get; set; }
+    }
+
+    public class CaseImage
+    {
+        [Key]
+        public int ImageID { get; set; }
+        [ForeignKey("CaseItem")]
+        public int CaseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public string ImageUrl { get; set; }
+        public string thumbnailUrl { get; set; }
+        //public byte[] ImageBytes { get; set; }
+    }
+=======
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+using System.ComponentModel;
+using System.Web.Helpers;
+
+
+
+namespace PoliticImpact.Models
+{
+    public class CaseItem
+    {
+        /*
+           * Variables from "Dropbox/Arkitektur/tables.doc"
+            * */
+        [Required]
+        public int ID { get; set; }
+
+        [Required]
+        public long Owner { get; set; }
+
+        [Required]
+        [DisplayName("Titel")]
+        [StringLength(100, ErrorMessage = "{0} måste vara minst {2} tecken lång.", MinimumLength = 5)]
+        public string Title { get; set; }
+
+        [Required]
+        [DisplayName("Beskrivning")]
+        [StringLength(1000, ErrorMessage = "Du måste ha en beskrivning", MinimumLength = 1)]
+        public string Text { get; set; }
+
+        [Required]
+        [DisplayName("Publicera")]
+        public bool Published { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime Created { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime Deadline { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime LastEdited { get; set; }
+
+        //added by Michaela 
+        public int numberOfLikes { get; set; }
+
+        
+        //Frida Mattisson 2012-11-19
+        public List<CaseComment> caseComment { get; set; }
+        public int caseMode { get; set; } 
+        public int numberOfComments { get; set; }
+        public int numberOfSigns { get; set; }
+
+
+        //added by Johannes Ullström 2012-11-08 15:11
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} måste vara minst {2} tecken lång .", MinimumLength = 2)]
+        public string RecieverName { get; set; }
+
+        [Required]
+        [EmailAddress(ErrorMessage = "Ingen giltlig mailadress")]
+        public string RecieverEmail { get; set; }
+
+
+        //added by Daniel Jonsson, David Falk 2012-11-13 13:59
+        [DisplayName("Tillåt gilla")]
+        public bool enableLikes { get; set; }
+
+        [DisplayName("Kommentarer")]
+        public bool enableComments { get; set; }
+
+        [DisplayName("Underskrifter")]
+        public bool enableSigns { get; set; }
+
+        [Required(ErrorMessage = "Värde måste sättas")]
+        public int CategoryID { get; set; }
+        [ForeignKey("CategoryID")]
+        public virtual CaseCategory caseCategory { get; set; }
+
+        //added by Joel Brüde, 2012-11-18 22:04
+        [Required]
+        public int ResponseID { get; set; }
+        [ForeignKey("ResponseID")]
+        public virtual RecieverResponse recieverResponse { get; set; }
+
+
+        public bool AttachedImage { get; set; }
+
+        [Required]
+        public bool Archived { get; set; }
+
+
+        public string documentUrl { get; set; }
+        public string documentMimeType { get; set; }
+        public string documentName { get; set; }
+    }
+
+    public class CaseCategory
+    {
+        [Key]
+        public int CategoryID { get; set; }
+
+        public string Title { get; set; }
+    }
+
+    public class CaseVoting
+    {
+        [Key]
+        public int VotingID { get; set; }
+        public int CaseID { get; set; }
+        [StringLength(100, ErrorMessage = "{0} måste vara minst {2} tecken lång.", MinimumLength = 2)]
+        public string Title { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime Created { get; set; }
+    }
+
+    public class CaseVote
+    {
+        [Key]
+        public int VoteID { get; set; }
+        public int VotingID { get; set; }
+        public long UserID { get; set; }
+        [ForeignKey("VotingID")]
+        public virtual CaseVoting casevoting { get; set; }
+        public Boolean Vote { get; set; }
+    }
+
+    public class CaseLike
+    {
+        [Key]
+        public long likeID { get; set; }
+        public int caseID { get; set; }
+        public long userID { get; set; }
+        public DateTime created { get; set; }
+    }
+
+
+    public class CaseSignUp
+    {
+        [Key]
+        public int caseID { get; set; }
+
+        [Required]
+        public long userID { get; set; }
+
+
+        [ForeignKey("CaseItem")]
+        public int CaseItemID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime created { get; set; }
+    }
+
+    public class RecieverResponse
+    {
+        [Key]
+        public int ResponseID { get; set; }
+
+        public string ResponseText { get; set; }
+
+        public string ResponseCode { get; set; }
+    }
+
+    //Frida Mattisson 2012-11-16
+    public class CaseComment
+    {
+        [Key]
+        public int commentID { get; set; }
+        public long userID { get; set; }
+        [ForeignKey("CaseItem")]
+        public int caseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public string commentStr { get; set; }
+    }
+
+    public class User
+    {
+        public string uid { get; set; }
+        public string accessToken { get; set; }
+        public string name { get; set; }
+    }
+
+    public class CaseImage
+    {
+        [Key]
+        public int ImageID { get; set; }
+        [ForeignKey("CaseItem")]
+        public int CaseID { get; set; }
+        public virtual CaseItem CaseItem { get; set; }
+        public byte[] ImageBytes { get; set; }
+        //public HttpPostedFileBase File { get; set; }
+    }
+>>>>>>> Frida-Testing
+}

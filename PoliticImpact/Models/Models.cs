@@ -49,14 +49,16 @@ namespace PoliticImpact.Models
         [DataType(DataType.DateTime)]
         public DateTime LastEdited { get; set; }
 
-        //added by Michaela - tas bort?
+        //added by Michaela 
         public int numberOfLikes { get; set; }
 
-
-
+        
         //Frida Mattisson 2012-11-19
         public List<CaseComment> caseComment { get; set; }
-        public int caseMode { get; set; }
+        [DisplayName("Åtgärd")]
+        public int caseMode { get; set; } 
+        public int numberOfComments { get; set; }
+        public int numberOfSigns { get; set; }
 
 
         //added by Johannes Ullström 2012-11-08 15:11
@@ -81,14 +83,14 @@ namespace PoliticImpact.Models
 
         [Required(ErrorMessage = "Värde måste sättas")]
         public int CategoryID { get; set; }
-        [ForeignKey("CategoryID")]
-        public virtual CaseCategory caseCategory { get; set; }
+        //[ForeignKey("CategoryID")]
+        //public virtual CaseCategory caseCategory { get; set; }
 
         //added by Joel Brüde, 2012-11-18 22:04
         [Required]
         public int ResponseID { get; set; }
-        [ForeignKey("ResponseID")]
-        public virtual RecieverResponse recieverResponse { get; set; }
+        //[ForeignKey("ResponseID")]
+        //public virtual RecieverResponse recieverResponse { get; set; }
 
 
         public bool AttachedImage { get; set; }
@@ -188,6 +190,7 @@ namespace PoliticImpact.Models
         public string uid { get; set; }
         public string accessToken { get; set; }
         public string name { get; set; }
+        public string language { get; set; }
     }
 
     public class CaseImage
@@ -197,7 +200,8 @@ namespace PoliticImpact.Models
         [ForeignKey("CaseItem")]
         public int CaseID { get; set; }
         public virtual CaseItem CaseItem { get; set; }
-        public byte[] ImageBytes { get; set; }
-        //public HttpPostedFileBase File { get; set; }
+        public string ImageUrl { get; set; }
+        public string thumbnailUrl { get; set; }
+        //public byte[] ImageBytes { get; set; }
     }
 }

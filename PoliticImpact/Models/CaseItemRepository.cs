@@ -16,6 +16,19 @@ namespace PoliticImpact.Models
         {
             get { return context.CaseItems; }
         }
+        public IQueryable<CaseItem> FindAll()
+        {
+            IQueryable<CaseItem> caseItems = context.CaseItems;
+            foreach (CaseItem caseItem in caseItems)
+            {
+                caseItem.numberOfComments = 10;
+                caseItem.numberOfLikes = 10;
+                caseItem.numberOfSigns = 10;
+
+            }
+
+            return caseItems;
+        }
 
         public IQueryable<CaseItem> AllIncluding(params Expression<Func<CaseItem, object>>[] includeProperties)
         {

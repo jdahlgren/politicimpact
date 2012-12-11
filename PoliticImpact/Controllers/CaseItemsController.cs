@@ -9,12 +9,14 @@ using PoliticImpact.Models;
 using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace PoliticImpact.Controllers
 {
     public class CaseItemsController : Controller
     {
-        private readonly ICaseItemRepository caseitemRepository;
+        private readonly CaseItemRepository caseitemRepository;
 
         private readonly ICaseCategoryRepository casecategoryRepository;
         private readonly ICaseSignUpRepository casesignupRepository;
@@ -41,7 +43,7 @@ namespace PoliticImpact.Controllers
         {
         }
 
-        public CaseItemsController(ICaseItemRepository caseitemRepository)
+        public CaseItemsController(CaseItemRepository caseitemRepository)
         {
             this.caseitemRepository = caseitemRepository;
 
@@ -154,37 +156,43 @@ namespace PoliticImpact.Controllers
 
         //
         // GET: /CaseItems/
+        
 
         public ViewResult Index()
         {
-
             //Hämta antal likes för case. MAX 100 cases.
             ViewBag.likes = new int[100];
             int i = 0;
-            foreach (CaseItem c in caseitemRepository.All)
+            foreach (CaseItem c in caseitemRepository.FindAll())
             {
                 ViewBag.likes[i] = caselikeRepository.FindLike(c.ID);
                 i++;
             }
+
+            return View(caseitemRepository.FindAll());
+
+            //Hämta thumbnailUrls till eventuella bilder för cases. Max 100 cases.
+            ViewBag.thumbnailUrls = new string[100];
+            i = 0;
+            foreach (CaseItem c in caseitemRepository.All)
+            {
+                ViewBag.thumbnailUrls[i] = caseimageRepository.GetThumbnailUrl(c.ID);
+                i++;
+            }
+
             return View(caseitemRepository.All);
         }
 
-        public ViewResult Image(int id)
-        {
-            byte[] imgData = caseimageRepository.GetImageDataById(id);
-            if (imgData != null)
-            {
-                ViewBag.image = imgData;
-            }
-
-            return View();
-        }
 
         //
         // GET: /CaseItems/Details/5
 
         public ViewResult Details(int id)
         {
+            //----------------------------------------------
+            CaseItem caseItem = caseitemRepository.Find(id);
+            //----------------------------------------------
+
             if (Session["uid"] != null)
             {
                 theUser = Int64.Parse(Session["uid"].ToString());
@@ -204,8 +212,33 @@ namespace PoliticImpact.Controllers
             }
             //slut på kod för respons på case
 
+            //Kod för att skicka rätt bild till vyn:
+            string imageUrl = caseimageRepository.GetImageUrl(id);
+            string thumbnailUrl = caseimageRepository.GetThumbnailUrl(id);
+
+            if (imageUrl != null && thumbnailUrl != null)
+            {
+                ViewBag.imageUrl = imageUrl;
+                ViewBag.thumbnailUrl = thumbnailUrl;
+            }
+            //slut på kod för att skicka rätt bild till vyn
+
+
             int numberOfLikes = caselikeRepository.FindLike(id);
-            ViewBag.numberOfLikes = numberOfLikes;
+
+            caseItem.numberOfSigns = casesignupRepository.FindSignUps(id);
+            caseItem.numberOfLikes = caselikeRepository.FindLike(id);
+            caseItem.numberOfComments = caseCommentRepository.FindComments(id);
+
+
+
+
+            //ViewBag.numberOfLikes = numberOfLikes;
+            //ViewBag.numberOfComments = numberOfComments;
+            //ViewBag.numberOfSigns = numberOfSignUps;
+ 
+
+            ////------------------------------------------------
 
             Boolean UserHasVoted = false;
             CaseVoting casevoting = caseVotingRepository.FindByCaseId(id);
@@ -229,12 +262,14 @@ namespace PoliticImpact.Controllers
                 ViewBag.userhasvoted = UserHasVoted;
 
             }
-            
-            
-            IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
-            ViewBag.casecomments = casecomments;
-            ViewBag.nrOfComments = casecomments.Count();
 
+
+            IQueryable<CaseComment> casecomments = caseCommentRepository.FindAllByCaseId(id);
+            ViewBag.casecomments = casecomments.OrderByDescending(c => c.commentID);
+            ViewBag.nrOfComments = casecomments.Count();
+            
+
+            ViewBag.nrOfComments = casecomments.Count();
             //TODO real user
             foreach (var item in casesignupRepository.All)
             {
@@ -254,10 +289,11 @@ namespace PoliticImpact.Controllers
                     //returna någon schyst variabel till popupen
                     //Meddela användaren om att den redan har signat
                     ViewBag.likeStatus = "signed";
+                    
                 }
 
             }
-            return View(caseitemRepository.Find(id));
+            return View(caseItem);
         }
 
         //
@@ -265,10 +301,15 @@ namespace PoliticImpact.Controllers
 
         public ActionResult Create()
         {
-
-            ViewBag.PossibleCategories = casecategoryRepository.All;
-
-            return View();
+            if (Session["uid"] != null)
+            {
+                ViewBag.PossibleCategories = casecategoryRepository.All;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -296,118 +337,135 @@ namespace PoliticImpact.Controllers
         [HttpPost]
         public ActionResult Create(CaseItem caseitem, HttpPostedFileBase image, HttpPostedFileBase document)
         {
-            RecieverResponse resp = new RecieverResponse();
-            resp.ResponseCode = GenerateResponseCode(caseitem);
-            recieverresponseRepository.InsertOrUpdate(resp);
-            recieverresponseRepository.Save();
-
             if (Session["uid"] != null)
             {
-                //Hämta session-id
                 long userId = Convert.ToInt64(Session["uid"].ToString());
                 caseitem.Owner = userId;
-            }
-            else
-            {
-                caseitem.Owner = 4;
-            }
-            caseitem.caseMode = 0;
-            caseitem.Created = DateTime.Now;
-            caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
-            caseitem.ResponseID = resp.ResponseID;
-
-            if (ModelState.IsValid)
-            {
-                caseitemRepository.InsertOrUpdate(caseitem);
-                caseitemRepository.Save();
-
-                //validering och sparning av bild
-                if (image != null)
-                {
-                    switch (image.ContentType)
-                    {
-                        //tillåtna filtyper:
-                        case "image/jpeg":
-                        case "image/png":
-                        case "image/gif":
-                            CaseImage img = new CaseImage();
-                            img.CaseID = caseitem.ID;
-                 
-                            img.ImageBytes = new byte[image.ContentLength];
-
-                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
-
-                            caseimageRepository.InsertOrUpdate(img);
-                            caseimageRepository.Save();
-
-                            caseitem.AttachedImage = true;
-                            break;
-                        default: //Otillåten filtyp
-                            caseitem.AttachedImage = false;
-                            /* Lägg till validerings-errormeddelande i vy:
-                             * ModelState.AddModelError("key", "message");
-                             * i view: @Html.ValidationSummary(false)
-                             */
-                            break;
-                    }
-
-                }
-                else
-                {
-                    caseitem.AttachedImage = false;
-                }
-                //slut på validering och sparning bild
-
-                //dokumentuppladdning:
-                if (document != null)
-                {
-                    caseitem.documentMimeType = document.ContentType;
-                    caseitem.documentName = document.FileName;
-                    string location =   "~/Content/uploadedDocuments/" + document.FileName;
-                    caseitem.documentUrl = location;
-                    document.SaveAs(Server.MapPath(location));
-                }
-
+            
+                RecieverResponse resp = new RecieverResponse();
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
                 recieverresponseRepository.Save();
 
-                if (Request["create_voting"] != "" && Request["create_voting"] != null)
+                caseitem.caseMode = 0;
+                caseitem.Created = DateTime.Now;
+                caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+                caseitem.ResponseID = resp.ResponseID;
+
+                if (ModelState.IsValid)
                 {
-                    //have the user requested a voting on this case?
-                    if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"] != null)
+                    caseitemRepository.InsertOrUpdate(caseitem);
+                    caseitemRepository.Save();
+
+                    //validering och sparning av bild
+                    if (image != null)
                     {
-                        CaseVoting casevoting = new CaseVoting();
-                        casevoting.CaseID = caseitem.ID;
-                        casevoting.Title = Request["voting_title"];
-                        casevoting.StartDate = DateTime.Now;
-                        casevoting.EndDate = DateTime.Now;
-                        casevoting.Created = DateTime.Now;
-                        caseVotingRepository.InsertOrUpdate(casevoting);
-                        caseVotingRepository.Save();
+                        switch (image.ContentType)
+                        {
+                            //tillåtna filtyper:
+                            case "image/jpeg":
+                            case "image/png":
+                            case "image/gif":
+                                CaseImage img = new CaseImage();
+                                img.CaseID = caseitem.ID;
+
+                            //Genererar strängar som ska läggas till på bildens namn för att göra namnet unikt:
+                            string imgGUID = Guid.NewGuid().ToString();
+                            string thumbnailGUID = Guid.NewGuid().ToString();
+
+                            //sparar originalbilden i /Content/uploadedImages/:
+                            string imgLocation = "~/Content/uploadedImages/" + imgGUID + "_" + image.FileName;
+                            img.ImageUrl = imgLocation;
+                            image.SaveAs(Server.MapPath(imgLocation));
+
+                            //Skapar en ny resizead bild som ska användas som thumbnail
+                            Image srcImage = Image.FromStream(image.InputStream);
+                            Image thumbnail = new Bitmap(srcImage, 130, 130);
+                            srcImage.Dispose();
+
+                            //Sparar thumbnailen i /Content/uploadedThumbnails/:
+                            string thumbnailLocation = "~/Content/uploadedThumbnails/" + thumbnailGUID + "_" + image.FileName;
+                            img.thumbnailUrl = thumbnailLocation;
+                            thumbnail.Save(Server.MapPath(thumbnailLocation));
+                            thumbnail.Dispose();
+                            //image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+
+                                caseimageRepository.InsertOrUpdate(img);
+                                caseimageRepository.Save();
+
+                                caseitem.AttachedImage = true;
+                                break;
+                            default: //Otillåten filtyp
+                                caseitem.AttachedImage = false;
+                                /* Lägg till validerings-errormeddelande i vy:
+                                 * ModelState.AddModelError("key", "message");
+                                 * i view: @Html.ValidationSummary(false)
+                                 */
+                                break;
+                        }
+
                     }
+                    else
+                    {
+                        caseitem.AttachedImage = false;
+                    }
+                    //slut på validering och sparning bild
+
+                    //dokumentuppladdning:
+                    if (document != null)
+                    {
+                        caseitem.documentMimeType = document.ContentType;
+                        caseitem.documentName = document.FileName;
+                        string location =   "~/Content/uploadedDocuments/" + document.FileName;
+                        caseitem.documentUrl = location;
+                        document.SaveAs(Server.MapPath(location));
+                    }
+
+                    resp.ResponseCode = GenerateResponseCode(caseitem);
+                    recieverresponseRepository.InsertOrUpdate(resp);
+                    recieverresponseRepository.Save();
+
+                    if (Request["create_voting"] != "" && Request["create_voting"] != null)
+                    {
+                        //have the user requested a voting on this case?
+                        if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"] != null)
+                        {
+                            CaseVoting casevoting = new CaseVoting();
+                            casevoting.CaseID = caseitem.ID;
+                            casevoting.Title = Request["voting_title"];
+                            casevoting.StartDate = DateTime.Now;
+                            casevoting.EndDate = DateTime.Now;
+                            casevoting.Created = DateTime.Now;
+                            caseVotingRepository.InsertOrUpdate(casevoting);
+                            caseVotingRepository.Save();
+                        }
+
+                    }
+
+
+                }
+                else
+                {
+                    ViewBag.PossibleCategories = casecategoryRepository.All;
 
                 }
 
 
+                caseitem.caseComment = new List<CaseComment>();
+                if (ModelState.IsValid)
+                {
+                    caseitemRepository.InsertOrUpdate(caseitem);
+                    caseitemRepository.Save();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
-                ViewBag.PossibleCategories = casecategoryRepository.All;
-
-            }
-
-
-            caseitem.caseComment = new List<CaseComment>();
-            if (ModelState.IsValid)
-            {
-                caseitemRepository.InsertOrUpdate(caseitem);
-                caseitemRepository.Save();
                 return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
             }
         }
 
@@ -448,7 +506,8 @@ namespace PoliticImpact.Controllers
             }
             else
             {
-                return View();
+                //return View();
+                return View(caseitem);
             }
         }
 
@@ -501,6 +560,67 @@ namespace PoliticImpact.Controllers
             caseitemRepository.Save();
             return View();
         }
+
+        //[AllowAnonymous]
+        public void ArchiveCaseItem()
+        {
+            IQueryable<CaseItem> CaseItems = caseitemRepository.All;
+            IQueryable<CaseComment> CaseComment = caseCommentRepository.All;
+            IQueryable<CaseLike> CaseLike = caselikeRepository.All;
+            IQueryable<CaseSignUp> CaseSign = casesignupRepository.All;
+
+            foreach (var item in CaseItems)
+            {
+                if (!item.Archived)
+                {
+                    if (item.Deadline > DateTime.Now)
+                    {
+                        item.Archived = true;
+                    }
+                    /*TODO - ändra till if ((item.LastEdited - DateTime.Now).Days >= 7) när testning är klart*/
+                    if ((item.LastEdited - DateTime.Now).Minutes >= 5)
+                    {
+                        item.Archived = true;
+                    }
+                    if (item.caseMode != 0)
+                    {
+                        item.Archived = true;
+                    }
+                    /*TODO when comment have a created date */
+                    /*if (item.enableComments)
+                    {
+                        foreach (var comment in CaseComment)
+                        {
+                            if ((comment.created - DateTime.Now).Days >= 7)
+                            {
+                                item.Archived = true;
+                            }
+                        }
+                    }//End enableComments*/
+                    if (item.enableLikes)
+                    {
+                        foreach (var like in CaseLike)
+                        {/*TODO - ändra till if ((like.created - DateTime.Now).Days >= 7) när testning är klart*/
+                            if ((like.created - DateTime.Now).Minutes >= 5)
+                            {
+                                item.Archived = true;
+                            }
+                        }
+                    }//End enableLikes
+                    if (item.enableSigns)
+                    {
+                        foreach (var sign in CaseSign)
+                        {/*TODO - ändra till if ((sign.created - DateTime.Now).Days >= 7) när testning är klart*/
+                            if ((sign.created - DateTime.Now).Minutes >= 5)
+                            {
+                                item.Archived = true;
+                            }
+                        }
+                    }//End enableSigns
+                    
+                }//End If(!item.Archived)
+            }
+        }//End ArchiveCaseItem()
 
         public ActionResult Search()
         {
@@ -584,14 +704,19 @@ namespace PoliticImpact.Controllers
                 int numberOfLikes = caselikeRepository.FindLike(id);
                 int numberOfSignUps = casesignupRepository.FindSignUps(id);
                 int numberOfVotes = caseVotingRepository.FindVotes(id);
+
                 IQueryable<CaseComment> comments = caseCommentRepository.FindAllByCaseId(id);
                 List<CaseComment> comments2  = comments.ToList<CaseComment>();
                 comments2.Reverse();
                 int numberOfComments = comments.Count();
-                string commentsString; 
-                if (numberOfComments > 5)
+                string commentsString;
+                if (numberOfComments == 0)
                 {
-                    commentsString = "<b>Förslagets fem senaste kommentarer:</b><br>";
+                    commentsString = "<p>Förslaget har för nuvarande inga kommentarer</p>";
+                }
+                else if (numberOfComments > 5)
+                {
+                    commentsString = "<p><b>Förslagets fem senaste kommentarer:</b></p>";
                     int i = 0;
                     foreach (var comment in comments2)
                     {
@@ -601,30 +726,36 @@ namespace PoliticImpact.Controllers
                         {
                             break;
                         }
-                }
+                    }
                 }
                 else
                 {
-                    commentsString = "<b>Förslagets " + numberOfComments + " kommentarer:</b><br>";
+                    commentsString = "<p><b>Förslagets " + numberOfComments + " kommentarer:</b></p>";
                     foreach (var comment in comments2)
                     {
                         commentsString += "<p>" + comment.commentStr + "</p>";
                     }
                 }
                 string link;
+                string responseLink, url, path;
+
                 //OBS! Länken är just nu hårdkodad till min localhost, bör ändras till azure senare.
                 link = "<" + "a href=" + "http://" + "localhost:56397/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
+                url = Request.Url.AbsoluteUri;
+                path = Request.Url.AbsolutePath;
+                responseLink = url.Replace(path, "") + "/RecieverResponses/Edit?RespCode=" + recieverresponseRepository.GetResponseCode(id);
                 string str = @"<html><body><h1> Rapport på " + caseItem.Title + " </h1>" +
-                    "Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact<br>" +
-                    "<h3>Förslagsbeskrivning: </h3>" + caseItem.Text + "<br>" +
-                    "<h3>Skapad: </h3>" + caseItem.Created + "<br>" +
-                    "<h3>Deadline: </h3>" + caseItem.Deadline + "<br>" +
+                    "<p>Du får den här rapporten eftersom du har blivit uppsatt som mottagare på det här förslaget på Politic Impact</p>" +
+                    "<h3>Klicka på länken nedan för att svara ge er respons på förslaget:</h3><p>" + responseLink + "</p>" +
+                    "<p><h3>Förslagsbeskrivning: </h3>" + caseItem.Text + "</p>" +
+                    "<p><h3>Skapad: </h3>" + caseItem.Created + "</p>" +
+                    "<p><h3>Deadline: </h3>" + caseItem.Deadline + "</p>" +
                     "<h3>Statistik:</h3>" +
-                    "<b>Antal gillanden:</b> " + numberOfLikes + "<br>" +
-                    "<b>Antal underskrifter:</b> " + numberOfSignUps + "<br>" +
-                    "<b>Antal röster:</b> " + numberOfVotes + "<br>" +
-                    "<b>Antal kommentarer:</b> " + numberOfComments + "<br>" + commentsString +
-                    "Ser det här mailet konstigt ut? " + link +  
+                    "<p><b>Antal gillanden:</b> " + numberOfLikes + "</p>" +
+                    "<p><b>Antal underskrifter:</b> " + numberOfSignUps + "</p>" +
+                    "<p><b>Antal röster:</b> " + numberOfVotes + "</p>" +
+                    "<p><b>Antal kommentarer:</b> " + numberOfComments + "</p>" + commentsString +
+                    "<p>Ser det här mailet konstigt ut? " + link + "</p>" + 
                     "</body></html>";
                 AlternateView av = AlternateView.CreateAlternateViewFromString(str,null,MediaTypeNames.Text.Html);
                 //LinkedResource lr = new LinkedResource("E:\\Photos\\hello.jpg",MediaTypeNames.Image.Jpeg);
@@ -637,7 +768,7 @@ namespace PoliticImpact.Controllers
                 sc.Credentials = new System.Net.NetworkCredential("politicalimpact@gmail.com", "pumTNM090");
                 sc.EnableSsl = true;
                 sc.Send(m);
-                ViewBag.message = "Rapportmail skickat!";
+                ViewBag.message = "Rapportmail skickat! ";
             }
             catch (Exception ex)
             {
@@ -645,6 +776,8 @@ namespace PoliticImpact.Controllers
             }
             return View();
         }
+
+        
 
         /**
         * PrintCase – Sammanställer data och skickar vidare till vyn för utskrift av förslag.
@@ -669,6 +802,50 @@ namespace PoliticImpact.Controllers
             return View(caseitemRepository.Find(id));
         }
 
+         public ActionResult TheStatistics(int id)
+        {
+           
+            var availblableTags = theStatisticsJSON(id);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ViewBag.Data = serializer.Serialize(availblableTags.Data);
+            return View(caseitemRepository.Find(id));
+            
+            //return View();
+        }
+
+    private JsonResult theStatisticsJSON(int id)
+    {
+        int[] theLikes = caselikeRepository.StatisticLikes(id);
+
+        
+        var theDates = new DateTime[7];
+        var theDatesString = new String[7];
+        var today = DateTime.Now;
+
+        var likeList = new List<int>();
+        var dayList = new List<String>();
+
+
+
+        for (var i = 0; i < 7; i++)
+        {
+            
+            likeList.Add(theLikes[i]);
+            theDates[i] = today.AddDays(-i);
+            theDatesString[i] = theDates[i].ToString("yyyy-MM-dd");
+            dayList.Add(theDatesString[i]);
+
+
+        }
+        ViewBag.theDates = dayList;
+        ViewBag.theLikes = likeList;
+
+        ViewBag.totalLikes = likeList.Sum();
+
+
+        return Json(new { stats = likeList, days = dayList });
+    }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -682,6 +859,7 @@ namespace PoliticImpact.Controllers
         public CaseLikeRepository CaseLikeRepository { get; set; }
     }
 
+    
+
 
 }
-

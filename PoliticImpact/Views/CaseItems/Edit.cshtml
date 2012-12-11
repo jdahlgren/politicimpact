@@ -17,110 +17,26 @@
     @Html.HiddenFor(model => model.RecieverEmail)
     @Html.HiddenFor(model => model.CategoryID)
 
+    @Html.HiddenFor(model => model.Published);
+    @Html.HiddenFor(model => model.numberOfLikes);
+    @Html.HiddenFor(model => model.caseComment);
+    @*Html.HiddenFor(model => model.caseMode);*@
+    @Html.HiddenFor(model => model.enableLikes);
+    @Html.HiddenFor(model => model.enableComments);
+    @Html.HiddenFor(model => model.enableSigns);
+    @*Html.HiddenFor(model => model.caseCategory);*@
+    @Html.HiddenFor(model => model.ResponseID);
+    @*Html.HiddenFor(model => model.recieverResponse);*@
+    @Html.HiddenFor(model => model.AttachedImage);
+    @Html.HiddenFor(model => model.Archived);
+    @Html.HiddenFor(model => model.documentUrl);
+    @Html.HiddenFor(model => model.documentMimeType);
+    @Html.HiddenFor(model => model.documentName);
     
-    <table class="span12">
-        <tr>
-            <td class="span2">Titel</td>
-            <td class="span7">@Html.TextBoxFor(model => model.Title, new { @class = "span5" })</td>
-            <td class="span2">@Html.ValidationMessageFor(model => model.Title)</td>
-        </tr>
-        <tr>
-            <td>Beskrivning</td>
-            <td>@Html.TextAreaFor(model => model.Text, new { @class = "span5" })</td>
-            <td>@Html.ValidationMessageFor(model => model.Text)</td>
-        </tr>
-        <tr>
-            <td>Slutdatum</td>
-            <td>@Html.TextBoxFor(model => model.Deadline, new { @class = "span5" })</td>
-            <td>@Html.ValidationMessageFor(model => model.Deadline)</td>
-        </tr>
-    </table>
-        if (Model.Archived)
-        {
-    <p>Arkiverad, går inte längre att interagera.</p>
-        }
-        else
-        {
-    <p>Ej arkiverad</p>
-    <button onclick="ArchiveCaseItem(@Model.ID);" class="btn">Arkivera</button>
-        }
-        if (Model.Published)
-        {
-    <p>Publicerad, går ej att ändra</p>
-        }
-        else
-        {
-    <p>Ej publiceread</p>
-    <button onclick="PublishCaseItem(@Model.ID);" class="btn">Publicera</button>
-    <button type="submit" class="btn btn-success">Spara</button>
-        }
+    <h3>Redigera ärende</h3>
 
+    <br />
 
-
-    }
-    @*Dokumentet till ärendet, går endast att bifoga om det inte finns något dokument bifogat*@
-    @if (Model.documentUrl == null)
-    {
-        <p> Välj vilket dokument som ska bifogas:</p>
-        <input name="document" type="file" />    
-    }
-    else
-    {
-        <p>Detta dokument är bifogat:</p>
-        <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
-    }
-    
-     @*Edit CaseMode*@
-<div data-role="fieldcontain">
-    <fieldset data-role="controlgroup">           
-        @Html.RadioButtonFor(model => model.caseMode, "0", new { id = "radio-choice-1" }) 
-        <label for="radio-choice-1">Ärendet är under granskning</label>  
-                    
-        @Html.RadioButtonFor(model => model.caseMode, "1", new { id = "radio-choice-2" }) 
-        <label for="radio-choice-2">Ärendet är godkänt</label>
-                     
-        @Html.RadioButtonFor(model => model.caseMode, "2", new { id = "radio-choice-3" })
-        <label for="radio-choice-3">Ärendet är avslaget</label>
-    </fieldset>  
-                 
-</div>
-}
-else
-{
-    <h3>Förslaget är arkiverat och kan inte ändras</h3>
-}
-<script>
-    function PublishCaseItem(id) {
-        jQuery.ajax({
-            type: "POST",
-            url: "/CaseItems/Publish/" + id,
-        }).done(function (msg) {
-            jQuery('#published_status').html('<p>Publicerad, går ej att ändra</p>');
-        });
-    }
-
-</script>
-=======
-@model PoliticImpact.Models.CaseItem
-
-@{
-    ViewBag.Title = "Edit";
-}
-
-@if (!@Model.Archived)
-{
-    using (Html.BeginForm())
-    {
-    @Html.ValidationSummary(true)
-    @Html.HiddenFor(model => model.ID)
-    @Html.HiddenFor(model => model.Created)
-    @Html.HiddenFor(model => model.LastEdited)
-
-    @Html.HiddenFor(model => model.RecieverName)
-    @Html.HiddenFor(model => model.RecieverEmail)
-    @Html.HiddenFor(model => model.CategoryID)
-
-    
     <table class="span12">
         <tr>
             <td class="span2">Titel</td>
@@ -141,39 +57,57 @@ else
     
     
 @*Dokumentet till ärendet, går endast att bifoga om det inte finns något dokument bifogat*@
-@if (Model.documentUrl == null)
-{
-    <p> Välj vilket dokument som ska bifogas:</p>
-    <input name="document" type="file" />    
-}
-else
-{
-    <p>Detta dokument är bifogat:</p>
-    <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
-}
-    
-    
-if (Model.Archived)
-{
-    <p>Arkiverad, går inte längre att interagera.</p>
-}
-else
-{
-    <p>Ej arkiverad</p>
-    <button onclick="ArchiveCaseItem(@Model.ID);" class="btn">Arkivera</button>
-}
-if (Model.Published)
-{
-    <p>Publicerad, går ej att ändra</p>
-}
-else
-{
-    <p>Ej publiceread</p>
-    <button onclick="PublishCaseItem(@Model.ID);" class="btn">Publicera</button>
-    <button type="submit" class="btn btn-success">Spara</button>
-}
+        if (Model.documentUrl == null)
+        {
+            <p>Välj vilket dokument som ska bifogas:</p>
+            <input name="document" type="file" />    
+        }
+        else
+        {
+            <p>Detta dokument är bifogat:</p>
+            <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
+        }
 
+        @*Edit CaseMode*@
+        <br /><br />
+        <div class="editor-label">
+            @Html.LabelFor(model => model.caseMode)
+        </div>
+        <div class="editor-field">
+            <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+            
+            @Html.RadioButtonFor(model => model.caseMode, "0", new { id = "radio-choice-1" })
+                Ärendet är under granskning <br />
+            @Html.RadioButtonFor(model => model.caseMode, "1", new { id = "radio-choice-2" })
+                Ärendet är godkänt <br />
+            @Html.RadioButtonFor(model => model.caseMode, "2", new { id = "radio-choice-3" })
+                Ärendet är avslaget
+            @Html.ValidationMessageFor(model => model.caseMode)<br/>
+            </fieldset> 
+            </div>
+        </div>
+        <br />
 
+        if (Model.Archived)
+        {
+            <p>Arkiverad, går inte längre att interagera.</p>
+        }
+        else
+        {
+            <p>Ej arkiverad</p>
+            <button onclick="ArchiveCaseItem(@Model.ID);" class="btn">Arkivera</button>
+        }
+        if (Model.Published)
+        {
+            <p>Publicerad, går ej att ändra</p>
+        }
+        else
+        {
+            <p>Ej publiceread</p>
+            <button onclick="PublishCaseItem(@Model.ID);" class="btn">Publicera</button>
+            <button type="submit" class="btn btn-success">Spara</button>
+        }
 
     }
 }
@@ -192,4 +126,3 @@ else
     }
 
 </script>
->>>>>>> Frida

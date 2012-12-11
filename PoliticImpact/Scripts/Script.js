@@ -59,13 +59,12 @@ function PostComment(id) {
         url: "/CaseComments/Create/" + id,
         data: { comment: strComment }
     }).done(function (msg) {
-        $("#titleComments").after("<p>" + strComment + "</p>");
+        console.log("comment created");
+    }).always(function () {
+        $("#newComment").after("<p>" + strComment + "</p>");
         $("#newComment").slideUp();
         $("#newCommentStr").val("");
         $("#nocomments").remove();
-
-
-        console.log("comment created");
     });
 }
 
@@ -86,5 +85,16 @@ function ArchiveCaseItem(id) {
         url: "/CaseItems/Archive/" + id,
     }).done(function (msg) {
         jQuery('#archived_status').html('<p>Arkiverad, går inte längre att interagera.</p>');
+    });
+}
+
+function ShareCaseByEmail(id) {
+    jQuery.ajax({
+        type: "POST",
+        url: "/CaseItems/ShareMail/" + id,
+        data: { email: jQuery('#friend_email').val() }
+    }).done(function (msg) {
+        jQuery('#share_by_email').html("<p>Email sent</p>");
+        jQuery('#friend_email').val("");
     });
 }

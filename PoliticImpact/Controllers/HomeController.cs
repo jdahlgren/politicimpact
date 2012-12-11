@@ -9,13 +9,14 @@ namespace PoliticImpact.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ICaseItemRepository caseitemRepository = new CaseItemRepository();
-
+        private readonly CaseItemRepository caseitemRepository = new CaseItemRepository();
+        
+        
         public ActionResult Index()
         {            
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
 
-            return View(caseitemRepository.All);
+            return View(caseitemRepository.FindAll());
         }
 
         public ActionResult About()
@@ -29,6 +30,11 @@ namespace PoliticImpact.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Login()
+        {
             return View();
         }
     }

@@ -1,14 +1,27 @@
+@using Resources;
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
 @model IEnumerable<PoliticImpact.Models.CaseItem>
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = Res.Home;
 }
 
 <div id="myCarousel" class="carousel slide">
   <!-- Carousel items -->
   <div class="carousel-inner">
-    <div class="active item startcarousel"><h2>Politiskt Inflytande är till för att låta Dig vara med och påverka vad som händer runtomkring dig!</h2></div>
-    <div class="item startcarousel"><h2>Skapa egna förslag, rösta, kommentera och gilla andras</h2></div>
-    <div class="item startcarousel"><h2>Populära förslag skickas sedan till politiker som kan besvara och åtgärda dem</h2></div>
+    <div class="active item startcarousel"><h2>@Res.StartCarousel</h2></div>
+    <div class="item startcarousel"><h2>@Res.SecondCarousel</h2></div>
+    <div class="item startcarousel"><h2>@Res.ThirdCarousel</h2></div>
   </div>
   <!-- Carousel nav -->
   <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
@@ -16,14 +29,19 @@
 </div>
 <div class="row">
     <div class="span8" id="recent-cases">
-        <h4>Senaste förslagen</h4>
+        <h4>@Res.LatestCases</h4>
         @foreach (var item in Model)
         {
             if (!item.Archived)
             {
             <div class="caseitem-list">
                 <a href="/CaseItems/Details/@item.ID">
-                    <div class="templateimage"></div>
+                    <div class="templateimage">
+                        @if(item.AttachedImage)
+                        {
+                           <!--visa thumbnail här-->
+                        }
+                    </div>
                     <div class="caseitem-list-main">
                         <div class="caseitem-list-main-info">
                             <h3>@item.Title</h3>
@@ -42,15 +60,15 @@
 
                         <div class="caseitem-additional-info">
                             <div class="caseitem-additional-info-box">
-                                <p>10
+                                <p>@item.numberOfLikes
                                     <img src="~/Content/images/thumbs_up_metro.png" alt="Likes" /></p>
                             </div>
                             <div class="caseitem-additional-info-box">
-                                <p>12
+                                <p>@item.numberOfSigns
                                     <img src="~/Content/images/signups.png" alt="Signups" /></p>
                             </div>
                             <div class="caseitem-additional-info-box">
-                                <p>3
+                                <p>@item.numberOfComments
                                     <img src="~/Content/images/speech_bubble.png" alt="Comments" /></p>
                             </div>
                         </div>
@@ -61,7 +79,7 @@
         }
     </div>
     <div class="span3">
-        <h4>Senaste åtgärder</h4>
+        <h4>@Res.LatestAction</h4>
          @foreach (var item in Model)
         {
             <div class="caseresult">

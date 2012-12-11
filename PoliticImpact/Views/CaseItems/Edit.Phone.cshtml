@@ -11,12 +11,13 @@
         <h1>Redigera förslag</h1>
     </div>
 }
+
 @if (!@Model.Archived)
 {
     using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
-        <fieldset>
+        
             @Html.HiddenFor(model => model.ID)
             @Html.HiddenFor(model => model.Created)
             @Html.HiddenFor(model => model.LastEdited)
@@ -25,17 +26,25 @@
             @Html.HiddenFor(model => model.RecieverEmail)
             @Html.HiddenFor(model => model.CategoryID)
 
+            
+            @Html.HiddenFor(model => model.Published);
+            @Html.HiddenFor(model => model.numberOfLikes);
+            @Html.HiddenFor(model => model.caseComment);
+            @*Html.HiddenFor(model => model.caseMode);*@
+            @Html.HiddenFor(model => model.enableLikes);
+            @Html.HiddenFor(model => model.enableComments);
+            @Html.HiddenFor(model => model.enableSigns);
+            @*Html.HiddenFor(model => model.caseCategory);*@
+            @Html.HiddenFor(model => model.ResponseID);
+            @*Html.HiddenFor(model => model.recieverResponse);*@
+            @Html.HiddenFor(model => model.AttachedImage);
+            @Html.HiddenFor(model => model.Archived);
+            @Html.HiddenFor(model => model.documentUrl);
+            @Html.HiddenFor(model => model.documentMimeType);
+            @Html.HiddenFor(model => model.documentName);
+            
 
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.Owner)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Owner)
-    @Html.ValidationMessageFor(model => model.Owner)
-</div>
--->
-
+    <fieldset>
             <div class="editor-label">
                 @Html.LabelFor(model => model.Title)
             </div>
@@ -60,57 +69,29 @@
                 @Html.ValidationMessageFor(model => model.Deadline)
             </div>
 
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.Published)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Published)
-    @Html.ValidationMessageFor(model => model.Published)
-</div>
--->
+            
+             @*Edit CaseMode*@
 
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.Created)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.Created)
-    @Html.ValidationMessageFor(model => model.Created)
-</div>
--->
-
-            <!--
-<div class="editor-label">
-    @Html.LabelFor(model => model.LastEdited)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.LastEdited)
-    @Html.ValidationMessageFor(model => model.LastEdited)
-</div>
--->
-
-            @*
-<div class="editor-label">
-    @Html.LabelFor(model => model.imageId)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.imageId)
-    @Html.ValidationMessageFor(model => model.imageId)
-</div>
-*@
-
-@*
-<div class="editor-label">
-    @Html.LabelFor(model => model.imageName)
-</div>
-<div class="editor-field">
-    @Html.EditorFor(model => model.imageName)
-    @Html.ValidationMessageFor(model => model.imageName)
-</div>
-*@
+            <div class="editor-label">
+            @Html.LabelFor(model =>model.caseMode)
+            </div>
+            <div class="editor-field">
+                <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                @*@Html.EditorFor(model =>model.Gender)*@
+                @Html.RadioButtonFor(model =>model.caseMode,"0",new { id = "radio-choice-1" })
+                <label for="radio-choice-1">Ärendet är under granskning</label>
+                @Html.RadioButtonFor(model =>model.caseMode,"1",new { id = "radio-choice-2" })
+                <label for="radio-choice-2">Ärendet är godkänt</label>
+                @Html.RadioButtonFor(model => model.caseMode, "2", new { id = "radio-choice-3" })
+                 <label for="radio-choice-3">Ärendet är avslaget</label>
+                @Html.ValidationMessageFor(model =>model.caseMode)<br/>
+                </fieldset> 
+                </div>
+            </div>
 
 
+            
             <div id="archived_status">
                 @if (Model.Archived)
                 {
@@ -138,29 +119,15 @@
                 }
             </div>
 
-
-
         </fieldset>
     }
-     @*Edit CaseMode*@
-<div data-role="fieldcontain">
-    <fieldset data-role="controlgroup">           
-        @Html.RadioButtonFor(model => model.caseMode, "0", new { id = "radio-choice-1"}) 
-        <label for="radio-choice-1">Ärendet är under granskning</label>  
-                    
-        @Html.RadioButtonFor(model => model.caseMode, "1", new { id = "radio-choice-2"}) 
-        <label for="radio-choice-2">Ärendet är godkänt</label>
-                     
-        @Html.RadioButtonFor(model => model.caseMode, "2", new { id = "radio-choice-3"})
-        <label for="radio-choice-3">Ärendet är avslaget</label>
-    </fieldset>  
-                 
-</div>
+
 }
 else
 {
     <h3>Förslaget är arkiverat och kan inte ändras</h3>
 }
+
 <script>
     function PublishCaseItem(id) {
         jQuery.ajax({
