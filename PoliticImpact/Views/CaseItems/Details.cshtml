@@ -12,8 +12,13 @@
         Culture = UICulture = Session["language"].ToString();
     }
 }
+@{ var user = (long)0;}
+@if (HttpContext.Current.Session["uid"] != null)
+{
+    user = (long)Int64.Parse(HttpContext.Current.Session["uid"].ToString());
+} 
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
-@if(!@Model.Archived) 
+@if (!@Model.Archived)
 {
     @*TODO - When user exist on Desktop*@
     @*if (@Model.Archived && user == @Model.Owner.ToString())
@@ -64,7 +69,7 @@
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
         @*Visa alla dokument till ärendet*@
-        @if(Model.documentUrl != null)
+        @if (Model.documentUrl != null)
         {
            <h1>Det bifogade dokumentet:</h1>
            <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
@@ -93,15 +98,15 @@
     <div class="span4">
         <div class="caseitem-details-template-image">
             @{ 
-                if(Model.AttachedImage)
-                {
-                    if(ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
-                    {
+        if (Model.AttachedImage)
+        {
+            if (ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
+            {
                         <a href="@Url.Content(ViewBag.imageUrl)">
                             <img src="@Url.Content(ViewBag.thumbnailUrl)" />
                         </a>
-                    }
-                }
+            }
+        }
             }
         </div>
     </div>
@@ -124,7 +129,14 @@
            {
                if (!@Model.Archived)
                {
-                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Like</a>
+                   if (user != 0)
+                   {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Like</a>                }
+                   else
+                   {
+                    <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna gilla');">@Res.Like</a>
+                   }
+
                }
            }
 
@@ -134,7 +146,15 @@
     {  
         <div class="span2">
             <p>@Model.numberOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
-            <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
+            @if (user != 0)
+            {
+                <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>                
+            }
+            else
+            {
+                <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna kommentera');">@Res.Comment</a>
+            }
+            
 
         </div>
     }
@@ -151,8 +171,15 @@
             {
                 if (!@Model.Archived)
                 {
-                //<a href="#signupCase" class="btn">@Res.Sign</a>
-                <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>
+                    if (user != 0)
+                    {
+                        <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>              
+                    }
+                    else
+                    {
+                        <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna signera');">@Res.Sign</a>
+                    }
+                
                 }
             }
         </div>
@@ -162,10 +189,7 @@
            
             <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
         </div>
-    @{ var user = (long) 0;}
-        @if ( HttpContext.Current.Session["uid"] != null){
-              user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
-        } 
+    
     @if (!Model.Published && Model.Owner == user)
     {
         <div class="span2">
@@ -182,7 +206,15 @@
                 <label for="voting-choice-1">Ja</label>
                 <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
                 <label for="voting-choice-2">Nej</label>
-                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
+                @if (user != 0)
+                {
+                    <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>             
+                }
+                else
+                {
+                    <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna rösta');">Rösta</a>
+                }
+                
             </div>
         }
         else
