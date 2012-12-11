@@ -1,29 +1,42 @@
 ﻿@model PoliticImpact.Models.CaseItem
+@using Resources;
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
 @{
     ViewBag.Title = @Model.Title;
 }
 
 <h2>@Model.Title</h2>
-<h4>Förslagsbeskrivning: </h4> @Model.Text <br>
-<h4>Skapad: </h4> @Model.Created <br>
-<h4>Deadline: </h4> @Model.Deadline <br>
-<h4>Statistik:</h4>
-    <b>Antal gillanden:</b> @ViewBag.numberOfLikes<br>
-    <b>Antal underskrifter:</b> @ViewBag.numberOfSignUps<br>
-    <b>Antal röster:</b> @ViewBag.numberOfVotes<br>
+<h4>@Res.CaseDesc </h4> @Model.Text <br>
+<h4>@Res.Created </h4> @Model.Created <br>
+<h4>@Res.Deadline </h4> @Model.Deadline <br>
+<h4>@Res.Statistics:</h4>
+    <b>@Res.NrOfLikes:</b> @ViewBag.numberOfLikes<br>
+    <b>@Res.NrOfSignUps:</b> @ViewBag.numberOfSignUps<br>
+    <b>@Res.NrOfVotes:</b> @ViewBag.numberOfVotes<br>
 
 
 
 @if (ViewBag.nrOfComments == 0)
 {
-    <b>Antal kommentarer: 0</b><br>
+    <b>@Res.NrOfComments: 0</b><br>
 }
 else
 {
-    <b>Totalt antal kommentarer:</b> @ViewBag.nrOfComments<br>
+    <b>@Res.NrOfComments:</b> @ViewBag.nrOfComments<br>
     if (ViewBag.nrOfComments > 5)
     {
-        <b>Förslagets 5 senaste kommentarer:</b><br>
+        <b>@Res.FiveComments:</b><br>
         int i = 0;
         foreach (var comment in ViewBag.casecomments)
         {
@@ -38,7 +51,7 @@ else
     }
     else
     {
-        <b>Förslagets @ViewBag.nrOfComments kommentarer:</b><br>
+        <b>@Res.CommentsOfCase</b><br>
         foreach (var comment in ViewBag.casecomments)
         {
         <p>@comment.commentStr</p>

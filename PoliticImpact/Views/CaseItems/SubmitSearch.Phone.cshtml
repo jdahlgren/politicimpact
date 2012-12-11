@@ -1,21 +1,32 @@
-﻿
-
+﻿@using Resources
 @{
-    ViewBag.Title = "Sökresultat";
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@{
+    ViewBag.Title = Res.SearchResult2;
 }
 
 @section header{
     <div data-role="header">
-        <h2>Sökresultat för: @ViewBag.word</h2>
+        <h2>@Res.SearchResult: @ViewBag.word</h2>
         @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
-        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
-        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+        <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.CreateCase</a>
+        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.Search</a>
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
 		        <li><a href="/Home/Index" data-icon="home">Home</a></li>
-                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("Om", "About", new { Controller = "Home"}, new { data_icon = "gear" })</li>
+                <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
+                <li>@Html.ActionLink(Res.About, "About", new { Controller = "Home"}, new { data_icon = "gear" })</li>
 	        </ul>
         </div>
         <!-- /navigation -->

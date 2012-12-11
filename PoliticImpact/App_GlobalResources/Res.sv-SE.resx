@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Om</value>
+  </data>
   <data name="AllowComment" xml:space="preserve">
     <value>Tillåt kommentarer</value>
   </data>
@@ -126,14 +129,41 @@
   <data name="AllowSign" xml:space="preserve">
     <value>Tillåt underskrifter</value>
   </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Godkänt</value>
+  </data>
+  <data name="AttachDoc" xml:space="preserve">
+    <value>Välj vilket dokument som ska bifogas</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Tillbaka</value>
+  </data>
   <data name="Case" xml:space="preserve">
     <value>Lista förslag</value>
   </data>
+  <data name="CaseDesc" xml:space="preserve">
+    <value>Förslagsbeskrivning</value>
+  </data>
+  <data name="CaseFiled" xml:space="preserve">
+    <value>Ärendet är arkiverat, endast du kan se det.</value>
+  </data>
   <data name="CaseList" xml:space="preserve">
-    <value>Ärendelista</value>
+    <value>Förslagslista</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Förslagets titel</value>
+  </data>
+  <data name="CaseWas" xml:space="preserve">
+    <value>Förslaget blev</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Kategori</value>
+  </data>
+  <data name="ChooseCategory" xml:space="preserve">
+    <value>Välj kategori</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stäng</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Kommentera</value>
@@ -141,17 +171,50 @@
   <data name="Comments" xml:space="preserve">
     <value>Kommentarer</value>
   </data>
+  <data name="CommentsOfCase" xml:space="preserve">
+    <value>Förslagets kommentarer</value>
+  </data>
   <data name="CreateCase" xml:space="preserve">
     <value>Skapa förslag</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Skapad</value>
   </data>
   <data name="Deadline" xml:space="preserve">
     <value>Deadline</value>
   </data>
+  <data name="DeadlinePH" xml:space="preserve">
+    <value>Deadline ÅÅ-MM-DD</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Ta bort</value>
+  </data>
   <data name="Desc" xml:space="preserve">
     <value>Beskrivning</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detaljer</value>
+  </data>
+  <data name="Dismissed" xml:space="preserve">
+    <value>Avfärdat</value>
+  </data>
+  <data name="DoSign" xml:space="preserve">
+    <value>Vill du skriva under namninsamling för</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Ändra</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>Mailet är skickat</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Engelska</value>
+  </data>
+  <data name="FilterCase" xml:space="preserve">
+    <value>Filtrera förslag...</value>
+  </data>
+  <data name="FiveComments" xml:space="preserve">
+    <value>Förslagets 5 senaste kommentarer</value>
   </data>
   <data name="French" xml:space="preserve">
     <value>Franska</value>
@@ -174,6 +237,27 @@
   <data name="LogIn" xml:space="preserve">
     <value>Logga in</value>
   </data>
+  <data name="LoginSave" xml:space="preserve">
+    <value>Var god logga in för att spara</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Det finns inga kommentarer på förslaget</value>
+  </data>
+  <data name="NrOfComments" xml:space="preserve">
+    <value>Antal kommentarer</value>
+  </data>
+  <data name="NrOfLikes" xml:space="preserve">
+    <value>Antal som gillar</value>
+  </data>
+  <data name="NrOfSignUps" xml:space="preserve">
+    <value>Antal underskrifter</value>
+  </data>
+  <data name="NrOfVotes" xml:space="preserve">
+    <value>Antal röster</value>
+  </data>
   <data name="Print" xml:space="preserve">
     <value>Skriv ut</value>
   </data>
@@ -189,6 +273,9 @@
   <data name="ReceiverName" xml:space="preserve">
     <value>Namn mottagare</value>
   </data>
+  <data name="ResponseReceiver" xml:space="preserve">
+    <value>Svar från mottagaren</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Spara</value>
   </data>
@@ -198,11 +285,17 @@
   <data name="SearchResult" xml:space="preserve">
     <value>Sökresultat för </value>
   </data>
+  <data name="SearchResult2" xml:space="preserve">
+    <value>Sökresultat</value>
+  </data>
   <data name="SecondCarousel" xml:space="preserve">
     <value>Skapa egna förslag, rösta, kommentera och gilla andras</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Välj språk</value>
+  </data>
+  <data name="SendLink" xml:space="preserve">
+    <value>Skicka länk</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Dela</value>
@@ -210,8 +303,14 @@
   <data name="Sign" xml:space="preserve">
     <value>Signera</value>
   </data>
+  <data name="SignPetition" xml:space="preserve">
+    <value>Skriv under namninsamling</value>
+  </data>
   <data name="StartCarousel" xml:space="preserve">
     <value>Politiskt Inflytande är till för att låta Dig vara med och påverka vad som händer runtomkring dig!</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistik</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Skicka</value>
@@ -225,13 +324,31 @@
   <data name="Title" xml:space="preserve">
     <value>Titel</value>
   </data>
+  <data name="UploadPic" xml:space="preserve">
+    <value>Ladda upp bild</value>
+  </data>
   <data name="Users" xml:space="preserve">
     <value>Användare</value>
+  </data>
+  <data name="Vote" xml:space="preserve">
+    <value>Rösta</value>
   </data>
   <data name="Votes" xml:space="preserve">
     <value>Koppla omröstning</value>
   </data>
+  <data name="Voting" xml:space="preserve">
+    <value>Omröstning</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
   <data name="YouLiked" xml:space="preserve">
     <value>Du gillade detta!</value>
+  </data>
+  <data name="YouSigned" xml:space="preserve">
+    <value>Du skrev under detta!</value>
+  </data>
+  <data name="YouVoted" xml:space="preserve">
+    <value>Du har redan röstat</value>
   </data>
 </root>

@@ -1,17 +1,32 @@
 @model IEnumerable<PoliticImpact.Models.CaseItem>
+@using Resources;
 @{
-    ViewBag.Title = "Hem";
+    //Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
 }
+
+@{
+    ViewBag.Title = Res.Home;
+}
+
 @section header{
     <!-- top menu, to be implemented on other pages -->
     
-    <h2>Hem</h2>
+    <h2>@Res.Home</h2>
     <!-- navigation -->
     <div data-role="navbar" data-iconpos="top">
 	    <ul>
-		    <li>@Html.ActionLink("Hem", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
-            <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
-            <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
+		    <li>@Html.ActionLink(Res.Home, "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
+            <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
+            <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
 
 	    </ul>
     </div>
@@ -21,7 +36,7 @@
 
 <img src="~/Content/images/medborgarforslag.jpg" class="center"/>
 
-<h3>Senaste förslag</h3>
+<h3>@Res.LatestCases</h3>
 <div data-role="collapsible-set" data-theme="b" data-content-theme="d">
     @foreach (var item in Model.Reverse().Take(5))
     {

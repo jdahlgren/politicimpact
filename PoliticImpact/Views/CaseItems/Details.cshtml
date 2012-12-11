@@ -60,8 +60,6 @@
 
         <p>@Model.Text</p>
 
-
-        <div class="display-label">Mottagare</div>
         <div class="display-label">@Res.Receiver</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
@@ -147,7 +145,7 @@
             <p>@Model.numberOfSigns <img src="~/Content/images/signups.png" alt="Signups"/></p>
             @if (ViewBag.status == "signed")
             {
-                <p>Du har skrivit under detta förslag</p>
+                <p>@Res.YouSigned</p>
             }
             else
             {
@@ -166,7 +164,7 @@
     @if (!Model.Published && Model.Owner == 1337)
     {
         <div class="span2">
-            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">@Res.Edit</a>
         </div>
     }
     @if (ViewBag.voting != null && !Model.Archived)
@@ -176,10 +174,10 @@
         {
             <div id="voting_container" class="span4">
                 <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                <label for="voting-choice-1">Ja</label>
+                <label for="voting-choice-1">@Res.Yes</label>
                 <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                <label for="voting-choice-2">Nej</label>
-                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
+                <label for="voting-choice-2">@Res.No</label>
+                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">@Res.Vote</button>
             </div>
         }
         else
@@ -192,15 +190,15 @@
         <legend>@Res.Comments</legend>
 @*Print all comments for the case där id är samma*@
 <div id="allComments">
-    <h3>Kommentarer</h3>
+    <h3>@Res.Comments</h3>
     <div id="newComment">
         <input type="text" id="newCommentStr" />
-        <button class="btn" onclick="PostComment(@Model.ID);">Spara</button>
+        <button class="btn" onclick="PostComment(@Model.ID);">@Res.Save</button>
     </div>
     <br />
     @if (ViewBag.casecomments == null)
     {
-            <p id="nocomments">Det finns inga kommentarer</p>
+            <p id="nocomments">@Res.NoComments</p>
     }
     else
     {

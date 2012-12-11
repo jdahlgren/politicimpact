@@ -1,27 +1,40 @@
-﻿@{
-    ViewBag.Title = "Avancerad sökning";
+﻿@using Resources
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@{
+    ViewBag.Title = Res.Search;
     Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
 }
 <div data-role="page" data-theme="b" class="type-interior">
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">Tillbaka</a>
-         <h1>Avancerad sökning</h1>
+        <a href="~/CaseItems/Index" data-icon="back" data-transition="slidedown">@Res.Back</a>
+         <h1>@Res.Search</h1>
     </div>
     <div data-role="content">
         @using (Html.BeginForm("SubmitSearch","CaseItems",FormMethod.Post))
         {
-        <input type="search" name="search" id="search-basic" value="" placeholder="Sök..." />
+        <input type="search" name="search" id="search-basic" value="" placeholder="@Res.Search..." />
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
 	        <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom"/>
-	        <label for="checkbox-1">Förslag</label>
+	        <label for="checkbox-1">@Res.Case</label>
             <input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" disabled="disabled"/>
 	        <label for="checkbox-2">Grupper</label>
             <input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" disabled="disabled" />
 	        <label for="checkbox-3">Användare</label>
             </fieldset>
         </div>
-        <input type="submit" value="Sök"/>
+        <input type="submit" value=@Res.Search>
         }
     </div>
 </div>

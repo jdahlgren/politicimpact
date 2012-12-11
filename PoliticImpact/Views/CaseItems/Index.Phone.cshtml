@@ -1,9 +1,19 @@
 ﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
-
+@using Resources
 @{
-    ViewBag.Title = "Förslag";
-    Layout = "~/Views/Shared/_Layout.Phone.cshtml";
-    
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
+@{
+    ViewBag.Title = Res.Case;
 }
 
 @{ var user = (String) HttpContext.Current.Session["uid"]; }
@@ -11,26 +21,26 @@
 @section header{
 
     <div data-role="header">
-        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
-        <h2>Förslag</h2>
+        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.Search</a>
+        <h2>@Res.Case</h2>
         @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
         
         @if ( user != null) {
-            <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+            <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.CreateCase</a>
         }        
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
-		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
-                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
+		        <li><a href="/Home/Index" data-icon="home">@Res.Home</a></li>
+                <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
+                <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
 
 	        </ul>
         </div>
         <!-- /navigation -->
     </div>
 }
-<ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrera förslag..."  >
+<ul data-role="listview" data-filter="true" data-filter-placeholder=@Res.FilterCase >
 @{var nr = 0;}
 @foreach (var item in Model)
 {
@@ -41,7 +51,7 @@
                 <h3>@item.Title</h3>
                 <p id="divName@(item.ID)"></p>
                 <p>@item.Text.</p>
-                <p class="ui-li-aside">@ViewBag.likes[nr] Gillar</p>
+                <p class="ui-li-aside">@ViewBag.likes[nr] @Res.Like</p>
             </a>
         </li>
         

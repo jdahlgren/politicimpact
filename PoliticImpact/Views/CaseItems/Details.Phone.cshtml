@@ -1,8 +1,19 @@
 @model PoliticImpact.Models.CaseItem
+@using Resources;
+@{
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
 
 @{
-    ViewBag.Title = "Detaljer";
-    Layout = "~/Views/Shared/_LayoutNoPageDiv.cshtml";
+    ViewBag.Title = Res.Details;
 }
 
 @section scripts{
@@ -18,7 +29,7 @@
 
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">@Res.Back</a>
         <h1>@ViewBag.Title</h1>
         @{ var user = (long) 0;}
         @if ( HttpContext.Current.Session["uid"] != null){
@@ -26,7 +37,7 @@
         }         
         @if (user == Int64.Parse(@Model.Owner.ToString()) && !@Model.Archived)
         {
-            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
+            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">@Res.Delete</a>
         }
     </div>
     @if(!@Model.Archived || user == Int64.Parse(@Model.Owner.ToString()))
@@ -34,7 +45,7 @@
     <div data-role="content">
         @if(@Model.Archived && user == Int64.Parse(@Model.Owner.ToString()))
         {
-        <h2>Ärendet är arkiverat, endast du kan se det.</h2>
+        <h2>@Res.CaseFiled</h2>
         }
         <h2>@Model.Title</h2>
 
@@ -50,12 +61,12 @@
          @*Ritar ut en bild beroende på caseMode*@
         @if (Model.caseMode == 1)
         {
-            <label>Ärendet har: Gått igenom</label>
+            <label>@Res.CaseWas: @Res.Approved</label>
               <img src="~/Content/images/Approved_icon.png" width="45" height="45" id="Approved" />
         }
         else if (Model.caseMode == 2)
         {
-            <label>Ärendet är: Avslaget</label>
+            <label>@Res.CaseWas: @Res.Dismissed</label>
              <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
         }
 
@@ -64,10 +75,10 @@
         </p>
         
 
-        <div class="display-label">Deadline</div>
+        <div class="display-label">@Res.Deadline</div>
         <div class="display-field">@String.Format("{0:g}", Model.Deadline)</div>
 
-        <div class="display-label">Mottagare</div>
+        <div class="display-label">@Res.Receiver</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
             @{ 
@@ -77,7 +88,7 @@
                         <a href="#popupImage" data-rel="popup" data-position-to="window"><img src="@Url.Content(ViewBag.thumbnailUrl)" /></a>
                 						
 			            <div data-role="popup" id="popupImage" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
-				            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Stäng</a>
+				            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">@Res.Close</a>
                             <img src="@Url.Content(ViewBag.imageUrl)" />
 			            </div>                    
                     </div>
@@ -98,7 +109,7 @@
                if (ViewBag.likeStatus == "signed")
                {
                    //Kanske skall vara en bild istället?
-                <p>Du har gillat detta!</p>
+                <p>@Res.YouLiked</p>
            
                }
                else
@@ -132,7 +143,7 @@
                 if (ViewBag.status == "signed")
                 {
                     //Kanske skall vara en bild istället?
-                <p>Du har skrivit på namninsamlingen</p>
+                <p>@Res.YouSigned</p>
                 }
                 else
                 {
@@ -153,7 +164,7 @@
             </a>
         }
         
-        <p>Antal som gillar: @ViewBag.numberOfLikes</p>
+        <p>@Res.NrOfLikes: @ViewBag.numberOfLikes</p>
 
         @* Visa respons från mottagare *@
         @{
@@ -161,7 +172,7 @@
             {
                 <form>
                     <fieldset>
-                        <legend>Svar från mottagaren</legend>
+                        <legend>@Res.ResponseReceiver</legend>
                         <p>@ViewBag.response</p>
                     </fieldset>
                </form>
@@ -176,11 +187,11 @@
         @*Print 5 comments for the case*@
         <div id="fiveComments">
             <fieldset>
-                <legend>Kommentarer</legend>
+                <legend>@Res.Comments</legend>
                 @*Om kommentarerna är tomma*@
                 @if (ViewBag.casecomments == null)
                 {
-                        <p id="nocomments">Det finns inga kommentarer på förslaget</p>
+                        <p id="nocomments">@Res.NoComments</p>
                 }
                 else
                 {
@@ -203,14 +214,14 @@
          @*Print all comments for the case där id är samma*@
         <div id="newComment">
             <input type="text" id="newCommentStr" />
-            <button onclick="PostComment(@Model.ID);">Kommentera</button>
+            <button onclick="PostComment(@Model.ID);">@Res.Comment</button>
         </div>
         <div id="allComments">
             <fieldset>
-                <legend id="titleComments">Kommentarer</legend>
+                <legend id="titleComments">@Res.Comments</legend>
                 @if (ViewBag.casecomments == null)
                 {
-                        <p id="nocomments">Det finns inga kommentarer på förslaget</p>
+                        <p id="nocomments">@Res.NoComments</p>
                 }
                 else
                 {
@@ -282,18 +293,18 @@
                             <label for="voting-choice-2">No</label>
                         </div>
                         </fieldset>
-                    <button onclick="SendVote(@ViewBag.voting.VotingID);" id="btnVote">Rösta</button>
+                    <button onclick="SendVote(@ViewBag.voting.VotingID);" id="btnVote">@Res.Vote</button>
                 </div>
             }
             else
             {
-                <p>Du har redan röstat</p>
+                <p>@Res.YouVoted</p>
             }
         }
 
         @if (!Model.Published && Model.Owner == user)
         {
-            <a href="~/CaseItems/Edit/@Model.ID" data-role="button">Redigera</a>
+            <a href="~/CaseItems/Edit/@Model.ID" data-role="button">@Res.Edit</a>
         }
     </div>
 @*</div>*@
@@ -304,7 +315,7 @@
     }
 </style>
 <div data-role ="dialog" id ="popupShare" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
-    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Stäng</a>
+    <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">@Res.Close</a>
 	<form>
 		<div style="padding:10px 20px;" >
 			<h3>Dela @Model.Title</h3>
@@ -313,7 +324,7 @@
 		</div>
         <div id="share_by_email">
             <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
-            <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">Skicka länk</a>
+            <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">@Res.SendLink</a>
         </div>
 	</form>
 </div>
@@ -321,11 +332,11 @@
 <div data-role ="dialog" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
       @*<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>*@
     		<div data-role="header" data-theme="d" data-position="inline">
-    <h3>Skriv på namninsamling</h3></div>
+    <h3>@Res.SignPetition/h3></div>
     <div data-role="content" data-theme="c">
-        <p>Vill du skriva på namninsamlingen för @Model.Title ? </p>
-        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">Ja</a>
-        <a href="#" data-rel="back" data-role="button" data-theme="b">Nej</a>
+        <p>@Res.DoSign @Model.Title ? </p>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">@Res.Yes</a>
+        <a href="#" data-rel="back" data-role="button" data-theme="b">@Res.No</a>
         </div>
 
 </div>
@@ -336,7 +347,7 @@
             url: "/CaseItems/ShareMail/" + id,
             data: { email: jQuery('#friend_email').val() }
         }).done(function (msg) {
-            jQuery('#share_by_email').html("<p>Email sent</p>");
+            jQuery('#share_by_email').html("<p>@Res.EmailSent</p>");
             jQuery('#friend_email').val("");
         });
     }

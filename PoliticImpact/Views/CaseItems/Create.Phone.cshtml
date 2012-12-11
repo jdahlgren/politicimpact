@@ -1,16 +1,28 @@
+@using Resources
 @model PoliticImpact.Models.CaseItem
-
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    if (!Request["lang"].IsEmpty())
+    {
+        Culture = UICulture = Request["lang"];
+        Session["language"] = Request["lang"];
+    }
+    else if (Session["language"] != null)
+    {
+        Culture = UICulture = Session["language"].ToString();
+    }
+}
 @{
 
-    ViewBag.Title = "Skapa Förslag";
+    ViewBag.Title = Res.CreateCase;
    Layout = "~/Views/Shared/_Layout.Phone.cshtml";
 }
 
 @section Header{
     <div data-role="header">
 
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
-        <h1>Skapa förslag</h1>
+        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">@Res.Back</a>
+        <h1>@Res.CreateCase</h1>
     </div>
 }
 
@@ -32,36 +44,36 @@
             -->
         @{ var user = (String) HttpContext.Current.Session["uid"]; }
         <div class="editor-field" style="padding-bottom: 14px; padding-top: 14px">
-            @Html.TextBoxFor(model => model.Title, new { placeholder = "Förslagets titel" })
+            @Html.TextBoxFor(model => model.Title, new { placeholder = Res.CaseTitle })
             @Html.ValidationMessageFor(model => model.Title)
         </div>
 
 
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextAreaFor(model => model.Text, new { placeholder = "Beskrivning" })
+            @Html.TextAreaFor(model => model.Text, new { placeholder = Res.Desc })
             @Html.ValidationMessageFor(model => model.Text)
         </div>
 
 
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.Deadline, new { placeholder = "Deadline ÅÅ-MM-DD" })
+            @Html.TextBoxFor(model => model.Deadline, new { placeholder = Res.DeadlinePH })
             @Html.ValidationMessageFor(model => model.Deadline)
         </div>
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = "Mottagarens namn" })
+            @Html.TextBoxFor(model => model.RecieverName, new { placeholder = Res.ReceiverName })
             @Html.ValidationMessageFor(model => model.RecieverName)
         </div>
         <div class="editor-field" style="padding-bottom: 14px;">
-            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = "Mottagarens mail" })
+            @Html.TextBoxFor(model => model.RecieverEmail, new { placeholder = Res.ReceiverMail })
             @Html.ValidationMessageFor(model => model.RecieverEmail)
         </div>
 
-        <div class="editor-label">Ladda upp bild:</div>
+        <div class="editor-label">@Res.UploadPic :</div>
         <div class="editor-field">
             <input name="image" type="file" />
         </div>
 
-        <div class="editor-label"> Välj vilket dokument som ska bifogas:</div> 
+        <div class="editor-label"> @Res.AttachDoc :</div> 
         <div class="editor-field">
             <input name="document" type="file" />
         </div>
@@ -98,16 +110,16 @@
                        Text = (option == null ? "None" : option.Title),
                        Value = option.CategoryID.ToString(),
                        Selected = (Model != null) && (option.CategoryID == Model.CategoryID)
-                   }), "Välj kategori...")
+                   }), Res.ChooseCategory +"...")
 
             @Html.ValidationMessageFor(model => model.CategoryID)
         </div>
         
         <div data-role="fieldcontain">
-            <label for="slider2">Omröstning:</label><br/>
+            <label for="slider2">@Res.Voting:</label><br/>
             <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
-                <option value="no">Nej</option>
-                <option value="yes">Ja</option>
+                <option value="no">@Res.Yes</option>
+                <option value="yes">@Res.No</option>
             </select>
             <div data-role="fieldcontain" id="voting_input">
                 @*<label for="name">Fråga (Ja/Nej):</label>*@
@@ -131,7 +143,7 @@
             </p>
            }else{
                <p>
-                Var god logga in för att spara.
+               @Res.LoginSave
                </p>
            }
         </fieldset>

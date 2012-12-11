@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow comments.
         /// </summary>
         internal static string AllowComment {
@@ -88,11 +97,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approved.
+        /// </summary>
+        internal static string Approved {
+            get {
+                return ResourceManager.GetString("Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose which document to attach.
+        /// </summary>
+        internal static string AttachDoc {
+            get {
+                return ResourceManager.GetString("AttachDoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        internal static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List cases.
         /// </summary>
         internal static string Case {
             get {
                 return ResourceManager.GetString("Case", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Case description.
+        /// </summary>
+        internal static string CaseDesc {
+            get {
+                return ResourceManager.GetString("CaseDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The case is filed, only you can see it..
+        /// </summary>
+        internal static string CaseFiled {
+            get {
+                return ResourceManager.GetString("CaseFiled", resourceCulture);
             }
         }
         
@@ -106,11 +160,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Title of case.
+        /// </summary>
+        internal static string CaseTitle {
+            get {
+                return ResourceManager.GetString("CaseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The case was.
+        /// </summary>
+        internal static string CaseWas {
+            get {
+                return ResourceManager.GetString("CaseWas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         internal static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose catergory.
+        /// </summary>
+        internal static string ChooseCategory {
+            get {
+                return ResourceManager.GetString("ChooseCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
@@ -133,11 +223,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comments of the case.
+        /// </summary>
+        internal static string CommentsOfCase {
+            get {
+                return ResourceManager.GetString("CommentsOfCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create case.
         /// </summary>
         internal static string CreateCase {
             get {
                 return ResourceManager.GetString("CreateCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        internal static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
             }
         }
         
@@ -151,6 +259,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deadline YY-MM-DD.
+        /// </summary>
+        internal static string DeadlinePH {
+            get {
+                return ResourceManager.GetString("DeadlinePH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string Desc {
@@ -160,11 +286,74 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        internal static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dismissed.
+        /// </summary>
+        internal static string Dismissed {
+            get {
+                return ResourceManager.GetString("Dismissed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to sign the petition for.
+        /// </summary>
+        internal static string DoSign {
+            get {
+                return ResourceManager.GetString("DoSign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        internal static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email sent.
+        /// </summary>
+        internal static string EmailSent {
+            get {
+                return ResourceManager.GetString("EmailSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter cases....
+        /// </summary>
+        internal static string FilterCase {
+            get {
+                return ResourceManager.GetString("FilterCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 5 latest comments of the case.
+        /// </summary>
+        internal static string FiveComments {
+            get {
+                return ResourceManager.GetString("FiveComments", resourceCulture);
             }
         }
         
@@ -232,6 +421,69 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please log in to save.
+        /// </summary>
+        internal static string LoginSave {
+            get {
+                return ResourceManager.GetString("LoginSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no comments on this case.
+        /// </summary>
+        internal static string NoComments {
+            get {
+                return ResourceManager.GetString("NoComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of comments.
+        /// </summary>
+        internal static string NrOfComments {
+            get {
+                return ResourceManager.GetString("NrOfComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of likes.
+        /// </summary>
+        internal static string NrOfLikes {
+            get {
+                return ResourceManager.GetString("NrOfLikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of signups.
+        /// </summary>
+        internal static string NrOfSignUps {
+            get {
+                return ResourceManager.GetString("NrOfSignUps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of votes.
+        /// </summary>
+        internal static string NrOfVotes {
+            get {
+                return ResourceManager.GetString("NrOfVotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Print.
         /// </summary>
         internal static string Print {
@@ -277,6 +529,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Respones from receiver.
+        /// </summary>
+        internal static string ResponseReceiver {
+            get {
+                return ResourceManager.GetString("ResponseReceiver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Save {
@@ -304,6 +565,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search result.
+        /// </summary>
+        internal static string SearchResult2 {
+            get {
+                return ResourceManager.GetString("SearchResult2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create your own case, vote, comment and like others.
         /// </summary>
         internal static string SecondCarousel {
@@ -318,6 +588,15 @@ namespace Resources {
         internal static string SelectLanguage {
             get {
                 return ResourceManager.GetString("SelectLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send link.
+        /// </summary>
+        internal static string SendLink {
+            get {
+                return ResourceManager.GetString("SendLink", resourceCulture);
             }
         }
         
@@ -340,11 +619,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign petition.
+        /// </summary>
+        internal static string SignPetition {
+            get {
+                return ResourceManager.GetString("SignPetition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Political influence is to allow you to influence what is happening around you!.
         /// </summary>
         internal static string StartCarousel {
             get {
                 return ResourceManager.GetString("StartCarousel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics.
+        /// </summary>
+        internal static string Statistics {
+            get {
+                return ResourceManager.GetString("Statistics", resourceCulture);
             }
         }
         
@@ -385,11 +682,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upload picture.
+        /// </summary>
+        internal static string UploadPic {
+            get {
+                return ResourceManager.GetString("UploadPic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
         internal static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rösta.
+        /// </summary>
+        internal static string Vote {
+            get {
+                return ResourceManager.GetString("Vote", resourceCulture);
             }
         }
         
@@ -403,11 +718,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voting.
+        /// </summary>
+        internal static string Voting {
+            get {
+                return ResourceManager.GetString("Voting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You liked this!.
         /// </summary>
         internal static string YouLiked {
             get {
                 return ResourceManager.GetString("YouLiked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You signed this!.
+        /// </summary>
+        internal static string YouSigned {
+            get {
+                return ResourceManager.GetString("YouSigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ve already voted!.
+        /// </summary>
+        internal static string YouVoted {
+            get {
+                return ResourceManager.GetString("YouVoted", resourceCulture);
             }
         }
     }

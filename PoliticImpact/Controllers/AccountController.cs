@@ -128,6 +128,13 @@ namespace PoliticImpact.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult LangChoice()
+        {
+            Session["language"] = Request["lang"];
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         //
         // GET: /Account/ChangePassword
 

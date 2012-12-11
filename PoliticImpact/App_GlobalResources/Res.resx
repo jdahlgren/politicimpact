@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="AllowComment" xml:space="preserve">
     <value>Allow comments</value>
   </data>
@@ -126,14 +129,41 @@
   <data name="AllowSign" xml:space="preserve">
     <value>Allow signatures</value>
   </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="AttachDoc" xml:space="preserve">
+    <value>Choose which document to attach</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="Case" xml:space="preserve">
     <value>List cases</value>
+  </data>
+  <data name="CaseDesc" xml:space="preserve">
+    <value>Case description</value>
+  </data>
+  <data name="CaseFiled" xml:space="preserve">
+    <value>The case is filed, only you can see it.</value>
   </data>
   <data name="CaseList" xml:space="preserve">
     <value>Case list</value>
   </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Title of case</value>
+  </data>
+  <data name="CaseWas" xml:space="preserve">
+    <value>The case was</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
+  </data>
+  <data name="ChooseCategory" xml:space="preserve">
+    <value>Choose catergory</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
@@ -141,17 +171,50 @@
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
+  <data name="CommentsOfCase" xml:space="preserve">
+    <value>Comments of the case</value>
+  </data>
   <data name="CreateCase" xml:space="preserve">
     <value>Create case</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
   </data>
   <data name="Deadline" xml:space="preserve">
     <value>Deadline</value>
   </data>
+  <data name="DeadlinePH" xml:space="preserve">
+    <value>Deadline YY-MM-DD</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Desc" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Dismissed" xml:space="preserve">
+    <value>Dismissed</value>
+  </data>
+  <data name="DoSign" xml:space="preserve">
+    <value>Do you want to sign the petition for</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>Email sent</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
+  </data>
+  <data name="FilterCase" xml:space="preserve">
+    <value>Filter cases...</value>
+  </data>
+  <data name="FiveComments" xml:space="preserve">
+    <value>5 latest comments of the case</value>
   </data>
   <data name="French" xml:space="preserve">
     <value>French</value>
@@ -174,6 +237,27 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="LoginSave" xml:space="preserve">
+    <value>Please log in to save</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>There are no comments on this case</value>
+  </data>
+  <data name="NrOfComments" xml:space="preserve">
+    <value>Number of comments</value>
+  </data>
+  <data name="NrOfLikes" xml:space="preserve">
+    <value>Number of likes</value>
+  </data>
+  <data name="NrOfSignUps" xml:space="preserve">
+    <value>Number of signups</value>
+  </data>
+  <data name="NrOfVotes" xml:space="preserve">
+    <value>Number of votes</value>
+  </data>
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
@@ -189,6 +273,9 @@
   <data name="ReceiverName" xml:space="preserve">
     <value>Receiver Name</value>
   </data>
+  <data name="ResponseReceiver" xml:space="preserve">
+    <value>Respones from receiver</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -198,11 +285,17 @@
   <data name="SearchResult" xml:space="preserve">
     <value>Search result for </value>
   </data>
+  <data name="SearchResult2" xml:space="preserve">
+    <value>Search result</value>
+  </data>
   <data name="SecondCarousel" xml:space="preserve">
     <value>Create your own case, vote, comment and like others</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Select Language</value>
+  </data>
+  <data name="SendLink" xml:space="preserve">
+    <value>Send link</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
@@ -210,8 +303,14 @@
   <data name="Sign" xml:space="preserve">
     <value>Sign</value>
   </data>
+  <data name="SignPetition" xml:space="preserve">
+    <value>Sign petition</value>
+  </data>
   <data name="StartCarousel" xml:space="preserve">
     <value>Political influence is to allow you to influence what is happening around you!</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
@@ -225,13 +324,31 @@
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="UploadPic" xml:space="preserve">
+    <value>Upload picture</value>
+  </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="Vote" xml:space="preserve">
+    <value>Rösta</value>
   </data>
   <data name="Votes" xml:space="preserve">
     <value>Attach votes</value>
   </data>
+  <data name="Voting" xml:space="preserve">
+    <value>Voting</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
   <data name="YouLiked" xml:space="preserve">
     <value>You liked this!</value>
+  </data>
+  <data name="YouSigned" xml:space="preserve">
+    <value>You signed this!</value>
+  </data>
+  <data name="YouVoted" xml:space="preserve">
+    <value>You've already voted!</value>
   </data>
 </root>

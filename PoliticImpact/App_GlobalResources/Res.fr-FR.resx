@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>Sur</value>
+  </data>
   <data name="AllowComment" xml:space="preserve">
     <value>Autoriser les commentaires</value>
   </data>
@@ -126,14 +129,41 @@
   <data name="AllowSign" xml:space="preserve">
     <value>Autoriser les signatures</value>
   </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Approuvé</value>
+  </data>
+  <data name="AttachDoc" xml:space="preserve">
+    <value>Choisir les documents à attacher</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Arrière</value>
+  </data>
   <data name="Case" xml:space="preserve">
     <value>Liste cas</value>
+  </data>
+  <data name="CaseDesc" xml:space="preserve">
+    <value>Description de la cas</value>
+  </data>
+  <data name="CaseFiled" xml:space="preserve">
+    <value>L'cas est classé, vous seul pouvez le voir.</value>
   </data>
   <data name="CaseList" xml:space="preserve">
     <value>Liste des cas</value>
   </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Titre de cas</value>
+  </data>
+  <data name="CaseWas" xml:space="preserve">
+    <value>Cas était</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Catégorie</value>
+  </data>
+  <data name="ChooseCategory" xml:space="preserve">
+    <value>Sélectionner la catégorie</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fermer</value>
   </data>
   <data name="Comment" xml:space="preserve">
     <value>Commenter</value>
@@ -141,17 +171,50 @@
   <data name="Comments" xml:space="preserve">
     <value>Commentaires</value>
   </data>
+  <data name="CommentsOfCase" xml:space="preserve">
+    <value>Commentaires de la cas</value>
+  </data>
   <data name="CreateCase" xml:space="preserve">
     <value>Créer cas</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Créé</value>
   </data>
   <data name="Deadline" xml:space="preserve">
     <value>Date limite</value>
   </data>
+  <data name="DeadlinePH" xml:space="preserve">
+    <value>Date limite AA-MM-JJ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
   <data name="Desc" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Détails</value>
+  </data>
+  <data name="Dismissed" xml:space="preserve">
+    <value>Rejeté</value>
+  </data>
+  <data name="DoSign" xml:space="preserve">
+    <value>Voulez-vous signer la pétition</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editer</value>
+  </data>
+  <data name="EmailSent" xml:space="preserve">
+    <value>Le email est envoyé</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>Anglais</value>
+  </data>
+  <data name="FilterCase" xml:space="preserve">
+    <value>Filtre cas...</value>
+  </data>
+  <data name="FiveComments" xml:space="preserve">
+    <value>La cas 5 derniers commentaires</value>
   </data>
   <data name="French" xml:space="preserve">
     <value>Français</value>
@@ -174,6 +237,27 @@
   <data name="LogIn" xml:space="preserve">
     <value>Connexion</value>
   </data>
+  <data name="LoginSave" xml:space="preserve">
+    <value>S'il vous plaît vous connecter pour sauver</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Ne</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Il n'ya pas de commentaires sur cette affaire</value>
+  </data>
+  <data name="NrOfComments" xml:space="preserve">
+    <value>Nombre de commentaires</value>
+  </data>
+  <data name="NrOfLikes" xml:space="preserve">
+    <value>Nombre de ceux qui aiment</value>
+  </data>
+  <data name="NrOfSignUps" xml:space="preserve">
+    <value>Nombre de signatures</value>
+  </data>
+  <data name="NrOfVotes" xml:space="preserve">
+    <value>Nombre de votants</value>
+  </data>
   <data name="Print" xml:space="preserve">
     <value>Imprimer</value>
   </data>
@@ -189,6 +273,9 @@
   <data name="ReceiverName" xml:space="preserve">
     <value>Nom récepteur</value>
   </data>
+  <data name="ResponseReceiver" xml:space="preserve">
+    <value>Réponse du récepteur</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Sauver</value>
   </data>
@@ -198,11 +285,17 @@
   <data name="SearchResult" xml:space="preserve">
     <value>Résultat de recherche pour</value>
   </data>
+  <data name="SearchResult2" xml:space="preserve">
+    <value>Résultat de recherche</value>
+  </data>
   <data name="SecondCarousel" xml:space="preserve">
     <value>Créez vos propres suggestions, voter, commenter et, comme d'autres</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
     <value>Sélectionner la langue</value>
+  </data>
+  <data name="SendLink" xml:space="preserve">
+    <value>Envoyer le lien</value>
   </data>
   <data name="Share" xml:space="preserve">
     <value>Partager</value>
@@ -212,6 +305,9 @@
   </data>
   <data name="StartCarousel" xml:space="preserve">
     <value>L'influence politique est de vous permettre d'influer sur ce qui se passe autour de vous!</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistiques</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Soumettre</value>
@@ -225,13 +321,31 @@
   <data name="Title" xml:space="preserve">
     <value>Titre</value>
   </data>
+  <data name="UploadPic" xml:space="preserve">
+    <value>Transférer une image</value>
+  </data>
   <data name="Users" xml:space="preserve">
     <value>Usagers</value>
+  </data>
+  <data name="Vote" xml:space="preserve">
+    <value>Voter</value>
   </data>
   <data name="Votes" xml:space="preserve">
     <value>Débranchez voter</value>
   </data>
+  <data name="Voting" xml:space="preserve">
+    <value>Voter</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
   <data name="YouLiked" xml:space="preserve">
     <value>Vous avez aimé cet</value>
+  </data>
+  <data name="YouSigned" xml:space="preserve">
+    <value>Vous avez signé cette</value>
+  </data>
+  <data name="YouVoted" xml:space="preserve">
+    <value>Vous avez déjà voté</value>
   </data>
 </root>
