@@ -15,6 +15,9 @@
 @{
     ViewBag.Title = Res.Details;
 }
+@{
+Layout = "../Shared/_LayoutNoPageDiv.cshtml";
+}
 
 @section scripts{
 
@@ -177,7 +180,7 @@
 
            }
         
-        <p>@Res.NrOfLikes: Model.numberOfLikes</p>
+        <p>@Res.NrOfLikes:  @Model.numberOfLikes</p>
 
 
         @* Visa respons från mottagare *@
