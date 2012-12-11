@@ -40,6 +40,13 @@ namespace PoliticImpact.Models
             return caselikes.Count();
         }
 
+        public IQueryable<CaseLike> FindAllByCaseId(int id)
+        {
+            return (from cl in context.CaseLikes
+                    where cl.caseID == id
+                    select cl);
+        }
+
         public void InsertOrUpdate(CaseLike caselike)
         {
             if (caselike.likeID == default(long)) {
