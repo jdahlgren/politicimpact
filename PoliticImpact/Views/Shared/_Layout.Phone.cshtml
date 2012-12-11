@@ -21,7 +21,6 @@
                     @RenderSection("Header")
                 } else {
                     <h1>@ViewBag.Title</h1>
-                    //@Html.Partial("_LoginPartial")
                 }
             </div>
             <div data-role="content">
@@ -32,10 +31,9 @@
         
         @RenderSection("scripts", required: false)
 
-        <!-- Added by Johannes Dahlgren 16/11 -->
         <style type="text/css">body {min-height: 480px;}</style>
         @Scripts.Render("~/Scripts/HideAdressBar.js")
-         @Scripts.Render("~/Scripts/Script.js")
+        @Scripts.Render("~/Scripts/Script.js")
 
 
     </body>
