@@ -15,11 +15,13 @@
     ViewBag.Title = Res.Search;
 }
 <div class="row">
-    <h1>@Res.Search</h1>
+    <h2>@Res.Search</h2>
     <input type="search" name="search" id="search-basic" value="" placeholder=@Res.Search... />
-    <button type="button" class="btn" onclick="PerformSearch()">@Res.Search</button>
+     <br> 
+     <button type="button" class="btn" onclick="PerformSearch()">@Res.Search</button>
+  
 </div>
-<div class="row">
+@*<div class="row">
     <div class="span8">
         <div class="span2">
 	        <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" checked="checked"/>
@@ -34,7 +36,7 @@
 	        <label for="checkbox-3">@Res.Users</label>
         </div>
     </div>
-</div>
+</div>*@
 <div class="row">
     <span id="label_search_result"></span>
 </div>    

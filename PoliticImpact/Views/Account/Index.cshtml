@@ -1,7 +1,9 @@
 ﻿@using Resources;
 <!DOCTYPE html>
+
 @{ var user = (String) HttpContext.Current.Session["uid"]; }
 
+@{
     if (user != null)
     {
         ViewBag.Title = "Logga ut";
@@ -10,6 +12,8 @@
     {
         ViewBag.Title = "Logga in";
     }
+    @*Layout = "~/Views/Shared/_Layout.cshtml";*@
+}
 @{
     Layout = "../Shared/_Layout.cshtml";
     if (!Request["lang"].IsEmpty())
@@ -24,13 +28,9 @@
 }
 
 @section Header {
-    @Html.ActionLink(Res.Home, "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
-        <h1>@ViewBag.Title</h1>
-        @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
-        
-        @if ( user != null) {
-            <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
-        }        
+    <div data-role="header">
+    
+       
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
@@ -65,18 +65,17 @@
         });
     </script>
     <fb:login-button autologoutlink="true" show-faces="true">@ViewBag.Title</fb:login-button>
-
-    @using (Html.BeginForm("LangChoice", "Account", FormMethod.Post))
-    {
-        
-        @Res.SelectLanguage
-            <select id="lang" name="lang">
-                <option value="sv-SE" @(Culture == "sv-SE" ? "selected=\"selected\"" : "")>@Res.Swedish</option>
+    <div>
+        <form method="post">
+            @Res.SelectLanguage
+            <select id="lang">
                 <option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>
+                <option value="sv-SE" @(Culture == "sv-SE" ? "selected=\"selected\"" : "")>@Res.Swedish</option>
                 <option value="fr-FR" @(Culture == "fr-FR" ? "selected=\"selected\"" : "")>@Res.French</option>
             </select>
-            <input type="submit" value="@Res.Submit"/>
-    }
+            <input type="submit" value="@Res.Submit" />
+        </form>
+    </div>
 </body>
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 </html>

@@ -24,7 +24,7 @@
         @using (Html.BeginForm("SubmitSearch","CaseItems",FormMethod.Post))
         {
         <input type="search" name="search" id="search-basic" value="" placeholder="@Res.Search..." />
-        <div data-role="fieldcontain">
+      @*  <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
 	        <input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom"/>
 	        <label for="checkbox-1">@Res.Case</label>
@@ -33,7 +33,7 @@
             <input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" disabled="disabled" />
 	        <label for="checkbox-3">Användare</label>
             </fieldset>
-        </div>
+        </div> *@
         <input type="submit" value=@Res.Search>
         }
     </div>

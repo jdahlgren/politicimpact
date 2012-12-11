@@ -208,7 +208,7 @@
     <value>Le email est envoyé</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value>Anglais</value>
+    <value>English</value>
   </data>
   <data name="FilterCase" xml:space="preserve">
     <value>Filtre cas...</value>
@@ -313,7 +313,7 @@
     <value>Soumettre</value>
   </data>
   <data name="Swedish" xml:space="preserve">
-    <value>Suédois</value>
+    <value>Svenska</value>
   </data>
   <data name="ThirdCarousel" xml:space="preserve">
     <value>Cas populaires sont ensuite envoyées aux politiciens qui peuvent répondre et fixer les</value>

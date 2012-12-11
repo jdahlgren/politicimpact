@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
 @using Resources;
 @{
+ var user = (String) HttpContext.Current.Session["uid"]; 
     //Layout = "../Shared/_Layout.cshtml";
     if (!Request["lang"].IsEmpty())
     {
@@ -8,7 +9,6 @@
         Session["language"] = Request["lang"];
     }
 
-@{ var user = (String) HttpContext.Current.Session["uid"]; }
 
     else if (Session["language"] != null)
     {
@@ -23,7 +23,7 @@
 @section header{
     <!-- top menu, to be implemented on other pages -->
     
-    <h2>@Res.Home</h2>
+ @*   <h2>Hem</h2> *@
     <div data-role="header">
         <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
         @if ( user != null) {
@@ -34,13 +34,7 @@
 	        <ul>
 		    <li>@Html.ActionLink(Res.Home, "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
                 <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
-                @if(user != null)
-                {
-                    <li>@Html.ActionLink("Logga ut", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
-                }
-                else
-                {
-                }
+                <li>@Html.ActionLink("Inställningar", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
 	        </ul>
         </div>
     </div>

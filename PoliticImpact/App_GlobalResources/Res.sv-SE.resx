@@ -208,7 +208,7 @@
     <value>Mailet är skickat</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value>Engelska</value>
+    <value>English</value>
   </data>
   <data name="FilterCase" xml:space="preserve">
     <value>Filtrera förslag...</value>
@@ -217,7 +217,7 @@
     <value>Förslagets 5 senaste kommentarer</value>
   </data>
   <data name="French" xml:space="preserve">
-    <value>Franska</value>
+    <value>Français</value>
   </data>
   <data name="Groups" xml:space="preserve">
     <value>Grupper</value>

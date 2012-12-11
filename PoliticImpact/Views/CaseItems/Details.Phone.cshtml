@@ -31,6 +31,8 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">@Res.Back</a>
         <h1>@ViewBag.Title</h1>
+
+
         @{ var user = (long)0;}
         @if (HttpContext.Current.Session["uid"] != null)
         {
@@ -38,7 +40,7 @@
         }         
         @if (user == Int64.Parse(@Model.Owner.ToString()) && !@Model.Archived)
         {
-            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">@Res.Delete</a>
+            <a href="#" data-transition="slide" id ="redbutton" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
         }
     </div>
     @if (!@Model.Archived || user == Int64.Parse(@Model.Owner.ToString()))
