@@ -28,7 +28,12 @@
             
             <div class="caseitem-list">
                 <a href="/CaseItems/Details/@item.ID">
-                    <div class="templateimage"></div>
+                    <div class="templateimage">
+                        @if(item.ImageThumbnail != null)
+                        {
+                            <img src="@Url.Content(item.ImageThumbnail)" />
+                        }
+                    </div>
                     <div class="caseitem-list-main">
                         <div class="caseitem-list-main-info">
                             <h3>@item.Title</h3>

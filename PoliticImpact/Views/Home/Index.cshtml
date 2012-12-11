@@ -37,9 +37,9 @@
             <div class="caseitem-list">
                 <a href="/CaseItems/Details/@item.ID">
                     <div class="templateimage">
-                        @if(item.AttachedImage)
+                        @if(item.ImageThumbnail != null)
                         {
-                           <!--visa thumbnail här-->
+                            <img src="@Url.Content(item.ImageThumbnail)" />
                         }
                     </div>
                     <div class="caseitem-list-main">

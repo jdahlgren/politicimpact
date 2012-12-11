@@ -170,17 +170,6 @@ namespace PoliticImpact.Controllers
             }
 
             return View(caseitemRepository.FindAll());
-
-            //Hämta thumbnailUrls till eventuella bilder för cases. Max 100 cases.
-            ViewBag.thumbnailUrls = new string[100];
-            i = 0;
-            foreach (CaseItem c in caseitemRepository.All)
-            {
-                ViewBag.thumbnailUrls[i] = caseimageRepository.GetThumbnailUrl(c.ID);
-                i++;
-            }
-
-            return View(caseitemRepository.All);
         }
 
 
@@ -214,12 +203,10 @@ namespace PoliticImpact.Controllers
 
             //Kod för att skicka rätt bild till vyn:
             string imageUrl = caseimageRepository.GetImageUrl(id);
-            string thumbnailUrl = caseimageRepository.GetThumbnailUrl(id);
 
-            if (imageUrl != null && thumbnailUrl != null)
+            if (imageUrl != null)
             {
                 ViewBag.imageUrl = imageUrl;
-                ViewBag.thumbnailUrl = thumbnailUrl;
             }
             //slut på kod för att skicka rätt bild till vyn
 
@@ -370,34 +357,32 @@ namespace PoliticImpact.Controllers
                                 CaseImage img = new CaseImage();
                                 img.CaseID = caseitem.ID;
 
-                            //Genererar strängar som ska läggas till på bildens namn för att göra namnet unikt:
-                            string imgGUID = Guid.NewGuid().ToString();
-                            string thumbnailGUID = Guid.NewGuid().ToString();
+                                //Genererar strängar som ska läggas till på bildens namn för att göra namnet unikt:
+                                string imgGUID = Guid.NewGuid().ToString();
 
-                            //sparar originalbilden i /Content/uploadedImages/:
-                            string imgLocation = "~/Content/uploadedImages/" + imgGUID + "_" + image.FileName;
-                            img.ImageUrl = imgLocation;
-                            image.SaveAs(Server.MapPath(imgLocation));
+                                //sparar originalbilden i /Content/uploadedImages/:
+                                string imgLocation = "~/Content/uploadedImages/" + imgGUID + "_" + image.FileName;
+                                img.ImageUrl = imgLocation;
+                                image.SaveAs(Server.MapPath(imgLocation));
 
-                            //Skapar en ny resizead bild som ska användas som thumbnail
-                            Image srcImage = Image.FromStream(image.InputStream);
-                            Image thumbnail = new Bitmap(srcImage, 130, 130);
-                            srcImage.Dispose();
+                                //Skapar en ny resizead bild som ska användas som thumbnail
+                                Image srcImage = Image.FromStream(image.InputStream);
+                                Image thumbnail = new Bitmap(srcImage, 130, 130);
+                                srcImage.Dispose();
 
-                            //Sparar thumbnailen i /Content/uploadedThumbnails/:
-                            string thumbnailLocation = "~/Content/uploadedThumbnails/" + thumbnailGUID + "_" + image.FileName;
-                            img.thumbnailUrl = thumbnailLocation;
-                            thumbnail.Save(Server.MapPath(thumbnailLocation));
-                            thumbnail.Dispose();
-                            //image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+                                //Sparar thumbnailen i /Content/uploadedThumbnails/:
+                                string thumbnailLocation = "~/Content/uploadedThumbnails/" + imgGUID + "_" + image.FileName;
+                                caseitem.ImageThumbnail = thumbnailLocation;
+                                thumbnail.Save(Server.MapPath(thumbnailLocation));
+                                thumbnail.Dispose();
+                                //image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
 
                                 caseimageRepository.InsertOrUpdate(img);
                                 caseimageRepository.Save();
 
-                                caseitem.AttachedImage = true;
                                 break;
                             default: //Otillåten filtyp
-                                caseitem.AttachedImage = false;
+                                caseitem.ImageThumbnail = null;
                                 /* Lägg till validerings-errormeddelande i vy:
                                  * ModelState.AddModelError("key", "message");
                                  * i view: @Html.ValidationSummary(false)
@@ -408,7 +393,7 @@ namespace PoliticImpact.Controllers
                     }
                     else
                     {
-                        caseitem.AttachedImage = false;
+                        caseitem.ImageThumbnail = null;
                     }
                     //slut på validering och sparning bild
 

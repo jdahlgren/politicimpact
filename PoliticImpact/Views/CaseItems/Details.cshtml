@@ -105,15 +105,12 @@
     <div class="span4">
         <div class="caseitem-details-template-image">
             @{ 
-        if (Model.AttachedImage)
-        {
-            if (ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
-            {
+                if(Model.ImageThumbnail != null && ViewBag.imageUrl != null)
+                {
                         <a href="@Url.Content(ViewBag.imageUrl)">
-                            <img src="@Url.Content(ViewBag.thumbnailUrl)" />
+                            <img src="@Url.Content(Model.ImageThumbnail)" />
                         </a>
-            }
-        }
+                }
             }
         </div>
     </div>

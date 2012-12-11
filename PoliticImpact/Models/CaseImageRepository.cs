@@ -76,25 +76,6 @@ namespace PoliticImpact.Models
                 return null;
             }
         }
-
-        public string GetThumbnailUrl(int CaseId)
-        {
-            //Hämtar CaseImage som har rätt CaseID
-            var img = (from l in context.CaseImages
-                       where l.CaseID == CaseId
-                       select l).FirstOrDefault();
-
-            string thumbUrl;
-            if (img != null)
-            {
-                thumbUrl = img.thumbnailUrl;
-                return thumbUrl;
-            }
-            else
-            {
-                return null;
-            }
-        }
     }
 
     public interface ICaseImageRepository : IDisposable
@@ -106,6 +87,5 @@ namespace PoliticImpact.Models
         void Delete(int id);
         void Save();
         string GetImageUrl(int caseId);
-        string GetThumbnailUrl(int caseId);
     }
 }

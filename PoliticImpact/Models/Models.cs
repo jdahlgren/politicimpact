@@ -93,7 +93,7 @@ namespace PoliticImpact.Models
         //public virtual RecieverResponse recieverResponse { get; set; }
 
 
-        public bool AttachedImage { get; set; }
+        public string ImageThumbnail { get; set; }
 
         [Required]
         public bool Archived { get; set; }
@@ -201,7 +201,6 @@ namespace PoliticImpact.Models
         public int CaseID { get; set; }
         public virtual CaseItem CaseItem { get; set; }
         public string ImageUrl { get; set; }
-        public string thumbnailUrl { get; set; }
         //public byte[] ImageBytes { get; set; }
     }
 }
