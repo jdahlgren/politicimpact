@@ -58,13 +58,9 @@
                 datatype: "html",
                 data: { search:  searchString}
             }).done(function (msg) {
+                console.log(msg);
                 jQuery('#label_search_result').text(searchRes + jQuery('#search-basic').val());
-                if(msg.length<1){
-                    jQuery('#searchresult').html(msg);
-                }
-                else {
-                    jQuery('#searchresult').html("<p>Inga resultat</p>");
-                }
+                jQuery('#searchresult').html(msg);
             });
         }
     }

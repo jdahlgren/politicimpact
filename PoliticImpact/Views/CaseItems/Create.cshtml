@@ -12,9 +12,6 @@
         Culture = UICulture = Session["language"].ToString();
     }
 }
-@{
-    @Res.CreateCase;
-}
     <h2>@Res.CreateCase</h2>
 
     @using (Html.BeginForm(null,null, FormMethod.Post, new { enctype = "multipart/form-data" })) {

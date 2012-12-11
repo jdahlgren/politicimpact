@@ -50,6 +50,7 @@
 
 
 #main_content{
+    padding-top: 15px;
     min-height: 300px;
 }
 
@@ -147,10 +148,10 @@ div.startcarousel
 {
     border-right: 1px #808080 solid;
 }
-.caseitem-list h3, p{
+.caseitem-list h4, p{
     color: #000;
 }
-div.caseresult h3, p{
+div.caseresult h4, p{
     color: #000;
 }
 

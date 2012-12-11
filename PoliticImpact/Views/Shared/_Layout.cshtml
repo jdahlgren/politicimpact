@@ -1,4 +1,4 @@
-@using Resources;
+﻿@using Resources;
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -59,7 +59,7 @@
             </div>
         <div class="container">
             <hr />
-            <div class="container" id="main_content">
+            <div id="main_content">
                 @RenderBody()
             </div>
           <footer>
@@ -73,7 +73,8 @@
                         InitialiseFacebook("432491363480247");
                     });
                 </script>
-
+        @Scripts.Render("~/Scripts/facebookPublish.js")
+        @Scripts.Render("~/Scripts/facebookConnect.js")
 
 
     </body>

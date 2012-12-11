@@ -1,5 +1,9 @@
 ﻿@model PoliticImpact.Models.CaseItem
 @using Resources;
+
+
+
+
 @{
     Layout = "../Shared/_Layout.cshtml";
     if (!Request["lang"].IsEmpty())
@@ -19,7 +23,7 @@
 } 
 
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
-@if (!@Model.Archived)
+@if (!@Model.Archived || user == Int64.Parse(@Model.Owner.ToString()))
 {
     @*TODO - When user exist on Desktop*@
     @*if (@Model.Archived && user == @Model.Owner.ToString())
@@ -50,13 +54,16 @@
    
 <div class="row">
     <div class="span8">
+        @if (@Model.Archived && user == Int64.Parse(@Model.Owner.ToString()))
+        {
+        <h4>@Res.CaseFiled</h4>
+        }
        <h2>@Model.Title</h2>
-        @if (!Model.Published && Model.Owner == user)
-    {
-        <div class="span2">
+        @if (!Model.Published && Model.Owner == user && !Model.Archived)
+        {
             <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
-        </div>
-    }
+            <br />
+        }
        @*Ritar ut en bild beroende på caseMode*@
         @if (Model.caseMode == 1)
         {
@@ -152,7 +159,7 @@
             <p>@Model.numberOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
             @if (user != 0)
             {
-                <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>                
+                <button class="btn" onclick="$('#newComment').slideDown();">@Res.Comment</button>                
             }
             else
             {
@@ -195,13 +202,7 @@
         </div>
     
     
-    @if (!Model.Published && Model.Owner == user)
-    {
-        <div class="span2">
-            <a href="~/CaseItems/Edit/@Model.ID" class="btn">@Res.Edit</a>
-        </div>
-    }
-
+   
    
     @if (ViewBag.voting != null && !Model.Archived)
     {
@@ -216,7 +217,7 @@
                 <label for="voting-choice-2">@Res.No</label>
                 @if (user != 0)
                 {
-                    <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Res.Vote</button>             
+                    <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">@Res.Vote</button>             
                 }
                 else
                 {
@@ -243,7 +244,7 @@
     <h3>@Res.Comments</h3>
     <div id="newComment">
         <input type="text" id="newCommentStr" />
-        <button class="btn" onclick="PostComment(@Model.ID);">@Res.Save</button>
+        <button class="btn" onclick="PostComment(@Model.ID, @(user));">@Res.Save</button>
     </div>
     <br />
     @if (ViewBag.casecomments == null)

@@ -52,7 +52,8 @@ function ShareCaseByEmail(id) {
     });
 }
 
-function PostComment(id) {
+function PostComment(id, user_id) {
+    console.log(user_id);
     var strComment = jQuery("#newCommentStr").val();
     jQuery.ajax({
         type: "POST",
@@ -61,7 +62,12 @@ function PostComment(id) {
     }).done(function (msg) {
         console.log("comment created");
     }).always(function () {
-        $("#newComment").after("<p>" + strComment + "</p>");
+        
+        $.getJSON('https://graph.facebook.com/' + user_id, function (data) {
+            $("#newComment").after('<p class="comment_author author_' + user_id + '"><strong>' + data.name + '</strong></p><p>' + strComment + '</p>');
+        });
+        
+        
         $("#newComment").slideUp();
         $("#newCommentStr").val("");
         $("#nocomments").remove();
@@ -71,7 +77,7 @@ function PostComment(id) {
 function ShowCommentField() {
     $("#fiveComments").hide();
     $("#allComments").show();
-    $("#newComment").show();
+    $("#newComment").slideDown();
 }
 
 /**
