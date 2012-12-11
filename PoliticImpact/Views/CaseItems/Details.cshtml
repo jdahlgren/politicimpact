@@ -60,8 +60,6 @@
 
         <p>@Model.Text</p>
 
-
-        <div class="display-label">Mottagare</div>
         <div class="display-label">@Res.Receiver</div>
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
@@ -153,7 +151,8 @@
             {
                 if (!@Model.Archived)
                 {
-                <a href="#signupCase" class="btn">@Res.Sign</a>
+                //<a href="#signupCase" class="btn">@Res.Sign</a>
+                <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>
                 }
             }
         </div>
@@ -216,7 +215,7 @@
 <div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>Share @Model.Title</h3>
+    <h3>Dela @Model.Title</h3>
     </div>
     <div class="modal-body">
     <div style="padding:10px 20px;" >
@@ -225,12 +224,12 @@
         <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
 	</div>
     <div id="share_by_email">
-        <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
-        <button onclick="ShareCaseByEmail(@Model.ID);">Send link</button>
+        <input type="email" name="email" id="friend_email" value=" " placeholder="Mottagar mail"/>
+        <button onclick="ShareCaseByEmail(@Model.ID);">Skicka länk</button>
     </div>
     </div>
     <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
     </div>
 </div>
 
@@ -240,15 +239,15 @@
 <div id="signupCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>Sign petition for @Model.Title</h3>
+    <h3>Skriv på namninsamling</h3>
     </div>
     <div class="modal-body">
-        <p>Do you want to sign the petition for  @Model.Title ? </p>
-        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Yes</a>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+        <p>Skriv på namninsamlingen för @Model.Title ? </p>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Ja</a>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Nej</button>
     </div>
     <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
     </div>
 </div>
 

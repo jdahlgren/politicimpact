@@ -138,6 +138,7 @@
                 {
                    if (!@Model.Archived)
                    {
+                       
                         <a href="#popupSignUp" data-rel="popup"> 
                             <img src="~/Content/images/SignWin8.png" width="50" height="50" id="ShowCaseSign"/>
                         </a>
@@ -148,7 +149,9 @@
         
         @if (!@Model.Archived)
         {
-            <a href="#popupShare" data-rel="dialog" data-inline="true" data-position-to="window">
+                           // <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>
+
+            <a href="#popupShare" data-rel="popup">
                 <img src="~/Content/images/ShareWin8.png" width="50" height="50 id ="ShowShareCase" />    
             </a>
         }
@@ -157,15 +160,15 @@
 
         @* Visa respons från mottagare *@
         @{
-            if (ViewBag.responded)
-            {
+        if (ViewBag.responded)
+        {
                 <form>
                     <fieldset>
                         <legend>Svar från mottagaren</legend>
                         <p>@ViewBag.response</p>
                     </fieldset>
                </form>
-            }  
+        }  
         }
         @* slut på visa respons *@
    
@@ -277,9 +280,9 @@
                     <fieldset data-role="controlgroup">
                         <div id="voting-alternatives">
                             <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                            <label for="voting-choice-1">Yes</label>
+                            <label for="voting-choice-1">Ja</label>
                             <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                            <label for="voting-choice-2">No</label>
+                            <label for="voting-choice-2">Nej</label>
                         </div>
                         </fieldset>
                     <button onclick="SendVote(@ViewBag.voting.VotingID);" id="btnVote">Rösta</button>
@@ -303,25 +306,30 @@
         display: none;
     }
 </style>
-<div data-role ="dialog" id ="popupShare" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
+<div data-role ="popup" id ="popupShare" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
     <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Stäng</a>
 	<form>
-		<div style="padding:10px 20px;" >
-			<h3>Dela @Model.Title</h3>
+
+        <div data-role="content" data-theme="c">
+ 
+    <h3>Dela @Model.Title</h3>
+          
             <a onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
             <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
-		</div>
+		
         <div id="share_by_email">
-            <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+            <input type="email" name="email" id="friend_email" value=" " placeholder="Mottagare mail"/>
             <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">Skicka länk</a>
         </div>
+              </div>
+           
 	</form>
 </div>
 
-<div data-role ="dialog" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
+<div data-role ="popup" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
       @*<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>*@
     		<div data-role="header" data-theme="d" data-position="inline">
-    <h3>Skriv på namninsamling</h3></div>
+    <h3>Skriv på</h3></div>
     <div data-role="content" data-theme="c">
         <p>Vill du skriva på namninsamlingen för @Model.Title ? </p>
         <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " data-role="button" data-theme= "b">Ja</a>
@@ -341,9 +349,9 @@
         });
     }
 </script>
-}
-else
-{
+    }
+    else
+    {
     <h3>Ärendet är arkiverat</h3>   
 }
 

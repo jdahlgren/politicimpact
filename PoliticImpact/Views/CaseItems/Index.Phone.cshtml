@@ -17,7 +17,10 @@
         
         @if ( user != null) {
             <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
-        }        
+        }
+        else {
+            <a href="~/Account/Index" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
@@ -41,11 +44,10 @@
                 <h3>@item.Title</h3>
                 <p id="divName@(item.ID)"></p>
                 <p>@item.Text.</p>
-                <p class="ui-li-aside">@ViewBag.likes[nr] Gillar</p>
+                <p class="ui-li-aside">@item.numberOfLikes Gillar</p>
             </a>
         </li>
         
-        nr++;
         
         //Get name from facebook
         <script type='text/javascript'>
