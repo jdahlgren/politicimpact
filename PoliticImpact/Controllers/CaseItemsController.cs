@@ -291,14 +291,7 @@ namespace PoliticImpact.Controllers
                 }
 
             }
-            return View(caseitemRepository.Find(id));
-            return View(caseitem);
-            ///---------------Frida
-            
-
             return View(caseItem);
-
-            ///-------------Frida
         }
 
         //
@@ -351,10 +344,6 @@ namespace PoliticImpact.Controllers
                 resp.ResponseCode = GenerateResponseCode(caseitem);
                 recieverresponseRepository.InsertOrUpdate(resp);
                 recieverresponseRepository.Save();
-            RecieverResponse resp = new RecieverResponse();
-            resp.ResponseCode = GenerateResponseCode(caseitem);
-            recieverresponseRepository.InsertOrUpdate(resp);
-            recieverresponseRepository.Save();
 
                 caseitem.caseMode = 0;
                 caseitem.Created = DateTime.Now;
@@ -397,7 +386,7 @@ namespace PoliticImpact.Controllers
                             img.thumbnailUrl = thumbnailLocation;
                             thumbnail.Save(Server.MapPath(thumbnailLocation));
                             thumbnail.Dispose();
-                            image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
+                            //image.InputStream.Read(img.ImageBytes, 0, image.ContentLength);
 
                                 caseimageRepository.InsertOrUpdate(img);
                                 caseimageRepository.Save();
