@@ -10,6 +10,7 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace PoliticImpact.Controllers
 {
@@ -801,6 +802,50 @@ namespace PoliticImpact.Controllers
             return View(caseitemRepository.Find(id));
         }
 
+         public ActionResult TheStatistics(int id)
+        {
+           
+            var availblableTags = theStatisticsJSON(id);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ViewBag.Data = serializer.Serialize(availblableTags.Data);
+            return View(caseitemRepository.Find(id));
+            
+            //return View();
+        }
+
+    private JsonResult theStatisticsJSON(int id)
+    {
+        int[] theLikes = caselikeRepository.StatisticLikes(id);
+
+        
+        var theDates = new DateTime[7];
+        var theDatesString = new String[7];
+        var today = DateTime.Now;
+
+        var likeList = new List<int>();
+        var dayList = new List<String>();
+
+
+
+        for (var i = 0; i < 7; i++)
+        {
+            
+            likeList.Add(theLikes[i]);
+            theDates[i] = today.AddDays(-i);
+            theDatesString[i] = theDates[i].ToString("yyyy-MM-dd");
+            dayList.Add(theDatesString[i]);
+
+
+        }
+        ViewBag.theDates = dayList;
+        ViewBag.theLikes = likeList;
+
+        ViewBag.totalLikes = likeList.Sum();
+
+
+        return Json(new { stats = likeList, days = dayList });
+    }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -818,4 +863,3 @@ namespace PoliticImpact.Controllers
 
 
 }
-

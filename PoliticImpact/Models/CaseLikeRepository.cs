@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Objects;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
@@ -39,6 +40,27 @@ namespace PoliticImpact.Models
                                                   select CL);
             return caselikes.Count();
         }
+
+        public int FindAndCountLikes(int caseId, DateTime day)
+        {
+            IQueryable<CaseLike> caselikes = context.CaseLikes.Where(CL => CL.caseID == caseId && CL.created.Year == day.Year && CL.created.Month == day.Month && CL.created.Day == day.Day);
+     
+            return caselikes.Count();
+        }
+        
+        public int[] StatisticLikes(int caseID)
+        {
+            var dayLikes = new int[7];
+            var today = DateTime.Now;
+          
+            for (var i = 0; i < 7; i++)
+            {    
+                dayLikes[i] = FindAndCountLikes(caseID,today.Date.AddDays(-i));
+            }
+           
+           return dayLikes;
+        }
+
 
         public void InsertOrUpdate(CaseLike caselike)
         {
@@ -78,5 +100,7 @@ namespace PoliticImpact.Models
         void Save();
 
         int FindLike(int id);
+
+        int[] StatisticLikes(int id);
     }
 }
