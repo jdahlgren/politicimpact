@@ -1,5 +1,5 @@
 ﻿function showAndHideVotingTitle() {
-    if ($("#create_voting").val() == "yes") {
+    if ($('#create_voting').is(':checked')) {
         jQuery("#voting_input").slideDown();
     }
     else {
