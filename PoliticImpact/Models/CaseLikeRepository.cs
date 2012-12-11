@@ -41,7 +41,7 @@ namespace PoliticImpact.Models
             return caselikes.Count();
         }
 
-        public int FindAndCountLikes(int caseId, DateTime day)
+         public int FindAndCountLikes(int caseId, DateTime day)
         {
             IQueryable<CaseLike> caselikes = context.CaseLikes.Where(CL => CL.caseID == caseId && CL.created.Year == day.Year && CL.created.Month == day.Month && CL.created.Day == day.Day);
      
@@ -59,6 +59,14 @@ namespace PoliticImpact.Models
             }
            
            return dayLikes;
+        }
+       
+        
+         public IQueryable<CaseLike> FindAllByCaseId(int id)
+        {
+            return (from cl in context.CaseLikes
+                    where cl.caseID == id
+                    select cl);
         }
 
 
