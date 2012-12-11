@@ -62,7 +62,17 @@
                 <td>@Html.EditorFor(model => model.enableSigns)</td>
                 <td>@Html.ValidationMessageFor(model => model.enableSigns)</td>
             </tr>
-                <tr>
+            <tr>
+                <td>@Res.Votes</td>
+                <td>
+                    <input class="check-box" id="create_voting" name="create_voting" type="checkbox" value="true"  onchange="showAndHideVotingTitle();" >
+                    <div data-role="fieldcontain" id="voting_input">
+                        <label for="name">Titel på omröstning:</label>
+                        <input type="text" name="voting_title" id="voting_title" class="span5" value="" data-mini="true" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
                 <td>@Res.Category</td>
                 <td>
                         @Html.DropDownListFor(model => model.CategoryID, ((IEnumerable<PoliticImpact.Models.CaseCategory>)ViewBag.PossibleCategories).Select(option => new SelectListItem {
@@ -72,19 +82,6 @@
                         }), "Välj...")
                 </td>
                     <td>@Html.ValidationMessageFor(model => model.CategoryID)</td>
-            </tr>
-            <tr>
-                <td>@Res.Votes</td>
-                <td>
-				    <select name="create_voting" id="create_voting" data-role="slider" data-mini="true" onchange="showAndHideVotingTitle();">
-					    <option value="no">Nej</option>
-					    <option value="yes">Ja</option>
-                    </select>
-                    <div data-role="fieldcontain" id="voting_input">
-                        <label for="name">Titel på omröstning:</label>
-                        <input type="text" name="voting_title" id="voting_title" class="span5" value="" data-mini="true" />
-                    </div>
-                </td>
             </tr>
             <tr>
                 <td>@Res.Publish</td>

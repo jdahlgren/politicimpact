@@ -78,7 +78,7 @@ namespace PoliticImpact.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         //

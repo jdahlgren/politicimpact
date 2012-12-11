@@ -1,4 +1,4 @@
-@model IEnumerable<PoliticImpact.Models.CaseItem>
+﻿@model IEnumerable<PoliticImpact.Models.CaseItem>
 @using Resources;
 @{
     //Layout = "../Shared/_Layout.cshtml";
@@ -7,6 +7,9 @@
         Culture = UICulture = Request["lang"];
         Session["language"] = Request["lang"];
     }
+
+@{ var user = (String) HttpContext.Current.Session["uid"]; }
+
     else if (Session["language"] != null)
     {
         Culture = UICulture = Session["language"].ToString();
@@ -21,14 +24,25 @@
     <!-- top menu, to be implemented on other pages -->
     
     <h2>@Res.Home</h2>
-    <!-- navigation -->
-    <div data-role="navbar" data-iconpos="top">
-	    <ul>
+    <div data-role="header">
+        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+        @if ( user != null) {
+            <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }    
+        <!-- navigation -->
+        <div data-role="navbar" data-iconpos="top">
+	        <ul>
 		    <li>@Html.ActionLink(Res.Home, "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
-            <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
-            <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
-
-	    </ul>
+                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
+                @if(user != null)
+                {
+                    <li>@Html.ActionLink("Logga ut", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
+                else
+                {
+                }
+	        </ul>
+        </div>
     </div>
 }
 
@@ -65,4 +79,3 @@
         }
     }
 </div>
-

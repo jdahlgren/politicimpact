@@ -3,7 +3,7 @@
 window.fbAsyncInit = function () {
     FB.init({
         appId: '525281827501845', // App ID
-        channelUrl: '//www.annasemone.se/channel.html', // Channel File
+        channelUrl: '/politicimpact.azurewebsites.net/channel.html', // Channel File
         status: true, // check login status
         cookie: true, // enable cookies to allow the server to access the session
         xfbml: true  // parse XFBML

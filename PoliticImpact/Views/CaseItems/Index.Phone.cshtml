@@ -27,14 +27,23 @@
         
         @if ( user != null) {
             <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.CreateCase</a>
-        }        
+        }
+        else {
+            <a href="~/Account/Index" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
 		        <li><a href="/Home/Index" data-icon="home">@Res.Home</a></li>
                 <li>@Html.ActionLink(Res.Case, "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
-
+                @if(user != null)
+                {
+                    <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink(Res.LogIn, "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
 	        </ul>
         </div>
         <!-- /navigation -->
@@ -55,7 +64,6 @@
             </a>
         </li>
         
-        nr++;
         
         //Get name from facebook
         <script type='text/javascript'>

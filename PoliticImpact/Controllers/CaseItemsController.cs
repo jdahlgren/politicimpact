@@ -10,6 +10,7 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace PoliticImpact.Controllers
 {
@@ -348,8 +349,9 @@ namespace PoliticImpact.Controllers
 
                 caseitem.caseMode = 0;
                 caseitem.Created = DateTime.Now;
-                caseitem.LastEdited = Convert.ToDateTime("2012-01-01");
+                caseitem.LastEdited = DateTime.Now;
                 caseitem.ResponseID = resp.ResponseID;
+                caseitem.Archived = false;
 
                 if (ModelState.IsValid)
                 {
@@ -424,22 +426,22 @@ namespace PoliticImpact.Controllers
                     recieverresponseRepository.InsertOrUpdate(resp);
                     recieverresponseRepository.Save();
 
-                    if (Request["create_voting"] != "" && Request["create_voting"] != null)
-                    {
-                        //have the user requested a voting on this case?
-                        if (Request["create_voting"] == "yes" && Request["voting_title"] != "" && Request["voting_title"] != null)
-                        {
-                            CaseVoting casevoting = new CaseVoting();
-                            casevoting.CaseID = caseitem.ID;
-                            casevoting.Title = Request["voting_title"];
-                            casevoting.StartDate = DateTime.Now;
-                            casevoting.EndDate = DateTime.Now;
-                            casevoting.Created = DateTime.Now;
-                            caseVotingRepository.InsertOrUpdate(casevoting);
-                            caseVotingRepository.Save();
-                        }
+                    var createVoting = Request["create_voting"];
 
+                    //have the user requested a voting on this case?
+                    if (createVoting=="true" && Request["voting_title"] != null)
+                    {
+                        CaseVoting casevoting = new CaseVoting();
+                        casevoting.CaseID = caseitem.ID;
+                        casevoting.Title = Request["voting_title"];
+                        casevoting.StartDate = DateTime.Now;
+                        casevoting.EndDate = DateTime.Now;
+                        casevoting.Created = DateTime.Now;
+                        caseVotingRepository.InsertOrUpdate(casevoting);
+                        caseVotingRepository.Save();
                     }
+
+                    
 
 
                 }
@@ -560,7 +562,7 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public void ArchiveCaseItem()
         {
             IQueryable<CaseItem> CaseItems = caseitemRepository.All;
@@ -570,53 +572,77 @@ namespace PoliticImpact.Controllers
 
             foreach (var item in CaseItems)
             {
+                 if (caselikeRepository.All.Count() != 0)
+                     CaseLike = caselikeRepository.FindAllByCaseId(item.ID);
+                 if(caseCommentRepository.All.Count() !=0)
+                     CaseComment = caseCommentRepository.FindAllByCaseId(item.ID);
+                 if(casesignupRepository.All.Count() != 0)
+                     CaseSign = casesignupRepository.FindAllByCaseId(item.ID);
+
                 if (!item.Archived)
                 {
-                    if (item.Deadline > DateTime.Now)
+                    if (item.Deadline < DateTime.Now)
                     {
                         item.Archived = true;
+                        caseitemRepository.InsertOrUpdate(item);
+                        caseitemRepository.Save();
+                        break;
                     }
-                    /*TODO - ändra till if ((item.LastEdited - DateTime.Now).Days >= 7) när testning är klart*/
-                    if ((item.LastEdited - DateTime.Now).Minutes >= 5)
+                    if ((DateTime.Now - item.LastEdited).Days >= 7)
                     {
                         item.Archived = true;
+                        caseitemRepository.InsertOrUpdate(item);
+                        caseitemRepository.Save();
+                        break;
                     }
                     if (item.caseMode != 0)
                     {
                         item.Archived = true;
+                        caseitemRepository.InsertOrUpdate(item);
+                        caseitemRepository.Save();
+                        break;
                     }
                     /*TODO when comment have a created date */
                     /*if (item.enableComments)
                     {
                         foreach (var comment in CaseComment)
                         {
-                            if ((comment.created - DateTime.Now).Days >= 7)
+                            if ((DateTime.Now - comment.created).Days >= 7)
                             {
                                 item.Archived = true;
+                                caseitemRepository.InsertOrUpdate(item);
+                                caseitemRepository.Save();
+                                break;
                             }
                         }
                     }//End enableComments*/
-                    if (item.enableLikes)
-                    {
-                        foreach (var like in CaseLike)
-                        {/*TODO - ändra till if ((like.created - DateTime.Now).Days >= 7) när testning är klart*/
-                            if ((like.created - DateTime.Now).Minutes >= 5)
-                            {
-                                item.Archived = true;
-                            }
-                        }
-                    }//End enableLikes
-                    if (item.enableSigns)
-                    {
-                        foreach (var sign in CaseSign)
-                        {/*TODO - ändra till if ((sign.created - DateTime.Now).Days >= 7) när testning är klart*/
-                            if ((sign.created - DateTime.Now).Minutes >= 5)
-                            {
-                                item.Archived = true;
-                            }
-                        }
-                    }//End enableSigns
-                    
+                     if (item.enableLikes)
+                     {
+                         foreach (var like in CaseLike)
+                         {
+                             if ((DateTime.Now - like.created).Days >= 7)                             
+                             {
+                                 item.Archived = true;
+                                 caseitemRepository.InsertOrUpdate(item);
+                                 caseitemRepository.Save();
+                                 break;
+                             }
+                         }
+                     }//End enableLikes
+                     if (item.enableSigns)
+                     {
+                         foreach (var sign in CaseSign)
+                         {
+                             if ((DateTime.Now - sign.created).Days >= 7)
+                             {
+                                 item.Archived = true;
+                                 caseitemRepository.InsertOrUpdate(item);
+                                 caseitemRepository.Save();
+                                 break;
+                             }
+                         }
+                     }//End enableSigns
+
                 }//End If(!item.Archived)
             }
         }//End ArchiveCaseItem()
@@ -801,6 +827,50 @@ namespace PoliticImpact.Controllers
             return View(caseitemRepository.Find(id));
         }
 
+         public ActionResult TheStatistics(int id)
+        {
+           
+            var availblableTags = theStatisticsJSON(id);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            ViewBag.Data = serializer.Serialize(availblableTags.Data);
+            return View(caseitemRepository.Find(id));
+            
+            //return View();
+        }
+
+    private JsonResult theStatisticsJSON(int id)
+    {
+        int[] theLikes = caselikeRepository.StatisticLikes(id);
+
+        
+        var theDates = new DateTime[7];
+        var theDatesString = new String[7];
+        var today = DateTime.Now;
+
+        var likeList = new List<int>();
+        var dayList = new List<String>();
+
+
+
+        for (var i = 0; i < 7; i++)
+        {
+            
+            likeList.Add(theLikes[i]);
+            theDates[i] = today.AddDays(-i);
+            theDatesString[i] = theDates[i].ToString("yyyy-MM-dd");
+            dayList.Add(theDatesString[i]);
+
+
+        }
+        ViewBag.theDates = dayList;
+        ViewBag.theLikes = likeList;
+
+        ViewBag.totalLikes = likeList.Sum();
+
+
+        return Json(new { stats = likeList, days = dayList });
+    }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -818,4 +888,3 @@ namespace PoliticImpact.Controllers
 
 
 }
-

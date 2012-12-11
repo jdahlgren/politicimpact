@@ -31,19 +31,20 @@
     <div data-role="header">
         <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">@Res.Back</a>
         <h1>@ViewBag.Title</h1>
-        @{ var user = (long) 0;}
-        @if ( HttpContext.Current.Session["uid"] != null){
-              user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
+        @{ var user = (long)0;}
+        @if (HttpContext.Current.Session["uid"] != null)
+        {
+            user = (long)Int64.Parse(HttpContext.Current.Session["uid"].ToString());
         }         
         @if (user == Int64.Parse(@Model.Owner.ToString()) && !@Model.Archived)
         {
             <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">@Res.Delete</a>
         }
     </div>
-    @if(!@Model.Archived || user == Int64.Parse(@Model.Owner.ToString()))
+    @if (!@Model.Archived || user == Int64.Parse(@Model.Owner.ToString()))
     {
     <div data-role="content">
-        @if(@Model.Archived && user == Int64.Parse(@Model.Owner.ToString()))
+        @if (@Model.Archived && user == Int64.Parse(@Model.Owner.ToString()))
         {
         <h2>@Res.CaseFiled</h2>
         }
@@ -82,8 +83,8 @@
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
             @{ 
-                if(Model.AttachedImage)
-                {
+        if (Model.AttachedImage)
+        {
                     <div class="display-field">
                         <a href="#popupImage" data-rel="popup" data-position-to="window"><img src="@Url.Content(ViewBag.thumbnailUrl)" /></a>
                 						
@@ -92,10 +93,10 @@
                             <img src="@Url.Content(ViewBag.imageUrl)" />
 			            </div>                    
                     </div>
-                }
+        }
             }
          @*Visa alla dokument till ärendet*@
-        @if(Model.documentUrl != null)
+        @if (Model.documentUrl != null)
         {
            <h3>Det bifogade dokumentet:</h3>
            <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
@@ -104,7 +105,7 @@
     
        @if (Model.enableLikes == true)
        {
-           if(user != 0)
+           if (user != 0)
            {
                if (ViewBag.likeStatus == "signed")
                {
@@ -121,25 +122,19 @@
                         </a>
                    }
                }
-            }
-            
-             
+           }
+
+
        }
-        @if (Model.enableComments == true && !Model.Archived)
-        {
-            if(user != 0)
-            {
-                <img src="~/Content/images/CommentWin8.png" width="50" height="50" id="ShowCaseComment" />
-            }
-        }
+  
 
         @if (Model.enableSigns == true)
         {
             @*<a href="#popupShare" data-rel="popup">
                 <img src="~/Content/images/Signing.png" width="60" height="60" id="ShowCaseSign" />
             </a>*@
-            if(user != 0)
-            {       
+            if (user != 0)
+            {
                 if (ViewBag.status == "signed")
                 {
                     //Kanske skall vara en bild istället?
@@ -147,9 +142,10 @@
                 }
                 else
                 {
-                   if (!@Model.Archived)
-                   {
-                        <a href="#popupSignUp" data-rel="dialog"> 
+                    if (!@Model.Archived)
+                    {
+                       
+                        <a href="#popupSignUp" data-rel="popup"> 
                             <img src="~/Content/images/SignWin8.png" width="50" height="50" id="ShowCaseSign"/>
                         </a>
                     }
@@ -159,125 +155,44 @@
         
         @if (!@Model.Archived)
         {
-            <a href="#popupShare" data-rel="dialog" data-inline="true" data-position-to="window">
+            // <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>
+
+            <a href="#popupShare" data-rel="popup">
                 <img src="~/Content/images/ShareWin8.png" width="50" height="50 id ="ShowShareCase" />    
             </a>
         }
+
         
-        <p>@Res.NrOfLikes: @ViewBag.numberOfLikes</p>
+           @if (Model.enableComments == true && !Model.Archived)
+           {
+               if (user != 0)
+               {
+                <a href ="#"  onclick="ShowCommentField()"> 
+                    <img src="~/Content/images/CommentWin8.png" width="50" height="50" id="ShowCaseComment" />
+                </a>
+               }
+
+           }
+        
+        <p>@Res.NrOfLikes: Model.numberOfLikes</p>
+
 
         @* Visa respons från mottagare *@
         @{
-            if (ViewBag.responded)
-            {
+        if (ViewBag.responded)
+        {
                 <form>
                     <fieldset>
                         <legend>@Res.ResponseReceiver</legend>
                         <p>@ViewBag.response</p>
                     </fieldset>
                </form>
-            }  
+        }  
         }
         @* slut på visa respons *@
    
         @*start: Frida Mattisson 2012-11-16*@
-
-        @* Visa de 5 senaste kommentarerna från början, vid klick kommer en möjlighet att kommentera och alla kommentarer visas*@
-             
-        @*Print 5 comments for the case*@
-        <div id="fiveComments">
-            <fieldset>
-                <legend>@Res.Comments</legend>
-                @*Om kommentarerna är tomma*@
-                @if (ViewBag.casecomments == null)
-                {
-                        <p id="nocomments">@Res.NoComments</p>
-                }
-                else
-                {
-                    foreach (var comment in ViewBag.casecomments)
-                    {
-                        <p id="divName1@(comment.commentID)"></p>
-                        //Get name from facebook
-                        <script type='text/javascript'>
-                            $(document).ready(function () {
-                                $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
-                                    $('<strong>' + data.name + '</strong>').appendTo('#divName1@(comment.commentID)');
-                                })
-                            })
-                        </script>
-                        <p>@comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-        </div>
-         @*Print all comments for the case där id är samma*@
-        <div id="newComment">
-            <input type="text" id="newCommentStr" />
-            <button onclick="PostComment(@Model.ID);">@Res.Comment</button>
-        </div>
-        <div id="allComments">
-            <fieldset>
-                <legend id="titleComments">@Res.Comments</legend>
-                @if (ViewBag.casecomments == null)
-                {
-                        <p id="nocomments">@Res.NoComments</p>
-                }
-                else
-                {
-                    foreach (var comment in ViewBag.casecomments)
-                    {
-                        <p id="divName2@(comment.commentID)"></p>
-                        //Get name from facebook
-                        <script type='text/javascript'>
-                            $(document).ready(function () {
-                                $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
-                                    $('<strong>' + data.name + '</strong>').appendTo('#divName2@(comment.commentID)');
-                                })
-                            })
-                        </script>
-                        <p>@comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-        </div>
-
-       <!--Kommenteras bort tills att vi kan hämta data ur databasen
-        
-         @using (Html.BeginForm("CreateComment", "CaseItems", FormMethod.Post, new { @style = "display: none;", @id = "allComments" }))
-         {
-            @*<form style="display: none;" id="allComments">*@
-            @Html.Hidden("caseID", Model.ID)
-            @Html.TextBox("commentStr")
-
-            @*<input aria-multiline="true" class="commentString"/>*@
-            <input type="submit" value="Submit"/>
-            <fieldset>
-                <legend>Comments</legend>
-                @if (Model.caseComment == null)
-                {
-                     <p>Det finns inga kommentarer på förslaget</p>
-                }
-                else
-                {
-                    foreach (var comment in Model.caseComment)
-                    {
-                        <p id="divName3@(comment.commentID)"></p>
-                        //Get name from facebook
-                        <script type='text/javascript'>
-                            $(document).ready(function () {
-                                $.getJSON('https://graph.facebook.com/' + @comment.userID + "", function (data) {
-                                    $('<strong>' + data.name + '</strong>').appendTo('#divName3@(comment.commentID)');
-                                })
-                            })
-                        </script>
-                        <p>comment.commentStr</p>
-                    }
-                }
-            </fieldset>
-         }-->
-        @*end: Frida Mattisson 2012-11-16*@
- 
+   
 
         @if (ViewBag.voting != null && !@Model.Archived)
         {
@@ -288,9 +203,9 @@
                     <fieldset data-role="controlgroup">
                         <div id="voting-alternatives">
                             <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                            <label for="voting-choice-1">Yes</label>
+                            <label for="voting-choice-1">Ja</label>
                             <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                            <label for="voting-choice-2">No</label>
+                            <label for="voting-choice-2">Nej</label>
                         </div>
                         </fieldset>
                     <button onclick="SendVote(@ViewBag.voting.VotingID);" id="btnVote">@Res.Vote</button>
@@ -306,30 +221,59 @@
         {
             <a href="~/CaseItems/Edit/@Model.ID" data-role="button">@Res.Edit</a>
         }
+
+        @*Print all comments for the case där id är samma*@
+<div id="allComments">
+    <h3>Kommentarer</h3>
+    <div id="newComment">
+        <input type="text" id="newCommentStr" />
+        <button class="btn" onclick="PostComment(@Model.ID);">Spara</button>
+    </div>
+    <br />
+    @if (ViewBag.casecomments == null)
+    {
+            <p id="nocomments">Det finns inga kommentarer</p>
+    }
+    else
+    {
+        foreach (var comment in ViewBag.casecomments)
+        {
+            <p class="comment_author author_@(comment.userID)"></p>
+            <p>@comment.commentStr</p>
+        }
+    }
+</div>
     </div>
 @*</div>*@
+        
+
 <style>
     #share_by_email
     {
         display: none;
     }
 </style>
-<div data-role ="dialog" id ="popupShare" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
+<div data-role ="popup" id ="popupShare" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
     <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">@Res.Close</a>
 	<form>
-		<div style="padding:10px 20px;" >
-			<h3>Dela @Model.Title</h3>
+
+        <div data-role="content" data-theme="c">
+ 
+    <h3>Dela @Model.Title</h3>
+          
             <a onclick="publishStory('@Model.Title', '@Model.Text', '@Request.Url.AbsoluteUri');" data-theme="" id="ventaOption"> <img src="/Content/images/share-facebook.png" width="64" height="64"></a>
             <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
-		</div>
+		
         <div id="share_by_email">
-            <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
+            <input type="email" name="email" id="friend_email" value=" " placeholder="Mottagare mail"/>
             <a onclick="ShareCaseByEmail(@Model.ID);" data-role="button">@Res.SendLink</a>
         </div>
+              </div>
+           
 	</form>
 </div>
 
-<div data-role ="dialog" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
+<div data-role ="popup" id ="popupSignUp" data-overlay-theme="a" data-theme="a" class="ui-corner-all" data-position-to="window">
       @*<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>*@
     		<div data-role="header" data-theme="d" data-position="inline">
     <h3>@Res.SignPetition/h3></div>
@@ -352,9 +296,33 @@
         });
     }
 </script>
-}
-else
-{
+    }
+    else
+    {
     <h3>Ärendet är arkiverat</h3>   
-}
+    }
 
+<script type='text/javascript'>
+    var user_ids = [];
+    var counter = 0;
+    var id = null;
+    $(document).ready(function () {
+        //Get name from facebook
+        $('#allComments .comment_author').each(function () {
+            id = $(this).attr('class').split(' ')[1].split("_")[1];
+            user_ids.push(id);
+
+        });
+
+        user_ids = $.unique(user_ids);
+
+        $.each(user_ids, function (index, value) {
+            $.getJSON('https://graph.facebook.com/' + value, function (data) {
+                $('<strong>' + data.name + '</strong>').appendTo('.author_' + value);
+            });
+        });
+
+
+
+    })
+</script>

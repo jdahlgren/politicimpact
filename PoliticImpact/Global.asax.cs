@@ -39,9 +39,7 @@ namespace PoliticImpact
             while (true)
             {                
                 controller.ArchiveCaseItem();
-                /*TODO ändra så att Timespan är kanske en gång om dagen istället för var tionde minut detta är endast för testning*/
-                /*System.Threading.Thread.Sleep(TimeSpan.FromDays(1));*/
-                System.Threading.Thread.Sleep(TimeSpan.FromMinutes(5));
+                System.Threading.Thread.Sleep(TimeSpan.FromDays(1));
             }
         }
          

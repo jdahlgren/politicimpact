@@ -12,8 +12,14 @@
         Culture = UICulture = Session["language"].ToString();
     }
 }
+@{ var user = (long)0;}
+@if (HttpContext.Current.Session["uid"] != null)
+{
+    user = (long)Int64.Parse(HttpContext.Current.Session["uid"].ToString());
+} 
+
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
-@if(!@Model.Archived) 
+@if (!@Model.Archived)
 {
     @*TODO - When user exist on Desktop*@
     @*if (@Model.Archived && user == @Model.Owner.ToString())
@@ -45,6 +51,12 @@
 <div class="row">
     <div class="span8">
        <h2>@Model.Title</h2>
+        @if (!Model.Published && Model.Owner == user)
+    {
+        <div class="span2">
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
+        </div>
+    }
        @*Ritar ut en bild beroende på caseMode*@
         @if (Model.caseMode == 1)
         {
@@ -64,7 +76,7 @@
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
         @*Visa alla dokument till ärendet*@
-        @if(Model.documentUrl != null)
+        @if (Model.documentUrl != null)
         {
            <h1>Det bifogade dokumentet:</h1>
            <a href="@Url.Content(Model.documentUrl)">@Model.documentName</a>
@@ -93,15 +105,15 @@
     <div class="span4">
         <div class="caseitem-details-template-image">
             @{ 
-                if(Model.AttachedImage)
-                {
-                    if(ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
-                    {
+        if (Model.AttachedImage)
+        {
+            if (ViewBag.imageUrl != null && ViewBag.thumbnailUrl != null)
+            {
                         <a href="@Url.Content(ViewBag.imageUrl)">
                             <img src="@Url.Content(ViewBag.thumbnailUrl)" />
                         </a>
-                    }
-                }
+            }
+        }
             }
         </div>
     </div>
@@ -120,11 +132,18 @@
            {
                 <p>@Res.YouLiked</p>
            }
-           else
+          else if(user != 0)
            {
                if (!@Model.Archived)
                {
-                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Like</a>
+                   if (user != 0)
+                   {
+                    <a href="@Url.Action("LikeCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Like</a>                }
+                   else
+                   {
+                    <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna gilla');">@Res.Like</a>
+                   }
+
                }
            }
 
@@ -134,7 +153,15 @@
     {  
         <div class="span2">
             <p>@Model.numberOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
-            <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
+            @if (user != 0)
+            {
+                <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>                
+            }
+            else
+            {
+                <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna kommentera');">@Res.Comment</a>
+            }
+            
 
         </div>
     }
@@ -149,9 +176,17 @@
             }
             else
             {
-                if (!@Model.Archived)
+                if (!@Model.Archived && user!=0)
                 {
-                <a href="#signupCase" class="btn">@Res.Sign</a>
+                    if (user != 0)
+                    {
+                        <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>              
+                    }
+                    else
+                    {
+                        <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna signera');">@Res.Sign</a>
+                    }
+                
                 }
             }
         </div>
@@ -161,7 +196,9 @@
            
             <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
         </div>
-    @if (!Model.Published && Model.Owner == 1337)
+    
+    
+    @if (!Model.Published && Model.Owner == user)
     {
         <div class="span2">
             <a href="~/CaseItems/Edit/@Model.ID" class="btn">@Res.Edit</a>
@@ -172,13 +209,27 @@
         <h3>@ViewBag.voting.Title</h3>
         if (!ViewBag.UserHasVoted)
         {
-            <div id="voting_container" class="span4">
-                <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                <label for="voting-choice-1">@Res.Yes</label>
-                <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+            if(user!=0){
+                <div id="voting_container" class="span4">
+                    <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                    <label for="voting-choice-1">Ja</label>
+                    <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
                 <label for="voting-choice-2">@Res.No</label>
-                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">@Res.Vote</button>
-            </div>
+                @if (user != 0)
+                {
+                    <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Res.Vote</button>             
+                }
+                else
+                {
+                    <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna rösta');">Rösta</a>
+                }
+                
+                </div>
+            }
+            else
+            {
+                <p>Logga in för att rösta</p>
+            }
         }
         else
         {
@@ -214,7 +265,7 @@
 <div id="shareCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>Share @Model.Title</h3>
+    <h3>Dela @Model.Title</h3>
     </div>
     <div class="modal-body">
     <div style="padding:10px 20px;" >
@@ -223,12 +274,12 @@
         <a id="emailShare" onclick="jQuery('#share_by_email').slideDown();"> <img src="/Content/images/share-email.png" width="64" height="64"></a>
 	</div>
     <div id="share_by_email">
-        <input type="email" name="email" id="friend_email" value=" " placeholder="Email to friend"/>
-        <button onclick="ShareCaseByEmail(@Model.ID);">Send link</button>
+        <input type="email" name="email" id="friend_email" value=" " placeholder="Mottagar mail"/>
+        <button onclick="ShareCaseByEmail(@Model.ID);">Skicka länk</button>
     </div>
     </div>
     <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
     </div>
 </div>
 
@@ -238,15 +289,15 @@
 <div id="signupCase" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>Sign petition for @Model.Title</h3>
+    <h3>Skriv på namninsamling</h3>
     </div>
     <div class="modal-body">
-        <p>Do you want to sign the petition for  @Model.Title ? </p>
-        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Yes</a>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+        <p>Skriv på namninsamlingen för @Model.Title ? </p>
+        <a href ="@Url.Action("SignUp", "CaseItems", new { caseitem = @Model.ID }, null) " class="btn btn-success">Ja</a>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Nej</button>
     </div>
     <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Stäng</button>
     </div>
 </div>
 
@@ -264,18 +315,18 @@ else
         $('#allComments .comment_author').each(function () {
             id = $(this).attr('class').split(' ')[1].split("_")[1];
             user_ids.push(id);
-            
+
         });
 
         user_ids = $.unique(user_ids);
- 
+
         $.each(user_ids, function (index, value) {
             $.getJSON('https://graph.facebook.com/' + value, function (data) {
                 $('<strong>' + data.name + '</strong>').appendTo('.author_' + value);
             });
         });
-            
-        
+
+
 
     })
 </script>

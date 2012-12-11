@@ -1,0 +1,91 @@
+﻿@model PoliticImpact.Models.CaseItem
+
+@{
+    ViewBag.Title = "Statistik";
+}
+
+<script src="../../Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="../../Scripts/jqPlot/jquery.jqplot.js" type="text/javascript"></script>
+<script src="../../Scripts/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"  type="text/javascript"></script>
+<script src="../../Scripts/jqPlot/plugins/jqplot.barRenderer.min.js"  type="text/javascript"></script>
+<link href="../../Scripts/jqPlot/jquery.jqplot.css" rel="stylesheet" type="text/css" />
+
+
+<h1>Statistik</h1>
+<p><i>Fördelning av gillanden för @Model.Title den senaste veckan</i></p>
+
+<div id="chartdiv" style="height:400px;width:600px; "></div>
+
+<P>Totalt antal som gillat senaste veckan: @ViewBag.totalLikes </P>
+
+<script>
+    
+    var localJSON = [ @Html.Raw(ViewBag.Data)];
+    var date = new Date();
+    date.setDate(date.getDate() - 7);
+
+    var month = date.getUTCMonth()+1;
+    var day = date.getUTCDate();
+    var year = date.getUTCFullYear();
+    newdate = year + "-" + month + "-" + day;
+
+    var largest = Math.max.apply(Math, localJSON[0].stats);
+
+    var line1 = new Array();
+
+    for (var i = 0; i < (localJSON[0].stats).length; i++)
+    {
+        a = [localJSON[0].days[i], localJSON[0].stats[i]];
+        line1[i] = a;
+    }
+
+    $.jqplot('chartdiv', [line1],
+        {
+            grid: {
+                background: '#FFF',
+                shadow: false,
+            },
+            seriesDefaults: {
+                
+                renderer: $.jqplot.BarRenderer,
+                
+                rendererOptions: {
+                    // Put a 30 pixel margin between bars.
+                    varyBarColor: true,  
+                    barMargin: 45,
+                    
+                }
+            },
+
+            axes: {
+                yaxis: {
+                    label: 'Gillat',
+                    show: true,
+              
+                    
+                    numberTicks: largest+2,
+                    min: 0,
+                    max: largest + 1,
+                    //tickOptions: {showGridline: false }
+                    
+
+                },
+                xaxis: {
+                    label: 'Dag',
+                    renderer:$.jqplot.DateAxisRenderer, 
+                    tickOptions: {
+                        formatString: '%a', //showGridline: false
+                    },
+                    min: newdate, 
+                    tickInterval:'1 day'
+                },
+                   
+                pad: 5
+            },
+            seriesColors: ["#ee5f5b"],
+
+            }
+        
+)
+
+</script>
