@@ -60,26 +60,13 @@ namespace PoliticImpact.Models
            
            return dayLikes;
         }
+       
         
          public IQueryable<CaseLike> FindAllByCaseId(int id)
         {
             return (from cl in context.CaseLikes
                     where cl.caseID == id
                     select cl);
-        }
-
-        
-        public int[] StatisticLikes(int caseID)
-        {
-            var dayLikes = new int[7];
-            var today = DateTime.Now;
-          
-            for (var i = 0; i < 7; i++)
-            {    
-                dayLikes[i] = FindAndCountLikes(caseID,today.Date.AddDays(-i));
-            }
-           
-           return dayLikes;
         }
 
 
