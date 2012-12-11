@@ -82,14 +82,30 @@
         <h4>@Res.LatestAction</h4>
          @foreach (var item in Model)
         {
-            <div class="caseresult">
-                <a href="#">
-                    <div>
-                        <h3>Testresultat</h3>
-                        <p>Testbeskrivning resultat</p>
-                    </div>
-                </a>
-           </div>
+            if (item.caseMode == 1)
+            {                                
+                <div class="caseresult">
+                    <a href="/CaseItems/Details/@item.ID">
+                        <div>
+                            <h3>@item.Title</h3>
+                            <img src="~/Content/images/Approved_icon.png" width="45" height="45" id="Approved" />
+                        </div>
+                    </a>
+               </div>
+            }
+            else if (item.caseMode == 2)
+            {
+                <div class="caseresult">
+                    <a href="/CaseItems/Details/@item.ID">
+                        <div>
+                            <h3>@item.Title</h3>
+                            <img src="~/Content/images/Dismissed_icon.png" width="45" height="45" id="Dismissed" />
+                        </div>
+                    </a>
+               </div>
+            }
+             
+
         }
     </div>
 

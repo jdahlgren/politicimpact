@@ -17,6 +17,7 @@
 {
     user = (long)Int64.Parse(HttpContext.Current.Session["uid"].ToString());
 } 
+
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
 @if (!@Model.Archived)
 {
@@ -50,6 +51,12 @@
 <div class="row">
     <div class="span8">
        <h2>@Model.Title</h2>
+        @if (!Model.Published && Model.Owner == user)
+    {
+        <div class="span2">
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
+        </div>
+    }
        @*Ritar ut en bild beroende på caseMode*@
         @if (Model.caseMode == 1)
         {
@@ -125,7 +132,7 @@
            {
                 <p>@Res.YouLiked</p>
            }
-           else
+          else if(user != 0)
            {
                if (!@Model.Archived)
                {
@@ -169,7 +176,7 @@
             }
             else
             {
-                if (!@Model.Archived)
+                if (!@Model.Archived && user!=0)
                 {
                     if (user != 0)
                     {
@@ -190,6 +197,7 @@
             <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
         </div>
     
+    
     @if (!Model.Published && Model.Owner == user)
     {
         <div class="span2">
@@ -201,11 +209,12 @@
         <h3>@ViewBag.voting.Title</h3>
         if (!ViewBag.UserHasVoted)
         {
-            <div id="voting_container" class="span4">
-                <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                <label for="voting-choice-1">Ja</label>
-                <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                <label for="voting-choice-2">Nej</label>
+            if(user!=0){
+                <div id="voting_container" class="span4">
+                    <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                    <label for="voting-choice-1">Ja</label>
+                    <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+                    <label for="voting-choice-2">Nej</label>
                 @if (user != 0)
                 {
                     <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>             
@@ -215,7 +224,12 @@
                     <a href="#" class="btn" onclick="javascript:alert('Du måste logga in för att kunna rösta');">Rösta</a>
                 }
                 
-            </div>
+                </div>
+            }
+            else
+            {
+                <p>Logga in för att rösta</p>
+            }
         }
         else
         {
