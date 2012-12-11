@@ -749,8 +749,8 @@ namespace PoliticImpact.Controllers
                 string link;
                 string responseLink, url, path;
 
-                //OBS! Länken är just nu hårdkodad till min localhost, bör ändras till azure senare.
-                link = "<" + "a href=" + "http://" + "localhost:56397/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
+
+                link = "<" + "a href=" + "http://" + "http://politicimpact.azurewebsites.net/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
                 url = Request.Url.AbsoluteUri;
                 path = Request.Url.AbsolutePath;
                 responseLink = url.Replace(path, "") + "/RecieverResponses/Edit?RespCode=" + recieverresponseRepository.GetResponseCode(id);

@@ -52,18 +52,21 @@
             InitialiseFacebook("432491363480247");
         });
     </script>
-    <fb:login-button autologoutlink="true" show-faces="true">@ViewBag.Title</fb:login-button>
+    <fb:login-button autologoutlink="true" show-faces="true">@Res.LogIn</fb:login-button>
     <div>
-        <form method="post">
+        @using (Html.BeginForm("LangChoice", "Account", FormMethod.Post))
+        {
+        
             @Res.SelectLanguage
-            <select id="lang">
-                <option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>
+            <select id="lang" name="lang">
                 <option value="sv-SE" @(Culture == "sv-SE" ? "selected=\"selected\"" : "")>@Res.Swedish</option>
+                <option value="en-GB" @(Culture == "en-GB" ? "selected=\"selected\"" : "")>@Res.English</option>
                 <option value="fr-FR" @(Culture == "fr-FR" ? "selected=\"selected\"" : "")>@Res.French</option>
             </select>
-            <input type="submit" value="@Res.Submit" />
-        </form>
+            <input type="submit" value="@Res.Submit"/>
+        }
     </div>
 </body>
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 </html>
+

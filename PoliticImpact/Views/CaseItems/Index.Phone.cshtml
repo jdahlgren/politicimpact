@@ -48,15 +48,15 @@
 }
 
 <div>
-            <a href="~/CaseItems/Search"  data-role ="button" data-inline="true" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+            <a href="~/CaseItems/Search"  data-role ="button" data-inline="true" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.Search</a>
         
         @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
         
         @if ( user != null) {
-            <a href="~/CaseItems/Create" style="position:absolute; right:0" id = "greenbutton" data-role ="button" data-inline="true"  data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+            <a href="~/CaseItems/Create" style="position:absolute; right:0" id = "greenbutton" data-role ="button" data-inline="true"  data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.CreateCase</a>
         }
         else {
-            <a href="~/Account/Index" style="position:absolute; right:0" id = "greenbutton" data-role ="button" data-inline="true" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+            <a href="~/Account/Index" style="position:absolute; right:0" id = "greenbutton" data-role ="button" data-inline="true" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">@Res.CreateCase</a>
         }
 
 </div>
