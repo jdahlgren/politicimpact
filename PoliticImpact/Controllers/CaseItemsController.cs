@@ -154,6 +154,7 @@ namespace PoliticImpact.Controllers
 
         //
         // GET: /CaseItems/
+        
 
         public ViewResult Index()
         {
@@ -502,6 +503,67 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        //[AllowAnonymous]
+        public void ArchiveCaseItem()
+        {
+            IQueryable<CaseItem> CaseItems = caseitemRepository.All;
+            IQueryable<CaseComment> CaseComment = caseCommentRepository.All;
+            IQueryable<CaseLike> CaseLike = caselikeRepository.All;
+            IQueryable<CaseSignUp> CaseSign = casesignupRepository.All;
+
+            foreach (var item in CaseItems)
+            {
+                if (!item.Archived)
+                {
+                    if (item.Deadline > DateTime.Now)
+                    {
+                        item.Archived = true;
+                    }
+                    /*TODO - ändra till if ((item.LastEdited - DateTime.Now).Days >= 7) när testning är klart*/
+                    if ((item.LastEdited - DateTime.Now).Minutes >= 5)
+                    {
+                        item.Archived = true;
+                    }
+                    if (item.caseMode != 0)
+                    {
+                        item.Archived = true;
+                    }
+                    /*TODO when comment have a created date */
+                    /*if (item.enableComments)
+                    {
+                        foreach (var comment in CaseComment)
+                        {
+                            if ((comment.created - DateTime.Now).Days >= 7)
+                            {
+                                item.Archived = true;
+                            }
+                        }
+                    }//End enableComments*/
+                    if (item.enableLikes)
+                    {
+                        foreach (var like in CaseLike)
+                        {/*TODO - ändra till if ((like.created - DateTime.Now).Days >= 7) när testning är klart*/
+                            if ((like.created - DateTime.Now).Minutes >= 5)
+                            {
+                                item.Archived = true;
+                            }
+                        }
+                    }//End enableLikes
+                    if (item.enableSigns)
+                    {
+                        foreach (var sign in CaseSign)
+                        {/*TODO - ändra till if ((sign.created - DateTime.Now).Days >= 7) när testning är klart*/
+                            if ((sign.created - DateTime.Now).Minutes >= 5)
+                            {
+                                item.Archived = true;
+                            }
+                        }
+                    }//End enableSigns
+                    
+                }//End If(!item.Archived)
+            }
+        }//End ArchiveCaseItem()
+
         public ActionResult Search()
         {
             return View();
@@ -646,6 +708,8 @@ namespace PoliticImpact.Controllers
             return View();
         }
 
+        
+
         /**
         * PrintCase – Sammanställer data och skickar vidare till vyn för utskrift av förslag.
         */
@@ -681,6 +745,8 @@ namespace PoliticImpact.Controllers
 
         public CaseLikeRepository CaseLikeRepository { get; set; }
     }
+
+    
 
 
 }
