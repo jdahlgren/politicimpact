@@ -2,18 +2,33 @@
 @{
     ViewBag.Title = "Hem";
 }
+
+@{ var user = (String) HttpContext.Current.Session["uid"]; }
+
 @section header{
     <!-- top menu, to be implemented on other pages -->
     
-    <h2>Hem</h2>
-    <!-- navigation -->
-    <div data-role="navbar" data-iconpos="top">
-	    <ul>
-		    <li>@Html.ActionLink("Hem", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
-            <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
-            <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
-
-	    </ul>
+    <div data-role="header">
+        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+        <h2>Hem</h2>
+        @if ( user != null) {
+            <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }    
+        <!-- navigation -->
+        <div data-role="navbar" data-iconpos="top">
+	        <ul>
+		        <li>@Html.ActionLink("Hem", "Index", new { Controller = "Home"}, new { data_icon = "home", @class = "ui-btn-active ui-state-persist" })</li>
+                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid" })</li>
+                @if(user != null)
+                {
+                    <li>@Html.ActionLink("Logga ut", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
+	        </ul>
+        </div>
     </div>
 }
 
