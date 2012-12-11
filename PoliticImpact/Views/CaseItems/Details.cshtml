@@ -162,7 +162,11 @@
            
             <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
         </div>
-    @if (!Model.Published && Model.Owner == 1337)
+    @{ var user = (long) 0;}
+        @if ( HttpContext.Current.Session["uid"] != null){
+              user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
+        } 
+    @if (!Model.Published && Model.Owner == user)
     {
         <div class="span2">
             <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
