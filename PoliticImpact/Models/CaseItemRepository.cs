@@ -18,13 +18,16 @@ namespace PoliticImpact.Models
         }
         public IQueryable<CaseItem> FindAll()
         {
+            ICaseSignUpRepository casesignupRepository = new CaseSignUpRepository();
+            CaseCommentRepository caseCommentRepository = new CaseCommentRepository();
+            ICaseLikeRepository caselikeRepository = new CaseLikeRepository();
+            
             IQueryable<CaseItem> caseItems = context.CaseItems;
             foreach (CaseItem caseItem in caseItems)
             {
-                caseItem.numberOfComments = 10;
-                caseItem.numberOfLikes = 10;
-                caseItem.numberOfSigns = 10;
-
+                caseItem.numberOfSigns = casesignupRepository.FindSignUps(caseItem.ID);
+                caseItem.numberOfLikes = caselikeRepository.FindLike(caseItem.ID);
+                caseItem.numberOfComments = caseCommentRepository.FindComments(caseItem.ID);
             }
 
             return caseItems;

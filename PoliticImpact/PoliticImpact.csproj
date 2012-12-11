@@ -376,7 +376,6 @@
     <Content Include="Views\RecieverResponses\_CreateOrEdit.cshtml" />
     <Content Include="Views\CaseItems\Search.Phone.cshtml" />
     <Content Include="Views\CaseItems\SubmitSearch.cshtml" />
-    <Content Include="Views\Home\Index.Phone.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\CaseItems\Index.Phone.cshtml" />
     <Content Include="Views\Home\About.Phone.cshtml" />
@@ -398,6 +397,7 @@
     <Content Include="Views\CaseImages\_CreateOrEdit.cshtml" />
     <Content Include="Views\CaseItems\Image.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Index.Phone.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
