@@ -5,7 +5,7 @@
         //caption: 'Hope this works', 
         description: description, //This should be the discription of the case
         link: page, //This should be the page I'm on, the page of the case
-        picture: 'http://annasemone.se/images/niklas2.JPG' // This should be the image of the case
+        picture: 'http://politicimpact.azurewebsites.net/Content/Images/icon.png' // This should be the image of the case
     },
     function (response) {
         console.log('publishStory response: ', response);
