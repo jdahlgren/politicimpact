@@ -12,6 +12,12 @@
         Culture = UICulture = Session["language"].ToString();
     }
 }
+ @*Check if user logged in*@
+@{ var user = (long) 0;}
+@if ( HttpContext.Current.Session["uid"] != null){
+        user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
+} 
+
 @*if(!@Model.Archived || user == @Model.Owner.ToString())*@ @*TODO - When user exist on Desktop*@
 @if(!@Model.Archived) 
 {
@@ -45,6 +51,12 @@
 <div class="row">
     <div class="span8">
        <h2>@Model.Title</h2>
+        @if (!Model.Published && Model.Owner == user)
+    {
+        <div class="span2">
+            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
+        </div>
+    }
        @*Ritar ut en bild beroende på caseMode*@
         @if (Model.caseMode == 1)
         {
@@ -120,7 +132,7 @@
            {
                 <p>@Res.YouLiked</p>
            }
-           else
+          else if(user != 0)
            {
                if (!@Model.Archived)
                {
@@ -134,7 +146,10 @@
     {  
         <div class="span2">
             <p>@Model.numberOfComments <img src="~/Content/images/speech_bubble.png" alt="Comments"/></p>
-            <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
+            @if (user != 0)
+            {  
+                <button class="btn" onclick="ShowCommentField();">@Res.Comment</button>
+            }
 
         </div>
     }
@@ -149,7 +164,7 @@
             }
             else
             {
-                if (!@Model.Archived)
+                if (!@Model.Archived && user!=0)
                 {
                 //<a href="#signupCase" class="btn">@Res.Sign</a>
                 <a href="#signupCase" role="button" class="btn" data-toggle="modal">@Res.Sign</a>
@@ -162,28 +177,26 @@
            
             <a href="@Url.Action("PrintCase", "CaseItems", new { id = @Model.ID }, null)" class="btn">@Res.Print</a>
         </div>
-    @{ var user = (long) 0;}
-        @if ( HttpContext.Current.Session["uid"] != null){
-              user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
-        } 
-    @if (!Model.Published && Model.Owner == user)
-    {
-        <div class="span2">
-            <a href="~/CaseItems/Edit/@Model.ID" class="btn">Ändra</a>
-        </div>
-    }
+    
+    
     @if (ViewBag.voting != null && !Model.Archived)
     {
         <h3>@ViewBag.voting.Title</h3>
         if (!ViewBag.UserHasVoted)
         {
-            <div id="voting_container" class="span4">
-                <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
-                <label for="voting-choice-1">Ja</label>
-                <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
-                <label for="voting-choice-2">Nej</label>
-                <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
-            </div>
+            if(user!=0){
+                <div id="voting_container" class="span4">
+                    <input type="radio" name="voting-choice" id="voting-choice-1" value="yes" checked="checked" />
+                    <label for="voting-choice-1">Ja</label>
+                    <input type="radio" name="voting-choice" id="voting-choice-2" value="no"  />
+                    <label for="voting-choice-2">Nej</label>
+                    <button onclick="SendVote(@ViewBag.voting.VotingID);" class="btn" id="btnVote">Rösta</button>
+                </div>
+            }
+            else
+            {
+                <p>Logga in för att rösta</p>
+            }
         }
         else
         {
