@@ -155,7 +155,8 @@ div.caseresult h3, p{
 }
 
 /*Styling for create-case button*/
-.ui-btn-right.ui-btn.ui-btn-up-a.ui-shadow.ui-btn-corner-all.ui-mini.ui-btn-icon-left
+#greenbutton
+/*.ui-btn-right.ui-btn.ui-btn-up-a.ui-shadow.ui-btn-corner-all.ui-mini.ui-btn-icon-left*/
 {
     background-color: #5BB75B !important;
     background-image: linear-gradient(bottom, rgb(98,196,98) 13%, rgb(81,163,81) 57%);
@@ -175,6 +176,29 @@ div.caseresult h3, p{
     color: #FFFFFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
 }
+
+/*Styling for delete-case button*/
+#redbutton
+{
+    background-color: #5BB75B !important;
+    background-image: linear-gradient(bottom, rgb(254,92,92) 13%,rgb(254,32,32) 57%);
+    background-image: -o-linear-gradient(bottom, rgb(254,92,92) 13%,rgb(254,32,32) 57%);
+    background-image: -moz-linear-gradient(bottom, rgb(254,92,92) 13%,rgb(254,32,32) 57%);
+    background-image: -webkit-linear-gradient(bottom, rgb(254,92,92) 13%,rgb(254,32,32) 57%);
+    background-image: -ms-linear-gradient(bottom, rgb(254,92,92) 13%,rgb(254,32,32) 57%);
+
+    background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0.13, rgb(254,92,92)),
+	    color-stop(0.57,rgb(254,32,32))
+    );
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)
+}
+
 
 
 #loginBtnDiv {

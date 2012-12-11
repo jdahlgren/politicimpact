@@ -11,16 +11,18 @@
 @section header{
 
     <div data-role="header">
-        <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+      @*
+         <a href="~/CaseItems/Search" class="ui-btn-left" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
         <h2>Förslag</h2>
-        @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
+        @Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})
         
         @if ( user != null) {
             <a href="~/CaseItems/Create" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
         }
         else {
             <a href="~/Account/Index" class="ui-btn-right" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
-        }
+        } *@
+        
         <!-- navigation -->
         <div data-role="navbar" data-iconpos="top">
 	        <ul>
@@ -31,9 +33,27 @@
 	        </ul>
         </div>
         <!-- /navigation -->
+
     </div>
 }
-<ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrera förslag..."  >
+
+<div>
+            <a href="~/CaseItems/Search"  data-role ="button" data-inline="true" data-icon = "search" data-transition = "slideup" data-mini = "true" data-rel="external">Sök</a>
+        
+        @*@Html.ActionLink("Add", "Create", "CaseItem", new { data_icon = "plus", data_mini = "true", @class="ui-btn-right", data_transition = "slideup", data_rel="external"})*@
+        
+        @if ( user != null) {
+            <a href="~/CaseItems/Create" style="position:absolute; right:0" id = "greenbutton" data-role ="button" data-inline="true"  data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }
+        else {
+            <a href="~/Account/Index" style="position:absolute; right:0" id = "greenbutton" data-role ="button" data-inline="true" data-icon = "plus" data-transition = "slideup" data-mini = "true" data-rel="external">Skapa</a>
+        }
+
+</div>
+<br/>
+
+
+<ul data-role="listview" data-filter="false" data-filter-placeholder="Filtrera förslag..."  >
 @{var nr = 0;}
 @foreach (var item in Model)
 {

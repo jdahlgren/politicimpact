@@ -18,15 +18,17 @@
 
 <div data-role="page" data-theme="b" data-add-back-btn="true">
     <div data-role="header">
-        <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a>
+       <a href="~/CaseItems/Index" data-transition="slide" data-direction="reverse" data-icon="back">Tillbaka</a> 
         <h1>@ViewBag.Title</h1>
+
+
         @{ var user = (long) 0;}
         @if ( HttpContext.Current.Session["uid"] != null){
               user = (long) Int64.Parse(HttpContext.Current.Session["uid"].ToString());
         }         
         @if (user == Int64.Parse(@Model.Owner.ToString()) && !@Model.Archived)
         {
-            <a href="#" data-transition="slide" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
+            <a href="#" data-transition="slide" id ="redbutton" data-direction="reverse" data-icon="delete" onclick="deleteCaseItem(@Model.ID)">Ta bort</a>
         }
     </div>
     @if(!@Model.Archived || user == Int64.Parse(@Model.Owner.ToString()))

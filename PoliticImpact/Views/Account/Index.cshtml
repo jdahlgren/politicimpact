@@ -19,8 +19,19 @@
 }
 
 @section Header {
-    @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" })
-    <h1>@ViewBag.Title</h1>
+   @* @Html.ActionLink("Back", "Index", "Home", null, new { data_icon = "arrow-l", data_rel = "back" }) 
+    <h1>@ViewBag.Title</h1> *@
+
+        <!-- navigation -->
+        <div data-role="navbar" data-iconpos="top">
+	        <ul>
+		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
+                <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid"})</li>
+                <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear", @class = "ui-btn-active ui-state-persist"   })</li>
+
+	        </ul>
+        </div>
+        <!-- /navigation -->
 }
 
 <html lang="en">
