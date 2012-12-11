@@ -29,10 +29,19 @@
     <li>
         <a href= "/CaseItems/Details/@item.ID" data-transition="slide" rel="external"> 
             <h3>@item.Title</h3>
-            <p><strong>Anders Andersson</strong></p>
+            <p id="divName@(item.ID)"></p>
             <p>@item.Text.</p>
-            <p class="ui-li-aside">4 Likes</p>
+            <p class="ui-li-aside">@item.numberOfLikes Gillar</p>
         </a>
      </li>
+    
+     //Get name from facebook
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                $.getJSON('https://graph.facebook.com/' + @item.Owner + "", function (data) {
+                $('<strong>' + data.name + '</strong>').appendTo('#divName@(item.ID)');
+            })
+        })
+        </script>
 }
 </ul>

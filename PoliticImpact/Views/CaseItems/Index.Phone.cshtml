@@ -26,8 +26,14 @@
 	        <ul>
 		        <li><a href="/Home/Index" data-icon="home">Hem</a></li>
                 <li>@Html.ActionLink("Förslag", "Index", new { Controller = "CaseItems" }, new { data_icon = "grid", @class = "ui-btn-active ui-state-persist"  })</li>
-                <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear" })</li>
-
+                @if(user != null)
+                {
+                    <li>@Html.ActionLink("Logga ut", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Logga in", "Index", new { Controller = "Account" }, new { data_icon = "gear"})</li>
+                }
 	        </ul>
         </div>
         <!-- /navigation -->
