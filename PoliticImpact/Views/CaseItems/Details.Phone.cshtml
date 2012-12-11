@@ -85,17 +85,18 @@
         <div class="display-field">@Model.RecieverName < @Model.RecieverEmail ></div>
 
             @{ 
-        if (Model.AttachedImage)
-        {
+                if(Model.ImageThumbnail != null)
+                {
                     <div class="display-field">
-                        <a href="#popupImage" data-rel="popup" data-position-to="window"><img src="@Url.Content(ViewBag.thumbnailUrl)" /></a>
+                        <a href="#popupImage" data-rel="popup" data-position-to="window">
+                            <img src="@Url.Content(Model.ImageThumbnail)" /></a>
                 						
 			            <div data-role="popup" id="popupImage" class="photopopup" data-overlay-theme="a" data-corners="false" data-tolerance="30,15" >
 				            <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">@Res.Close</a>
                             <img src="@Url.Content(ViewBag.imageUrl)" />
 			            </div>                    
                     </div>
-        }
+                }
             }
          @*Visa alla dokument till ärendet*@
         @if (Model.documentUrl != null)
