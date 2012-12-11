@@ -750,7 +750,7 @@ namespace PoliticImpact.Controllers
                 string responseLink, url, path;
 
 
-                link = "<" + "a href=" + "http://" + "http://politicimpact.azurewebsites.net/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
+                link = "<" + "a href=" + "http://" + "politicimpact.azurewebsites.net/CaseItems/PrintCase/" + id + ">" + " Klicka här" + "</a>";
                 url = Request.Url.AbsoluteUri;
                 path = Request.Url.AbsolutePath;
                 responseLink = url.Replace(path, "") + "/RecieverResponses/Edit?RespCode=" + recieverresponseRepository.GetResponseCode(id);
