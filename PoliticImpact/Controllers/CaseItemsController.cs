@@ -573,7 +573,7 @@ namespace PoliticImpact.Controllers
             foreach (var item in CaseItems)
             {
                  if (caselikeRepository.All.Count() != 0)
-                     CaseLike = CaseLikeRepository.FindAllByCaseId(item.ID);
+                     CaseLike = caselikeRepository.FindAllByCaseId(item.ID);
                  if(caseCommentRepository.All.Count() !=0)
                      CaseComment = caseCommentRepository.FindAllByCaseId(item.ID);
                  if(casesignupRepository.All.Count() != 0)

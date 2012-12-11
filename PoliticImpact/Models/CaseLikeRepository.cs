@@ -104,6 +104,7 @@ namespace PoliticImpact.Models
         IQueryable<CaseLike> AllIncluding(params Expression<Func<CaseLike, object>>[] includeProperties);
         CaseLike Find(long id);
         void InsertOrUpdate(CaseLike caselike);
+        IQueryable<CaseLike> FindAllByCaseId(int id);
         void Delete(long id);
         void Save();
 
