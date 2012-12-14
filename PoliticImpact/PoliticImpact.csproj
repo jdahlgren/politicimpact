@@ -274,6 +274,13 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\uploadedDocuments\här ligger uploads.txt" />
+    <Content Include="Content\uploadedImages\23d1e3d1-79d8-4d5a-b765-347f04ee334f_Koala.jpg" />
+    <Content Include="Content\uploadedImages\f8e03f7b-4d35-45fb-921f-0aeeb5a418af_teleporter.jpg" />
+    <Content Include="Content\uploadedImages\här ligger uppladdade bilder.txt" />
+    <Content Include="Content\uploadedThumbnails\23d1e3d1-79d8-4d5a-b765-347f04ee334f_Koala.jpg" />
+    <Content Include="Content\uploadedThumbnails\c7bd1a24-02b8-4989-b9f4-0958622fa7c2_teleporter.jpg" />
+    <Content Include="Content\uploadedThumbnails\här ligger thumbnails till uppladdade bilder.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\politicalimpact - FTP.pubxml" />
