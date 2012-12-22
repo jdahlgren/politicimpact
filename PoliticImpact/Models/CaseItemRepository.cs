@@ -22,7 +22,8 @@ namespace PoliticImpact.Models
             CaseCommentRepository caseCommentRepository = new CaseCommentRepository();
             ICaseLikeRepository caselikeRepository = new CaseLikeRepository();
             
-            IQueryable<CaseItem> caseItems = context.CaseItems;
+            IQueryable<CaseItem> caseItems = context.CaseItems.OrderByDescending(c => c.ID);
+
             foreach (CaseItem caseItem in caseItems)
             {
                 caseItem.numberOfSigns = casesignupRepository.FindSignUps(caseItem.ID);
@@ -55,7 +56,7 @@ public List<CaseItem> SearchItem(String searchWord)
                                 CaseItem.RecieverName.Contains(searchWord)
                           select CaseItem;
 
-            List<CaseItem> matches = QueryMatches.ToList(); ;
+            List<CaseItem> matches = QueryMatches.OrderByDescending(c => c.ID).ToList();
 
             return matches;
         }

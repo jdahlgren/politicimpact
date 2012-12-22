@@ -144,6 +144,26 @@ div.startcarousel
     padding: 70px;
     background: #00d6eb;
 }
+div.startcarousel h2
+{
+    color: white;
+    text-shadow: 2px 2px #808080;
+}
+
+#startcarousel_slide_1
+{
+    background: url('images/carousel/image2.jpg');
+}
+
+#startcarousel_slide_2
+{
+    background: url('images/carousel/image1.jpg');
+}
+#startcarousel_slide_3
+{
+    background: url('images/carousel/image3.jpg');
+}
+
 #recent-cases
 {
     border-right: 1px #808080 solid;
